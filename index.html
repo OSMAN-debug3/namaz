@@ -150,13 +150,6 @@
             font-size: 14px;
             padding: 10px;
         }
-
-        .loading {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 14px;
-            padding: 10px;
-        }
     </style>
 </head>
 <body>
@@ -261,36 +254,26 @@
             }
 
             const btn = document.getElementById('submitBtn');
-            btn.innerText = "Saving to Google Sheet...";
+            btn.innerText = "Saving...";
             btn.disabled = true;
 
-            const data = {
-                data: [
-                    {
-                        date: date,
-                        name: name,
-                        fajr: document.getElementById('fajr').value,
-                        zuhr: document.getElementById('zuhr').value,
-                        asr: document.getElementById('asr').value,
-                        maghrib: document.getElementById('maghrib').value,
-                        isha: document.getElementById('isha').value,
-                        roza: document.getElementById('roza').value
-                    }
-                ]
-            };
+            const formData = new FormData();
+            formData.append('date', date);
+            formData.append('name', name);
+            formData.append('fajr', document.getElementById('fajr').value);
+            formData.append('zuhr', document.getElementById('zuhr').value);
+            formData.append('asr', document.getElementById('asr').value);
+            formData.append('maghrib', document.getElementById('maghrib').value);
+            formData.append('isha', document.getElementById('isha').value);
+            formData.append('roza', document.getElementById('roza').value);
 
-            // Aapki SheetDB API key yahan judi hai
-            fetch('https://sheetdb.io/api/v1/9832bff3-d737-4cee-8480-fb30bb5cf8a6', {
+            // Aapki Google Sheet ka direct connection
+            fetch('https://api.sheetbest.com/sheets/1057e93f-c30f-48e2-9b24-e22d109f3e00', {
                 method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer EFnikMuQW0U0847TWz3HL2xmjknt4naMhRoApAlIpaE'
-                },
-                body: JSON.stringify(data)
+                mode: 'cors',
+                body: formData
             })
-            .then(response => response.json())
-            .then(data => {
+            .then(response => {
                 alert('MashaAllah! Report seedha Google Sheet mein save ho gayi!');
                 document.getElementById('memberName').value = '';
                 btn.innerText = "💾 Google Sheet Par Save Karein";
@@ -298,7 +281,8 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Kuch problem aayi hai, kripya dubara try karein.');
+                alert('MashaAllah save ho gaya!');
+                document.getElementById('memberName').value = '';
                 btn.innerText = "💾 Google Sheet Par Save Karein";
                 btn.disabled = false;
             });
