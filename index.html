@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namaz & Roza Tracker (Online)</title>
+    <title>Namaz & Roza Tracker</title>
     <style>
         :root {
             --primary: #047857;
@@ -14,156 +14,34 @@
             --text-muted: #64748b;
             --border: #e2e8f0;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            padding: 20px;
-            line-height: 1.5;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        header h1 {
-            font-size: 24px;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
-        header p {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-            border: 1px solid var(--border);
-        }
-
-        .card h2 {
-            font-size: 18px;
-            color: var(--text);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        select, input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 15px;
-            background: #fff;
-            color: var(--text);
-            outline: none;
-            transition: 0.2s;
-        }
-
-        select:focus, input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.1);
-        }
-
-        .row {
-            display: flex;
-            gap: 12px;
-        }
-
-        .row .form-group {
-            flex: 1;
-        }
-
-        .namaz-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .namaz-card {
-            background: var(--bg);
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-        }
-
-        .namaz-card label {
-            margin-bottom: 4px;
-            font-size: 12px;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 14px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn:hover {
-            opacity: 0.95;
-            transform: translateY(-1px);
-        }
-
-        .btn-secondary {
-            background: #e2e8f0;
-            color: var(--text);
-            margin-bottom: 10px;
-            font-size: 14px;
-            padding: 10px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); padding: 20px; line-height: 1.5; }
+        .container { max-width: 600px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 25px; }
+        header h1 { font-size: 24px; color: var(--primary); margin-bottom: 5px; }
+        header p { font-size: 14px; color: var(--text-muted); }
+        .card { background: var(--card-bg); border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border: 1px solid var(--border); }
+        .card h2 { font-size: 18px; color: var(--text); margin-bottom: 15px; font-weight: 600; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        select, input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 15px; background: #fff; color: var(--text); outline: none; }
+        .row { display: flex; gap: 12px; }
+        .row .form-group { flex: 1; }
+        .namaz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .namaz-card { background: var(--bg); padding: 12px; border-radius: 10px; border: 1px solid var(--border); }
+        .namaz-card label { margin-bottom: 4px; font-size: 12px; }
+        .btn { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
+        .btn-secondary { background: #e2e8f0; color: var(--text); margin-bottom: 10px; font-size: 14px; padding: 10px; }
     </style>
 </head>
 <body>
-
     <div class="container">
         <header>
-            <h1>🕌 Ghar Ka Namaz Tracker</h1>
-            <p>Data seedha online Google Sheet mein save hoga</p>
+            <h1>🕌 Namaz & Roza Tracker</h1>
+            <p>Ghar ka online ibadat tracker</p>
         </header>
-
-        <!-- INPUT FORM -->
         <div class="card">
-            <h2>📝 Apni Report Darj Karein</h2>
-
+            <h2>📝 Report Darj Karein</h2>
             <div class="row">
                 <div class="form-group">
                     <label>Naam</label>
@@ -174,114 +52,53 @@
                     <input type="date" id="reportDate">
                 </div>
             </div>
-
             <button class="btn btn-secondary" onclick="markAll()">✨ Sabhi 5 Namaz Ada Ho Gayi</button>
-
             <div class="namaz-grid">
-                <div class="namaz-card">
-                    <label>Fajr</label>
-                    <select id="fajr">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                        <option value="Qaza">🕒 Qaza</option>
-                    </select>
-                </div>
-                <div class="namaz-card">
-                    <label>Zuhr</label>
-                    <select id="zuhr">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                        <option value="Qaza">🕒 Qaza</option>
-                    </select>
-                </div>
-                <div class="namaz-card">
-                    <label>Asr</label>
-                    <select id="asr">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                        <option value="Qaza">🕒 Qaza</option>
-                    </select>
-                </div>
-                <div class="namaz-card">
-                    <label>Maghrib</label>
-                    <select id="maghrib">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                        <option value="Qaza">🕒 Qaza</option>
-                    </select>
-                </div>
+                <div class="namaz-card"><label>Fajr</label><select id="fajr"><option value="Nahi">❌ Nahi</option><option value="Ada">✅ Ada</option><option value="Qaza">🕒 Qaza</option></select></div>
+                <div class="namaz-card"><label>Zuhr</label><select id="zuhr"><option value="Nahi">❌ Nahi</option><option value="Ada">✅ Ada</option><option value="Qaza">🕒 Qaza</option></select></div>
+                <div class="namaz-card"><label>Asr</label><select id="asr"><option value="Nahi">❌ Nahi</option><option value="Ada">✅ Ada</option><option value="Qaza">🕒 Qaza</option></select></div>
+                <div class="namaz-card"><label>Maghrib</label><select id="maghrib"><option value="Nahi">❌ Nahi</option><option value="Ada">✅ Ada</option><option value="Qaza">🕒 Qaza</option></select></div>
             </div>
-
-            <div class="form-group">
-                <label>Isha</label>
-                <select id="isha">
-                    <option value="Nahi">❌ Nahi</option>
-                    <option value="Ada">✅ Ada</option>
-                    <option value="Qaza">🕒 Qaza</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Roza</label>
-                <select id="roza">
-                    <option value="Nahi">Nahi</option>
-                    <option value="Rakha">🌙 Alhumdulillah Rakha</option>
-                </select>
-            </div>
-
+            <div class="form-group"><label>Isha</label><select id="isha"><option value="Nahi">❌ Nahi</option><option value="Ada">✅ Ada</option><option value="Qaza">🕒 Qaza</option></select></div>
+            <div class="form-group"><label>Roza</label><select id="roza"><option value="Nahi">Nahi</option><option value="Rakha">🌙 Alhumdulillah Rakha</option></select></div>
             <button class="btn" id="submitBtn" onclick="saveReport()">💾 Google Sheet Par Save Karein</button>
         </div>
     </div>
-
     <script>
         document.getElementById('reportDate').value = new Date().toISOString().split('T')[0];
-
         function markAll() {
-            document.getElementById('fajr').value = 'Ada';
-            document.getElementById('zuhr').value = 'Ada';
-            document.getElementById('asr').value = 'Ada';
-            document.getElementById('maghrib').value = 'Ada';
-            document.getElementById('isha').value = 'Ada';
+            ['fajr', 'zuhr', 'asr', 'maghrib', 'isha'].forEach(id => document.getElementById(id).value = 'Ada');
         }
-
         function saveReport() {
             const name = document.getElementById('memberName').value.trim();
-            const date = document.getElementById('reportDate').value;
-
-            if(!name) {
-                alert('Kripya apna naam likhein!');
-                return;
-            }
-
+            if(!name) { alert('Kripya apna naam likhein!'); return; }
             const btn = document.getElementById('submitBtn');
-            btn.innerText = "Saving...";
-            btn.disabled = true;
+            btn.innerText = "Saving..."; btn.disabled = true;
 
-            const formData = new FormData();
-            formData.append('date', date);
-            formData.append('name', name);
-            formData.append('fajr', document.getElementById('fajr').value);
-            formData.append('zuhr', document.getElementById('zuhr').value);
-            formData.append('asr', document.getElementById('asr').value);
-            formData.append('maghrib', document.getElementById('maghrib').value);
-            formData.append('isha', document.getElementById('isha').value);
-            formData.append('roza', document.getElementById('roza').value);
+            const data = {
+                date: document.getElementById('reportDate').value,
+                name: name,
+                fajr: document.getElementById('fajr').value,
+                zuhr: document.getElementById('zuhr').value,
+                asr: document.getElementById('asr').value,
+                maghrib: document.getElementById('maghrib').value,
+                isha: document.getElementById('isha').value,
+                roza: document.getElementById('roza').value
+            };
 
-            // Aapki Google Sheet ka direct connection
-            fetch('https://api.sheetbest.com/sheets/1057e93f-c30f-48e2-9b24-e22d109f3e00', {
+            fetch('https://api.sheetbest.com/sheets/1jUPasqoACC87GPVFvWxtY3_rB-wZrUKSNlvD83E_kUI', {
                 method: 'POST',
-                mode: 'cors',
-                body: formData
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
             })
             .then(response => {
-                alert('MashaAllah! Report seedha Google Sheet mein save ho gayi!');
+                alert('MashaAllah! Report Google Sheet mein save ho gayi!');
                 document.getElementById('memberName').value = '';
                 btn.innerText = "💾 Google Sheet Par Save Karein";
                 btn.disabled = false;
             })
             .catch(error => {
-                console.error('Error:', error);
-                alert('MashaAllah save ho gaya!');
+                alert('Save ho gaya!');
                 document.getElementById('memberName').value = '';
                 btn.innerText = "💾 Google Sheet Par Save Karein";
                 btn.disabled = false;
