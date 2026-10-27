@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namaz & Roza Tracker</title>
+    <title>Namaz & Roza Tracker (Online)</title>
     <style>
         :root {
             --primary: #047857;
@@ -106,7 +106,6 @@
             flex: 1;
         }
 
-        /* Namaz Options Grid */
         .namaz-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -152,45 +151,11 @@
             padding: 10px;
         }
 
-        /* History List */
-        .history-item {
-            background: var(--bg);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            border: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .history-info h3 {
-            font-size: 16px;
-            color: var(--primary);
-            margin-bottom: 3px;
-        }
-
-        .history-info p {
-            font-size: 13px;
+        .loading {
+            text-align: center;
             color: var(--text-muted);
-        }
-
-        .badge {
-            background: var(--primary-light);
-            color: var(--primary);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 13px;
-        }
-
-        .delete-btn {
-            background: none;
-            border: none;
-            color: #ef4444;
-            cursor: pointer;
-            font-size: 16px;
-            padding: 5px;
+            font-size: 14px;
+            padding: 10px;
         }
     </style>
 </head>
@@ -198,13 +163,13 @@
 
     <div class="container">
         <header>
-            <h1>🕌 Namaz & Roza Tracker</h1>
-            <p>Saaf-suthra aur asan tarika roz ki ibadat track karne ka</p>
+            <h1>🕌 Ghar Ka Namaz Tracker</h1>
+            <p>Data seedha online Google Sheet mein save hoga</p>
         </header>
 
         <!-- INPUT FORM -->
         <div class="card">
-            <h2>📝 Report Darj Karein</h2>
+            <h2>📝 Apni Report Darj Karein</h2>
 
             <div class="row">
                 <div class="form-group">
@@ -271,22 +236,12 @@
                 </select>
             </div>
 
-            <button class="btn" onclick="saveReport()">💾 Save Karein</button>
-        </div>
-
-        <!-- HISTORY / REPORTS -->
-        <div class="card">
-            <h2>📊 Pichli Reports</h2>
-            <div id="historyList">
-                <!-- Data yahan aayega -->
-            </div>
+            <button class="btn" id="submitBtn" onclick="saveReport()">💾 Google Sheet Par Save Karein</button>
         </div>
     </div>
 
     <script>
         document.getElementById('reportDate').value = new Date().toISOString().split('T')[0];
-
-        let reports = JSON.parse(localStorage.getItem('namaz_clean_reports')) || [];
 
         function markAll() {
             document.getElementById('fajr').value = 'Ada';
@@ -301,67 +256,53 @@
             const date = document.getElementById('reportDate').value;
 
             if(!name) {
-                alert('Kripya naam likhein!');
+                alert('Kripya apna naam likhein!');
                 return;
             }
 
-            const report = {
-                id: Date.now(),
-                name,
-                date,
-                fajr: document.getElementById('fajr').value,
-                zuhr: document.getElementById('zuhr').value,
-                asr: document.getElementById('asr').value,
-                maghrib: document.getElementById('maghrib').value,
-                isha: document.getElementById('isha').value,
-                roza: document.getElementById('roza').value
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "Saving to Google Sheet...";
+            btn.disabled = true;
+
+            const data = {
+                data: [
+                    {
+                        date: date,
+                        name: name,
+                        fajr: document.getElementById('fajr').value,
+                        zuhr: document.getElementById('zuhr').value,
+                        asr: document.getElementById('asr').value,
+                        maghrib: document.getElementById('maghrib').value,
+                        isha: document.getElementById('isha').value,
+                        roza: document.getElementById('roza').value
+                    }
+                ]
             };
 
-            reports.unshift(report);
-            localStorage.setItem('namaz_clean_reports', JSON.stringify(reports));
-            renderReports();
-            alert('MashaAllah! Report save ho gayi.');
-            document.getElementById('memberName').value = '';
-        }
-
-        function renderReports() {
-            const list = document.getElementById('historyList');
-            list.innerHTML = '';
-
-            if(reports.length === 0) {
-                list.innerHTML = '<p style="color:var(--text-muted); font-size:14px; text-align:center; padding:10px;">Abhi koi report nahi hai.</p>';
-                return;
-            }
-
-            reports.forEach(r => {
-                const prayers = [r.fajr, r.zuhr, r.asr, r.maghrib, r.isha];
-                const count = prayers.filter(p => p === 'Ada' || p === 'Qaza').length;
-
-                list.innerHTML += `
-                    <div class="history-item">
-                        <div class="history-info">
-                            <h3>👤 ${r.name}</h3>
-                            <p>📅 ${r.date} &nbsp;|&nbsp; Roza: ${r.roza}</p>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <span class="badge">Namaz: ${count}/5</span>
-                            <button class="delete-btn" onclick="deleteReport(${r.id})">🗑️</button>
-                        </div>
-                    </div>
-                `;
+            // Aapki SheetDB API key yahan judi hai
+            fetch('https://sheetdb.io/api/v1/9832bff3-d737-4cee-8480-fb30bb5cf8a6', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer EFnikMuQW0U0847TWz3HL2xmjknt4naMhRoApAlIpaE'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('MashaAllah! Report seedha Google Sheet mein save ho gayi!');
+                document.getElementById('memberName').value = '';
+                btn.innerText = "💾 Google Sheet Par Save Karein";
+                btn.disabled = false;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Kuch problem aayi hai, kripya dubara try karein.');
+                btn.innerText = "💾 Google Sheet Par Save Karein";
+                btn.disabled = false;
             });
         }
-
-        function deleteReport(id) {
-            if(confirm('Kya aap yeh report hatana chahte hain?')) {
-                reports = reports.reports ? reports.filter(r => r.id !== id) : reports.filter(r => r.id !== id);
-                // fix filter reference
-                localStorage.setItem('namaz_clean_reports', JSON.stringify(reports));
-                renderReports();
-            }
-        }
-
-        renderReports();
     </script>
 </body>
 </html>
