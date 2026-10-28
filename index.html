@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Al-Mizan | Community Ibadat Tracker</title>
+    <title>Al-Mizan | Community & Tracker</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -84,21 +84,39 @@
             border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        .hadith-ticker {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px dashed var(--gold);
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-size: 12.5px;
-            color: var(--gold-light);
-            text-align: center;
+        .app-nav {
+            display: flex;
+            background: var(--card-inner);
+            border-radius: 14px;
+            padding: 6px;
             margin-bottom: 20px;
+            border: 1px solid var(--border-gold);
+            gap: 6px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.25s;
+            text-align: center;
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, var(--gold), #b48a1e);
+            color: #021a13;
+            box-shadow: 0 4px 15px var(--gold-glow);
         }
 
         .card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border-radius: 22px;
             padding: 22px 18px;
             margin-bottom: 20px;
@@ -141,7 +159,6 @@
         .tab-btn.active {
             background: linear-gradient(135deg, var(--gold), #b48a1e);
             color: #021a13;
-            box-shadow: 0 4px 12px var(--gold-glow);
         }
 
         .user-banner {
@@ -193,19 +210,11 @@
             cursor: pointer;
         }
 
-        .community-dashboard-box {
-            background: var(--card-inner);
-            border: 1px solid var(--border-gold);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-
         .podium-container {
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 20px;
             padding-top: 10px;
         }
@@ -217,18 +226,23 @@
             padding: 10px;
             text-align: center;
             flex: 1;
-            position: relative;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .podium-card:hover {
+            border-color: var(--gold);
         }
 
         .podium-card.rank-1 {
             border-color: var(--gold);
             background: linear-gradient(180deg, rgba(212, 175, 55, 0.2) 0%, rgba(4, 33, 24, 0.9) 100%);
-            transform: translateY(-8px);
+            transform: translateY(-6px);
         }
 
         .podium-card img {
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--gold);
@@ -236,18 +250,18 @@
         }
 
         .podium-card .rank-badge {
-            font-size: 10px;
-            font-weight: 750;
+            font-size: 9.5px;
+            font-weight: 700;
             background: var(--gold);
             color: #021a13;
-            padding: 2px 6px;
+            padding: 2px 5px;
             border-radius: 99px;
             display: inline-block;
             margin-bottom: 4px;
         }
 
         .podium-card .name {
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: 700;
             white-space: nowrap;
             overflow: hidden;
@@ -255,12 +269,12 @@
         }
 
         .podium-card .score {
-            font-size: 11px;
+            font-size: 10.5px;
             color: var(--emerald-bright);
         }
 
         .leaderboard-list {
-            max-height: 180px;
+            max-height: 280px;
             overflow-y: auto;
             border-top: 1px solid var(--border-subtle);
             padding-top: 10px;
@@ -270,11 +284,51 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 10px;
+            padding: 9px 12px;
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
+            border-radius: 9px;
             margin-bottom: 6px;
-            font-size: 12.5px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .leaderboard-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--border-gold);
+        }
+
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 26, 19, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #062f23;
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            padding: 24px;
+            width: 100%;
+            max-width: 450px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 18px;
+            font-size: 20px;
+            color: var(--gold);
+            cursor: pointer;
         }
 
         .progress-container {
@@ -347,11 +401,6 @@
             color: var(--text-main);
         }
 
-        select:focus, input:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px var(--gold-glow);
-        }
-
         .namaz-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -422,10 +471,6 @@
             font-size: 12.5px;
         }
 
-        .history-item:last-child {
-            border-bottom: none;
-        }
-
         .btn {
             width: 100%;
             padding: 14px;
@@ -477,10 +522,6 @@
             </div>
         </header>
 
-        <div class="hadith-ticker" id="hadithBox">
-            ✨ Hadees: "Pehle koshish karo ki apne waqt par namaz ada karo."
-        </div>
-
         <!-- 1. LOGIN / REGISTER CARD -->
         <div class="card" id="authCard">
             <div class="tabs">
@@ -509,7 +550,7 @@
             <p class="help-text" id="authHelp">Naye hain? Upar "Community ID Banayein" par click karein.</p>
         </div>
 
-        <!-- 2. IBADAT REPORT CARD -->
+        <!-- 2. MAIN APP CONTAINER (AFTER LOGIN) -->
         <div class="card hidden" id="trackerCard">
             <div class="user-banner">
                 <div class="user-profile-flex">
@@ -523,131 +564,147 @@
                 <button class="logout-btn" onclick="logout()">Logout</button>
             </div>
 
-            <!-- DEDICATED COMMUNITY DASHBOARD SECTION -->
-            <div class="community-dashboard-box">
-                <h2>🏆 Community Leaderboard <span>(Top Users)</span></h2>
+            <!-- APP SECTIONS NAVIGATION -->
+            <div class="app-nav">
+                <button class="nav-btn active" id="navTrackerBtn" onclick="switchSection('tracker')">📝 Meri Ibadat Tracker</button>
+                <button class="nav-btn" id="navDashBtn" onclick="switchSection('dashboard')">🏆 Community Dashboard</button>
+            </div>
+
+            <!-- SECTION A: PERSONAL TRACKER -->
+            <div id="sectionTracker">
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <span id="progressText">🌙 Aaj Ka Ibadat Focus</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progressBar"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>📅 Tarik (Date)</label>
+                    <input type="date" id="reportDate" onchange="checkDayAndLoadData()">
+                </div>
+
+                <button class="btn btn-secondary" onclick="markAll()">✨ Alhumdulillah! Sabhi 5 Farz Namaz Ada Ho Gayi</button>
+
+                <h2>🕋 5 Waqt Ki Farz Namaz</h2>
+                <div class="namaz-grid">
+                    <div class="namaz-card" id="card-fajr">
+                        <label><span>🌅 Fajr</span><span class="arabic-text">الفجر</span></label>
+                        <select id="fajr" onchange="updateUI()">
+                            <option value="Nahi">❌ Nahi</option>
+                            <option value="Ada">✅ Ada</option>
+                            <option value="Qaza">🕒 Qaza</option>
+                        </select>
+                    </div>
+
+                    <div class="namaz-card" id="card-zuhr">
+                        <label><span id="zuhrLabel">☀️ Zuhr</span><span id="zuhrArabic" class="arabic-text">الظهر</span></label>
+                        <select id="zuhr" onchange="updateUI()">
+                            <option value="Nahi">❌ Nahi</option>
+                            <option value="Ada">✅ Ada</option>
+                            <option value="Qaza">🕒 Qaza</option>
+                        </select>
+                    </div>
+
+                    <div class="namaz-card" id="card-asr">
+                        <label><span>🌤️ Asr</span><span class="arabic-text">العصر</span></label>
+                        <select id="asr" onchange="updateUI()">
+                            <option value="Nahi">❌ Nahi</option>
+                            <option value="Ada">✅ Ada</option>
+                            <option value="Qaza">🕒 Qaza</option>
+                        </select>
+                    </div>
+
+                    <div class="namaz-card" id="card-maghrib">
+                        <label><span>🌇 Maghrib</span><span class="arabic-text">المغرب</span></label>
+                        <select id="maghrib" onchange="updateUI()">
+                            <option value="Nahi">❌ Nahi</option>
+                            <option value="Ada">✅ Ada</option>
+                            <option value="Qaza">🕒 Qaza</option>
+                        </select>
+                    </div>
+
+                    <div class="namaz-card full-width" id="card-isha">
+                        <label><span>🌌 Isha</span><span class="arabic-text">العشاء</span></label>
+                        <select id="isha" onchange="updateUI()">
+                            <option value="Nahi">❌ Nahi</option>
+                            <option value="Ada">✅ Ada</option>
+                            <option value="Qaza">🕒 Qaza</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h2>🌙 Roza, Quran & Tarawih</h2>
+                <div class="extra-grid">
+                    <div class="namaz-card" id="card-roza">
+                        <label><span>✨ Roza</span><span class="arabic-text">الصوم</span></label>
+                        <select id="roza" onchange="updateUI()">
+                            <option value="Nahi">Nahi</option>
+                            <option value="Rakha">🌙 Rakha</option>
+                        </select>
+                    </div>
+
+                    <div class="namaz-card" id="card-tarawih">
+                        <label><span>🕌 Tarawih</span><span class="arabic-text">التراويح</span></label>
+                        <select id="tarawih" onchange="updateUI()">
+                            <option value="Nahi">❌ Nahi</option>
+                            <option value="Ada">✅ Ada</option>
+                        </select>
+                    </div>
+
+                    <div class="namaz-card full-width" id="card-quran">
+                        <label><span>📖 Quran-e-Pak Tilawat</span><span class="arabic-text">القرآن</span></label>
+                        <select id="quran" onchange="updateUI()">
+                            <option value="Nahi">❌ Nahi Padha</option>
+                            <optgroup label="📄 Pages (1 se 20 Page)">
+                                <option value="1 Page">📖 1 Page</option><option value="2 Pages">📖 2 Pages</option><option value="3 Pages">📖 3 Pages</option><option value="4 Pages">📖 4 Pages</option><option value="5 Pages">📖 5 Pages</option><option value="6 Pages">📖 6 Pages</option><option value="7 Pages">📖 7 Pages</option><option value="8 Pages">📖 8 Pages</option><option value="9 Pages">📖 9 Pages</option><option value="10 Pages">📖 10 Pages</option><option value="11 Pages">📖 11 Pages</option><option value="12 Pages">📖 12 Pages</option><option value="13 Pages">📖 13 Pages</option><option value="14 Pages">📖 14 Pages</option><option value="15 Pages">📖 15 Pages</option><option value="16 Pages">📖 16 Pages</option><option value="17 Pages">📖 17 Pages</option><option value="18 Pages">📖 18 Pages</option><option value="19 Pages">📖 19 Pages</option><option value="20 Pages">📖 20 Pages</option>
+                            </optgroup>
+                            <optgroup label="🌟 Para (1 se 5 Para)">
+                                <option value="1 Para">🌟 1 Para</option><option value="2 Paras">🌟 2 Paras</option><option value="3 Paras">🌟 3 Paras</option><option value="4 Paras">🌟 4 Paras</option><option value="5 Paras">👑 5 Paras</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn" id="submitBtn" onclick="saveReport()">💾 Pura Record Google Sheet Mein Save Karein</button>
+                <button class="btn btn-secondary" style="margin-top: 12px;" onclick="exportMyReportCSV()">📥 Download My Report (Excel/CSV)</button>
+
+                <h2 style="margin-top: 22px;">📜 Aapka Lifetime Ibadat Record</h2>
+                <div class="history-box" id="userHistoryList">
+                    <div style="text-align: center; color: var(--text-muted); font-size: 13px;">Data load ho raha hai...</div>
+                </div>
+            </div>
+
+            <!-- SECTION B: COMMUNITY DASHBOARD -->
+            <div id="sectionDashboard" class="hidden">
+                <h2 style="margin-bottom: 14px;">🏆 Community Leaderboard <span>(Top Users)</span></h2>
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Kisi bhi member par click karke unka purana record dekhein:</div>
                 
-                <!-- Top 3 Podium -->
-                <div class="podium-container" id="podiumContainer">
-                    <!-- Dynamically populated top 3 -->
-                </div>
-
-                <!-- Rank 4 to 10 & Others -->
-                <div class="leaderboard-list" id="leaderboardList">
-                    <!-- Rest of users -->
-                </div>
-            </div>
-
-            <!-- LIVE FOCUS METER -->
-            <div class="progress-container">
-                <div class="progress-header">
-                    <span id="progressText">🌙 Aaj Ka Ibadat Focus</span>
-                    <span id="progressPercent">0%</span>
-                </div>
-                <div class="progress-track">
-                    <div class="progress-fill" id="progressBar"></div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>📅 Tarik (Date)</label>
-                <input type="date" id="reportDate" onchange="checkDayAndLoadData()">
-            </div>
-
-            <button class="btn btn-secondary" onclick="markAll()">✨ Alhumdulillah! Sabhi 5 Farz Namaz Ada Ho Gayi</button>
-
-            <h2>🕋 5 Waqt Ki Farz Namaz</h2>
-            <div class="namaz-grid">
-                <div class="namaz-card" id="card-fajr">
-                    <label><span>🌅 Fajr</span><span class="arabic-text">الفجر</span></label>
-                    <select id="fajr" onchange="updateUI()">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                        <option value="Qaza">🕒 Qaza</option>
-                    </select>
-                </div>
-
-                <div class="namaz-card" id="card-zuhr">
-                    <label><span id="zuhrLabel">☀️ Zuhr</span><span id="zuhrArabic" class="arabic-text">الظهر</span></label>
-                    <select id="zuhr" onchange="updateUI()">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                        <option value="Qaza">🕒 Qaza</option>
-                    </select>
-                </div>
-
-                <div class="namaz-card" id="card-asr">
-                    <label><span>🌤️ Asr</span><span class="arabic-text">العصر</span></label>
-                    <select id="asr" onchange="updateUI()">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                        <option value="Qaza">🕒 Qaza</option>
-                    </select>
-                </div>
-
-                <div class="namaz-card" id="card-maghrib">
-                    <label><span>🌇 Maghrib</span><span class="arabic-text">المغرب</span></label>
-                    <select id="maghrib" onchange="updateUI()">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                        <option value="Qaza">🕒 Qaza</option>
-                    </select>
-                </div>
-
-                <div class="namaz-card full-width" id="card-isha">
-                    <label><span>🌌 Isha</span><span class="arabic-text">العشاء</span></label>
-                    <select id="isha" onchange="updateUI()">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                        <option value="Qaza">🕒 Qaza</option>
-                    </select>
-                </div>
-            </div>
-
-            <h2>🌙 Roza, Quran & Tarawih</h2>
-            <div class="extra-grid">
-                <div class="namaz-card" id="card-roza">
-                    <label><span>✨ Roza</span><span class="arabic-text">الصوم</span></label>
-                    <select id="roza" onchange="updateUI()">
-                        <option value="Nahi">Nahi</option>
-                        <option value="Rakha">🌙 Rakha</option>
-                    </select>
-                </div>
-
-                <div class="namaz-card" id="card-tarawih">
-                    <label><span>🕌 Tarawih</span><span class="arabic-text">التراويح</span></label>
-                    <select id="tarawih" onchange="updateUI()">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                    </select>
-                </div>
-
-                <div class="namaz-card full-width" id="card-quran">
-                    <label><span>📖 Quran-e-Pak Tilawat</span><span class="arabic-text">القرآن</span></label>
-                    <select id="quran" onchange="updateUI()">
-                        <option value="Nahi">❌ Nahi Padha</option>
-                        <optgroup label="📄 Pages (1 se 20 Page)">
-                            <option value="1 Page">📖 1 Page</option><option value="2 Pages">📖 2 Pages</option><option value="3 Pages">📖 3 Pages</option><option value="4 Pages">📖 4 Pages</option><option value="5 Pages">📖 5 Pages</option><option value="6 Pages">📖 6 Pages</option><option value="7 Pages">📖 7 Pages</option><option value="8 Pages">📖 8 Pages</option><option value="9 Pages">📖 9 Pages</option><option value="10 Pages">📖 10 Pages</option><option value="11 Pages">📖 11 Pages</option><option value="12 Pages">📖 12 Pages</option><option value="13 Pages">📖 13 Pages</option><option value="14 Pages">📖 14 Pages</option><option value="15 Pages">📖 15 Pages</option><option value="16 Pages">📖 16 Pages</option><option value="17 Pages">📖 17 Pages</option><option value="18 Pages">📖 18 Pages</option><option value="19 Pages">📖 19 Pages</option><option value="20 Pages">📖 20 Pages</option>
-                        </optgroup>
-                        <optgroup label="🌟 Para (1 se 5 Para)">
-                            <option value="1 Para">🌟 1 Para</option><option value="2 Paras">🌟 2 Paras</option><option value="3 Paras">🌟 3 Paras</option><option value="4 Paras">🌟 4 Paras</option><option value="5 Paras">👑 5 Paras</option>
-                        </optgroup>
-                    </select>
-                </div>
-            </div>
-
-            <button class="btn" id="submitBtn" onclick="saveReport()">💾 Pura Record Google Sheet Mein Save Karein</button>
-
-            <!-- LIFETIME HISTORY SECTION -->
-            <h2 style="margin-top: 22px;">📜 Aapka Lifetime Ibadat Record</h2>
-            <div class="history-box" id="userHistoryList">
-                <div style="text-align: center; color: var(--text-muted); font-size: 13px;">Data load ho raha hai...</div>
+                <div class="podium-container" id="podiumContainer"></div>
+                <div class="leaderboard-list" id="leaderboardList"></div>
             </div>
         </div>
     </div>
 
+    <!-- MEMBER PROFILE MODAL -->
+    <div id="memberModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeMemberModal()">&times;</span>
+            <div style="text-align: center; margin-bottom: 15px;">
+                <img id="modalUserAvatar" src="" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); margin-bottom: 6px;">
+                <h3 id="modalUserName" style="color: var(--gold-light);">Naam</h3>
+                <div id="modalUserPoints" style="font-size: 12px; color: var(--emerald-bright);">Total Points</div>
+            </div>
+            <h4 style="font-size: 13px; color: var(--gold-light); margin-bottom: 8px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">📜 Lifetime Record:</h4>
+            <div id="modalUserHistory" style="max-height: 200px; overflow-y: auto;"></div>
+        </div>
+    </div>
+
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxFxdE3PBZz7pfTWgWFd7UKxO06vvXrOLe_hCm7JfJIJ9PpSvonc3wdDblURO2YZYlC7A/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJurfZRD8AyzWWXtY3VsThAcVZxi4QXYMakINqX_h55HrrnYog03eawNiSloQ6SJQHBA/exec';
         let currentMode = 'login';
         let globalReports = [];
         let globalUsers = [];
@@ -660,6 +717,26 @@
         document.getElementById('reportDate').value = `${yyyy}-${mm}-${dd}`;
         
         checkDayAndLoadData();
+
+        function switchSection(section) {
+            const trackerSec = document.getElementById('sectionTracker');
+            const dashSec = document.getElementById('sectionDashboard');
+            const trackerBtn = document.getElementById('navTrackerBtn');
+            const dashBtn = document.getElementById('navDashBtn');
+
+            if (section === 'tracker') {
+                trackerSec.classList.remove('hidden');
+                dashSec.classList.add('hidden');
+                trackerBtn.classList.add('active');
+                dashBtn.classList.remove('active');
+            } else {
+                trackerSec.classList.add('hidden');
+                dashSec.classList.remove('hidden');
+                trackerBtn.classList.remove('active');
+                dashBtn.classList.add('active');
+                fetchAllDataAndRefresh();
+            }
+        }
 
         function compressImage(input, callback) {
             if (input.files && input.files[0]) {
@@ -675,15 +752,9 @@
                         let height = img.height;
 
                         if (width > height) {
-                            if (width > MAX_WIDTH) {
-                                height *= MAX_WIDTH / width;
-                                width = MAX_WIDTH;
-                            }
+                            if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
                         } else {
-                            if (height > MAX_HEIGHT) {
-                                width *= MAX_HEIGHT / height;
-                                height = MAX_HEIGHT;
-                            }
+                            if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; }
                         }
 
                         canvas.width = width;
@@ -817,10 +888,11 @@
             let top3 = userScores.slice(0, 3);
             top3.forEach((user, index) => {
                 let rankClass = index === 0 ? 'rank-1' : '';
-                let badgeText = index === 0 ? '👑 1st Rank' : (index === 1 ? '🥈 2nd Rank' : '🥉 3rd Rank');
+                let badgeText = index === 0 ? '👑 1st' : (index === 1 ? '🥈 2nd' : '🥉 3rd');
                 
                 const card = document.createElement('div');
                 card.className = `podium-card ${rankClass}`;
+                card.onclick = () => openMemberProfile(user.name);
                 card.innerHTML = `
                     <div class="rank-badge">${badgeText}</div>
                     <img src="${user.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" alt="img">
@@ -833,7 +905,7 @@
             let remainingUsers = userScores.slice(3, 10);
             let restUsers = userScores.slice(10);
 
-            if (remainingUsers.length === 0 && top3.length === 0) {
+            if (userScores.length === 0) {
                 leaderboardList.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 12.5px;">Aaj ka koi record nahi hai.</div>`;
                 return;
             }
@@ -841,6 +913,7 @@
             remainingUsers.forEach((user, idx) => {
                 const item = document.createElement('div');
                 item.className = 'leaderboard-item';
+                item.onclick = () => openMemberProfile(user.name);
                 item.innerHTML = `
                     <div style="display: flex; align-items: center; gap: 8px;">
                         <span style="font-weight:700; color:var(--gold);">#${idx + 4}</span>
@@ -861,6 +934,7 @@
                 restUsers.forEach((user, idx) => {
                     const item = document.createElement('div');
                     item.className = 'leaderboard-item';
+                    item.onclick = () => openMemberProfile(user.name);
                     item.innerHTML = `
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <span style="font-weight:600; color:var(--text-muted);">#${idx + 11}</span>
@@ -872,6 +946,39 @@
                     leaderboardList.appendChild(item);
                 });
             }
+        }
+
+        function openMemberProfile(userName) {
+            const userObj = globalUsers.find(u => u.name.toLowerCase() === userName.toLowerCase());
+            const userRecords = globalReports.filter(r => r.name.toLowerCase() === userName.toLowerCase());
+
+            document.getElementById('modalUserName').innerText = userName;
+            document.getElementById('modalUserAvatar').src = userObj ? userObj.photo : 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png';
+            document.getElementById('modalUserPoints').innerText = `Total Entries: ${userRecords.length}`;
+
+            const histContainer = document.getElementById('modalUserHistory');
+            histContainer.innerHTML = '';
+
+            if (userRecords.length === 0) {
+                histContainer.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 12px; padding: 10px;">Koi record nahi mila.</div>`;
+            } else {
+                userRecords.reverse().forEach(r => {
+                    let adaCount = [r.fajr, r.zuhr, r.asr, r.maghrib, r.isha].filter(x => x === 'Ada').length;
+                    const div = document.createElement('div');
+                    div.className = 'history-item';
+                    div.innerHTML = `
+                        <div><b>${r.date}</b> (${r.day || ''})</div>
+                        <div style="color: var(--emerald-bright);">Namaz: ${adaCount}/5 | Roza: ${r.roza}</div>
+                    `;
+                    histContainer.appendChild(div);
+                });
+            }
+
+            document.getElementById('memberModal').classList.remove('hidden');
+        }
+
+        function closeMemberModal() {
+            document.getElementById('memberModal').classList.add('hidden');
         }
 
         function renderUserHistory() {
@@ -897,6 +1004,29 @@
                 `;
                 listContainer.appendChild(item);
             });
+        }
+
+        function exportMyReportCSV() {
+            const savedName = localStorage.getItem('namaz_user');
+            const userRecords = globalReports.filter(r => r.name.toLowerCase() === savedName.toLowerCase());
+
+            if (userRecords.length === 0) {
+                alert('Export karne ke liye koi record maujood nahi hai!');
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,Date,Day,Name,Fajr,Zuhr,Asr,Maghrib,Isha,Roza,Quran,Tarawih\n";
+            userRecords.forEach(r => {
+                csvContent += `${r.date},${r.day},${r.name},${r.fajr},${r.zuhr},${r.asr},${r.maghrib},${r.isha},${r.roza},${r.quran},${r.tarawih}\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `${savedName}_Ibadat_Report.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         window.onload = function() {
