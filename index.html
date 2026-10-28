@@ -349,7 +349,7 @@
     </div>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwVlW3sYyJKW7Tax-tNntg7F0hzE0xeb2M1av3v8brHPFKkc9131mwSyxPOOIPFn3EfMQ/exec'; // Replace with new URL if changed
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxgehjHDIKHj1SFnRnodQWFk90Ts7PfMg7wTgcoyB0qhSM_9c2LPVA1Bm7sfwmuF81oAg/exec';
         let currentMode = 'login';
 
         document.getElementById('reportDate').value = new Date().toISOString().split('T')[0];
@@ -449,7 +449,6 @@
                 return;
             }
 
-            // Date se automatically Day nikalna (Sunday, Monday, etc.)
             const dateObj = new Date(date);
             const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             const dayName = days[dateObj.getDay()];
