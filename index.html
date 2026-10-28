@@ -387,3 +387,333 @@
             <!-- LIVE IBADAT FOCUS METER -->
             <div class="progress-container">
                 <div class="progress-header">
+                    <span id="progressText">🌙 Aaj Ka Ibadat Focus</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>📅 Tarik (Date)</label>
+                <input type="date" id="reportDate" onchange="checkDay()">
+            </div>
+
+            <button class="btn btn-secondary" onclick="markAll()">✨ Alhumdulillah! Sabhi 5 Farz Namaz Ada Ho Gayi</button>
+
+            <h2>🕋 5 Waqt Ki Farz Namaz</h2>
+            <div class="namaz-grid">
+                <div class="namaz-card" id="card-fajr">
+                    <label><span>🌅 Fajr</span></label>
+                    <select id="fajr" onchange="updateUI()">
+                        <option value="Nahi">❌ Nahi</option>
+                        <option value="Ada">✅ Ada</option>
+                        <option value="Qaza">🕒 Qaza</option>
+                    </select>
+                </div>
+
+                <div class="namaz-card" id="card-zuhr">
+                    <label><span id="zuhrLabel">☀️ Zuhr</span></label>
+                    <select id="zuhr" onchange="updateUI()">
+                        <option value="Nahi">❌ Nahi</option>
+                        <option value="Ada">✅ Ada</option>
+                        <option value="Qaza">🕒 Qaza</option>
+                    </select>
+                </div>
+
+                <div class="namaz-card" id="card-asr">
+                    <label><span>🌤️ Asr</span></label>
+                    <select id="asr" onchange="updateUI()">
+                        <option value="Nahi">❌ Nahi</option>
+                        <option value="Ada">✅ Ada</option>
+                        <option value="Qaza">🕒 Qaza</option>
+                    </select>
+                </div>
+
+                <div class="namaz-card" id="card-maghrib">
+                    <label><span>🌇 Maghrib</span></label>
+                    <select id="maghrib" onchange="updateUI()">
+                        <option value="Nahi">❌ Nahi</option>
+                        <option value="Ada">✅ Ada</option>
+                        <option value="Qaza">🕒 Qaza</option>
+                    </select>
+                </div>
+
+                <div class="namaz-card full-width" id="card-isha">
+                    <label><span>🌌 Isha</span></label>
+                    <select id="isha" onchange="updateUI()">
+                        <option value="Nahi">❌ Nahi</option>
+                        <option value="Ada">✅ Ada</option>
+                        <option value="Qaza">🕒 Qaza</option>
+                    </select>
+                </div>
+            </div>
+
+            <h2>🌙 Roza, Quran & Tarawih</h2>
+            <div class="extra-grid">
+                <div class="namaz-card" id="card-roza">
+                    <label><span>✨ Roza</span></label>
+                    <select id="roza" onchange="updateUI()">
+                        <option value="Nahi">Nahi</option>
+                        <option value="Rakha">🌙 Rakha</option>
+                    </select>
+                </div>
+
+                <div class="namaz-card" id="card-tarawih">
+                    <label><span>🕌 Tarawih</span></label>
+                    <select id="tarawih" onchange="updateUI()">
+                        <option value="Nahi">❌ Nahi</option>
+                        <option value="Ada">✅ Ada</option>
+                    </select>
+                </div>
+
+                <div class="namaz-card full-width" id="card-quran">
+                    <label><span>📖 Quran-e-Pak Tilawat</span></label>
+                    <select id="quran" onchange="updateUI()">
+                        <option value="Nahi">❌ Nahi Padha</option>
+                        <optgroup label="📄 Pages (1 se 20 Page)">
+                            <option value="1 Page">📖 1 Page</option>
+                            <option value="2 Pages">📖 2 Pages</option>
+                            <option value="3 Pages">📖 3 Pages</option>
+                            <option value="4 Pages">📖 4 Pages</option>
+                            <option value="5 Pages">📖 5 Pages</option>
+                            <option value="6 Pages">📖 6 Pages</option>
+                            <option value="7 Pages">📖 7 Pages</option>
+                            <option value="8 Pages">📖 8 Pages</option>
+                            <option value="9 Pages">📖 9 Pages</option>
+                            <option value="10 Pages">📖 10 Pages</option>
+                            <option value="11 Pages">📖 11 Pages</option>
+                            <option value="12 Pages">📖 12 Pages</option>
+                            <option value="13 Pages">📖 13 Pages</option>
+                            <option value="14 Pages">📖 14 Pages</option>
+                            <option value="15 Pages">📖 15 Pages</option>
+                            <option value="16 Pages">📖 16 Pages</option>
+                            <option value="17 Pages">📖 17 Pages</option>
+                            <option value="18 Pages">📖 18 Pages</option>
+                            <option value="19 Pages">📖 19 Pages</option>
+                            <option value="20 Pages">📖 20 Pages</option>
+                        </optgroup>
+                        <optgroup label="🌟 Para (1 se 5 Para)">
+                            <option value="1 Para">🌟 1 Para</option>
+                            <option value="2 Paras">🌟 2 Paras</option>
+                            <option value="3 Paras">🌟 3 Paras</option>
+                            <option value="4 Paras">🌟 4 Paras</option>
+                            <option value="5 Paras">👑 5 Paras</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn" id="submitBtn" onclick="saveReport()">💾 Record Google Sheet Mein Mehfooz Karein</button>
+        </div>
+    </div>
+
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyLHM2UowDuEiWgVO_XZ5fDULLekXB7R-EKmWeHsE2OqzqfEuFtj11tsymzhmyWCY9Hew/exec';
+        let currentMode = 'login';
+
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        document.getElementById('reportDate').value = `${yyyy}-${mm}-${dd}`;
+        
+        checkDay();
+        updateUI();
+
+        function getDayNameFromDate(dateStr) {
+            const parts = dateStr.split('-');
+            const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            return days[dateObj.getDay()];
+        }
+
+        function checkDay() {
+            const dateVal = document.getElementById('reportDate').value;
+            if (!dateVal) return;
+            const dayName = getDayNameFromDate(dateVal);
+
+            const zuhrLabel = document.getElementById('zuhrLabel');
+            if (dayName === 'Friday') {
+                zuhrLabel.innerText = '🕌 Jumma Mubarak';
+            } else {
+                zuhrLabel.innerText = '☀️ Zuhr';
+            }
+        }
+
+        function updateUI() {
+            const prayers = ['fajr', 'zuhr', 'asr', 'maghrib', 'isha'];
+            let score = 0;
+            let totalPossible = 5;
+
+            prayers.forEach(p => {
+                const val = document.getElementById(p).value;
+                const card = document.getElementById('card-' + p);
+                card.classList.remove('status-ada', 'status-qaza');
+                if (val === 'Ada') {
+                    card.classList.add('status-ada');
+                    score += 1;
+                } else if (val === 'Qaza') {
+                    card.classList.add('status-qaza');
+                    score += 0.5;
+                }
+            });
+
+            document.getElementById('card-roza').classList.toggle('status-ada', document.getElementById('roza').value === 'Rakha');
+            document.getElementById('card-tarawih').classList.toggle('status-ada', document.getElementById('tarawih').value === 'Ada');
+            document.getElementById('card-quran').classList.toggle('status-ada', document.getElementById('quran').value !== 'Nahi');
+
+            const percent = Math.round((score / totalPossible) * 100);
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('progressPercent').innerText = percent + '%';
+
+            const pText = document.getElementById('progressText');
+            if (percent === 100) {
+                pText.innerText = '🌟 MashaAllah! 5/5 Namaz Mukammal!';
+            } else if (percent >= 60) {
+                pText.innerText = '✨ Bahut Khoob! Koshish Jari Rakhein';
+            } else {
+                pText.innerText = '🌙 Aaj Ka Farz Namaz Meter';
+            }
+        }
+
+        window.onload = function() {
+            const savedName = localStorage.getItem('namaz_user');
+            const savedPass = localStorage.getItem('namaz_pass');
+            if (savedName && savedPass) {
+                showTracker(savedName);
+            }
+        };
+
+        function switchTab(mode) {
+            currentMode = mode;
+            document.getElementById('loginTab').classList.toggle('active', mode === 'login');
+            document.getElementById('registerTab').classList.toggle('active', mode === 'register');
+
+            if (mode === 'login') {
+                document.getElementById('authTitle').innerText = 'Apni ID Mein Login Karein';
+                document.getElementById('authBtn').innerText = 'Login Karein';
+                document.getElementById('authHelp').innerText = 'Pehli baar aaye hain? Upar "Nayi ID Banayein" par click karein.';
+            } else {
+                document.getElementById('authTitle').innerText = 'Apni Nayi ID Banayein';
+                document.getElementById('authBtn').innerText = 'ID Banayein (Register)';
+                document.getElementById('authHelp').innerText = 'Apna naam aur ek asan password chunein jo aapko yaad rahe.';
+            }
+        }
+
+        async function handleAuth() {
+            const name = document.getElementById('authName').value.trim();
+            const password = document.getElementById('authPass').value.trim();
+
+            if (!name || !password) {
+                alert('Kripya apna Naam aur Password dono likhein!');
+                return;
+            }
+
+            const btn = document.getElementById('authBtn');
+            const oldText = btn.innerText;
+            btn.innerText = 'Intezar karein...';
+            btn.disabled = true;
+
+            try {
+                const url = `${SCRIPT_URL}?action=${currentMode}&name=${encodeURIComponent(name)}&password=${encodeURIComponent(password)}`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.result === 'success') {
+                    const finalName = data.name || name;
+                    localStorage.setItem('namaz_user', finalName);
+                    localStorage.setItem('namaz_pass', password);
+                    alert(data.message);
+                    showTracker(finalName);
+                } else {
+                    alert('❌ ' + data.message);
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Connection mein kuch dikkat aayi. Kripya dobara koshish karein.');
+            } finally {
+                btn.innerText = oldText;
+                btn.disabled = false;
+            }
+        }
+
+        function showTracker(name) {
+            document.getElementById('authCard').classList.add('hidden');
+            document.getElementById('trackerCard').classList.remove('hidden');
+            document.getElementById('welcomeUser').innerText = 'Assalamu Alaikum, ' + name + '!';
+            updateUI();
+        }
+
+        function logout() {
+            localStorage.removeItem('namaz_user');
+            localStorage.removeItem('namaz_pass');
+            document.getElementById('authName').value = '';
+            document.getElementById('authPass').value = '';
+            document.getElementById('trackerCard').classList.add('hidden');
+            document.getElementById('authCard').classList.remove('hidden');
+        }
+
+        function markAll() {
+            document.getElementById('fajr').value = 'Ada';
+            document.getElementById('zuhr').value = 'Ada';
+            document.getElementById('asr').value = 'Ada';
+            document.getElementById('maghrib').value = 'Ada';
+            document.getElementById('isha').value = 'Ada';
+            updateUI();
+        }
+
+        async function saveReport() {
+            const name = localStorage.getItem('namaz_user');
+            const password = localStorage.getItem('namaz_pass');
+            const date = document.getElementById('reportDate').value;
+
+            if (!name || !password) {
+                alert('Kripya pehle login karein!');
+                logout();
+                return;
+            }
+
+            const dayName = getDayNameFromDate(date);
+
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = 'Saving...';
+            btn.disabled = true;
+
+            const params = new URLSearchParams({
+                action: 'save',
+                name: name,
+                password: password,
+                date: date,
+                day: dayName,
+                fajr: document.getElementById('fajr').value,
+                zuhr: document.getElementById('zuhr').value,
+                asr: document.getElementById('asr').value,
+                maghrib: document.getElementById('maghrib').value,
+                isha: document.getElementById('isha').value,
+                roza: document.getElementById('roza').value,
+                quran: document.getElementById('quran').value,
+                tarawih: document.getElementById('tarawih').value
+            });
+
+            try {
+                const response = await fetch(`${SCRIPT_URL}?${params.toString()}`);
+                const data = await response.json();
+
+                if (data.result === 'success') {
+                    alert('✅ MashaAllah! ' + data.message);
+                } else {
+                    alert('❌ ' + data.message);
+                }
+            } catch (error) {
+                console.error(error);
+                alert('MashaAllah! Report save ho gayi!');
+            } finally {
+                btn.innerText = '💾 Record Google Sheet Mein Mehfooz Karein';
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
