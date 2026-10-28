@@ -502,7 +502,7 @@
 
             <div class="form-group" id="photoGroup" style="display: none;">
                 <label>Profile Photo Select Karein (Gallery se)</label>
-                <input type="file" id="authPhotoFile" accept="image/*" onchange="convertImageToBase64(this)">
+                <input type="file" id="authPhotoFile" accept="image/*" onchange="compressImage(this, function(base64){ tempBase64Photo = base64; })">
             </div>
 
             <button class="btn" id="authBtn" onclick="handleAuth()">Login Karein</button>
@@ -661,41 +661,63 @@
         
         checkDayAndLoadData();
 
-        function convertImageToBase64(input) {
+        function compressImage(input, callback) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    tempBase64Photo = e.target.result;
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        const MAX_WIDTH = 150;
+                        const MAX_HEIGHT = 150;
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > height) {
+                            if (width > MAX_WIDTH) {
+                                height *= MAX_WIDTH / width;
+                                width = MAX_WIDTH;
+                            }
+                        } else {
+                            if (height > MAX_HEIGHT) {
+                                width *= MAX_HEIGHT / height;
+                                height = MAX_HEIGHT;
+                            }
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
+                        const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                        callback(dataUrl);
+                    }
+                    img.src = e.target.result;
                 }
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
         function updateProfilePhoto(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = async function(e) {
-                    const newPhoto = e.target.result;
-                    const name = localStorage.getItem('namaz_user');
-                    const password = localStorage.getItem('namaz_pass');
+            compressImage(input, async function(newPhoto) {
+                const name = localStorage.getItem('namaz_user');
+                const password = localStorage.getItem('namaz_pass');
 
-                    try {
-                        const res = await fetch(`${SCRIPT_URL}?action=updatePhoto&name=${encodeURIComponent(name)}&password=${encodeURIComponent(password)}&photo=${encodeURIComponent(newPhoto)}`);
-                        const data = await res.json();
-                        if (data.result === 'success') {
-                            localStorage.setItem('namaz_photo', newPhoto);
-                            document.getElementById('userAvatar').src = newPhoto;
-                            alert('✅ Profile Photo update ho gayi!');
-                            fetchAllDataAndRefresh();
-                        } else {
-                            alert('❌ ' + data.message);
-                        }
-                    } catch(err) {
-                        alert('Error updating photo');
+                try {
+                    const res = await fetch(`${SCRIPT_URL}?action=updatePhoto&name=${encodeURIComponent(name)}&password=${encodeURIComponent(password)}&photo=${encodeURIComponent(newPhoto)}`);
+                    const data = await res.json();
+                    if (data.result === 'success') {
+                        localStorage.setItem('namaz_photo', newPhoto);
+                        document.getElementById('userAvatar').src = newPhoto;
+                        alert('✅ Profile Photo update ho gayi!');
+                        fetchAllDataAndRefresh();
+                    } else {
+                        alert('❌ ' + data.message);
                     }
+                } catch(err) {
+                    alert('Error updating photo');
                 }
-                reader.readAsDataURL(input.files[0]);
-            }
+            });
         }
 
         function getDayNameFromDate(dateStr) {
@@ -714,10 +736,10 @@
             const zuhrArabic = document.getElementById('zuhrArabic');
             if (dayName === 'Friday') {
                 zuhrLabel.innerText = '🕌 Jumma';
-                zuhrArabic.innerText = 'جمعة';
+                zuhrArabic.innerText = 'الجمعة';
             } else {
                 zuhrLabel.innerText = '☀️ Zuhr';
-                zuhrArabic.innerText = 'ظهر';
+                zuhrArabic.innerText = 'الظهر';
             }
             fetchAllDataAndRefresh();
         }
