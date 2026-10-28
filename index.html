@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Al-Mizan | Islamic Ibadat Tracker</title>
+    <title>Al-Mizan | Community Ibadat Tracker</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-deep: #021a13;
             --bg-emerald: #062f23;
-            --card-bg: rgba(8, 53, 40, 0.78);
+            --card-bg: rgba(8, 53, 40, 0.82);
             --card-inner: rgba(4, 33, 24, 0.85);
             --gold: #d4af37;
             --gold-light: #fbe69b;
@@ -43,14 +43,14 @@
         }
 
         .container {
-            max-width: 540px;
+            max-width: 580px;
             margin: 0 auto;
         }
 
         header {
             text-align: center;
-            margin-bottom: 24px;
-            padding: 18px 15px;
+            margin-bottom: 20px;
+            padding: 16px 15px;
             border-radius: 20px;
             background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, rgba(6, 47, 35, 0.4) 100%);
             border: 1px solid var(--border-gold);
@@ -59,25 +59,23 @@
 
         .bismillah {
             font-family: 'Amiri', serif;
-            font-size: 28px;
+            font-size: 26px;
             color: var(--gold-light);
-            letter-spacing: 1px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             text-shadow: 0 2px 12px rgba(212, 175, 55, 0.4);
         }
 
         header h1 {
-            font-size: 22px;
+            font-size: 21px;
             font-weight: 700;
             background: linear-gradient(90deg, #ffffff, var(--gold-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 6px;
-            letter-spacing: 0.5px;
+            margin-bottom: 4px;
         }
 
         .ayah-box {
-            font-size: 12.5px;
+            font-size: 12px;
             color: #cbd5e1;
             font-style: italic;
             max-width: 90%;
@@ -86,21 +84,32 @@
             border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
 
+        .hadith-ticker {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px dashed var(--gold);
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 12.5px;
+            color: var(--gold-light);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         .card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-radius: 22px;
-            padding: 24px 20px;
+            padding: 22px 18px;
             margin-bottom: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border-gold);
         }
 
         .card h2 {
-            font-size: 17px;
+            font-size: 16px;
             color: var(--gold-light);
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -111,22 +120,22 @@
             display: flex;
             background: var(--card-inner);
             border-radius: 12px;
-            padding: 5px;
-            margin-bottom: 20px;
+            padding: 4px;
+            margin-bottom: 18px;
             border: 1px solid var(--border-subtle);
         }
 
         .tab-btn {
             flex: 1;
-            padding: 11px;
+            padding: 10px;
             border: none;
             background: transparent;
             border-radius: 9px;
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 600;
             color: var(--text-muted);
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: 0.25s;
         }
 
         .tab-btn.active {
@@ -141,34 +150,50 @@
             align-items: center;
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(212, 175, 55, 0.1));
             border: 1px solid var(--border-gold);
-            padding: 14px 16px;
+            padding: 12px 15px;
             border-radius: 14px;
             margin-bottom: 18px;
         }
 
+        .user-profile-flex {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+        }
+
         .user-banner .greeting {
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 700;
             color: var(--gold-light);
         }
 
         .user-banner .sub {
-            font-size: 12px;
+            font-size: 11.5px;
             color: #a7f3d0;
+            cursor: pointer;
+            text-decoration: underline;
         }
 
         .logout-btn {
             background: rgba(239, 68, 68, 0.15);
             color: #fca5a5;
             border: 1px solid rgba(239, 68, 68, 0.35);
-            padding: 7px 12px;
-            border-radius: 9px;
-            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 11.5px;
             font-weight: 600;
             cursor: pointer;
         }
 
-        .progress-container {
+        .family-dashboard {
             background: var(--card-inner);
             border: 1px solid var(--border-subtle);
             padding: 14px;
@@ -176,18 +201,66 @@
             margin-bottom: 18px;
         }
 
+        .family-grid {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+        }
+
+        .family-member-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 85px;
+        }
+
+        .family-member-card img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 4px;
+            border: 1px solid var(--gold);
+        }
+
+        .family-member-card .name {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .family-member-card .status {
+            font-size: 10px;
+            color: var(--emerald-bright);
+            margin-top: 2px;
+        }
+
+        .progress-container {
+            background: var(--card-inner);
+            border: 1px solid var(--border-subtle);
+            padding: 12px 14px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+        }
+
         .progress-header {
             display: flex;
             justify-content: space-between;
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: var(--gold-light);
         }
 
         .progress-track {
             width: 100%;
-            height: 10px;
+            height: 8px;
             background: rgba(255, 255, 255, 0.08);
             border-radius: 99px;
             overflow: hidden;
@@ -198,35 +271,32 @@
             width: 0%;
             background: linear-gradient(90deg, #10b981, var(--gold));
             border-radius: 99px;
-            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+            transition: width 0.4s ease;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 14px;
         }
 
         label {
             display: block;
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: 700;
             color: #cbd5e1;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
         }
 
         select, input {
             width: 100%;
-            padding: 12px 14px;
+            padding: 11px 13px;
             border: 1px solid var(--border-subtle);
-            border-radius: 11px;
-            font-size: 14.5px;
-            font-weight: 500;
+            border-radius: 10px;
+            font-size: 14px;
             background: #042118;
             color: var(--text-main);
             outline: none;
-            transition: all 0.2s;
             color-scheme: dark;
         }
 
@@ -239,7 +309,6 @@
         select option {
             background: #042118;
             color: var(--text-main);
-            padding: 8px;
         }
 
         select:focus, input:focus {
@@ -250,16 +319,16 @@
         .namaz-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 14px;
+            gap: 10px;
+            margin-bottom: 12px;
         }
 
         .namaz-card {
             background: var(--card-inner);
-            padding: 12px;
-            border-radius: 14px;
+            padding: 11px;
+            border-radius: 12px;
             border: 1px solid var(--border-subtle);
-            transition: all 0.25s ease;
+            transition: 0.2s;
         }
 
         .namaz-card.full-width {
@@ -269,7 +338,6 @@
         .namaz-card.status-ada {
             border-color: var(--emerald-bright);
             background: rgba(16, 185, 129, 0.12);
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15);
         }
 
         .namaz-card.status-qaza {
@@ -278,44 +346,57 @@
         }
 
         .namaz-card label {
-            margin-bottom: 6px;
-            font-size: 12px;
+            margin-bottom: 4px;
+            font-size: 11.5px;
             color: var(--gold-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .extra-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 18px;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .history-box {
+            background: var(--card-inner);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 14px;
+            margin-top: 18px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 12.5px;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
         }
 
         .btn {
             width: 100%;
-            padding: 15px;
+            padding: 14px;
             background: linear-gradient(135deg, var(--gold), #b48a1e);
             color: #021a13;
             border: none;
-            border-radius: 12px;
-            font-size: 15.5px;
+            border-radius: 11px;
+            font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.25s ease;
             box-shadow: 0 6px 20px var(--gold-glow);
+            transition: 0.2s;
         }
 
         .btn:hover {
-            transform: translateY(-1px);
             filter: brightness(1.08);
-        }
-
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
         }
 
         .btn-secondary {
@@ -323,9 +404,9 @@
             color: #a7f3d0;
             border: 1px solid rgba(16, 185, 129, 0.35);
             box-shadow: none;
-            margin-bottom: 16px;
-            font-size: 13.5px;
-            padding: 11px;
+            margin-bottom: 14px;
+            font-size: 13px;
+            padding: 10px;
         }
 
         .hidden {
@@ -333,10 +414,10 @@
         }
 
         .help-text {
-            font-size: 12px;
+            font-size: 11.5px;
             color: var(--text-muted);
             text-align: center;
-            margin-top: 14px;
+            margin-top: 12px;
         }
     </style>
 </head>
@@ -345,24 +426,28 @@
     <div class="container">
         <header>
             <div class="bismillah">﷽</div>
-            <h1>🕌 Al-Mizan Ibadat Tracker</h1>
+            <h1>🕌 Al-Mizan Community Tracker</h1>
             <div class="ayah-box">
-                "Beshak Namaz behayai aur bure kaamo se rokti hai." (Al-Quran 29:45)
+                "Neki aur taqwa ke kaamon mein ek dusre ki madad karo." (Al-Quran 5:2)
             </div>
         </header>
+
+        <div class="hadith-ticker" id="hadithBox">
+            ✨ Hadees: "Pehle koshish karo ki apne waqt par namaz ada karo."
+        </div>
 
         <!-- 1. LOGIN / REGISTER CARD -->
         <div class="card" id="authCard">
             <div class="tabs">
                 <button class="tab-btn active" id="loginTab" onclick="switchTab('login')">🔑 Login Karein</button>
-                <button class="tab-btn" id="registerTab" onclick="switchTab('register')">✨ Nayi ID Banayein</button>
+                <button class="tab-btn" id="registerTab" onclick="switchTab('register')">✨ Community ID Banayein</button>
             </div>
 
             <h2 id="authTitle">Apni ID Mein Login Karein</h2>
 
             <div class="form-group">
-                <label>Aapka Naam (ID)</label>
-                <input type="text" id="authName" placeholder="Jaise: Abbu, Ammi, Osman">
+                <label>Aapka Naam / Community ID</label>
+                <input type="text" id="authName" placeholder="Apna pura naam ya nickname dalein">
             </div>
 
             <div class="form-group">
@@ -370,21 +455,37 @@
                 <input type="password" id="authPass" placeholder="Apna secret password dalein">
             </div>
 
+            <div class="form-group" id="photoGroup" style="display: none;">
+                <label>Profile Photo Link (Optional)</label>
+                <input type="text" id="authPhoto" placeholder="Image URL dalein ya khali chhod dein">
+            </div>
+
             <button class="btn" id="authBtn" onclick="handleAuth()">Login Karein</button>
-            <p class="help-text" id="authHelp">Pehli baar aaye hain? Upar "Nayi ID Banayein" par click karein.</p>
+            <p class="help-text" id="authHelp">Naye hain? Upar "Community ID Banayein" par click karein.</p>
         </div>
 
         <!-- 2. IBADAT REPORT CARD -->
         <div class="card hidden" id="trackerCard">
             <div class="user-banner">
-                <div>
-                    <div class="greeting" id="welcomeUser">Assalamu Alaikum!</div>
-                    <div class="sub">✨ Aaj ki nekia darj karein</div>
+                <div class="user-profile-flex">
+                    <img id="userAvatar" src="https://i.ibb.co/6Wv1V6Zm/default-avatar.png" class="avatar-img" alt="Avatar">
+                    <div>
+                        <div class="greeting" id="welcomeUser">Assalamu Alaikum!</div>
+                        <div class="sub" onclick="changePhotoPrompt()">📷 Photo Badlein</div>
+                    </div>
                 </div>
                 <button class="logout-btn" onclick="logout()">Logout</button>
             </div>
 
-            <!-- LIVE IBADAT FOCUS METER -->
+            <!-- COMMUNITY MEMBERS DASHBOARD -->
+            <div class="family-dashboard">
+                <label>👥 Community Members Ka Aaj Ka Haal</label>
+                <div class="family-grid" id="familyGridContainer">
+                    <!-- Dynamic community users -->
+                </div>
+            </div>
+
+            <!-- LIVE FOCUS METER -->
             <div class="progress-container">
                 <div class="progress-header">
                     <span id="progressText">🌙 Aaj Ka Ibadat Focus</span>
@@ -397,7 +498,7 @@
 
             <div class="form-group">
                 <label>📅 Tarik (Date)</label>
-                <input type="date" id="reportDate" onchange="checkDay()">
+                <input type="date" id="reportDate" onchange="checkDayAndLoadData()">
             </div>
 
             <button class="btn btn-secondary" onclick="markAll()">✨ Alhumdulillah! Sabhi 5 Farz Namaz Ada Ho Gayi</button>
@@ -473,45 +574,30 @@
                     <select id="quran" onchange="updateUI()">
                         <option value="Nahi">❌ Nahi Padha</option>
                         <optgroup label="📄 Pages (1 se 20 Page)">
-                            <option value="1 Page">📖 1 Page</option>
-                            <option value="2 Pages">📖 2 Pages</option>
-                            <option value="3 Pages">📖 3 Pages</option>
-                            <option value="4 Pages">📖 4 Pages</option>
-                            <option value="5 Pages">📖 5 Pages</option>
-                            <option value="6 Pages">📖 6 Pages</option>
-                            <option value="7 Pages">📖 7 Pages</option>
-                            <option value="8 Pages">📖 8 Pages</option>
-                            <option value="9 Pages">📖 9 Pages</option>
-                            <option value="10 Pages">📖 10 Pages</option>
-                            <option value="11 Pages">📖 11 Pages</option>
-                            <option value="12 Pages">📖 12 Pages</option>
-                            <option value="13 Pages">📖 13 Pages</option>
-                            <option value="14 Pages">📖 14 Pages</option>
-                            <option value="15 Pages">📖 15 Pages</option>
-                            <option value="16 Pages">📖 16 Pages</option>
-                            <option value="17 Pages">📖 17 Pages</option>
-                            <option value="18 Pages">📖 18 Pages</option>
-                            <option value="19 Pages">📖 19 Pages</option>
-                            <option value="20 Pages">📖 20 Pages</option>
+                            <option value="1 Page">📖 1 Page</option><option value="2 Pages">📖 2 Pages</option><option value="3 Pages">📖 3 Pages</option><option value="4 Pages">📖 4 Pages</option><option value="5 Pages">📖 5 Pages</option><option value="6 Pages">📖 6 Pages</option><option value="7 Pages">📖 7 Pages</option><option value="8 Pages">📖 8 Pages</option><option value="9 Pages">📖 9 Pages</option><option value="10 Pages">📖 10 Pages</option><option value="11 Pages">📖 11 Pages</option><option value="12 Pages">📖 12 Pages</option><option value="13 Pages">📖 13 Pages</option><option value="14 Pages">📖 14 Pages</option><option value="15 Pages">📖 15 Pages</option><option value="16 Pages">📖 16 Pages</option><option value="17 Pages">📖 17 Pages</option><option value="18 Pages">📖 18 Pages</option><option value="19 Pages">📖 19 Pages</option><option value="20 Pages">📖 20 Pages</option>
                         </optgroup>
                         <optgroup label="🌟 Para (1 se 5 Para)">
-                            <option value="1 Para">🌟 1 Para</option>
-                            <option value="2 Paras">🌟 2 Paras</option>
-                            <option value="3 Paras">🌟 3 Paras</option>
-                            <option value="4 Paras">🌟 4 Paras</option>
-                            <option value="5 Paras">👑 5 Paras</option>
+                            <option value="1 Para">🌟 1 Para</option><option value="2 Paras">🌟 2 Paras</option><option value="3 Paras">🌟 3 Paras</option><option value="4 Paras">🌟 4 Paras</option><option value="5 Paras">👑 5 Paras</option>
                         </optgroup>
                     </select>
                 </div>
             </div>
 
-            <button class="btn" id="submitBtn" onclick="saveReport()">💾 Record Google Sheet Mein Mehfooz Karein</button>
+            <button class="btn" id="submitBtn" onclick="saveReport()">💾 Pura Record Google Sheet Mein Save Karein</button>
+
+            <!-- LIFETIME HISTORY SECTION -->
+            <h2 style="margin-top: 22px;">📜 Aapka Lifetime Ibadat Record</h2>
+            <div class="history-box" id="userHistoryList">
+                <div style="text-align: center; color: var(--text-muted); font-size: 13px;">Data load ho raha hai...</div>
+            </div>
         </div>
     </div>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyLHM2UowDuEiWgVO_XZ5fDULLekXB7R-EKmWeHsE2OqzqfEuFtj11tsymzhmyWCY9Hew/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx24od--VQvjteLT5LGwOKsU-f5L1iRjdcDRrH0H40cyEvilNfs1qbKzOlyg1gXA4esGA/exec';
         let currentMode = 'login';
+        let globalReports = [];
+        let globalUsers = [];
 
         const today = new Date();
         const yyyy = today.getFullYear();
@@ -519,8 +605,7 @@
         const dd = String(today.getDate()).padStart(2, '0');
         document.getElementById('reportDate').value = `${yyyy}-${mm}-${dd}`;
         
-        checkDay();
-        updateUI();
+        checkDayAndLoadData();
 
         function getDayNameFromDate(dateStr) {
             const parts = dateStr.split('-');
@@ -529,7 +614,7 @@
             return days[dateObj.getDay()];
         }
 
-        function checkDay() {
+        function checkDayAndLoadData() {
             const dateVal = document.getElementById('reportDate').value;
             if (!dateVal) return;
             const dayName = getDayNameFromDate(dateVal);
@@ -539,6 +624,23 @@
                 zuhrLabel.innerText = '🕌 Jumma Mubarak';
             } else {
                 zuhrLabel.innerText = '☀️ Zuhr';
+            }
+            fetchAllDataAndRefresh();
+        }
+
+        async function fetchAllDataAndRefresh() {
+            try {
+                const res = await fetch(`${SCRIPT_URL}?action=getData`);
+                const data = await res.json();
+                if (data.result === 'success') {
+                    globalReports = data.reports || [];
+                    globalUsers = data.users || [];
+                    updateUI();
+                    renderFamilyDashboard();
+                    renderUserHistory();
+                }
+            } catch (e) {
+                console.error(e);
             }
         }
 
@@ -567,22 +669,64 @@
             const percent = Math.round((score / totalPossible) * 100);
             document.getElementById('progressBar').style.width = percent + '%';
             document.getElementById('progressPercent').innerText = percent + '%';
+        }
 
-            const pText = document.getElementById('progressText');
-            if (percent === 100) {
-                pText.innerText = '🌟 MashaAllah! 5/5 Namaz Mukammal!';
-            } else if (percent >= 60) {
-                pText.innerText = '✨ Bahut Khoob! Koshish Jari Rakhein';
-            } else {
-                pText.innerText = '🌙 Aaj Ka Farz Namaz Meter';
+        function renderFamilyDashboard() {
+            const container = document.getElementById('familyGridContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const currentDate = document.getElementById('reportDate').value;
+
+            globalUsers.forEach(u => {
+                const userRep = globalReports.find(r => r.name.toLowerCase() === u.name.toLowerCase() && r.date.startsWith(currentDate));
+                let statusText = '⏳ Pending';
+                if (userRep && (userRep.fajr === 'Ada' || userRep.zuhr === 'Ada')) {
+                    statusText = '✅ Done';
+                }
+
+                const card = document.createElement('div');
+                card.className = 'family-member-card';
+                card.innerHTML = `
+                    <img src="${u.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" alt="img">
+                    <div class="name">${u.name}</div>
+                    <div class="status">${statusText}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderUserHistory() {
+            const listContainer = document.getElementById('userHistoryList');
+            const savedName = localStorage.getItem('namaz_user');
+            if (!listContainer || !savedName) return;
+
+            const userRecords = globalReports.filter(r => r.name.toLowerCase() === savedName.toLowerCase());
+            
+            if (userRecords.length === 0) {
+                listContainer.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 13px;">Abhi tak koi record save nahi hai.</div>`;
+                return;
             }
+
+            listContainer.innerHTML = '';
+            userRecords.reverse().forEach(r => {
+                let adaCount = [r.fajr, r.zuhr, r.asr, r.maghrib, r.isha].filter(x => x === 'Ada').length;
+                const item = document.createElement('div');
+                item.className = 'history-item';
+                item.innerHTML = `
+                    <div><b>${r.date}</b> (${r.day || ''})</div>
+                    <div style="color: var(--emerald-bright);">Namaz: ${adaCount}/5 | Roza: ${r.roza}</div>
+                `;
+                listContainer.appendChild(item);
+            });
         }
 
         window.onload = function() {
             const savedName = localStorage.getItem('namaz_user');
             const savedPass = localStorage.getItem('namaz_pass');
+            const savedPhoto = localStorage.getItem('namaz_photo');
             if (savedName && savedPass) {
-                showTracker(savedName);
+                showTracker(savedName, savedPhoto);
             }
         };
 
@@ -590,21 +734,23 @@
             currentMode = mode;
             document.getElementById('loginTab').classList.toggle('active', mode === 'login');
             document.getElementById('registerTab').classList.toggle('active', mode === 'register');
+            const photoGroup = document.getElementById('photoGroup');
 
             if (mode === 'login') {
                 document.getElementById('authTitle').innerText = 'Apni ID Mein Login Karein';
                 document.getElementById('authBtn').innerText = 'Login Karein';
-                document.getElementById('authHelp').innerText = 'Pehli baar aaye hain? Upar "Nayi ID Banayein" par click karein.';
+                photoGroup.style.display = 'none';
             } else {
-                document.getElementById('authTitle').innerText = 'Apni Nayi ID Banayein';
+                document.getElementById('authTitle').innerText = 'Community ID Banayein';
                 document.getElementById('authBtn').innerText = 'ID Banayein (Register)';
-                document.getElementById('authHelp').innerText = 'Apna naam aur ek asan password chunein jo aapko yaad rahe.';
+                photoGroup.style.display = 'block';
             }
         }
 
         async function handleAuth() {
             const name = document.getElementById('authName').value.trim();
             const password = document.getElementById('authPass').value.trim();
+            const photo = document.getElementById('authPhoto').value.trim();
 
             if (!name || !password) {
                 alert('Kripya apna Naam aur Password dono likhein!');
@@ -612,45 +758,74 @@
             }
 
             const btn = document.getElementById('authBtn');
-            const oldText = btn.innerText;
             btn.innerText = 'Intezar karein...';
             btn.disabled = true;
 
             try {
-                const url = `${SCRIPT_URL}?action=${currentMode}&name=${encodeURIComponent(name)}&password=${encodeURIComponent(password)}`;
+                let url = `${SCRIPT_URL}?action=${currentMode}&name=${encodeURIComponent(name)}&password=${encodeURIComponent(password)}`;
+                if (currentMode === 'register' && photo) {
+                    url += `&photo=${encodeURIComponent(photo)}`;
+                }
                 const response = await fetch(url);
                 const data = await response.json();
 
                 if (data.result === 'success') {
                     const finalName = data.name || name;
+                    const finalPhoto = data.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png';
                     localStorage.setItem('namaz_user', finalName);
                     localStorage.setItem('namaz_pass', password);
+                    localStorage.setItem('namaz_photo', finalPhoto);
                     alert(data.message);
-                    showTracker(finalName);
+                    showTracker(finalName, finalPhoto);
                 } else {
                     alert('❌ ' + data.message);
                 }
             } catch (error) {
                 console.error(error);
-                alert('Connection mein kuch dikkat aayi. Kripya dobara koshish karein.');
+                alert('Connection mein kuch dikkat aayi.');
             } finally {
-                btn.innerText = oldText;
+                btn.innerText = currentMode === 'login' ? 'Login Karein' : 'ID Banayein (Register)';
                 btn.disabled = false;
             }
         }
 
-        function showTracker(name) {
+        function showTracker(name, photo) {
             document.getElementById('authCard').classList.add('hidden');
             document.getElementById('trackerCard').classList.remove('hidden');
             document.getElementById('welcomeUser').innerText = 'Assalamu Alaikum, ' + name + '!';
-            updateUI();
+            if (photo) {
+                document.getElementById('userAvatar').src = photo;
+            }
+            fetchAllDataAndRefresh();
+        }
+
+        async function changePhotoPrompt() {
+            const newPhoto = prompt('Apni nayi Profile Photo ka Image Link (URL) dalein:');
+            if (!newPhoto) return;
+
+            const name = localStorage.getItem('namaz_user');
+            const password = localStorage.getItem('namaz_pass');
+
+            try {
+                const res = await fetch(`${SCRIPT_URL}?action=updatePhoto&name=${encodeURIComponent(name)}&password=${encodeURIComponent(password)}&photo=${encodeURIComponent(newPhoto)}`);
+                const data = await res.json();
+                if (data.result === 'success') {
+                    localStorage.setItem('namaz_photo', newPhoto);
+                    document.getElementById('userAvatar').src = newPhoto;
+                    alert('✅ Photo update ho gayi!');
+                    fetchAllDataAndRefresh();
+                } else {
+                    alert('❌ ' + data.message);
+                }
+            } catch(e) {
+                alert('Error updating photo');
+            }
         }
 
         function logout() {
             localStorage.removeItem('namaz_user');
             localStorage.removeItem('namaz_pass');
-            document.getElementById('authName').value = '';
-            document.getElementById('authPass').value = '';
+            localStorage.removeItem('namaz_photo');
             document.getElementById('trackerCard').classList.add('hidden');
             document.getElementById('authCard').classList.remove('hidden');
         }
@@ -676,7 +851,6 @@
             }
 
             const dayName = getDayNameFromDate(date);
-
             const btn = document.getElementById('submitBtn');
             btn.innerText = 'Saving...';
             btn.disabled = true;
@@ -703,14 +877,16 @@
 
                 if (data.result === 'success') {
                     alert('✅ MashaAllah! ' + data.message);
+                    fetchAllDataAndRefresh();
                 } else {
                     alert('❌ ' + data.message);
                 }
             } catch (error) {
                 console.error(error);
                 alert('MashaAllah! Report save ho gayi!');
+                fetchAllDataAndRefresh();
             } finally {
-                btn.innerText = '💾 Record Google Sheet Mein Mehfooz Karein';
+                btn.innerText = '💾 Pura Record Google Sheet Mein Save Karein';
                 btn.disabled = false;
             }
         }
