@@ -3,213 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namaz & Roza Tracker</title>
+    <title>Al-Mizan | Islamic Ibadat Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #047857;
-            --primary-dark: #065f46;
-            --primary-light: #ecfdf5;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
+            --bg-deep: #021a13;
+            --bg-emerald: #062f23;
+            --card-bg: rgba(8, 53, 40, 0.78);
+            --card-inner: rgba(4, 33, 24, 0.75);
+            --gold: #d4af37;
+            --gold-light: #fbe69b;
+            --gold-glow: rgba(212, 175, 55, 0.25);
+            --emerald-bright: #10b981;
+            --amber: #f59e0b;
             --danger: #ef4444;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-gold: rgba(212, 175, 55, 0.28);
+            --border-subtle: rgba(255, 255, 255, 0.08);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            padding: 20px;
+            background-color: var(--bg-deep);
+            background-image: 
+                radial-gradient(circle at 50% 0%, #0b4f3a 0%, transparent 65%),
+                radial-gradient(circle at 85% 85%, #063829 0%, transparent 50%),
+                repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.02) 0px, rgba(212, 175, 55, 0.02) 2px, transparent 2px, transparent 12px);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 20px 15px 40px;
             line-height: 1.5;
         }
 
         .container {
-            max-width: 550px;
+            max-width: 540px;
             margin: 0 auto;
         }
 
+        /* ISLAMIC HEADER */
         header {
             text-align: center;
-            margin-bottom: 22px;
+            margin-bottom: 24px;
+            padding: 18px 15px;
+            border-radius: 20px;
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, rgba(6, 47, 35, 0.4) 100%);
+            border: 1px solid var(--border-gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bismillah {
+            font-family: 'Amiri', serif;
+            font-size: 28px;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            text-shadow: 0 2px 12px rgba(212, 175, 55, 0.4);
         }
 
         header h1 {
-            font-size: 24px;
-            color: var(--primary);
-            margin-bottom: 4px;
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ffffff, var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
         }
 
-        header p {
-            font-size: 14px;
-            color: var(--text-muted);
+        .ayah-box {
+            font-size: 12.5px;
+            color: #cbd5e1;
+            font-style: italic;
+            max-width: 90%;
+            margin: 0 auto;
+            padding-top: 6px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
 
+        /* MAIN GLASS CARD */
         .card {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 22px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 22px;
+            padding: 24px 20px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            border: 1px solid var(--border);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-gold);
         }
 
         .card h2 {
-            font-size: 18px;
-            color: var(--text);
+            font-size: 17px;
+            color: var(--gold-light);
             margin-bottom: 16px;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
+        /* AUTH TABS */
         .tabs {
             display: flex;
-            background: var(--bg);
-            border-radius: 10px;
-            padding: 4px;
-            margin-bottom: 18px;
-            border: 1px solid var(--border);
+            background: var(--card-inner);
+            border-radius: 12px;
+            padding: 5px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-subtle);
         }
 
         .tab-btn {
             flex: 1;
-            padding: 10px;
+            padding: 11px;
             border: none;
             background: transparent;
-            border-radius: 8px;
+            border-radius: 9px;
             font-size: 14px;
             font-weight: 600;
             color: var(--text-muted);
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.25s ease;
         }
 
         .tab-btn.active {
-            background: var(--primary);
-            color: white;
+            background: linear-gradient(135deg, var(--gold), #b48a1e);
+            color: #021a13;
+            box-shadow: 0 4px 12px var(--gold-glow);
         }
 
+        /* USER BANNER */
+        .user-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(212, 175, 55, 0.1));
+            border: 1px solid var(--border-gold);
+            padding: 14px 16px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+        }
+
+        .user-banner .greeting {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gold-light);
+        }
+
+        .user-banner .sub {
+            font-size: 12px;
+            color: #a7f3d0;
+        }
+
+        .logout-btn {
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            padding: 7px 12px;
+            border-radius: 9px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        /* PROGRESS BAR (FOCUS METER) */
+        .progress-container {
+            background: var(--card-inner);
+            border: 1px solid var(--border-subtle);
+            padding: 14px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12.5px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--gold-light);
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #10b981, var(--gold));
+            border-radius: 99px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        /* FORM CONTROLS */
         .form-group {
             margin-bottom: 15px;
         }
 
         label {
             display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #cbd5e1;
             margin-bottom: 6px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
         }
 
         select, input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 15px;
-            background: #fff;
-            color: var(--text);
+            padding: 12px 14px;
+            border: 1px solid var(--border-subtle);
+            border-radius: 11px;
+            font-size: 14.5px;
+            font-weight: 500;
+            background: var(--card-inner);
+            color: var(--text-main);
             outline: none;
-            transition: 0.2s;
+            transition: all 0.2s;
+            color-scheme: dark;
         }
 
         select:focus, input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.1);
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px var(--gold-glow);
         }
 
-        .user-banner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--primary-light);
-            border: 1px solid #a7f3d0;
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-bottom: 18px;
-        }
-
-        .user-banner .greeting {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--primary-dark);
-        }
-
-        .user-banner .sub {
-            font-size: 12px;
-            color: var(--primary);
-        }
-
-        .logout-btn {
-            background: #fff;
-            color: var(--danger);
-            border: 1px solid #fecaca;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
+        /* NAMAZ GRID & DYNAMIC CARDS */
         .namaz-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 12px;
+            margin-bottom: 14px;
         }
 
         .namaz-card {
-            background: var(--bg);
+            background: var(--card-inner);
             padding: 12px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
+            border-radius: 14px;
+            border: 1px solid var(--border-subtle);
+            transition: all 0.25s ease;
+        }
+
+        .namaz-card.full-width {
+            grid-column: span 2;
+        }
+
+        /* Dynamic Status Glows */
+        .namaz-card.status-ada {
+            border-color: var(--emerald-bright);
+            background: rgba(16, 185, 129, 0.12);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15);
+        }
+
+        .namaz-card.status-qaza {
+            border-color: var(--amber);
+            background: rgba(245, 158, 11, 0.12);
         }
 
         .namaz-card label {
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             font-size: 12px;
+            color: var(--gold-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
+        .extra-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        /* BUTTONS */
         .btn {
             width: 100%;
-            padding: 14px;
-            background: var(--primary);
-            color: white;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--gold), #b48a1e);
+            color: #021a13;
             border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
+            border-radius: 12px;
+            font-size: 15.5px;
+            font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.25s ease;
+            box-shadow: 0 6px 20px var(--gold-glow);
         }
 
         .btn:hover {
-            background: var(--primary-dark);
+            transform: translateY(-1px);
+            filter: brightness(1.08);
         }
 
         .btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
+            transform: none;
         }
 
         .btn-secondary {
-            background: #e2e8f0;
-            color: var(--text);
-            margin-bottom: 14px;
-            font-size: 14px;
-            padding: 10px;
+            background: rgba(16, 185, 129, 0.15);
+            color: #a7f3d0;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            box-shadow: none;
+            margin-bottom: 16px;
+            font-size: 13.5px;
+            padding: 11px;
         }
 
         .btn-secondary:hover {
-            background: #cbd5e1;
+            background: rgba(16, 185, 129, 0.25);
         }
 
         .hidden {
@@ -220,7 +344,7 @@
             font-size: 12px;
             color: var(--text-muted);
             text-align: center;
-            margin-top: 12px;
+            margin-top: 14px;
         }
     </style>
 </head>
@@ -228,8 +352,11 @@
 
     <div class="container">
         <header>
-            <h1>🕌 Ghar Ka Namaz Tracker</h1>
-            <p>Namaz, Roza, Quran aur Tarawih Tracker</p>
+            <div class="bismillah">﷽</div>
+            <h1>🕌 Al-Mizan Ibadat Tracker</h1>
+            <div class="ayah-box">
+                "Beshak Namaz behayai aur bure kaamo se rokti hai." (Al-Quran 29:45)
+            </div>
         </header>
 
         <!-- 1. LOGIN / REGISTER CARD -->
@@ -247,7 +374,7 @@
             </div>
 
             <div class="form-group">
-                <label>Password (PIN)</label>
+                <label>Secret Password (PIN)</label>
                 <input type="password" id="authPass" placeholder="Apna secret password dalein">
             </div>
 
@@ -255,53 +382,75 @@
             <p class="help-text" id="authHelp">Pehli baar aaye hain? Upar "Nayi ID Banayein" par click karein.</p>
         </div>
 
-        <!-- 2. REPORT CARD -->
+        <!-- 2. IBADAT REPORT CARD -->
         <div class="card hidden" id="trackerCard">
             <div class="user-banner">
                 <div>
                     <div class="greeting" id="welcomeUser">Assalamu Alaikum!</div>
-                    <div class="sub">Aapki ID login hai</div>
+                    <div class="sub">✨ Aaj ki nekia darj karein</div>
                 </div>
-                <button class="logout-btn" onclick="logout()">Logout / Badlein</button>
+                <button class="logout-btn" onclick="logout()">Logout</button>
             </div>
 
-            <h2>📝 Aaj Ki Ibadat Report</h2>
+            <!-- LIVE IBADAT FOCUS METER -->
+            <div class="progress-container">
+                <div class="progress-header">
+                    <span id="progressText">🌙 Aaj Ka Ibadat Focus</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+            </div>
 
             <div class="form-group">
-                <label>Tarik (Date)</label>
+                <label>📅 Tarik (Date)</label>
                 <input type="date" id="reportDate" onchange="checkDay()">
             </div>
 
-            <button class="btn btn-secondary" onclick="markAll()">✨ Alhumdulillah! Sabhi Namazein Ada Ho Gayi</button>
+            <button class="btn btn-secondary" onclick="markAll()">✨ Alhumdulillah! Sabhi 5 Farz Namaz Ada Ho Gayi</button>
 
+            <h2>🕋 5 Waqt Ki Farz Namaz</h2>
             <div class="namaz-grid">
-                <div class="namaz-card">
-                    <label>Fajr</label>
-                    <select id="fajr">
+                <div class="namaz-card" id="card-fajr">
+                    <label><span>🌅 Fajr</span></label>
+                    <select id="fajr" onchange="updateUI()">
                         <option value="Nahi">❌ Nahi</option>
                         <option value="Ada">✅ Ada</option>
                         <option value="Qaza">🕒 Qaza</option>
                     </select>
                 </div>
-                <div class="namaz-card">
-                    <label id="zuhrLabel">Zuhr</label>
-                    <select id="zuhr">
+
+                <div class="namaz-card" id="card-zuhr">
+                    <label><span id="zuhrLabel">☀️ Zuhr</span></label>
+                    <select id="zuhr" onchange="updateUI()">
                         <option value="Nahi">❌ Nahi</option>
                         <option value="Ada">✅ Ada</option>
                         <option value="Qaza">🕒 Qaza</option>
                     </select>
                 </div>
-                <div class="namaz-card">
-                    <label>Asr</label>
-                    <select id="asr">
+
+                <div class="namaz-card" id="card-asr">
+                    <label><span>🌤️ Asr</span></label>
+                    <select id="asr" onchange="updateUI()">
                         <option value="Nahi">❌ Nahi</option>
                         <option value="Ada">✅ Ada</option>
                         <option value="Qaza">🕒 Qaza</option>
                     </select>
                 </div>
-                <div class="namaz-card">
-                    <label>Maghrib</label>
-                    <select id="maghrib">
+
+                <div class="namaz-card" id="card-maghrib">
+                    <label><span>🌇 Maghrib</span></label>
+                    <select id="maghrib" onchange="updateUI()">
+                        <option value="Nahi">❌ Nahi</option>
+                        <option value="Ada">✅ Ada</option>
+                        <option value="Qaza">🕒 Qaza</option>
+                    </select>
+                </div>
+
+                <div class="namaz-card full-width" id="card-isha">
+                    <label><span>🌌 Isha</span></label>
+                    <select id="isha" onchange="updateUI()">
                         <option value="Nahi">❌ Nahi</option>
                         <option value="Ada">✅ Ada</option>
                         <option value="Qaza">🕒 Qaza</option>
@@ -309,42 +458,36 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>Isha</label>
-                <select id="isha">
-                    <option value="Nahi">❌ Nahi</option>
-                    <option value="Ada">✅ Ada</option>
-                    <option value="Qaza">🕒 Qaza</option>
-                </select>
+            <h2>🌙 Roza, Quran & Tarawih</h2>
+            <div class="extra-grid">
+                <div class="namaz-card" id="card-roza">
+                    <label><span>✨ Roza</span></label>
+                    <select id="roza" onchange="updateUI()">
+                        <option value="Nahi">Nahi</option>
+                        <option value="Rakha">🌙 Rakha</option>
+                    </select>
+                </div>
+
+                <div class="namaz-card" id="card-tarawih">
+                    <label><span>🕌 Tarawih</span></label>
+                    <select id="tarawih" onchange="updateUI()">
+                        <option value="Nahi">❌ Nahi</option>
+                        <option value="Ada">✅ Ada</option>
+                    </select>
+                </div>
+
+                <div class="namaz-card full-width" id="card-quran">
+                    <label><span>📖 Quran-e-Pak Tilawat</span></label>
+                    <select id="quran" onchange="updateUI()">
+                        <option value="Nahi">Nahi Padha</option>
+                        <option value="1-2 Pages">📖 1 - 2 Pages</option>
+                        <option value="1 Para">🌟 1 Para</option>
+                        <option value="2 Paras">👑 2 Paras</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label>Roza</label>
-                <select id="roza">
-                    <option value="Nahi">Nahi</option>
-                    <option value="Rakha">🌙 Alhumdulillah Rakha</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>📖 Quran Tilawat</label>
-                <select id="quran">
-                    <option value="Nahi">Nahi Padha</option>
-                    <option value="1-2 Pages">1 - 2 Pages</option>
-                    <option value="1 Para">1 Para</option>
-                    <option value="2 Paras">2 Paras</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>🌙 Tarawih</label>
-                <select id="tarawih">
-                    <option value="Nahi">❌ Nahi</option>
-                    <option value="Ada">✅ Ada</option>
-                </select>
-            </div>
-
-            <button class="btn" id="submitBtn" onclick="saveReport()">💾 Google Sheet Par Save Karein</button>
+            <button class="btn" id="submitBtn" onclick="saveReport()">💾 Record Google Sheet Mein Mehfooz Karein</button>
         </div>
     </div>
 
@@ -352,21 +495,76 @@
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxgehjHDIKHj1SFnRnodQWFk90Ts7PfMg7wTgcoyB0qhSM_9c2LPVA1Bm7sfwmuF81oAg/exec';
         let currentMode = 'login';
 
-        document.getElementById('reportDate').value = new Date().toISOString().split('T')[0];
+        // Set today's local date accurately
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        document.getElementById('reportDate').value = `${yyyy}-${mm}-${dd}`;
+        
         checkDay();
+        updateUI();
 
-        // Date badalne par check karein ki kya Friday (Jumma) hai
+        function getDayNameFromDate(dateStr) {
+            const parts = dateStr.split('-');
+            const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            return days[dateObj.getDay()];
+        }
+
         function checkDay() {
             const dateVal = document.getElementById('reportDate').value;
-            const dateObj = new Date(dateVal);
-            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            const dayName = days[dateObj.getDay()];
+            if (!dateVal) return;
+            const dayName = getDayNameFromDate(dateVal);
 
             const zuhrLabel = document.getElementById('zuhrLabel');
             if (dayName === 'Friday') {
-                zuhrLabel.innerText = 'Jumma 🕌';
+                zuhrLabel.innerText = '🕌 Jumma Mubarak';
             } else {
-                zuhrLabel.innerText = 'Zuhr';
+                zuhrLabel.innerText = '☀️ Zuhr';
+            }
+        }
+
+        function updateUI() {
+            const prayers = ['fajr', 'zuhr', 'asr', 'maghrib', 'isha'];
+            let score = 0;
+            let totalPossible = 5; // 5 Fard Namaz main focus
+
+            prayers.forEach(p => {
+                const val = document.getElementById(p).value;
+                const card = document.getElementById('card-' + p);
+                card.classList.remove('status-ada', 'status-qaza');
+                if (val === 'Ada') {
+                    card.classList.add('status-ada');
+                    score += 1;
+                } else if (val === 'Qaza') {
+                    card.classList.add('status-qaza');
+                    score += 0.5;
+                }
+            });
+
+            // Highlight Extra Ibadat cards
+            const rozaCard = document.getElementById('card-roza');
+            rozaCard.classList.toggle('status-ada', document.getElementById('roza').value === 'Rakha');
+
+            const tarawihCard = document.getElementById('card-tarawih');
+            tarawihCard.classList.toggle('status-ada', document.getElementById('tarawih').value === 'Ada');
+
+            const quranCard = document.getElementById('card-quran');
+            quranCard.classList.toggle('status-ada', document.getElementById('quran').value !== 'Nahi');
+
+            // Update Progress Bar
+            const percent = Math.round((score / totalPossible) * 100);
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('progressPercent').innerText = percent + '%';
+
+            const pText = document.getElementById('progressText');
+            if (percent === 100) {
+                pText.innerText = '🌟 MashaAllah! 5/5 Namaz Mukammal!';
+            } else if (percent >= 60) {
+                pText.innerText = '✨ Bahut Khoob! Koshish Jari Rakhein';
+            } else {
+                pText.innerText = '🌙 Aaj Ka Farz Namaz Meter';
             }
         }
 
@@ -435,6 +633,7 @@
             document.getElementById('authCard').classList.add('hidden');
             document.getElementById('trackerCard').classList.remove('hidden');
             document.getElementById('welcomeUser').innerText = 'Assalamu Alaikum, ' + name + '!';
+            updateUI();
         }
 
         function logout() {
@@ -452,6 +651,7 @@
             document.getElementById('asr').value = 'Ada';
             document.getElementById('maghrib').value = 'Ada';
             document.getElementById('isha').value = 'Ada';
+            updateUI();
         }
 
         async function saveReport() {
@@ -465,9 +665,7 @@
                 return;
             }
 
-            const dateObj = new Date(date);
-            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            const dayName = days[dateObj.getDay()];
+            const dayName = getDayNameFromDate(date);
 
             const btn = document.getElementById('submitBtn');
             btn.innerText = 'Saving...';
@@ -502,7 +700,7 @@
                 console.error(error);
                 alert('MashaAllah! Report save ho gayi!');
             } finally {
-                btn.innerText = '💾 Google Sheet Par Save Karein';
+                btn.innerText = '💾 Record Google Sheet Mein Mehfooz Karein';
                 btn.disabled = false;
             }
         }
