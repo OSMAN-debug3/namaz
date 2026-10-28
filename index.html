@@ -10,7 +10,7 @@
             --bg-deep: #021a13;
             --bg-emerald: #062f23;
             --card-bg: rgba(8, 53, 40, 0.78);
-            --card-inner: rgba(4, 33, 24, 0.75);
+            --card-inner: rgba(4, 33, 24, 0.85);
             --gold: #d4af37;
             --gold-light: #fbe69b;
             --gold-glow: rgba(212, 175, 55, 0.25);
@@ -47,7 +47,6 @@
             margin: 0 auto;
         }
 
-        /* ISLAMIC HEADER */
         header {
             text-align: center;
             margin-bottom: 24px;
@@ -56,8 +55,6 @@
             background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, rgba(6, 47, 35, 0.4) 100%);
             border: 1px solid var(--border-gold);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
         }
 
         .bismillah {
@@ -89,7 +86,6 @@
             border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* MAIN GLASS CARD */
         .card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
@@ -111,7 +107,6 @@
             gap: 8px;
         }
 
-        /* AUTH TABS */
         .tabs {
             display: flex;
             background: var(--card-inner);
@@ -140,7 +135,6 @@
             box-shadow: 0 4px 12px var(--gold-glow);
         }
 
-        /* USER BANNER */
         .user-banner {
             display: flex;
             justify-content: space-between;
@@ -172,14 +166,8 @@
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.2s;
         }
 
-        .logout-btn:hover {
-            background: rgba(239, 68, 68, 0.3);
-        }
-
-        /* PROGRESS BAR (FOCUS METER) */
         .progress-container {
             background: var(--card-inner);
             border: 1px solid var(--border-subtle);
@@ -214,7 +202,6 @@
             box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
         }
 
-        /* FORM CONTROLS */
         .form-group {
             margin-bottom: 15px;
         }
@@ -236,11 +223,23 @@
             border-radius: 11px;
             font-size: 14.5px;
             font-weight: 500;
-            background: var(--card-inner);
+            background: #042118;
             color: var(--text-main);
             outline: none;
             transition: all 0.2s;
             color-scheme: dark;
+        }
+
+        select optgroup {
+            background: #021a13;
+            color: var(--gold-light);
+            font-weight: 700;
+        }
+
+        select option {
+            background: #042118;
+            color: var(--text-main);
+            padding: 8px;
         }
 
         select:focus, input:focus {
@@ -248,7 +247,6 @@
             box-shadow: 0 0 0 3px var(--gold-glow);
         }
 
-        /* NAMAZ GRID & DYNAMIC CARDS */
         .namaz-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -268,7 +266,6 @@
             grid-column: span 2;
         }
 
-        /* Dynamic Status Glows */
         .namaz-card.status-ada {
             border-color: var(--emerald-bright);
             background: rgba(16, 185, 129, 0.12);
@@ -296,7 +293,6 @@
             margin-bottom: 18px;
         }
 
-        /* BUTTONS */
         .btn {
             width: 100%;
             padding: 15px;
@@ -330,10 +326,6 @@
             margin-bottom: 16px;
             font-size: 13.5px;
             padding: 11px;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(16, 185, 129, 0.25);
         }
 
         .hidden {
@@ -395,315 +387,3 @@
             <!-- LIVE IBADAT FOCUS METER -->
             <div class="progress-container">
                 <div class="progress-header">
-                    <span id="progressText">🌙 Aaj Ka Ibadat Focus</span>
-                    <span id="progressPercent">0%</span>
-                </div>
-                <div class="progress-track">
-                    <div class="progress-fill" id="progressBar"></div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>📅 Tarik (Date)</label>
-                <input type="date" id="reportDate" onchange="checkDay()">
-            </div>
-
-            <button class="btn btn-secondary" onclick="markAll()">✨ Alhumdulillah! Sabhi 5 Farz Namaz Ada Ho Gayi</button>
-
-            <h2>🕋 5 Waqt Ki Farz Namaz</h2>
-            <div class="namaz-grid">
-                <div class="namaz-card" id="card-fajr">
-                    <label><span>🌅 Fajr</span></label>
-                    <select id="fajr" onchange="updateUI()">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                        <option value="Qaza">🕒 Qaza</option>
-                    </select>
-                </div>
-
-                <div class="namaz-card" id="card-zuhr">
-                    <label><span id="zuhrLabel">☀️ Zuhr</span></label>
-                    <select id="zuhr" onchange="updateUI()">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                        <option value="Qaza">🕒 Qaza</option>
-                    </select>
-                </div>
-
-                <div class="namaz-card" id="card-asr">
-                    <label><span>🌤️ Asr</span></label>
-                    <select id="asr" onchange="updateUI()">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                        <option value="Qaza">🕒 Qaza</option>
-                    </select>
-                </div>
-
-                <div class="namaz-card" id="card-maghrib">
-                    <label><span>🌇 Maghrib</span></label>
-                    <select id="maghrib" onchange="updateUI()">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                        <option value="Qaza">🕒 Qaza</option>
-                    </select>
-                </div>
-
-                <div class="namaz-card full-width" id="card-isha">
-                    <label><span>🌌 Isha</span></label>
-                    <select id="isha" onchange="updateUI()">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                        <option value="Qaza">🕒 Qaza</option>
-                    </select>
-                </div>
-            </div>
-
-            <h2>🌙 Roza, Quran & Tarawih</h2>
-            <div class="extra-grid">
-                <div class="namaz-card" id="card-roza">
-                    <label><span>✨ Roza</span></label>
-                    <select id="roza" onchange="updateUI()">
-                        <option value="Nahi">Nahi</option>
-                        <option value="Rakha">🌙 Rakha</option>
-                    </select>
-                </div>
-
-                <div class="namaz-card" id="card-tarawih">
-                    <label><span>🕌 Tarawih</span></label>
-                    <select id="tarawih" onchange="updateUI()">
-                        <option value="Nahi">❌ Nahi</option>
-                        <option value="Ada">✅ Ada</option>
-                    </select>
-                </div>
-
-                <div class="namaz-card full-width" id="card-quran">
-                    <label><span>📖 Quran-e-Pak Tilawat</span></label>
-                    <select id="quran" onchange="updateUI()">
-                        <option value="Nahi">Nahi Padha</option>
-                        <option value="1-2 Pages">📖 1 - 2 Pages</option>
-                        <option value="1 Para">🌟 1 Para</option>
-                        <option value="2 Paras">👑 2 Paras</option>
-                    </select>
-                </div>
-            </div>
-
-            <button class="btn" id="submitBtn" onclick="saveReport()">💾 Record Google Sheet Mein Mehfooz Karein</button>
-        </div>
-    </div>
-
-    <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxgehjHDIKHj1SFnRnodQWFk90Ts7PfMg7wTgcoyB0qhSM_9c2LPVA1Bm7sfwmuF81oAg/exec';
-        let currentMode = 'login';
-
-        // Set today's local date accurately
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const dd = String(today.getDate()).padStart(2, '0');
-        document.getElementById('reportDate').value = `${yyyy}-${mm}-${dd}`;
-        
-        checkDay();
-        updateUI();
-
-        function getDayNameFromDate(dateStr) {
-            const parts = dateStr.split('-');
-            const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
-            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            return days[dateObj.getDay()];
-        }
-
-        function checkDay() {
-            const dateVal = document.getElementById('reportDate').value;
-            if (!dateVal) return;
-            const dayName = getDayNameFromDate(dateVal);
-
-            const zuhrLabel = document.getElementById('zuhrLabel');
-            if (dayName === 'Friday') {
-                zuhrLabel.innerText = '🕌 Jumma Mubarak';
-            } else {
-                zuhrLabel.innerText = '☀️ Zuhr';
-            }
-        }
-
-        function updateUI() {
-            const prayers = ['fajr', 'zuhr', 'asr', 'maghrib', 'isha'];
-            let score = 0;
-            let totalPossible = 5; // 5 Fard Namaz main focus
-
-            prayers.forEach(p => {
-                const val = document.getElementById(p).value;
-                const card = document.getElementById('card-' + p);
-                card.classList.remove('status-ada', 'status-qaza');
-                if (val === 'Ada') {
-                    card.classList.add('status-ada');
-                    score += 1;
-                } else if (val === 'Qaza') {
-                    card.classList.add('status-qaza');
-                    score += 0.5;
-                }
-            });
-
-            // Highlight Extra Ibadat cards
-            const rozaCard = document.getElementById('card-roza');
-            rozaCard.classList.toggle('status-ada', document.getElementById('roza').value === 'Rakha');
-
-            const tarawihCard = document.getElementById('card-tarawih');
-            tarawihCard.classList.toggle('status-ada', document.getElementById('tarawih').value === 'Ada');
-
-            const quranCard = document.getElementById('card-quran');
-            quranCard.classList.toggle('status-ada', document.getElementById('quran').value !== 'Nahi');
-
-            // Update Progress Bar
-            const percent = Math.round((score / totalPossible) * 100);
-            document.getElementById('progressBar').style.width = percent + '%';
-            document.getElementById('progressPercent').innerText = percent + '%';
-
-            const pText = document.getElementById('progressText');
-            if (percent === 100) {
-                pText.innerText = '🌟 MashaAllah! 5/5 Namaz Mukammal!';
-            } else if (percent >= 60) {
-                pText.innerText = '✨ Bahut Khoob! Koshish Jari Rakhein';
-            } else {
-                pText.innerText = '🌙 Aaj Ka Farz Namaz Meter';
-            }
-        }
-
-        window.onload = function() {
-            const savedName = localStorage.getItem('namaz_user');
-            const savedPass = localStorage.getItem('namaz_pass');
-            if (savedName && savedPass) {
-                showTracker(savedName);
-            }
-        };
-
-        function switchTab(mode) {
-            currentMode = mode;
-            document.getElementById('loginTab').classList.toggle('active', mode === 'login');
-            document.getElementById('registerTab').classList.toggle('active', mode === 'register');
-
-            if (mode === 'login') {
-                document.getElementById('authTitle').innerText = 'Apni ID Mein Login Karein';
-                document.getElementById('authBtn').innerText = 'Login Karein';
-                document.getElementById('authHelp').innerText = 'Pehli baar aaye hain? Upar "Nayi ID Banayein" par click karein.';
-            } else {
-                document.getElementById('authTitle').innerText = 'Apni Nayi ID Banayein';
-                document.getElementById('authBtn').innerText = 'ID Banayein (Register)';
-                document.getElementById('authHelp').innerText = 'Apna naam aur ek asan password chunein jo aapko yaad rahe.';
-            }
-        }
-
-        async function handleAuth() {
-            const name = document.getElementById('authName').value.trim();
-            const password = document.getElementById('authPass').value.trim();
-
-            if (!name || !password) {
-                alert('Kripya apna Naam aur Password dono likhein!');
-                return;
-            }
-
-            const btn = document.getElementById('authBtn');
-            const oldText = btn.innerText;
-            btn.innerText = 'Intezar karein...';
-            btn.disabled = true;
-
-            try {
-                const url = `${SCRIPT_URL}?action=${currentMode}&name=${encodeURIComponent(name)}&password=${encodeURIComponent(password)}`;
-                const response = await fetch(url);
-                const data = await response.json();
-
-                if (data.result === 'success') {
-                    const finalName = data.name || name;
-                    localStorage.setItem('namaz_user', finalName);
-                    localStorage.setItem('namaz_pass', password);
-                    alert(data.message);
-                    showTracker(finalName);
-                } else {
-                    alert('❌ ' + data.message);
-                }
-            } catch (error) {
-                console.error(error);
-                alert('Connection mein kuch dikkat aayi. Kripya dobara koshish karein.');
-            } finally {
-                btn.innerText = oldText;
-                btn.disabled = false;
-            }
-        }
-
-        function showTracker(name) {
-            document.getElementById('authCard').classList.add('hidden');
-            document.getElementById('trackerCard').classList.remove('hidden');
-            document.getElementById('welcomeUser').innerText = 'Assalamu Alaikum, ' + name + '!';
-            updateUI();
-        }
-
-        function logout() {
-            localStorage.removeItem('namaz_user');
-            localStorage.removeItem('namaz_pass');
-            document.getElementById('authName').value = '';
-            document.getElementById('authPass').value = '';
-            document.getElementById('trackerCard').classList.add('hidden');
-            document.getElementById('authCard').classList.remove('hidden');
-        }
-
-        function markAll() {
-            document.getElementById('fajr').value = 'Ada';
-            document.getElementById('zuhr').value = 'Ada';
-            document.getElementById('asr').value = 'Ada';
-            document.getElementById('maghrib').value = 'Ada';
-            document.getElementById('isha').value = 'Ada';
-            updateUI();
-        }
-
-        async function saveReport() {
-            const name = localStorage.getItem('namaz_user');
-            const password = localStorage.getItem('namaz_pass');
-            const date = document.getElementById('reportDate').value;
-
-            if (!name || !password) {
-                alert('Kripya pehle login karein!');
-                logout();
-                return;
-            }
-
-            const dayName = getDayNameFromDate(date);
-
-            const btn = document.getElementById('submitBtn');
-            btn.innerText = 'Saving...';
-            btn.disabled = true;
-
-            const params = new URLSearchParams({
-                action: 'save',
-                name: name,
-                password: password,
-                date: date,
-                day: dayName,
-                fajr: document.getElementById('fajr').value,
-                zuhr: document.getElementById('zuhr').value,
-                asr: document.getElementById('asr').value,
-                maghrib: document.getElementById('maghrib').value,
-                isha: document.getElementById('isha').value,
-                roza: document.getElementById('roza').value,
-                quran: document.getElementById('quran').value,
-                tarawih: document.getElementById('tarawih').value
-            });
-
-            try {
-                const response = await fetch(`${SCRIPT_URL}?${params.toString()}`);
-                const data = await response.json();
-
-                if (data.result === 'success') {
-                    alert('✅ MashaAllah! ' + data.message);
-                } else {
-                    alert('❌ ' + data.message);
-                }
-            } catch (error) {
-                console.error(error);
-                alert('MashaAllah! Report save ho gayi!');
-            } finally {
-                btn.innerText = '💾 Record Google Sheet Mein Mehfooz Karein';
-                btn.disabled = false;
-            }
-        }
-    </script>
-</body>
-</html>
