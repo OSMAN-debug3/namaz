@@ -9,17 +9,17 @@
         :root {
             --bg-deep: #021a13;
             --bg-emerald: #062f23;
-            --card-bg: rgba(8, 53, 40, 0.85);
-            --card-inner: rgba(4, 33, 24, 0.9);
+            --card-bg: rgba(8, 53, 40, 0.88);
+            --card-inner: rgba(4, 33, 24, 0.92);
             --gold: #d4af37;
             --gold-light: #fbe69b;
-            --gold-glow: rgba(212, 175, 55, 0.25);
+            --gold-glow: rgba(212, 175, 55, 0.3);
             --emerald-bright: #10b981;
             --amber: #f59e0b;
             --danger: #ef4444;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border-gold: rgba(212, 175, 55, 0.28);
+            --border-gold: rgba(212, 175, 55, 0.32);
             --border-subtle: rgba(255, 255, 255, 0.08);
         }
 
@@ -52,7 +52,7 @@
             margin-bottom: 20px;
             padding: 16px 15px;
             border-radius: 20px;
-            background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, rgba(6, 47, 35, 0.4) 100%);
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.12) 0%, rgba(6, 47, 35, 0.45) 100%);
             border: 1px solid var(--border-gold);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
@@ -161,31 +161,36 @@
             color: #021a13;
         }
 
+        /* PREMIUM USER BANNER WITH HIGH-STANDARD BUTTONS */
         .user-banner {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(212, 175, 55, 0.1));
+            flex-wrap: wrap;
+            gap: 12px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(212, 175, 55, 0.12));
             border: 1px solid var(--border-gold);
-            padding: 12px 15px;
-            border-radius: 14px;
+            padding: 14px 16px;
+            border-radius: 16px;
             margin-bottom: 18px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
         }
 
         .user-profile-flex {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
 
         .avatar-img {
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid var(--gold);
+            border: 2.5px solid var(--gold);
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.25s;
+            box-shadow: 0 0 15px var(--gold-glow);
         }
 
         .avatar-img:hover {
@@ -193,38 +198,59 @@
         }
 
         .user-banner .greeting {
-            font-size: 14.5px;
+            font-size: 15.5px;
             font-weight: 700;
             color: var(--gold-light);
+            margin-bottom: 6px;
         }
 
-        .user-banner .sub {
+        /* HIGH-STANDARD PHOTO UPLOAD BUTTON IN BANNER */
+        .photo-upload-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #10b981, #047857);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 6px 12px;
+            border-radius: 8px;
             font-size: 11.5px;
-            color: #a7f3d0;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        /* HIGH-STANDARD LOGOUT BUTTON */
-        .logout-btn {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(185, 28, 28, 0.3));
-            color: #fca5a5;
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            padding: 8px 14px;
-            border-radius: 10px;
-            font-size: 12px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.25s;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+            transition: all 0.2s ease;
+        }
+
+        .photo-upload-chip:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.1);
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.5);
+        }
+
+        /* HIGH-STANDARD LUXURY LOGOUT BUTTON */
+        .logout-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #ef4444, #991b1b);
+            color: #ffffff;
+            border: 1px solid rgba(252, 165, 165, 0.4);
+            padding: 9px 15px;
+            border-radius: 10px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
         }
 
         .logout-btn:hover {
-            background: rgba(239, 68, 68, 0.4);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            filter: brightness(1.12);
+            box-shadow: 0 6px 18px rgba(239, 68, 68, 0.6);
         }
 
-        /* HIGH-STANDARD FILE UPLOAD BUTTON DESIGN */
+        /* REGISTER FILE UPLOAD BUTTON */
         .file-upload-wrapper {
             position: relative;
             overflow: hidden;
@@ -242,24 +268,22 @@
         }
 
         .file-upload-btn {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 47, 35, 0.6));
-            border: 1px dashed var(--emerald-bright);
-            color: var(--emerald-bright);
-            border-radius: 10px;
-            font-size: 13.5px;
-            font-weight: 600;
+            padding: 13px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: 1px solid var(--gold-light);
+            color: #ffffff;
+            border-radius: 11px;
+            font-size: 14px;
+            font-weight: 700;
             text-align: center;
             cursor: pointer;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
             transition: 0.25s;
-        }
-
-        .file-upload-btn:hover {
-            background: rgba(16, 185, 129, 0.3);
-            border-color: var(--gold);
-            color: var(--gold-light);
         }
 
         .podium-container {
@@ -275,7 +299,7 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
-            padding: 10px;
+            padding: 12px 8px;
             text-align: center;
             flex: 1;
             cursor: pointer;
@@ -289,32 +313,32 @@
 
         .podium-card.rank-1 {
             border-color: var(--gold);
-            background: linear-gradient(180deg, rgba(212, 175, 55, 0.2) 0%, rgba(4, 33, 24, 0.9) 100%);
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.22) 0%, rgba(4, 33, 24, 0.9) 100%);
             transform: translateY(-8px);
         }
 
         .podium-card img {
-            width: 44px;
-            height: 44px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--gold);
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
 
         .podium-card .rank-badge {
-            font-size: 9.5px;
+            font-size: 10px;
             font-weight: 700;
             background: var(--gold);
             color: #021a13;
-            padding: 2px 5px;
+            padding: 2px 6px;
             border-radius: 99px;
             display: inline-block;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
 
         .podium-card .name {
-            font-size: 11px;
+            font-size: 11.5px;
             font-weight: 700;
             white-space: nowrap;
             overflow: hidden;
@@ -322,12 +346,13 @@
         }
 
         .podium-card .score {
-            font-size: 10.5px;
+            font-size: 11px;
             color: var(--emerald-bright);
+            font-weight: 600;
         }
 
         .leaderboard-list {
-            max-height: 280px;
+            max-height: 300px;
             overflow-y: auto;
             border-top: 1px solid var(--border-subtle);
             padding-top: 10px;
@@ -337,9 +362,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 9px 12px;
+            padding: 10px 12px;
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 9px;
+            border-radius: 10px;
             margin-bottom: 6px;
             font-size: 13px;
             cursor: pointer;
@@ -347,53 +372,149 @@
         }
 
         .leaderboard-item:hover {
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(212, 175, 55, 0.12);
             border: 1px solid var(--border-gold);
         }
 
-        /* MODAL FOR ZOOMED PHOTO & STATS */
+        /* MODAL FOR ZOOMED PHOTO & FULL DETAILED REPORT */
         .modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 26, 19, 0.9);
+            background: rgba(2, 26, 19, 0.92);
             backdrop-filter: blur(10px);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            padding: 20px;
+            padding: 15px;
         }
 
         .modal-content {
             background: #062f23;
-            border: 1px solid var(--gold);
+            border: 1.5px solid var(--gold);
             border-radius: 22px;
-            padding: 24px;
+            padding: 22px 18px;
             width: 100%;
-            max-width: 450px;
-            max-height: 85vh;
+            max-width: 500px;
+            max-height: 88vh;
             overflow-y: auto;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
             position: relative;
             text-align: center;
         }
 
         .close-modal {
             position: absolute;
-            top: 15px; right: 18px;
-            font-size: 22px;
-            color: var(--gold);
+            top: 12px; right: 16px;
+            font-size: 26px;
+            color: var(--gold-light);
             cursor: pointer;
+            line-height: 1;
         }
 
         .zoomed-avatar {
-            width: 100px;
-            height: 100px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             object-fit: cover;
+            border: 3.5px solid var(--gold);
+            margin: 0 auto 8px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.35);
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+        }
+
+        .zoomed-avatar:hover {
+            transform: scale(1.06);
+        }
+
+        .zoom-hint {
+            font-size: 11px;
+            color: var(--gold-light);
+            background: rgba(212, 175, 55, 0.15);
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 99px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        /* FULLSCREEN PHOTO LIGHTBOX */
+        .photo-lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.94);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .photo-lightbox img {
+            max-width: 92vw;
+            max-height: 78vh;
+            width: 360px;
+            height: 360px;
+            object-fit: cover;
+            border-radius: 20px;
             border: 3px solid var(--gold);
-            margin: 0 auto 12px;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+        }
+
+        /* DETAILED REPORT CARD INSIDE MODAL & HISTORY */
+        .detailed-record-card {
+            background: rgba(4, 33, 24, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .detailed-record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 6px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gold-light);
+        }
+
+        .Status-pills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .status-pill {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .pill-ada {
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .pill-qaza {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fcd34d;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .pill-nahi {
+            background: rgba(239, 68, 68, 0.18);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.35);
         }
 
         .progress-container {
@@ -455,17 +576,6 @@
             color-scheme: dark;
         }
 
-        select optgroup {
-            background: #021a13;
-            color: var(--gold-light);
-            font-weight: 700;
-        }
-
-        select option {
-            background: #042118;
-            color: var(--text-main);
-        }
-
         .namaz-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -523,18 +633,8 @@
             border-radius: 14px;
             padding: 14px;
             margin-top: 18px;
-            max-height: 250px;
+            max-height: 320px;
             overflow-y: auto;
-        }
-
-        .history-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 12.5px;
-            text-align: left;
         }
 
         .btn {
@@ -566,7 +666,7 @@
         }
 
         .hidden {
-            display: none;
+            display: none !important;
         }
 
         .help-text {
@@ -608,10 +708,10 @@
             </div>
 
             <div class="form-group" id="photoGroup" style="display: none;">
-                <label>Profile Photo Select Karein</label>
+                <label>Profile Photo Upload Karein</label>
                 <div class="file-upload-wrapper">
-                    <button class="file-upload-btn">📁 Gallery se Photo Chunein</button>
-                    <input type="file" id="authPhotoFile" accept="image/*" onchange="compressImage(this, function(base64){ tempBase64Photo = base64; alert('✅ Photo select ho gayi!'); })">
+                    <button type="button" class="file-upload-btn" id="regPhotoBtnText">📸 Gallery Se Apni Photo Chunein</button>
+                    <input type="file" id="authPhotoFile" accept="image/*" onchange="compressImage(this, function(base64){ tempBase64Photo = base64; document.getElementById('regPhotoBtnText').innerText = '✅ Photo Select Ho Gayi!'; })">
                 </div>
             </div>
 
@@ -619,18 +719,20 @@
             <p class="help-text" id="authHelp">Naye hain? Upar "Community ID Banayein" par click karein.</p>
         </div>
 
-        <!-- 2. MAIN APP CONTAINER (AFTER LOGIN) -->
+        <!-- 2. MAIN APP CONTAINER -->
         <div class="card hidden" id="trackerCard">
             <div class="user-banner">
                 <div class="user-profile-flex">
-                    <img id="userAvatar" src="https://i.ibb.co/6Wv1V6Zm/default-avatar.png" class="avatar-img" alt="Avatar" onclick="openMemberProfile(localStorage.getItem('namaz_user'))" title="Click to view full profile">
+                    <img id="userAvatar" src="https://i.ibb.co/6Wv1V6Zm/default-avatar.png" class="avatar-img" alt="Avatar" onclick="openMemberProfile(localStorage.getItem('namaz_user'))" title="Photo Badi Dekhein">
                     <div>
                         <div class="greeting" id="welcomeUser">Assalamu Alaikum!</div>
-                        <div class="sub" onclick="document.getElementById('changePhotoInput').click()">📷 Photo Badlein</div>
+                        <button type="button" class="photo-upload-chip" onclick="document.getElementById('changePhotoInput').click()">
+                            📸 Photo Upload / Badlein
+                        </button>
                         <input type="file" id="changePhotoInput" accept="image/*" style="display: none;" onchange="updateProfilePhoto(this)">
                     </div>
                 </div>
-                <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+                <button type="button" class="logout-btn" onclick="logout()">🚪 Logout Karein</button>
             </div>
 
             <!-- APP SECTIONS NAVIGATION -->
@@ -741,7 +843,7 @@
                 <button class="btn" id="submitBtn" onclick="saveReport()">💾 Pura Record Google Sheet Mein Save Karein</button>
                 <button class="btn btn-secondary" style="margin-top: 12px;" onclick="exportMyReportCSV()">📥 Download My Report (Excel/CSV)</button>
 
-                <h2 style="margin-top: 22px;">📜 Aapka Lifetime Ibadat Record</h2>
+                <h2 style="margin-top: 22px;">📜 Aapka Lifetime Ibadat Record (Puri Detail)</h2>
                 <div class="history-box" id="userHistoryList">
                     <div style="text-align: center; color: var(--text-muted); font-size: 13px;">Data load ho raha hai...</div>
                 </div>
@@ -750,7 +852,7 @@
             <!-- SECTION B: COMMUNITY DASHBOARD -->
             <div id="sectionDashboard" class="hidden">
                 <h2 style="margin-bottom: 14px;">🏆 Community Leaderboard <span>(Top Users)</span></h2>
-                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Kisi bhi member ki photo ya naam par click karke unki badi photo aur purana record dekhein:</div>
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Kisi bhi member ki photo ya naam par click karke unki badi photo aur har namaz ki detail dekhein:</div>
                 
                 <div class="podium-container" id="podiumContainer"></div>
                 <div class="leaderboard-list" id="leaderboardList"></div>
@@ -758,18 +860,26 @@
         </div>
     </div>
 
-    <!-- MEMBER PROFILE & ZOOM PHOTO MODAL -->
+    <!-- MEMBER PROFILE & DETAILED RECORD MODAL -->
     <div id="memberModal" class="modal hidden">
         <div class="modal-content">
             <span class="close-modal" onclick="closeMemberModal()">&times;</span>
-            <div style="margin-bottom: 15px;">
-                <img id="modalUserAvatar" src="" class="zoomed-avatar" alt="Zoomed Photo" title="Profile Photo">
-                <h3 id="modalUserName" style="color: var(--gold-light); font-size: 18px;">Naam</h3>
-                <div id="modalUserPoints" style="font-size: 12.5px; color: var(--emerald-bright); margin-top: 2px;">Total Points</div>
+            <div style="margin-bottom: 14px;">
+                <img id="modalUserAvatar" src="" class="zoomed-avatar" alt="Zoomed Photo" onclick="openFullScreenPhoto(this.src)">
+                <br>
+                <span class="zoom-hint" onclick="openFullScreenPhoto(document.getElementById('modalUserAvatar').src)">🔍 Photo Par Click Karke Full-Screen Zoom Dekhein</span>
+                <h3 id="modalUserName" style="color: var(--gold-light); font-size: 20px; margin-top: 4px;">Naam</h3>
+                <div id="modalUserPoints" style="font-size: 13px; color: var(--emerald-bright); font-weight: 600; margin-top: 2px;">Total Stats</div>
             </div>
-            <h4 style="font-size: 13px; color: var(--gold-light); margin-bottom: 8px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px; text-align: left;">📜 Lifetime Record:</h4>
-            <div id="modalUserHistory" style="max-height: 200px; overflow-y: auto;"></div>
+            <h4 style="font-size: 13.5px; color: var(--gold-light); margin-bottom: 10px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 5px; text-align: left;">📜 Mukammal Ibadat Report:</h4>
+            <div id="modalUserHistory" style="max-height: 290px; overflow-y: auto;"></div>
         </div>
+    </div>
+
+    <!-- FULL-SCREEN PHOTO ZOOM LIGHTBOX -->
+    <div id="photoLightbox" class="photo-lightbox hidden" onclick="closeFullScreenPhoto()">
+        <img id="lightboxImg" src="" alt="Full Zoom">
+        <button type="button" class="btn" style="max-width: 220px; margin-top: 16px;" onclick="closeFullScreenPhoto()">❌ Band Karein</button>
     </div>
 
     <script>
@@ -786,6 +896,61 @@
         document.getElementById('reportDate').value = `${yyyy}-${mm}-${dd}`;
         
         checkDayAndLoadData();
+
+        function openFullScreenPhoto(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('photoLightbox').classList.remove('hidden');
+        }
+
+        function closeFullScreenPhoto() {
+            document.getElementById('photoLightbox').classList.add('hidden');
+        }
+
+        function cleanDateString(rawDate) {
+            if (!rawDate) return '';
+            const str = rawDate.toString();
+            if (str.includes('T')) {
+                const d = new Date(str);
+                if (!isNaN(d.getTime())) {
+                    const y = d.getFullYear();
+                    const m = String(d.getMonth() + 1).padStart(2, '0');
+                    const day = String(d.getDate()).padStart(2, '0');
+                    return `${y}-${m}-${day}`;
+                }
+                return str.split('T')[0];
+            }
+            return str;
+        }
+
+        function getPillClass(val) {
+            if (val === 'Ada' || val === 'Rakha') return 'pill-ada';
+            if (val === 'Qaza') return 'pill-qaza';
+            if (val && val !== 'Nahi') return 'pill-ada';
+            return 'pill-nahi';
+        }
+
+        function createDetailedRecordHTML(r) {
+            const cleanDate = cleanDateString(r.date);
+            const adaCount = [r.fajr, r.zuhr, r.asr, r.maghrib, r.isha].filter(x => x === 'Ada').length;
+            return `
+                <div class="detailed-record-card">
+                    <div class="detailed-record-header">
+                        <span>📅 ${cleanDate} (${r.day || ''})</span>
+                        <span style="color: var(--emerald-bright);">🕋 Farz Ada: ${adaCount}/5</span>
+                    </div>
+                    <div class="Status-pills-grid">
+                        <span class="status-pill ${getPillClass(r.fajr)}">Fajr: ${r.fajr}</span>
+                        <span class="status-pill ${getPillClass(r.zuhr)}">Zuhr: ${r.zuhr}</span>
+                        <span class="status-pill ${getPillClass(r.asr)}">Asr: ${r.asr}</span>
+                        <span class="status-pill ${getPillClass(r.maghrib)}">Maghrib: ${r.maghrib}</span>
+                        <span class="status-pill ${getPillClass(r.isha)}">Isha: ${r.isha}</span>
+                        <span class="status-pill ${getPillClass(r.roza)}">🌙 Roza: ${r.roza}</span>
+                        <span class="status-pill ${getPillClass(r.quran)}">📖 Quran: ${r.quran || 'Nahi'}</span>
+                        <span class="status-pill ${getPillClass(r.tarawih)}">🕌 Tarawih: ${r.tarawih || 'Nahi'}</span>
+                    </div>
+                </div>
+            `;
+        }
 
         function switchSection(section) {
             const trackerSec = document.getElementById('sectionTracker');
@@ -807,6 +972,7 @@
             }
         }
 
+        // High-Resolution compression (320px) taaki zoom karne par photo saaf dikhe
         function compressImage(input, callback) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
@@ -815,21 +981,20 @@
                     img.onload = function() {
                         const canvas = document.createElement('canvas');
                         const ctx = canvas.getContext('2d');
-                        const MAX_WIDTH = 150;
-                        const MAX_HEIGHT = 150;
+                        const MAX_SIZE = 320;
                         let width = img.width;
                         let height = img.height;
 
                         if (width > height) {
-                            if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
+                            if (width > MAX_SIZE) { height *= MAX_SIZE / width; width = MAX_SIZE; }
                         } else {
-                            if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; }
+                            if (height > MAX_SIZE) { width *= MAX_SIZE / height; height = MAX_SIZE; }
                         }
 
                         canvas.width = width;
                         canvas.height = height;
                         ctx.drawImage(img, 0, 0, width, height);
-                        const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                        const dataUrl = canvas.toDataURL('image/jpeg', 0.75);
                         callback(dataUrl);
                     }
                     img.src = e.target.result;
@@ -849,7 +1014,7 @@
                     if (data.result === 'success') {
                         localStorage.setItem('namaz_photo', newPhoto);
                         document.getElementById('userAvatar').src = newPhoto;
-                        alert('✅ Profile Photo update ho gayi!');
+                        alert('✅ MashaAllah! Profile Photo update ho gayi!');
                         fetchAllDataAndRefresh();
                     } else {
                         alert('❌ ' + data.message);
@@ -938,7 +1103,7 @@
             const currentDate = document.getElementById('reportDate').value;
 
             let userScores = globalUsers.map(u => {
-                const rep = globalReports.find(r => r.name.toLowerCase() === u.name.toLowerCase() && r.date.startsWith(currentDate));
+                const rep = globalReports.find(r => r.name.toLowerCase() === u.name.toLowerCase() && cleanDateString(r.date) === currentDate);
                 let points = 0;
                 if (rep) {
                     ['fajr', 'zuhr', 'asr', 'maghrib', 'isha'].forEach(p => {
@@ -984,12 +1149,12 @@
                 item.className = 'leaderboard-item';
                 item.onclick = () => openMemberProfile(user.name);
                 item.innerHTML = `
-                    <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
                         <span style="font-weight:700; color:var(--gold);">#${idx + 4}</span>
-                        <img src="${user.photo}" style="width:26px; height:26px; border-radius:50%; object-fit:cover;">
-                        <span>${user.name}</span>
+                        <img src="${user.photo}" style="width:32px; height:32px; border-radius:50%; object-fit:cover; border:1px solid var(--gold);">
+                        <span style="font-weight:600;">${user.name}</span>
                     </div>
-                    <span style="color:var(--emerald-bright); font-weight:600;">⭐ ${user.points} Pts</span>
+                    <span style="color:var(--emerald-bright); font-weight:700;">⭐ ${user.points} Pts</span>
                 `;
                 leaderboardList.appendChild(item);
             });
@@ -1005,9 +1170,9 @@
                     item.className = 'leaderboard-item';
                     item.onclick = () => openMemberProfile(user.name);
                     item.innerHTML = `
-                        <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
                             <span style="font-weight:600; color:var(--text-muted);">#${idx + 11}</span>
-                            <img src="${user.photo}" style="width:24px; height:24px; border-radius:50%; object-fit:cover;">
+                            <img src="${user.photo}" style="width:28px; height:28px; border-radius:50%; object-fit:cover;">
                             <span>${user.name}</span>
                         </div>
                         <span style="color:var(--emerald-bright);">⭐ ${user.points} Pts</span>
@@ -1021,9 +1186,16 @@
             const userObj = globalUsers.find(u => u.name.toLowerCase() === userName.toLowerCase());
             const userRecords = globalReports.filter(r => r.name.toLowerCase() === userName.toLowerCase());
 
+            let totalNamazAda = 0;
+            let totalRoza = 0;
+            userRecords.forEach(r => {
+                totalNamazAda += [r.fajr, r.zuhr, r.asr, r.maghrib, r.isha].filter(x => x === 'Ada').length;
+                if (r.roza === 'Rakha') totalRoza++;
+            });
+
             document.getElementById('modalUserName').innerText = userName;
             document.getElementById('modalUserAvatar').src = userObj ? userObj.photo : 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png';
-            document.getElementById('modalUserPoints').innerText = `Total Entries: ${userRecords.length}`;
+            document.getElementById('modalUserPoints').innerText = `Kul Din: ${userRecords.length} | Kul Farz Namaz Ada: ${totalNamazAda} | Kul Roze: ${totalRoza}`;
 
             const histContainer = document.getElementById('modalUserHistory');
             histContainer.innerHTML = '';
@@ -1031,15 +1203,8 @@
             if (userRecords.length === 0) {
                 histContainer.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 12px; padding: 10px;">Koi record nahi mila.</div>`;
             } else {
-                userRecords.reverse().forEach(r => {
-                    let adaCount = [r.fajr, r.zuhr, r.asr, r.maghrib, r.isha].filter(x => x === 'Ada').length;
-                    const div = document.createElement('div');
-                    div.className = 'history-item';
-                    div.innerHTML = `
-                        <div><b>${r.date}</b> (${r.day || ''})</div>
-                        <div style="color: var(--emerald-bright);">Namaz: ${adaCount}/5 | Roza: ${r.roza}</div>
-                    `;
-                    histContainer.appendChild(div);
+                userRecords.slice().reverse().forEach(r => {
+                    histContainer.innerHTML += createDetailedRecordHTML(r);
                 });
             }
 
@@ -1063,15 +1228,8 @@
             }
 
             listContainer.innerHTML = '';
-            userRecords.reverse().forEach(r => {
-                let adaCount = [r.fajr, r.zuhr, r.asr, r.maghrib, r.isha].filter(x => x === 'Ada').length;
-                const item = document.createElement('div');
-                item.className = 'history-item';
-                item.innerHTML = `
-                    <div><b>${r.date}</b> (${r.day || ''})</div>
-                    <div style="color: var(--emerald-bright);">Namaz: ${adaCount}/5 | Roza: ${r.roza}</div>
-                `;
-                listContainer.appendChild(item);
+            userRecords.slice().reverse().forEach(r => {
+                listContainer.innerHTML += createDetailedRecordHTML(r);
             });
         }
 
@@ -1086,7 +1244,7 @@
 
             let csvContent = "data:text/csv;charset=utf-8,Date,Day,Name,Fajr,Zuhr,Asr,Maghrib,Isha,Roza,Quran,Tarawih\n";
             userRecords.forEach(r => {
-                csvContent += `${r.date},${r.day},${r.name},${r.fajr},${r.zuhr},${r.asr},${r.maghrib},${r.isha},${r.roza},${r.quran},${r.tarawih}\n`;
+                csvContent += `${cleanDateString(r.date)},${r.day},${r.name},${r.fajr},${r.zuhr},${r.asr},${r.maghrib},${r.isha},${r.roza},${r.quran},${r.tarawih}\n`;
             });
 
             const encodedUri = encodeURI(csvContent);
