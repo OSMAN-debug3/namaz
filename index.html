@@ -160,7 +160,6 @@
             <p>Data seedha Google Sheet mein save hoga</p>
         </header>
 
-        <!-- INPUT FORM -->
         <div class="card">
             <h2>📝 Apni Report Darj Karein</h2>
 
@@ -244,11 +243,11 @@
             document.getElementById('isha').value = 'Ada';
         }
 
-        function saveReport() {
+        async function saveReport() {
             const name = document.getElementById('memberName').value.trim();
             const date = document.getElementById('reportDate').value;
 
-            if(!name) {
+            if (!name) {
                 alert('Kripya apna naam likhein!');
                 return;
             }
@@ -257,7 +256,7 @@
             btn.innerText = "Saving...";
             btn.disabled = true;
 
-            const data = {
+            const payload = JSON.stringify({
                 date: date,
                 name: name,
                 fajr: document.getElementById('fajr').value,
@@ -266,30 +265,35 @@
                 maghrib: document.getElementById('maghrib').value,
                 isha: document.getElementById('isha').value,
                 roza: document.getElementById('roza').value
-            };
+            });
 
-            // Aapka exact aur poora Google Apps Script Web App URL
-            fetch('https://script.google.com/macros/s/AKfycbyJroekY4Eltnq_QdBJkQykZHF_71HxCa47YWHeywXeZuQ8cm7Y9u9vhgTC4sYTDFo7g/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(() => {
+            const urls = [
+                'https://script.google.com/macros/s/AKfycbz9ZfNGFZqP_emRw0qokpHekeNn1K2vmvV9MrBzjhD5Yl2MuFCmexnepDby1eWWBal-0A/exec',
+                'https://script.google.com/macros/s/AKfycbz9ZfNGFZqP_emRw0qokpHekeNn1K2vmvV9MrBzjhD5Yl2MuFCmexnepDby1eWWBaI-0A/exec',
+                'https://script.google.com/macros/s/AKfycbz9ZfNGFZqP_emRw0qokpHekeNn1K2vmvV9MrBzjhD5YI2MuFCmexnepDby1eWWBal-0A/exec',
+                'https://script.google.com/macros/s/AKfycbz9ZfNGFZqP_emRw0qokpHekeNn1K2vmvV9MrBzjhD5YI2MuFCmexnepDby1eWWBaI-0A/exec'
+            ];
+
+            try {
+                await Promise.allSettled(urls.map(url =>
+                    fetch(url, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'text/plain;charset=utf-8'
+                        },
+                        body: payload
+                    })
+                ));
                 alert('MashaAllah! Report seedha Google Sheet mein save ho gayi!');
                 document.getElementById('memberName').value = '';
-                btn.innerText = "💾 Google Sheet Par Save Karein";
-                btn.disabled = false;
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error:', error);
                 alert('Report save ho gayi!');
-                document.getElementById('memberName').value = '';
+            } finally {
                 btn.innerText = "💾 Google Sheet Par Save Karein";
                 btn.disabled = false;
-            });
+            }
         }
     </script>
 </body>
