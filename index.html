@@ -161,7 +161,6 @@
             color: #021a13;
         }
 
-        /* PREMIUM USER BANNER WITH HIGH-STANDARD BUTTONS */
         .user-banner {
             display: flex;
             justify-content: space-between;
@@ -204,7 +203,6 @@
             margin-bottom: 6px;
         }
 
-        /* HIGH-STANDARD PHOTO UPLOAD BUTTON IN BANNER */
         .photo-upload-chip {
             display: inline-flex;
             align-items: center;
@@ -224,10 +222,8 @@
         .photo-upload-chip:hover {
             transform: translateY(-1px);
             filter: brightness(1.1);
-            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.5);
         }
 
-        /* HIGH-STANDARD LUXURY LOGOUT BUTTON */
         .logout-btn {
             display: inline-flex;
             align-items: center;
@@ -247,10 +243,8 @@
         .logout-btn:hover {
             transform: translateY(-2px);
             filter: brightness(1.12);
-            box-shadow: 0 6px 18px rgba(239, 68, 68, 0.6);
         }
 
-        /* REGISTER FILE UPLOAD BUTTON */
         .file-upload-wrapper {
             position: relative;
             overflow: hidden;
@@ -351,6 +345,17 @@
             font-weight: 600;
         }
 
+        .badge-chip {
+            display: inline-block;
+            font-size: 9.5px;
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold-light);
+            border: 1px solid var(--gold);
+            padding: 2px 6px;
+            border-radius: 99px;
+            margin-top: 3px;
+        }
+
         .leaderboard-list {
             max-height: 300px;
             overflow-y: auto;
@@ -376,7 +381,7 @@
             border: 1px solid var(--border-gold);
         }
 
-        /* MODAL FOR ZOOMED PHOTO & FULL DETAILED REPORT */
+        /* MODAL FOR ZOOMED PHOTO & DETAILED RECORD & MESSAGE */
         .modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -424,10 +429,6 @@
             transition: transform 0.3s ease;
         }
 
-        .zoomed-avatar:hover {
-            transform: scale(1.06);
-        }
-
         .zoom-hint {
             font-size: 11px;
             color: var(--gold-light);
@@ -439,7 +440,6 @@
             cursor: pointer;
         }
 
-        /* FULLSCREEN PHOTO LIGHTBOX */
         .photo-lightbox {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -463,7 +463,16 @@
             box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
         }
 
-        /* DETAILED REPORT CARD INSIDE MODAL & HISTORY */
+        /* DIRECT MESSAGE BOX */
+        .message-box-container {
+            background: rgba(4, 33, 24, 0.95);
+            border: 1px solid var(--border-gold);
+            border-radius: 14px;
+            padding: 14px;
+            margin-top: 16px;
+            text-align: left;
+        }
+
         .detailed-record-card {
             background: rgba(4, 33, 24, 0.9);
             border: 1px solid rgba(212, 175, 55, 0.25);
@@ -564,7 +573,7 @@
             letter-spacing: 0.5px;
         }
 
-        select, input {
+        select, input, textarea {
             width: 100%;
             padding: 11px 13px;
             border: 1px solid var(--border-subtle);
@@ -574,6 +583,11 @@
             color: var(--text-main);
             outline: none;
             color-scheme: dark;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 70px;
         }
 
         .namaz-grid {
@@ -852,7 +866,7 @@
             <!-- SECTION B: COMMUNITY DASHBOARD -->
             <div id="sectionDashboard" class="hidden">
                 <h2 style="margin-bottom: 14px;">🏆 Community Leaderboard <span>(Top Users)</span></h2>
-                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Kisi bhi member ki photo ya naam par click karke unki badi photo aur har namaz ki detail dekhein:</div>
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Kisi bhi member ki photo ya naam par click karke unki badi photo, badges aur har namaz ki detail dekhein:</div>
                 
                 <div class="podium-container" id="podiumContainer"></div>
                 <div class="leaderboard-list" id="leaderboardList"></div>
@@ -860,19 +874,28 @@
         </div>
     </div>
 
-    <!-- MEMBER PROFILE & DETAILED RECORD MODAL -->
+    <!-- MEMBER PROFILE & DETAILED RECORD MODAL WITH DIRECT MESSAGE -->
     <div id="memberModal" class="modal hidden">
         <div class="modal-content">
             <span class="close-modal" onclick="closeMemberModal()">&times;</span>
             <div style="margin-bottom: 14px;">
-                <img id="modalUserAvatar" src="" class="zoomed-avatar" alt="Zoomed Photo" onclick="openFullScreenPhoto(this.src)">
+                <img id="modalUserAvatar" src="" class="zoomed-avatar" alt="Zoomed Photo" onclick="openFullScreenPhoto(this.src)" title="Photo par click karke full screen dekhein">
                 <br>
-                <span class="zoom-hint" onclick="openFullScreenPhoto(document.getElementById('modalUserAvatar').src)">🔍 Photo Par Click Karke Full-Screen Zoom Dekhein</span>
+                <span class="zoom-hint" onclick="openFullScreenPhoto(document.getElementById('modalUserAvatar').src)">🔍 Full-Screen Zoom Dekhein</span>
                 <h3 id="modalUserName" style="color: var(--gold-light); font-size: 20px; margin-top: 4px;">Naam</h3>
-                <div id="modalUserPoints" style="font-size: 13px; color: var(--emerald-bright); font-weight: 600; margin-top: 2px;">Total Stats</div>
+                <div id="modalUserBadges" style="margin: 4px 0;"></div>
+                <div id="modalUserPoints" style="font-size: 12px; color: var(--emerald-bright); font-weight: 600; margin-top: 2px;">Total Stats</div>
             </div>
-            <h4 style="font-size: 13.5px; color: var(--gold-light); margin-bottom: 10px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 5px; text-align: left;">📜 Mukammal Ibadat Report:</h4>
-            <div id="modalUserHistory" style="max-height: 290px; overflow-y: auto;"></div>
+
+            <!-- DIRECT MESSAGE / SUGGESTION BOX -->
+            <div class="message-box-container">
+                <label style="color: var(--gold-light); margin-bottom: 4px;">✉️ Inhe Direct Message / Suggestion Bhejein:</label>
+                <textarea id="directMsgInput" placeholder="Yahan apna message ya suggestion likhein..."></textarea>
+                <button type="button" class="btn" style="padding: 10px; font-size: 13px; margin-top: 8px;" onclick="sendDirectMessage()">📤 Message Bhejein</button>
+            </div>
+
+            <h4 style="font-size: 13.5px; color: var(--gold-light); margin: 14px 0 8px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 5px; text-align: left;">📜 Mukammal Ibadat Report:</h4>
+            <div id="modalUserHistory" style="max-height: 250px; overflow-y: auto;"></div>
         </div>
     </div>
 
@@ -888,6 +911,7 @@
         let globalReports = [];
         let globalUsers = [];
         let tempBase64Photo = 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png';
+        let activeProfileName = '';
 
         const today = new Date();
         const yyyy = today.getFullYear();
@@ -952,6 +976,37 @@
             `;
         }
 
+        // Calculate User Streaks & Badges
+        function getUserStreakAndBadge(userName, records) {
+            const userRecs = records.filter(r => r.name.toLowerCase() === userName.toLowerCase());
+            if (userRecs.length === 0) return { streak: 0, badge: '' };
+
+            // Sort by date descending
+            userRecs.sort((a, b) => new Date(cleanDateString(b.date)) - new Date(cleanDateString(a.date)));
+
+            let streak = 0;
+            let expectedDate = new Date();
+
+            for (let i = 0; i < userRecs.length; i++) {
+                const recDateStr = cleanDateString(userRecs[i].date);
+                const recDate = new Date(recDateStr);
+                const adaCount = [userRecs[i].fajr, userRecs[i].zuhr, userRecs[i].asr, userRecs[i].maghrib, userRecs[i].isha].filter(x => x === 'Ada').length;
+                
+                if (adaCount === 5) {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+
+            let badge = '';
+            if (streak >= 30) badge = '👑 Mah-e-Taqwa (30+ Days)';
+            else if (streak >= 7) badge = '⭐ 7-Day Streaker';
+            else if (streak >= 3) badge = '✨ Consistent (3+ Days)';
+
+            return { streak, badge };
+        }
+
         function switchSection(section) {
             const trackerSec = document.getElementById('sectionTracker');
             const dashSec = document.getElementById('sectionDashboard');
@@ -972,7 +1027,6 @@
             }
         }
 
-        // High-Resolution compression (320px) taaki zoom karne par photo saaf dikhe
         function compressImage(input, callback) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
@@ -1114,7 +1168,8 @@
                     if (rep.tarawih === 'Ada') points += 1;
                     if (rep.quran && rep.quran !== 'Nahi') points += 1;
                 }
-                return { name: u.name, photo: u.photo, points: points };
+                const st = getUserStreakAndBadge(u.name, globalReports);
+                return { name: u.name, photo: u.photo, points: points, badge: st.badge };
             });
 
             userScores.sort((a, b) => b.points - a.points);
@@ -1132,6 +1187,7 @@
                     <img src="${user.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" alt="img">
                     <div class="name">${user.name}</div>
                     <div class="score">⭐ ${user.points} Pts</div>
+                    ${user.badge ? `<div class="badge-chip">${user.badge}</div>` : ''}
                 `;
                 podiumContainer.appendChild(card);
             });
@@ -1152,7 +1208,10 @@
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <span style="font-weight:700; color:var(--gold);">#${idx + 4}</span>
                         <img src="${user.photo}" style="width:32px; height:32px; border-radius:50%; object-fit:cover; border:1px solid var(--gold);">
-                        <span style="font-weight:600;">${user.name}</span>
+                        <div>
+                            <span style="font-weight:600; display:block;">${user.name}</span>
+                            ${user.badge ? `<span style="font-size:9.5px; color:var(--gold-light);">${user.badge}</span>` : ''}
+                        </div>
                     </div>
                     <span style="color:var(--emerald-bright); font-weight:700;">⭐ ${user.points} Pts</span>
                 `;
@@ -1183,8 +1242,10 @@
         }
 
         function openMemberProfile(userName) {
+            activeProfileName = userName;
             const userObj = globalUsers.find(u => u.name.toLowerCase() === userName.toLowerCase());
             const userRecords = globalReports.filter(r => r.name.toLowerCase() === userName.toLowerCase());
+            const st = getUserStreakAndBadge(userName, globalReports);
 
             let totalNamazAda = 0;
             let totalRoza = 0;
@@ -1195,7 +1256,16 @@
 
             document.getElementById('modalUserName').innerText = userName;
             document.getElementById('modalUserAvatar').src = userObj ? userObj.photo : 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png';
+            
+            const badgeDiv = document.getElementById('modalUserBadges');
+            if (st.badge) {
+                badgeDiv.innerHTML = `<span class="badge-chip" style="font-size:11px; padding:3px 10px;">${st.badge}</span>`;
+            } else {
+                badgeDiv.innerHTML = '';
+            }
+
             document.getElementById('modalUserPoints').innerText = `Kul Din: ${userRecords.length} | Kul Farz Namaz Ada: ${totalNamazAda} | Kul Roze: ${totalRoza}`;
+            document.getElementById('directMsgInput').value = '';
 
             const histContainer = document.getElementById('modalUserHistory');
             histContainer.innerHTML = '';
@@ -1209,6 +1279,29 @@
             }
 
             document.getElementById('memberModal').classList.remove('hidden');
+        }
+
+        async function sendDirectMessage() {
+            const msg = document.getElementById('directMsgInput').value.trim();
+            const senderName = localStorage.getItem('namaz_user');
+
+            if (!msg) {
+                alert('Kripya apna message ya suggestion likhein!');
+                return;
+            }
+
+            try {
+                const res = await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent(senderName)}&message=${encodeURIComponent(msg)}`);
+                const data = await res.json();
+                if (data.result === 'success') {
+                    alert('✅ ' + data.message);
+                    document.getElementById('directMsgInput').value = '';
+                } else {
+                    alert('❌ ' + data.message);
+                }
+            } catch(e) {
+                alert('Message bhejne mein error aayi.');
+            }
         }
 
         function closeMemberModal() {
