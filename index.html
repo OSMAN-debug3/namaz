@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="google-site-verification" content="rW9cGFHMlhNqHxvCfr6nPBlGQpn8Eib-bnkORhQfVJc" />
-    <!-- CUSTOM LOGO / FAVICON FOR GOOGLE SEARCH -->
     <link rel="icon" type="image/jpeg" href="https://osman-debug3.github.io/namaz/logo.jpg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Al-Mizan | Community & Tracker</title>
@@ -178,6 +177,7 @@
             color: #ffffff;
         }
 
+        /* BOTTOM FIXED NAVIGATION BAR (DASHBOARD IN CENTER, MERI A'AMAL AT LAST) */
         .bottom-nav-bar {
             position: fixed;
             bottom: 0;
@@ -204,7 +204,7 @@
             border: 1px solid rgba(212, 175, 55, 0.2);
             background: rgba(8, 53, 40, 0.6);
             border-radius: 12px;
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 700;
             color: var(--text-muted);
             cursor: pointer;
@@ -874,6 +874,7 @@
                 <button type="button" class="logout-btn" onclick="logout()">🚪 Logout Karein</button>
             </div>
 
+            <!-- SECTION A: PERSONAL TRACKER -->
             <div id="sectionTracker">
                 <div class="progress-container">
                     <div class="progress-header">
@@ -975,15 +976,7 @@
                 <button type="button" class="btn" id="submitBtn" onclick="saveReport()">💾 Pura Record Google Sheet Mein Save Karein</button>
             </div>
 
-            <div id="sectionRecords" class="hidden">
-                <h2>📜 Aapka Lifetime Ibadat Record (Puri Detail)</h2>
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Yahan aapki har roz ki bheji gayi mukammal ibadat report mahfooz hai:</p>
-                <button type="button" class="btn btn-secondary" onclick="exportMyReportCSV()">📥 Download My Report (Excel/CSV)</button>
-                <div class="history-box" id="userHistoryList">
-                    <div style="text-align: center; color: var(--text-muted); font-size: 13px;">Data load ho raha hai...</div>
-                </div>
-            </div>
-
+            <!-- SECTION B: COMMUNITY DASHBOARD (NOW IN CENTER) -->
             <div id="sectionDashboard" class="hidden">
                 <h2 style="margin-bottom: 14px;">🏆 Community Leaderboard <span>(Top Users)</span></h2>
                 <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Kisi bhi member ki photo ya naam par click karke unki Ultra-HD photo, badges aur har namaz ki detail dekhein:</div>
@@ -991,23 +984,35 @@
                 <div class="podium-container" id="podiumContainer"></div>
                 <div class="leaderboard-list" id="leaderboardList"></div>
             </div>
+
+            <!-- SECTION C: MERI A'AMAL (NOW AT THE END) -->
+            <div id="sectionRecords" class="hidden">
+                <h2>📜 Meri A'amal (Puri Detail)</h2>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Yahan aapki har roz ki bheji gayi mukammal ibadat report mahfooz hai:</p>
+                <button type="button" class="btn btn-secondary" onclick="exportMyReportCSV()">📥 Download My Report (Excel/CSV)</button>
+                <div class="history-box" id="userHistoryList">
+                    <div style="text-align: center; color: var(--text-muted); font-size: 13px;">Data load ho raha hai...</div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- FIXED BOTTOM NAVIGATION LINE (DASHBOARD CENTER, MERI A'AMAL LAST) -->
     <div id="bottomNavBar" class="bottom-nav-bar hidden">
         <div class="bottom-nav-inner">
             <button type="button" class="bottom-nav-btn active" id="navTrackerBtn" onclick="switchSection('tracker')">
                 <span>📝 Report Bhejein</span>
             </button>
-            <button type="button" class="bottom-nav-btn" id="navRecordsBtn" onclick="switchSection('records')">
-                <span>📜 Mera Record</span>
-            </button>
             <button type="button" class="bottom-nav-btn" id="navDashBtn" onclick="switchSection('dashboard')">
                 <span>🏆 Dashboard</span>
+            </button>
+            <button type="button" class="bottom-nav-btn" id="navRecordsBtn" onclick="switchSection('records')">
+                <span>📜 Meri A'amal</span>
             </button>
         </div>
     </div>
 
+    <!-- MEMBER PROFILE MODAL -->
     <div id="memberModal" class="modal hidden">
         <div class="modal-content">
             <span class="close-modal" onclick="closeMemberModal()">&times;</span>
@@ -1025,6 +1030,7 @@
         </div>
     </div>
 
+    <!-- FULL-SCREEN PHOTO ZOOM LIGHTBOX -->
     <div id="photoLightbox" class="photo-lightbox hidden" onclick="closeFullScreenPhoto()">
         <img id="lightboxImg" src="" alt="Full Zoom">
         <button type="button" class="btn" style="max-width: 220px; margin-top: 16px;" onclick="closeFullScreenPhoto()">❌ Band Karein</button>
@@ -1159,31 +1165,31 @@
 
         function switchSection(section) {
             const trackerSec = document.getElementById('sectionTracker');
-            const recordsSec = document.getElementById('sectionRecords');
             const dashSec = document.getElementById('sectionDashboard');
+            const recordsSec = document.getElementById('sectionRecords');
             
             const trackerBtn = document.getElementById('navTrackerBtn');
-            const recordsBtn = document.getElementById('navRecordsBtn');
             const dashBtn = document.getElementById('navDashBtn');
+            const recordsBtn = document.getElementById('navRecordsBtn');
 
             trackerSec.classList.add('hidden');
-            recordsSec.classList.add('hidden');
             dashSec.classList.add('hidden');
+            recordsSec.classList.add('hidden');
 
             trackerBtn.classList.remove('active');
-            recordsBtn.classList.remove('active');
             dashBtn.classList.remove('active');
+            recordsBtn.classList.remove('active');
 
             if (section === 'tracker') {
                 trackerSec.classList.remove('hidden');
                 trackerBtn.classList.add('active');
-            } else if (section === 'records') {
-                recordsSec.classList.remove('hidden');
-                recordsBtn.classList.add('active');
-                fetchAllDataAndRefresh();
-            } else {
+            } else if (section === 'dashboard') {
                 dashSec.classList.remove('hidden');
                 dashBtn.classList.add('active');
+                fetchAllDataAndRefresh();
+            } else {
+                recordsSec.classList.remove('hidden');
+                recordsBtn.classList.add('active');
                 fetchAllDataAndRefresh();
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
