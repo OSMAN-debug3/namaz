@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="google-site-verification" content="rW9cGFHMlhNqHxvCfr6nPBlGQpn8Eib-bnkORhQfVJc" />
+    <!-- CUSTOM LOGO / FAVICON FOR GOOGLE SEARCH -->
+    <link rel="icon" type="image/jpeg" href="https://osman-debug3.github.io/namaz/logo.jpg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Al-Mizan | Community & Tracker</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -39,7 +41,7 @@
                 repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.02) 0px, rgba(212, 175, 55, 0.02) 2px, transparent 2px, transparent 12px);
             color: var(--text-main);
             min-height: 100vh;
-            padding: 20px 15px 95px; /* Bottom space for fixed bottom nav bar */
+            padding: 20px 15px 95px;
             line-height: 1.5;
         }
 
@@ -155,7 +157,6 @@
             border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* ISLAMIC CALENDAR BADGE IN HEADER (ARABIC MONTH + NORMAL NUMBERS) */
         .hijri-badge {
             background: rgba(212, 175, 55, 0.16);
             border: 1px solid var(--gold);
@@ -177,7 +178,6 @@
             color: #ffffff;
         }
 
-        /* BOTTOM FIXED NAVIGATION BAR */
         .bottom-nav-bar {
             position: fixed;
             bottom: 0;
@@ -792,7 +792,6 @@
 </head>
 <body>
 
-    <!-- LEFT SIDE 3-LINE SLIDE DRAWER -->
     <div id="sideDrawerOverlay" class="side-drawer-overlay hidden" onclick="closeSideMenu(event)">
         <div class="side-drawer" onclick="event.stopPropagation()">
             <span class="drawer-close" onclick="toggleSideMenu()">&times;</span>
@@ -825,11 +824,9 @@
             <div class="ayah-box">
                 "Neki aur taqwa ke kaamon mein ek dusre ki madad karo." (Al-Quran 5:2)
             </div>
-            <!-- ISLAMIC HIJRI CALENDAR BADGE (ARABIC MONTH + NORMAL DIGITS) -->
             <div class="hijri-badge" id="hijriDateBadge">🌙 Hijri Calendar...</div>
         </header>
 
-        <!-- 1. LOGIN / REGISTER CARD (SUPPORTS ENTER KEY TO LOGIN) -->
         <div class="card" id="authCard">
             <div class="tabs">
                 <button type="button" class="tab-btn active" id="loginTab" onclick="switchTab('login')">🔑 Login Karein</button>
@@ -862,7 +859,6 @@
             <p class="help-text" id="authHelp">Naye hain? Upar "Community ID Banayein" par click karein.</p>
         </div>
 
-        <!-- 2. MAIN APP CONTAINER -->
         <div class="card hidden" id="trackerCard">
             <div class="user-banner">
                 <div class="user-profile-flex">
@@ -878,7 +874,6 @@
                 <button type="button" class="logout-btn" onclick="logout()">🚪 Logout Karein</button>
             </div>
 
-            <!-- SECTION A: PERSONAL TRACKER (CLEAN & COMPACT) -->
             <div id="sectionTracker">
                 <div class="progress-container">
                     <div class="progress-header">
@@ -980,7 +975,6 @@
                 <button type="button" class="btn" id="submitBtn" onclick="saveReport()">💾 Pura Record Google Sheet Mein Save Karein</button>
             </div>
 
-            <!-- SECTION B: SEPARATE LIFETIME IBADAT RECORD PAGE -->
             <div id="sectionRecords" class="hidden">
                 <h2>📜 Aapka Lifetime Ibadat Record (Puri Detail)</h2>
                 <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Yahan aapki har roz ki bheji gayi mukammal ibadat report mahfooz hai:</p>
@@ -990,7 +984,6 @@
                 </div>
             </div>
 
-            <!-- SECTION C: COMMUNITY DASHBOARD -->
             <div id="sectionDashboard" class="hidden">
                 <h2 style="margin-bottom: 14px;">🏆 Community Leaderboard <span>(Top Users)</span></h2>
                 <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Kisi bhi member ki photo ya naam par click karke unki Ultra-HD photo, badges aur har namaz ki detail dekhein:</div>
@@ -1001,7 +994,6 @@
         </div>
     </div>
 
-    <!-- FIXED BOTTOM NAVIGATION LINE (BAR) -->
     <div id="bottomNavBar" class="bottom-nav-bar hidden">
         <div class="bottom-nav-inner">
             <button type="button" class="bottom-nav-btn active" id="navTrackerBtn" onclick="switchSection('tracker')">
@@ -1016,7 +1008,6 @@
         </div>
     </div>
 
-    <!-- MEMBER PROFILE MODAL -->
     <div id="memberModal" class="modal hidden">
         <div class="modal-content">
             <span class="close-modal" onclick="closeMemberModal()">&times;</span>
@@ -1034,7 +1025,6 @@
         </div>
     </div>
 
-    <!-- FULL-SCREEN PHOTO ZOOM LIGHTBOX -->
     <div id="photoLightbox" class="photo-lightbox hidden" onclick="closeFullScreenPhoto()">
         <img id="lightboxImg" src="" alt="Full Zoom">
         <button type="button" class="btn" style="max-width: 220px; margin-top: 16px;" onclick="closeFullScreenPhoto()">❌ Band Karein</button>
@@ -1055,12 +1045,11 @@
         
         const dateInput = document.getElementById('reportDate');
         dateInput.value = todayStr;
-        dateInput.max = todayStr; // FUTURE DATES LOCKED
+        dateInput.max = todayStr;
         
         loadHijriCalendar(today);
         checkDayAndLoadData();
 
-        // Load Islamic Hijri Date (Arabic Month Name + Standard Digits)
         async function loadHijriCalendar(dateObj) {
             try {
                 const d = String(dateObj.getDate()).padStart(2, '0');
@@ -1070,7 +1059,6 @@
                 const data = await res.json();
                 if (data && data.data && data.data.hijri) {
                     const hijri = data.data.hijri;
-                    // hijri.day and hijri.year are normal numbers (e.g. 18 and 1448), hijri.month.ar is Arabic script
                     document.getElementById('hijriDateBadge').innerHTML = `🌙 ${hijri.day} <span class="ar-month">${hijri.month.ar}</span> ${hijri.year} هـ`;
                 }
             } catch (e) {
@@ -1169,7 +1157,6 @@
             return { streak, badge };
         }
 
-        // Switch between the 3 Bottom Navigation Sections
         function switchSection(section) {
             const trackerSec = document.getElementById('sectionTracker');
             const recordsSec = document.getElementById('sectionRecords');
@@ -1202,7 +1189,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ULTRA-HD 1:1 SQUARE CROP + WEBP COMPRESSION (650x650px CRYSTAL CLEAR)
         function compressImageHD(input, callback) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
@@ -1211,12 +1197,9 @@
                     img.onload = function() {
                         const canvas = document.createElement('canvas');
                         const ctx = canvas.getContext('2d');
-                        
-                        // Center-crop 1:1 square from original image so no pixels are wasted
                         const minSide = Math.min(img.width, img.height);
                         const sx = (img.width - minSide) / 2;
                         const sy = (img.height - minSide) / 2;
-                        
                         const TARGET_SIZE = 650;
                         canvas.width = TARGET_SIZE;
                         canvas.height = TARGET_SIZE;
@@ -1225,7 +1208,6 @@
                         ctx.imageSmoothingQuality = 'high';
                         ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, TARGET_SIZE, TARGET_SIZE);
 
-                        // Use WebP for 3x sharper quality at same size (fallback to JPEG if browser doesn't support WebP)
                         let quality = 0.92;
                         let dataUrl = canvas.toDataURL('image/webp', quality);
                         if (!dataUrl.startsWith('data:image/webp')) {
