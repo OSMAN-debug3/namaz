@@ -177,7 +177,7 @@
             color: #ffffff;
         }
 
-        /* BOTTOM FIXED NAVIGATION BAR (DASHBOARD IN CENTER, MERI A'AMAL AT LAST) */
+        /* BOTTOM FIXED NAVIGATION BAR (4 OPTIONS NOW) */
         .bottom-nav-bar {
             position: fixed;
             bottom: 0;
@@ -186,7 +186,7 @@
             background: rgba(3, 28, 20, 0.96);
             backdrop-filter: blur(14px);
             border-top: 2px solid var(--gold);
-            padding: 8px 12px;
+            padding: 8px 6px;
             z-index: 1500;
             box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.7);
         }
@@ -195,16 +195,16 @@
             max-width: 600px;
             margin: 0 auto;
             display: flex;
-            gap: 8px;
+            gap: 4px;
         }
 
         .bottom-nav-btn {
             flex: 1;
-            padding: 10px 6px;
+            padding: 8px 4px;
             border: 1px solid rgba(212, 175, 55, 0.2);
             background: rgba(8, 53, 40, 0.6);
-            border-radius: 12px;
-            font-size: 12px;
+            border-radius: 10px;
+            font-size: 11px;
             font-weight: 700;
             color: var(--text-muted);
             cursor: pointer;
@@ -874,7 +874,7 @@
                 <button type="button" class="logout-btn" onclick="logout()">🚪 Logout Karein</button>
             </div>
 
-            <!-- SECTION A: PERSONAL TRACKER -->
+            <!-- SECTION 1: PERSONAL TRACKER -->
             <div id="sectionTracker">
                 <div class="progress-container">
                     <div class="progress-header">
@@ -976,7 +976,7 @@
                 <button type="button" class="btn" id="submitBtn" onclick="saveReport()">💾 Pura Record Google Sheet Mein Save Karein</button>
             </div>
 
-            <!-- SECTION B: COMMUNITY DASHBOARD (NOW IN CENTER) -->
+            <!-- SECTION 2: COMMUNITY DASHBOARD (IN CENTER) -->
             <div id="sectionDashboard" class="hidden">
                 <h2 style="margin-bottom: 14px;">🏆 Community Leaderboard <span>(Top Users)</span></h2>
                 <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Kisi bhi member ki photo ya naam par click karke unki Ultra-HD photo, badges aur har namaz ki detail dekhein:</div>
@@ -985,7 +985,7 @@
                 <div class="leaderboard-list" id="leaderboardList"></div>
             </div>
 
-            <!-- SECTION C: MERI A'AMAL (NOW AT THE END) -->
+            <!-- SECTION 3: MERI A'AMAL (AT THE LAST) -->
             <div id="sectionRecords" class="hidden">
                 <h2>📜 Meri A'amal (Puri Detail)</h2>
                 <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Yahan aapki har roz ki bheji gayi mukammal ibadat report mahfooz hai:</p>
@@ -994,20 +994,37 @@
                     <div style="text-align: center; color: var(--text-muted); font-size: 13px;">Data load ho raha hai...</div>
                 </div>
             </div>
+
+            <!-- SECTION 4: ABOUT DEVELOPER (FOR GOOGLE SEARCH PHOTO INDEXING) -->
+            <div id="sectionAbout" class="hidden" style="text-align: center;">
+                <h2>👨‍💻 About Developer</h2>
+                <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 16px;">Is behtareen Islamic Community Tracker ke creator:</p>
+                
+                <div style="background: rgba(4, 33, 24, 0.9); border: 1.5px solid var(--gold); border-radius: 20px; padding: 22px; max-width: 340px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                    <!-- Yahan aap apni HD Photo ka link daal sakte hain -->
+                    <img src="https://osman-debug3.github.io/namaz/logo.jpg" alt="Osman - Developer of Al-Mizan" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold); margin-bottom: 12px; box-shadow: 0 0 20px var(--gold-glow);">
+                    <h3 style="color: var(--gold-light); font-size: 20px; margin-bottom: 4px;">Osman</h3>
+                    <p style="font-size: 13px; color: var(--emerald-bright); font-weight: 600; margin-bottom: 10px;">Developer & Founder of Al-Mizan</p>
+                    <p style="font-size: 12px; color: var(--text-main); line-height: 1.6;">"Al-Mizan Community Tracker ko musalmano ki ibadat aur namaz track karne ke liye behad asan aur khubsurat tarike se banaya gaya hai."</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- FIXED BOTTOM NAVIGATION LINE (DASHBOARD CENTER, MERI A'AMAL LAST) -->
+    <!-- FIXED BOTTOM NAVIGATION BAR (4 OPTIONS) -->
     <div id="bottomNavBar" class="bottom-nav-bar hidden">
         <div class="bottom-nav-inner">
             <button type="button" class="bottom-nav-btn active" id="navTrackerBtn" onclick="switchSection('tracker')">
-                <span>📝 Report Bhejein</span>
+                <span>📝 Report</span>
             </button>
             <button type="button" class="bottom-nav-btn" id="navDashBtn" onclick="switchSection('dashboard')">
                 <span>🏆 Dashboard</span>
             </button>
             <button type="button" class="bottom-nav-btn" id="navRecordsBtn" onclick="switchSection('records')">
                 <span>📜 Meri A'amal</span>
+            </button>
+            <button type="button" class="bottom-nav-btn" id="navAboutBtn" onclick="switchSection('about')">
+                <span>👨‍💻 About</span>
             </button>
         </div>
     </div>
@@ -1167,18 +1184,22 @@
             const trackerSec = document.getElementById('sectionTracker');
             const dashSec = document.getElementById('sectionDashboard');
             const recordsSec = document.getElementById('sectionRecords');
+            const aboutSec = document.getElementById('sectionAbout');
             
             const trackerBtn = document.getElementById('navTrackerBtn');
             const dashBtn = document.getElementById('navDashBtn');
             const recordsBtn = document.getElementById('navRecordsBtn');
+            const aboutBtn = document.getElementById('navAboutBtn');
 
             trackerSec.classList.add('hidden');
             dashSec.classList.add('hidden');
             recordsSec.classList.add('hidden');
+            aboutSec.classList.add('hidden');
 
             trackerBtn.classList.remove('active');
             dashBtn.classList.remove('active');
             recordsBtn.classList.remove('active');
+            aboutBtn.classList.remove('active');
 
             if (section === 'tracker') {
                 trackerSec.classList.remove('hidden');
@@ -1187,10 +1208,13 @@
                 dashSec.classList.remove('hidden');
                 dashBtn.classList.add('active');
                 fetchAllDataAndRefresh();
-            } else {
+            } else if (section === 'records') {
                 recordsSec.classList.remove('hidden');
                 recordsBtn.classList.add('active');
                 fetchAllDataAndRefresh();
+            } else {
+                aboutSec.classList.remove('hidden');
+                aboutBtn.classList.add('active');
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
