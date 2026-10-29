@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta name="google-site-verification" content="rW9cGFHMlhNqHxvCfr6nPBlGQpn8Eib-bnkORhQfVJc" />
     <meta charset="UTF-8">
+    <meta name="google-site-verification" content="rW9cGFHMlhNqHxvCfr6nPBlGQpn8Eib-bnkORhQfVJc" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Al-Mizan | Community & Tracker</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -59,7 +59,6 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
-        /* LEFT SIDE 3-LINE HAMBURGER BUTTON */
         .menu-toggle-btn {
             position: absolute;
             top: 18px;
@@ -85,7 +84,6 @@
             color: #021a13;
         }
 
-        /* LEFT SIDE DRAWER MENU */
         .side-drawer-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -263,7 +261,6 @@
             cursor: pointer;
             transition: 0.25s;
             box-shadow: 0 0 15px var(--gold-glow);
-            image-rendering: auto;
         }
 
         .avatar-img:hover {
@@ -352,6 +349,20 @@
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
             transition: 0.25s;
+        }
+
+        /* ISLAMIC CALENDAR BADGE IN HEADER */
+        .hijri-badge {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            padding: 5px 12px;
+            border-radius: 99px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
         .podium-container {
@@ -455,7 +466,6 @@
             border: 1px solid var(--border-gold);
         }
 
-        /* MODAL FOR ZOOMED HD PHOTO & DETAILED RECORD */
         .modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -757,7 +767,7 @@
 </head>
 <body>
 
-    <!-- LEFT SIDE 3-LINE SLIDE DRAWER (ADMIN MESSAGE & OPTIONS) -->
+    <!-- LEFT SIDE 3-LINE SLIDE DRAWER -->
     <div id="sideDrawerOverlay" class="side-drawer-overlay hidden" onclick="closeSideMenu(event)">
         <div class="side-drawer" onclick="event.stopPropagation()">
             <span class="drawer-close" onclick="toggleSideMenu()">&times;</span>
@@ -767,15 +777,13 @@
                 <p style="font-size: 11.5px; color: var(--emerald-bright);">🕌 Al-Mizan Community Member</p>
             </div>
 
-            <!-- ADMIN DIRECT MESSAGE / SUGGESTION BOX -->
             <div class="drawer-box">
                 <label style="color: var(--gold-light); font-size: 12px; margin-bottom: 6px;">📩 Admin Ko Message / Suggestion Bhejein:</label>
-                <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">Agar aapko koi problem hai ya koi sujhav (suggestion) dena chahte hain, toh niche likh kar seedha Admin ko bhejein:</p>
-                <textarea id="adminMsgInput" placeholder="Apna message ya suggestion yahan likhein..."></textarea>
+                <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">Agar aapko koi problem hai ya sujhav dena chahte hain, toh yahan likhein:</p>
+                <textarea id="adminMsgInput" placeholder="Apna message yahan likhein..."></textarea>
                 <button type="button" class="btn" id="sendMsgBtn" style="padding: 11px; font-size: 13.5px; margin-top: 8px;" onclick="sendMessageToAdmin()">📤 Admin Ko Bhejein</button>
             </div>
 
-            <!-- QUICK MENU BUTTONS -->
             <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 10px;">
                 <button type="button" class="btn btn-secondary" style="margin: 0;" onclick="toggleSideMenu(); document.getElementById('changePhotoInput').click();">📸 HD Profile Photo Badlein</button>
                 <button type="button" class="btn btn-secondary" style="margin: 0;" onclick="toggleSideMenu(); exportMyReportCSV();">📥 Meri Report Download Karein</button>
@@ -786,13 +794,14 @@
 
     <div class="container">
         <header>
-            <!-- TOP LEFT 3-LINE HAMBURGER BUTTON -->
             <button type="button" id="hamburgerBtn" class="menu-toggle-btn hidden" onclick="toggleSideMenu()" title="Menu & Admin Message">☰</button>
             <div class="bismillah">﷽</div>
             <h1>🕌 Al-Mizan Community Tracker</h1>
             <div class="ayah-box">
                 "Neki aur taqwa ke kaamon mein ek dusre ki madad karo." (Al-Quran 5:2)
             </div>
+            <!-- ISLAMIC HIJRI CALENDAR BADGE -->
+            <div class="hijri-badge" id="hijriDateBadge">🌙 Hijri Calendar Load ho raha hai...</div>
         </header>
 
         <!-- 1. LOGIN / REGISTER CARD -->
@@ -861,7 +870,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>📅 Tarik (Date)</label>
+                    <label>📅 Tarik (Date) - Future Date Locked</label>
                     <input type="date" id="reportDate" onchange="checkDayAndLoadData()">
                 </div>
 
@@ -967,7 +976,7 @@
         </div>
     </div>
 
-    <!-- MEMBER PROFILE & DETAILED RECORD MODAL (CLEAN - NO MESSAGE BOX HERE) -->
+    <!-- MEMBER PROFILE MODAL -->
     <div id="memberModal" class="modal hidden">
         <div class="modal-content">
             <span class="close-modal" onclick="closeMemberModal()">&times;</span>
@@ -1002,11 +1011,31 @@
         const yyyy = today.getFullYear();
         const mm = String(today.getMonth() + 1).padStart(2, '0');
         const dd = String(today.getDate()).padStart(2, '0');
-        document.getElementById('reportDate').value = `${yyyy}-${mm}-${dd}`;
+        const todayStr = `${yyyy}-${mm}-${dd}`;
         
+        const dateInput = document.getElementById('reportDate');
+        dateInput.value = todayStr;
+        dateInput.max = todayStr; // FUTURE DATES LOCKED SUCCESSFULLY!
+        
+        loadHijriCalendar(today);
         checkDayAndLoadData();
 
-        // Toggle Left 3-Line Menu
+        async function loadHijriCalendar(dateObj) {
+            try {
+                const d = String(dateObj.getDate()).padStart(2, '0');
+                const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+                const y = dateObj.getFullYear();
+                const res = await fetch(`https://api.aladhan.com/v1/gToH?date=${d}-${m}-${y}`);
+                const data = await res.json();
+                if (data && data.data && data.data.hijri) {
+                    const hijri = data.data.hijri;
+                    document.getElementById('hijriDateBadge').innerText = `🌙 Hijri: ${hijri.day} ${hijri.month.en} ${hijri.year} AH`;
+                }
+            } catch (e) {
+                document.getElementById('hijriDateBadge').innerText = '🌙 Islamic Calendar Active';
+            }
+        }
+
         function toggleSideMenu() {
             const overlay = document.getElementById('sideDrawerOverlay');
             overlay.classList.toggle('hidden');
@@ -1118,7 +1147,6 @@
             }
         }
 
-        // ULTRA HD PHOTO COMPRESSION (480px with high clarity, sent via POST)
         function compressImageHD(input, callback) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
@@ -1145,7 +1173,6 @@
 
                         let quality = 0.85;
                         let dataUrl = canvas.toDataURL('image/jpeg', quality);
-                        // Google Sheet cell limit is 50,000 chars; keep safely under 46,000
                         while (dataUrl.length > 46000 && quality > 0.4) {
                             quality -= 0.1;
                             dataUrl = canvas.toDataURL('image/jpeg', quality);
@@ -1184,7 +1211,7 @@
                         alert('❌ ' + data.message);
                     }
                 } catch(err) {
-                    alert('Error updating photo. Kripya check karein ki Apps Script Deploy ho chuki hai.');
+                    alert('Error updating photo.');
                 }
             });
         }
@@ -1194,7 +1221,7 @@
             const senderName = localStorage.getItem('namaz_user') || 'Member';
 
             if (!msg) {
-                alert('Kripya pehle apna message ya suggestion likhein!');
+                alert('Kripya pehle apna message likhein!');
                 return;
             }
 
@@ -1203,7 +1230,6 @@
             btn.disabled = true;
 
             try {
-                // Pehle POST se bhejein, aur fallback ke liye GET URL bhi rakhein
                 const res = await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent(senderName)}&message=${encodeURIComponent(msg)}`);
                 const data = await res.json();
                 if (data.result === 'success') {
@@ -1214,7 +1240,7 @@
                     alert('❌ ' + (data.message || 'Apps Script ko New Version par Deploy karein!'));
                 }
             } catch(e) {
-                alert('Message bhejne ke liye kripya Google Apps Script mein naya code paste karke Deploy -> New version karein.');
+                alert('Message bhejne mein error aayi.');
             } finally {
                 btn.innerText = '📤 Admin Ko Bhejein';
                 btn.disabled = false;
@@ -1231,8 +1257,12 @@
         function checkDayAndLoadData() {
             const dateVal = document.getElementById('reportDate').value;
             if (!dateVal) return;
-            const dayName = getDayNameFromDate(dateVal);
+            
+            const parts = dateVal.split('-');
+            const selectedDateObj = new Date(parts[0], parts[1] - 1, parts[2]);
+            loadHijriCalendar(selectedDateObj);
 
+            const dayName = getDayNameFromDate(dateVal);
             const zuhrLabel = document.getElementById('zuhrLabel');
             const zuhrArabic = document.getElementById('zuhrArabic');
             if (dayName === 'Friday') {
