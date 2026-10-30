@@ -5,7 +5,26 @@
     <meta name="google-site-verification" content="rW9cGFHMlhNqHxvCfr6nPBlGQpn8Eib-bnkORhQfVJc" />
     <link rel="icon" type="image/jpeg" href="https://osman-debug3.github.io/namaz/logo.jpg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Al-Mizan | Community & Tracker</title>
+    <title>Al-Mizan | Community & Tracker by ABBU SHAHMA</title>
+    <meta name="author" content="ABBU SHAHMA">
+    <meta name="description" content="Al-Mizan Community Tracker developed by ABBU SHAHMA. Track daily 5 Farz Namaz, Roza, Quran Tilawat, and Tarawih.">
+    
+    <!-- GOOGLE SEARCH PERSON SCHEMA FOR ABBU SHAHMA PHOTO INDEXING -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "ABBU SHAHMA",
+      "jobTitle": "Founder & Web Developer",
+      "url": "https://osman-debug3.github.io/namaz/",
+      "image": "https://osman-debug3.github.io/namaz/abbu-shahma.jpg",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Al-Mizan Community Tracker"
+      }
+    }
+    </script>
+
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -25,12 +44,7 @@
             --border-subtle: rgba(255, 255, 255, 0.08);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
 
         body {
             background-color: var(--bg-deep);
@@ -44,749 +58,177 @@
             line-height: 1.5;
         }
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        .container { max-width: 600px; margin: 0 auto; }
 
         header {
-            position: relative;
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 16px 15px;
-            border-radius: 20px;
-            background: linear-gradient(180deg, rgba(212, 175, 55, 0.12) 0%, rgba(6, 47, 35, 0.45) 100%);
-            border: 1px solid var(--border-gold);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            position: relative; text-align: center; margin-bottom: 20px; padding: 16px 15px;
+            border-radius: 20px; background: linear-gradient(180deg, rgba(212, 175, 55, 0.12) 0%, rgba(6, 47, 35, 0.45) 100%);
+            border: 1px solid var(--border-gold); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .menu-toggle-btn {
-            position: absolute;
-            top: 18px;
-            left: 16px;
+            position: absolute; top: 18px; left: 16px;
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(6, 47, 35, 0.9));
-            border: 1.5px solid var(--gold);
-            color: var(--gold-light);
-            width: 42px;
-            height: 42px;
-            border-radius: 11px;
-            font-size: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
-            transition: 0.2s;
+            border: 1.5px solid var(--gold); color: var(--gold-light);
+            width: 42px; height: 42px; border-radius: 11px; font-size: 22px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.4); transition: 0.2s;
         }
-
-        .menu-toggle-btn:hover {
-            transform: scale(1.06);
-            background: var(--gold);
-            color: #021a13;
-        }
+        .menu-toggle-btn:hover { transform: scale(1.06); background: var(--gold); color: #021a13; }
 
         .side-drawer-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 26, 19, 0.85);
-            backdrop-filter: blur(6px);
-            z-index: 2500;
-            display: flex;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 26, 19, 0.85); backdrop-filter: blur(6px); z-index: 2500; display: flex;
         }
 
         .side-drawer {
-            width: 320px;
-            max-width: 86vw;
-            background: #04241b;
-            border-right: 2px solid var(--gold);
-            height: 100%;
-            padding: 22px 18px;
-            overflow-y: auto;
-            box-shadow: 15px 0 40px rgba(0, 0, 0, 0.8);
-            position: relative;
-            animation: slideInLeft 0.25s ease-out;
+            width: 320px; max-width: 86vw; background: #04241b; border-right: 2px solid var(--gold);
+            height: 100%; padding: 22px 18px; overflow-y: auto;
+            box-shadow: 15px 0 40px rgba(0, 0, 0, 0.8); position: relative; animation: slideInLeft 0.25s ease-out;
         }
+        @keyframes slideInLeft { from { transform: translateX(-100%); } to { transform: translateX(0); } }
 
-        @keyframes slideInLeft {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(0); }
-        }
+        .drawer-close { position: absolute; top: 14px; right: 16px; font-size: 26px; color: var(--gold-light); cursor: pointer; }
+        .drawer-box { background: rgba(8, 53, 40, 0.75); border: 1px solid var(--border-gold); border-radius: 14px; padding: 14px; margin-top: 16px; }
 
-        .drawer-close {
-            position: absolute;
-            top: 14px; right: 16px;
-            font-size: 26px;
-            color: var(--gold-light);
-            cursor: pointer;
-        }
-
-        .drawer-box {
-            background: rgba(8, 53, 40, 0.75);
-            border: 1px solid var(--border-gold);
-            border-radius: 14px;
-            padding: 14px;
-            margin-top: 16px;
-        }
-
-        .bismillah {
-            font-family: 'Amiri', serif;
-            font-size: 26px;
-            color: var(--gold-light);
-            margin-bottom: 4px;
-            text-shadow: 0 2px 12px rgba(212, 175, 55, 0.4);
-        }
-
+        .bismillah { font-family: 'Amiri', serif; font-size: 26px; color: var(--gold-light); margin-bottom: 4px; text-shadow: 0 2px 12px rgba(212, 175, 55, 0.4); }
         header h1 {
-            font-size: 20px;
-            font-weight: 700;
-            background: linear-gradient(90deg, #ffffff, var(--gold-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 4px;
-            padding: 0 36px;
+            font-size: 20px; font-weight: 700; background: linear-gradient(90deg, #ffffff, var(--gold-light));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; padding: 0 36px;
         }
-
-        .ayah-box {
-            font-size: 12px;
-            color: #cbd5e1;
-            font-style: italic;
-            max-width: 90%;
-            margin: 0 auto;
-            padding-top: 6px;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-        }
+        .ayah-box { font-size: 12px; color: #cbd5e1; font-style: italic; max-width: 90%; margin: 0 auto; padding-top: 6px; border-top: 1px solid rgba(212, 175, 55, 0.2); }
 
         .hijri-badge {
-            background: rgba(212, 175, 55, 0.16);
-            border: 1px solid var(--gold);
-            color: var(--gold-light);
-            padding: 5px 16px;
-            border-radius: 99px;
-            font-size: 14px;
-            font-weight: 700;
-            display: inline-block;
-            margin-top: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            letter-spacing: 0.4px;
+            background: rgba(212, 175, 55, 0.16); border: 1px solid var(--gold); color: var(--gold-light);
+            padding: 5px 16px; border-radius: 99px; font-size: 14px; font-weight: 700;
+            display: inline-block; margin-top: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
+        .hijri-badge .ar-month { font-family: 'Amiri', serif; font-size: 17px; margin: 0 5px; color: #ffffff; }
 
-        .hijri-badge .ar-month {
-            font-family: 'Amiri', serif;
-            font-size: 17px;
-            margin: 0 5px;
-            color: #ffffff;
-        }
-
-        /* BOTTOM FIXED NAVIGATION BAR (4 OPTIONS NOW) */
         .bottom-nav-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(3, 28, 20, 0.96);
-            backdrop-filter: blur(14px);
-            border-top: 2px solid var(--gold);
-            padding: 8px 6px;
-            z-index: 1500;
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(3, 28, 20, 0.96); backdrop-filter: blur(14px);
+            border-top: 2px solid var(--gold); padding: 8px 8px; z-index: 1500;
             box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.7);
         }
-
-        .bottom-nav-inner {
-            max-width: 600px;
-            margin: 0 auto;
-            display: flex;
-            gap: 4px;
-        }
-
+        .bottom-nav-inner { max-width: 600px; margin: 0 auto; display: flex; gap: 6px; }
         .bottom-nav-btn {
-            flex: 1;
-            padding: 8px 4px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            background: rgba(8, 53, 40, 0.6);
-            border-radius: 10px;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: 0.25s;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2px;
+            flex: 1; padding: 9px 4px; border: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(8, 53, 40, 0.6); border-radius: 10px; font-size: 11.5px;
+            font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.25s;
+            text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-
         .bottom-nav-btn.active {
-            background: linear-gradient(135deg, var(--gold), #b48a1e);
-            color: #021a13;
-            border-color: var(--gold-light);
-            box-shadow: 0 4px 15px var(--gold-glow);
+            background: linear-gradient(135deg, var(--gold), #b48a1e); color: #021a13;
+            border-color: var(--gold-light); box-shadow: 0 4px 15px var(--gold-glow);
         }
 
         .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            border-radius: 22px;
-            padding: 22px 18px;
-            margin-bottom: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--border-gold);
+            background: var(--card-bg); backdrop-filter: blur(16px); border-radius: 22px;
+            padding: 22px 18px; margin-bottom: 20px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); border: 1px solid var(--border-gold);
         }
+        .card h2 { font-size: 16px; color: var(--gold-light); margin-bottom: 14px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; }
 
-        .card h2 {
-            font-size: 16px;
-            color: var(--gold-light);
-            margin-bottom: 14px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .tabs {
-            display: flex;
-            background: var(--card-inner);
-            border-radius: 12px;
-            padding: 4px;
-            margin-bottom: 18px;
-            border: 1px solid var(--border-subtle);
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            background: transparent;
-            border-radius: 9px;
-            font-size: 13.5px;
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: 0.25s;
-        }
-
-        .tab-btn.active {
-            background: linear-gradient(135deg, var(--gold), #b48a1e);
-            color: #021a13;
-        }
+        .tabs { display: flex; background: var(--card-inner); border-radius: 12px; padding: 4px; margin-bottom: 18px; border: 1px solid var(--border-subtle); }
+        .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; border-radius: 9px; font-size: 13.5px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: 0.25s; }
+        .tab-btn.active { background: linear-gradient(135deg, var(--gold), #b48a1e); color: #021a13; }
 
         .user-banner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(212, 175, 55, 0.12));
-            border: 1px solid var(--border-gold);
-            padding: 14px 16px;
-            border-radius: 16px;
-            margin-bottom: 18px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-gold); padding: 14px 16px; border-radius: 16px; margin-bottom: 18px;
         }
-
-        .user-profile-flex {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .avatar-img {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2.5px solid var(--gold);
-            cursor: pointer;
-            transition: 0.25s;
-            box-shadow: 0 0 15px var(--gold-glow);
-        }
-
-        .avatar-img:hover {
-            transform: scale(1.08);
-        }
-
-        .user-banner .greeting {
-            font-size: 15.5px;
-            font-weight: 700;
-            color: var(--gold-light);
-            margin-bottom: 6px;
-        }
+        .user-profile-flex { display: flex; align-items: center; gap: 14px; }
+        .avatar-img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2.5px solid var(--gold); cursor: pointer; box-shadow: 0 0 15px var(--gold-glow); }
+        .user-banner .greeting { font-size: 15.5px; font-weight: 700; color: var(--gold-light); margin-bottom: 6px; }
 
         .photo-upload-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: linear-gradient(135deg, #10b981, #047857);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 11.5px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
-            transition: all 0.2s ease;
-        }
-
-        .photo-upload-chip:hover {
-            transform: translateY(-1px);
-            filter: brightness(1.1);
+            display: inline-flex; align-items: center; gap: 6px;
+            background: linear-gradient(135deg, #10b981, #047857); color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.25); padding: 6px 12px; border-radius: 8px;
+            font-size: 11.5px; font-weight: 700; cursor: pointer;
         }
 
         .logout-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: linear-gradient(135deg, #ef4444, #991b1b);
-            color: #ffffff;
-            border: 1px solid rgba(252, 165, 165, 0.4);
-            padding: 9px 15px;
-            border-radius: 10px;
-            font-size: 12.5px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+            display: inline-flex; align-items: center; gap: 6px;
+            background: linear-gradient(135deg, #ef4444, #991b1b); color: #ffffff;
+            border: 1px solid rgba(252, 165, 165, 0.4); padding: 9px 15px; border-radius: 10px;
+            font-size: 12.5px; font-weight: 700; cursor: pointer;
         }
 
-        .logout-btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.12);
-        }
-
-        .file-upload-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .file-upload-wrapper input[type=file] {
-            font-size: 100px;
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-
+        .file-upload-wrapper { position: relative; overflow: hidden; display: inline-block; width: 100%; }
+        .file-upload-wrapper input[type=file] { font-size: 100px; position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; }
         .file-upload-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            padding: 13px;
-            background: linear-gradient(135deg, #10b981, #059669);
-            border: 1px solid var(--gold-light);
-            color: #ffffff;
-            border-radius: 11px;
-            font-size: 14px;
-            font-weight: 700;
-            text-align: center;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
-            transition: 0.25s;
+            display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+            padding: 13px; background: linear-gradient(135deg, #10b981, #059669);
+            border: 1px solid var(--gold-light); color: #ffffff; border-radius: 11px; font-size: 14px; font-weight: 700; cursor: pointer;
         }
 
-        .podium-container {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding-top: 10px;
-        }
+        .podium-container { display: flex; justify-content: center; align-items: flex-end; gap: 10px; margin-bottom: 20px; padding-top: 10px; }
+        .podium-card { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 12px 8px; text-align: center; flex: 1; cursor: pointer; transition: 0.2s; }
+        .podium-card.rank-1 { border-color: var(--gold); background: linear-gradient(180deg, rgba(212, 175, 55, 0.22) 0%, rgba(4, 33, 24, 0.9) 100%); transform: translateY(-8px); }
+        .podium-card img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); margin-bottom: 5px; }
+        .podium-card .rank-badge { font-size: 10px; font-weight: 700; background: var(--gold); color: #021a13; padding: 2px 6px; border-radius: 99px; display: inline-block; margin-bottom: 5px; }
+        .podium-card .name { font-size: 11.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .podium-card .score { font-size: 11px; color: var(--emerald-bright); font-weight: 600; }
 
-        .podium-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 12px 8px;
-            text-align: center;
-            flex: 1;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+        .badge-chip { display: inline-block; font-size: 9.5px; background: rgba(212, 175, 55, 0.2); color: var(--gold-light); border: 1px solid var(--gold); padding: 2px 6px; border-radius: 99px; margin-top: 3px; }
+        .leaderboard-list { max-height: 420px; overflow-y: auto; border-top: 1px solid var(--border-subtle); padding-top: 10px; }
+        .leaderboard-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: rgba(255, 255, 255, 0.03); border-radius: 10px; margin-bottom: 6px; font-size: 13px; cursor: pointer; }
 
-        .podium-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-4px);
-        }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 26, 19, 0.92); backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center; z-index: 2000; padding: 15px; }
+        .modal-content { background: #062f23; border: 1.5px solid var(--gold); border-radius: 22px; padding: 22px 18px; width: 100%; max-width: 500px; max-height: 88vh; overflow-y: auto; position: relative; text-align: center; }
+        .close-modal { position: absolute; top: 12px; right: 16px; font-size: 26px; color: var(--gold-light); cursor: pointer; line-height: 1; }
+        .zoomed-avatar { width: 165px; height: 165px; border-radius: 50%; object-fit: cover; border: 3.5px solid var(--gold); margin: 0 auto 8px; cursor: zoom-in; }
+        .zoom-hint { font-size: 11px; color: var(--gold-light); background: rgba(212, 175, 55, 0.15); display: inline-block; padding: 4px 12px; border-radius: 99px; margin-bottom: 10px; cursor: pointer; }
 
-        .podium-card.rank-1 {
-            border-color: var(--gold);
-            background: linear-gradient(180deg, rgba(212, 175, 55, 0.22) 0%, rgba(4, 33, 24, 0.9) 100%);
-            transform: translateY(-8px);
-        }
+        .photo-lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
+        .photo-lightbox img { max-width: 92vw; max-height: 80vh; width: 480px; height: 480px; object-fit: cover; border-radius: 22px; border: 3px solid var(--gold); }
 
-        .podium-card img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--gold);
-            margin-bottom: 5px;
-        }
+        .detailed-record-card { background: rgba(4, 33, 24, 0.9); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 12px; padding: 12px; margin-bottom: 10px; text-align: left; }
+        .detailed-record-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 6px; margin-bottom: 8px; font-size: 13px; font-weight: 700; color: var(--gold-light); }
+        .Status-pills-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+        .status-pill { font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); }
+        .pill-ada { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .pill-qaza { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.4); }
+        .pill-nahi { background: rgba(239, 68, 68, 0.18); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); }
 
-        .podium-card .rank-badge {
-            font-size: 10px;
-            font-weight: 700;
-            background: var(--gold);
-            color: #021a13;
-            padding: 2px 6px;
-            border-radius: 99px;
-            display: inline-block;
-            margin-bottom: 5px;
-        }
+        .progress-container { background: var(--card-inner); border: 1px solid var(--border-subtle); padding: 12px 14px; border-radius: 14px; margin-bottom: 18px; }
+        .progress-header { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--gold-light); }
+        .progress-track { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.08); border-radius: 99px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #10b981, var(--gold)); border-radius: 99px; transition: width 0.4s ease; }
 
-        .podium-card .name {
-            font-size: 11.5px;
-            font-weight: 700;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+        .form-group { margin-bottom: 14px; }
+        label { display: block; font-size: 11px; font-weight: 700; color: #cbd5e1; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+        select, input, textarea { width: 100%; padding: 11px 13px; border: 1px solid var(--border-subtle); border-radius: 10px; font-size: 14px; background: #042118; color: var(--text-main); outline: none; color-scheme: dark; }
+        textarea { resize: vertical; min-height: 85px; }
 
-        .podium-card .score {
-            font-size: 11px;
-            color: var(--emerald-bright);
-            font-weight: 600;
-        }
+        .namaz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+        .namaz-card { background: var(--card-inner); padding: 11px; border-radius: 12px; border: 1px solid var(--border-subtle); transition: 0.2s; }
+        .namaz-card.full-width { grid-column: span 2; }
+        .namaz-card.status-ada { border-color: var(--emerald-bright); background: rgba(16, 185, 129, 0.12); }
+        .namaz-card.status-qaza { border-color: var(--amber); background: rgba(245, 158, 11, 0.12); }
+        .namaz-card label { margin-bottom: 4px; font-size: 11.5px; color: var(--gold-light); display: flex; justify-content: space-between; align-items: center; }
+        .arabic-text { font-family: 'Amiri', serif; font-size: 13px; color: var(--gold-light); }
+        .extra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+        .history-box { background: var(--card-inner); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 14px; margin-top: 10px; max-height: 480px; overflow-y: auto; }
 
-        .badge-chip {
-            display: inline-block;
-            font-size: 9.5px;
-            background: rgba(212, 175, 55, 0.2);
-            color: var(--gold-light);
-            border: 1px solid var(--gold);
-            padding: 2px 6px;
-            border-radius: 99px;
-            margin-top: 3px;
-        }
+        .btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--gold), #b48a1e); color: #021a13; border: none; border-radius: 11px; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 6px 20px var(--gold-glow); transition: 0.2s; }
+        .btn-secondary { background: rgba(16, 185, 129, 0.15); color: #a7f3d0; border: 1px solid rgba(16, 185, 129, 0.35); box-shadow: none; margin-bottom: 14px; font-size: 13px; padding: 10px; }
+        .hidden { display: none !important; }
+        .help-text { font-size: 11.5px; color: var(--text-muted); text-align: center; margin-top: 12px; }
 
-        .leaderboard-list {
-            max-height: 420px;
-            overflow-y: auto;
-            border-top: 1px solid var(--border-subtle);
-            padding-top: 10px;
+        /* DEVELOPER ABOUT CARD */
+        .dev-card {
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.14) 0%, rgba(4, 33, 24, 0.95) 100%);
+            border: 2px solid var(--gold); border-radius: 22px; padding: 26px 20px;
+            max-width: 380px; margin: 10px auto; text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
         }
-
-        .leaderboard-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            margin-bottom: 6px;
-            font-size: 13px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .leaderboard-item:hover {
-            background: rgba(212, 175, 55, 0.12);
-            border: 1px solid var(--border-gold);
-        }
-
-        .modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 26, 19, 0.92);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            padding: 15px;
-        }
-
-        .modal-content {
-            background: #062f23;
-            border: 1.5px solid var(--gold);
-            border-radius: 22px;
-            padding: 22px 18px;
-            width: 100%;
-            max-width: 500px;
-            max-height: 88vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-            position: relative;
-            text-align: center;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 12px; right: 16px;
-            font-size: 26px;
-            color: var(--gold-light);
-            cursor: pointer;
-            line-height: 1;
-        }
-
-        .zoomed-avatar {
-            width: 165px;
-            height: 165px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3.5px solid var(--gold);
-            margin: 0 auto 8px;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.35);
-            cursor: zoom-in;
-            transition: transform 0.3s ease;
-        }
-
-        .zoom-hint {
-            font-size: 11px;
-            color: var(--gold-light);
-            background: rgba(212, 175, 55, 0.15);
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 99px;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-
-        .photo-lightbox {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 3000;
-            padding: 20px;
-        }
-
-        .photo-lightbox img {
-            max-width: 92vw;
-            max-height: 80vh;
-            width: 480px;
-            height: 480px;
-            object-fit: cover;
-            border-radius: 22px;
-            border: 3px solid var(--gold);
-            box-shadow: 0 0 45px rgba(212, 175, 55, 0.45);
-        }
-
-        .detailed-record-card {
-            background: rgba(4, 33, 24, 0.9);
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 10px;
-            text-align: left;
-        }
-
-        .detailed-record-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 6px;
-            margin-bottom: 8px;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--gold-light);
-        }
-
-        .Status-pills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .status-pill {
-            font-size: 11px;
-            font-weight: 600;
-            padding: 4px 8px;
-            border-radius: 6px;
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .pill-ada {
-            background: rgba(16, 185, 129, 0.2);
-            color: #6ee7b7;
-            border: 1px solid rgba(16, 185, 129, 0.4);
-        }
-
-        .pill-qaza {
-            background: rgba(245, 158, 11, 0.2);
-            color: #fcd34d;
-            border: 1px solid rgba(245, 158, 11, 0.4);
-        }
-
-        .pill-nahi {
-            background: rgba(239, 68, 68, 0.18);
-            color: #fca5a5;
-            border: 1px solid rgba(239, 68, 68, 0.35);
-        }
-
-        .progress-container {
-            background: var(--card-inner);
-            border: 1px solid var(--border-subtle);
-            padding: 12px 14px;
-            border-radius: 14px;
-            margin-bottom: 18px;
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--gold-light);
-        }
-
-        .progress-track {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 99px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #10b981, var(--gold));
-            border-radius: 99px;
-            transition: width 0.4s ease;
-        }
-
-        .form-group {
-            margin-bottom: 14px;
-        }
-
-        label {
-            display: block;
-            font-size: 11px;
-            font-weight: 700;
-            color: #cbd5e1;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        select, input, textarea {
-            width: 100%;
-            padding: 11px 13px;
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            font-size: 14px;
-            background: #042118;
-            color: var(--text-main);
-            outline: none;
-            color-scheme: dark;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 85px;
-        }
-
-        .namaz-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .namaz-card {
-            background: var(--card-inner);
-            padding: 11px;
-            border-radius: 12px;
-            border: 1px solid var(--border-subtle);
-            transition: 0.2s;
-        }
-
-        .namaz-card.full-width {
-            grid-column: span 2;
-        }
-
-        .namaz-card.status-ada {
-            border-color: var(--emerald-bright);
-            background: rgba(16, 185, 129, 0.12);
-        }
-
-        .namaz-card.status-qaza {
-            border-color: var(--amber);
-            background: rgba(245, 158, 11, 0.12);
-        }
-
-        .namaz-card label {
-            margin-bottom: 4px;
-            font-size: 11.5px;
-            color: var(--gold-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .arabic-text {
-            font-family: 'Amiri', serif;
-            font-size: 13px;
-            color: var(--gold-light);
-        }
-
-        .extra-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-
-        .history-box {
-            background: var(--card-inner);
-            border: 1px solid var(--border-subtle);
-            border-radius: 14px;
-            padding: 14px;
-            margin-top: 10px;
-            max-height: 480px;
-            overflow-y: auto;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, var(--gold), #b48a1e);
-            color: #021a13;
-            border: none;
-            border-radius: 11px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 6px 20px var(--gold-glow);
-            transition: 0.2s;
-        }
-
-        .btn:hover {
-            filter: brightness(1.08);
-        }
-
-        .btn-secondary {
-            background: rgba(16, 185, 129, 0.15);
-            color: #a7f3d0;
-            border: 1px solid rgba(16, 185, 129, 0.35);
-            box-shadow: none;
-            margin-bottom: 14px;
-            font-size: 13px;
-            padding: 10px;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .help-text {
-            font-size: 11.5px;
-            color: var(--text-muted);
-            text-align: center;
-            margin-top: 12px;
+        .dev-photo {
+            width: 155px; height: 155px; border-radius: 50%; object-fit: cover;
+            border: 3.5px solid var(--gold); margin-bottom: 12px;
+            box-shadow: 0 0 25px var(--gold-glow); cursor: zoom-in;
         }
     </style>
 </head>
@@ -802,7 +244,7 @@
             </div>
 
             <div class="drawer-box">
-                <label style="color: var(--gold-light); font-size: 12px; margin-bottom: 6px;">📩 Admin Ko Message / Suggestion Bhejein:</label>
+                <label style="color: var(--gold-light); font-size: 12px; margin-bottom: 6px;">📩 Admin (ABBU SHAHMA) Ko Message Bhejein:</label>
                 <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">Agar aapko koi problem hai ya sujhav dena chahte hain, toh yahan likhein:</p>
                 <textarea id="adminMsgInput" placeholder="Apna message yahan likhein..."></textarea>
                 <button type="button" class="btn" id="sendMsgBtn" style="padding: 11px; font-size: 13.5px; margin-top: 8px;" onclick="sendMessageToAdmin()">📤 Admin Ko Bhejein</button>
@@ -827,6 +269,7 @@
             <div class="hijri-badge" id="hijriDateBadge">🌙 Hijri Calendar...</div>
         </header>
 
+        <!-- LOGIN / REGISTER CARD -->
         <div class="card" id="authCard">
             <div class="tabs">
                 <button type="button" class="tab-btn active" id="loginTab" onclick="switchTab('login')">🔑 Login Karein</button>
@@ -859,6 +302,7 @@
             <p class="help-text" id="authHelp">Naye hain? Upar "Community ID Banayein" par click karein.</p>
         </div>
 
+        <!-- MAIN APP CONTAINER -->
         <div class="card hidden" id="trackerCard">
             <div class="user-banner">
                 <div class="user-profile-flex">
@@ -985,7 +429,7 @@
                 <div class="leaderboard-list" id="leaderboardList"></div>
             </div>
 
-            <!-- SECTION 3: MERI A'AMAL (AT THE LAST) -->
+            <!-- SECTION 3: MERI A'AMAL -->
             <div id="sectionRecords" class="hidden">
                 <h2>📜 Meri A'amal (Puri Detail)</h2>
                 <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Yahan aapki har roz ki bheji gayi mukammal ibadat report mahfooz hai:</p>
@@ -995,23 +439,24 @@
                 </div>
             </div>
 
-            <!-- SECTION 4: ABOUT DEVELOPER (FOR GOOGLE SEARCH PHOTO INDEXING) -->
-            <div id="sectionAbout" class="hidden" style="text-align: center;">
-                <h2>👨‍💻 About Developer</h2>
-                <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 16px;">Is behtareen Islamic Community Tracker ke creator:</p>
-                
-                <div style="background: rgba(4, 33, 24, 0.9); border: 1.5px solid var(--gold); border-radius: 20px; padding: 22px; max-width: 340px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-                    <!-- Yahan aap apni HD Photo ka link daal sakte hain -->
-                    <img src="https://osman-debug3.github.io/namaz/logo.jpg" alt="Osman - Developer of Al-Mizan" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold); margin-bottom: 12px; box-shadow: 0 0 20px var(--gold-glow);">
-                    <h3 style="color: var(--gold-light); font-size: 20px; margin-bottom: 4px;">Osman</h3>
-                    <p style="font-size: 13px; color: var(--emerald-bright); font-weight: 600; margin-bottom: 10px;">Developer & Founder of Al-Mizan</p>
-                    <p style="font-size: 12px; color: var(--text-main); line-height: 1.6;">"Al-Mizan Community Tracker ko musalmano ki ibadat aur namaz track karne ke liye behad asan aur khubsurat tarike se banaya gaya hai."</p>
+            <!-- SECTION 4: ABOUT DEVELOPER (ABBU SHAHMA) -->
+            <div id="sectionAbout" class="hidden">
+                <h2>👨‍💻 About Founder & Developer</h2>
+                <div class="dev-card">
+                    <img id="devPhotoImg" src="https://osman-debug3.github.io/namaz/abbu-shahma.jpg" alt="ABBU SHAHMA - Founder and Developer of Al-Mizan Community Tracker" class="dev-photo" onclick="openFullScreenPhoto(this.src)" onerror="this.src = localStorage.getItem('namaz_photo') || 'https://osman-debug3.github.io/namaz/logo.jpg'">
+                    <br>
+                    <span class="zoom-hint" onclick="openFullScreenPhoto(document.getElementById('devPhotoImg').src)">🔍 Click to Zoom Photo</span>
+                    <h3 style="color: var(--gold-light); font-size: 22px; font-weight: 700; margin-top: 6px;">ABBU SHAHMA</h3>
+                    <p style="font-size: 13px; color: var(--emerald-bright); font-weight: 700; margin-bottom: 12px;">Founder & Developer — Al-Mizan Community Tracker</p>
+                    <p style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
+                        Assalamu Alaikum! Mera naam <strong>ABBU SHAHMA</strong> hai. Maine <strong>Al-Mizan Community Tracker</strong> isliye banaya hai taaki hum sab mil kar apni rozana ki 5 Farz Namaz, Roza, Quran-e-Pak ki Tilawat aur Tarawih ka hisab rakh sakein aur neki ke kaamon mein ek dusre ka hausla badha sakein.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- FIXED BOTTOM NAVIGATION BAR (4 OPTIONS) -->
+    <!-- FIXED BOTTOM NAVIGATION BAR -->
     <div id="bottomNavBar" class="bottom-nav-bar hidden">
         <div class="bottom-nav-inner">
             <button type="button" class="bottom-nav-btn active" id="navTrackerBtn" onclick="switchSection('tracker')">
@@ -1034,7 +479,7 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeMemberModal()">&times;</span>
             <div style="margin-bottom: 14px;">
-                <img id="modalUserAvatar" src="" class="zoomed-avatar" alt="Zoomed Photo" onclick="openFullScreenPhoto(this.src)" title="Photo par click karke full screen dekhein">
+                <img id="modalUserAvatar" src="" class="zoomed-avatar" alt="Zoomed Photo" onclick="openFullScreenPhoto(this.src)">
                 <br>
                 <span class="zoom-hint" onclick="openFullScreenPhoto(document.getElementById('modalUserAvatar').src)">🔍 Full-Screen Ultra-HD Zoom Dekhein</span>
                 <h3 id="modalUserName" style="color: var(--gold-light); font-size: 20px; margin-top: 4px;">Naam</h3>
@@ -1049,7 +494,7 @@
 
     <!-- FULL-SCREEN PHOTO ZOOM LIGHTBOX -->
     <div id="photoLightbox" class="photo-lightbox hidden" onclick="closeFullScreenPhoto()">
-        <img id="lightboxImg" src="" alt="Full Zoom">
+        <img id="lightboxImg" src="" alt="ABBU SHAHMA Full Zoom">
         <button type="button" class="btn" style="max-width: 220px; margin-top: 16px;" onclick="closeFullScreenPhoto()">❌ Band Karein</button>
     </div>
 
