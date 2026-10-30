@@ -3,25 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="google-site-verification" content="rW9cGFHMlhNqHxvCfr6nPBlGQpn8Eib-bnkORhQfVJc" />
-    <link rel="icon" type="image/jpeg" href="https://osman-debug3.github.io/namaz/logo.jpg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZikrSphere | Daily Deen & Deeds</title>
-    <meta name="author" content="ABBU SHAHMA">
-    <meta name="description" content="ZikrSphere Community Tracker developed by ABBU SHAHMA. Track daily 5 Farz Namaz, Roza, Quran Tilawat, and Tarawih.">
     
+    <title>ZikrSphere | Daily Deen & Deeds by ABBU SHAHMA</title>
+    <meta name="author" content="ABBU SHAHMA">
+    <meta name="description" content="ZikrSphere | Daily Deen & Deeds - Islamic Community Tracker founded and developed by ABBU SHAHMA. Track daily 5 Farz Namaz, Roza, Quran Tilawat, and Tarawih.">
+    <meta name="keywords" content="ZikrSphere, ABBU SHAHMA, Abbu Shahma Developer, Islamic Tracker, Namaz Tracker, Daily Deen and Deeds">
+
+    <!-- STRONG FAVICON TAGS FOR GOOGLE SEARCH LOGO (logo.jpg) -->
+    <link rel="icon" type="image/jpeg" sizes="16x16" href="https://osman-debug3.github.io/namaz/logo.jpg">
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="https://osman-debug3.github.io/namaz/logo.jpg">
+    <link rel="icon" type="image/jpeg" sizes="48x48" href="https://osman-debug3.github.io/namaz/logo.jpg">
+    <link rel="icon" type="image/jpeg" sizes="192x192" href="https://osman-debug3.github.io/namaz/logo.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="https://osman-debug3.github.io/namaz/logo.jpg">
+    <link rel="apple-touch-icon" href="https://osman-debug3.github.io/namaz/logo.jpg">
+
+    <!-- OPEN GRAPH & TWITTER TAGS FOR ABBU SHAHMA PHOTO INDEXING -->
+    <meta property="og:site_name" content="ZikrSphere">
+    <meta property="og:title" content="ABBU SHAHMA - Founder & Developer | ZikrSphere">
+    <meta property="og:description" content="ZikrSphere | Daily Deen & Deeds developed by ABBU SHAHMA.">
+    <meta property="og:image" content="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg">
+    <meta property="og:image:alt" content="ABBU SHAHMA - Founder and Developer of ZikrSphere">
+    <meta property="og:url" content="https://osman-debug3.github.io/namaz/">
+    <meta property="og:type" content="profile">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ABBU SHAHMA - Founder & Developer | ZikrSphere">
+    <meta name="twitter:description" content="ZikrSphere | Daily Deen & Deeds developed by ABBU SHAHMA.">
+    <meta name="twitter:image" content="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg">
+
+    <!-- GOOGLE SEARCH STRUCTURED DATA (WEBSITE LOGO + PERSON SCHEMA) -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "ABBU SHAHMA",
-      "jobTitle": "Founder & Web Developer",
-      "url": "https://osman-debug3.github.io/namaz/",
-      "image": "https://osman-debug3.github.io/namaz/abbu-shahma.jpeg",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "ZikrSphere"
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "ZikrSphere",
+        "alternateName": "ZikrSphere | Daily Deen & Deeds",
+        "url": "https://osman-debug3.github.io/namaz/",
+        "image": "https://osman-debug3.github.io/namaz/logo.jpg"
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "ABBU SHAHMA",
+        "alternateName": "Abbu Shahma",
+        "jobTitle": "Founder & Web Developer",
+        "description": "ABBU SHAHMA is the Founder and Developer of ZikrSphere | Daily Deen & Deeds.",
+        "url": "https://osman-debug3.github.io/namaz/",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://osman-debug3.github.io/namaz/abbu-shahma.jpeg",
+          "caption": "ABBU SHAHMA - Founder & Developer of ZikrSphere"
+        },
+        "worksFor": {
+          "@type": "Organization",
+          "name": "ZikrSphere",
+          "logo": "https://osman-debug3.github.io/namaz/logo.jpg"
+        }
       }
-    }
+    ]
     </script>
 
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -190,7 +230,7 @@
         .status-pill { font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); }
         .pill-ada { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
         .pill-qaza { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.4); }
-        .pill-nahi { background: rgba(239, 68, 68, 0.18); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); }
+        .pill-nahi { background: rgba(239, 68, 68, 68, 0.18); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); }
 
         .progress-container { background: var(--card-inner); border: 1px solid var(--border-subtle); padding: 12px 14px; border-radius: 14px; margin-bottom: 18px; }
         .progress-header { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--gold-light); }
@@ -220,12 +260,12 @@
         .dev-card {
             background: linear-gradient(180deg, rgba(212, 175, 55, 0.14) 0%, rgba(4, 33, 24, 0.95) 100%);
             border: 2px solid var(--gold); border-radius: 22px; padding: 26px 20px;
-            max-width: 380px; margin: 10px auto; text-align: center;
+            max-width: 420px; margin: 10px auto; text-align: center;
             box-shadow: 0 15px 35px rgba(0,0,0,0.6);
         }
         .dev-photo {
-            width: 155px; height: 155px; border-radius: 50%; object-fit: cover;
-            border: 3.5px solid var(--gold); margin-bottom: 12px;
+            width: 160px; height: 160px; border-radius: 50%; object-fit: cover;
+            border: 3.5px solid var(--gold); margin-bottom: 10px;
             box-shadow: 0 0 25px var(--gold-glow); cursor: zoom-in;
         }
     </style>
@@ -236,7 +276,7 @@
         <div class="side-drawer" onclick="event.stopPropagation()">
             <span class="drawer-close" onclick="toggleSideMenu()">&times;</span>
             <div style="text-align: center; padding-bottom: 14px; border-bottom: 1px solid var(--border-subtle);">
-                <img id="drawerUserAvatar" src="https://i.ibb.co/6Wv1V6Zm/default-avatar.png" style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2.5px solid var(--gold); margin-bottom: 6px;">
+                <img id="drawerUserAvatar" src="https://i.ibb.co/6Wv1V6Zm/default-avatar.png" style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2.5px solid var(--gold); margin-bottom: 6px;" alt="User Avatar">
                 <h3 id="drawerUserName" style="color: var(--gold-light); font-size: 16px;">Assalamu Alaikum</h3>
                 <p style="font-size: 11.5px; color: var(--emerald-bright);">🕌 ZikrSphere Community Member</p>
             </div>
@@ -300,7 +340,7 @@
             <p class="help-text" id="authHelp">Naye hain? Upar "Community ID Banayein" par click karein.</p>
         </div>
 
-        <!-- MAIN APP CONTAINER -->
+        <!-- MAIN APP CONTAINER (VISIBLE AFTER LOGIN) -->
         <div class="card hidden" id="trackerCard">
             <div class="user-banner">
                 <div class="user-profile-flex">
@@ -436,22 +476,26 @@
                     <div style="text-align: center; color: var(--text-muted); font-size: 13px;">Data load ho raha hai...</div>
                 </div>
             </div>
+        </div>
 
-            <!-- SECTION 4: ABOUT DEVELOPER (ABBU SHAHMA) -->
-            <div id="sectionAbout" class="hidden">
-                <h2>👨‍💻 About Founder & Developer</h2>
-                <div class="dev-card">
-                    <img id="devPhotoImg" src="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg" alt="ABBU SHAHMA - Founder and Developer of ZikrSphere" class="dev-photo" onclick="openFullScreenPhoto(this.src)" onerror="this.src = localStorage.getItem('namaz_photo') || 'https://osman-debug3.github.io/namaz/logo.jpg'">
+        <!-- PUBLIC ABOUT DEVELOPER SECTION (VISIBLE WITHOUT LOGIN FOR GOOGLEBOT & VISITORS) -->
+        <section class="card" id="publicAboutCard">
+            <h2>👨‍💻 About Founder & Developer</h2>
+            <div class="dev-card">
+                <figure style="margin: 0;">
+                    <img id="devPhotoImg" src="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg" alt="ABBU SHAHMA - Founder and Developer of ZikrSphere" title="ABBU SHAHMA" class="dev-photo" onclick="openFullScreenPhoto(this.src)">
                     <br>
                     <span class="zoom-hint" onclick="openFullScreenPhoto(document.getElementById('devPhotoImg').src)">🔍 Click to Zoom Photo</span>
-                    <h3 style="color: var(--gold-light); font-size: 22px; font-weight: 700; margin-top: 6px;">ABBU SHAHMA</h3>
-                    <p style="font-size: 13px; color: var(--emerald-bright); font-weight: 700; margin-bottom: 12px;">Founder & Developer — ZikrSphere</p>
-                    <p style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
-                        Assalamu Alaikum! Mera naam <strong>ABBU SHAHMA</strong> hai. Maine <strong>ZikrSphere</strong> isliye banaya hai taaki hum sab mil kar apni rozana ki 5 Farz Namaz, Roza, Quran-e-Pak ki Tilawat aur Tarawih ka hisab rakh sakein aur neki ke kaamon mein ek dusre ka hausla badha sakein.
-                    </p>
-                </div>
+                    <figcaption>
+                        <h3 style="color: var(--gold-light); font-size: 22px; font-weight: 700; margin-top: 6px;">ABBU SHAHMA</h3>
+                        <p style="font-size: 13px; color: var(--emerald-bright); font-weight: 700; margin-bottom: 12px;">Founder & Web Developer — ZikrSphere</p>
+                    </figcaption>
+                </figure>
+                <p style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
+                    Assalamu Alaikum! Mera naam <strong>ABBU SHAHMA</strong> hai. Maine <strong>ZikrSphere | Daily Deen & Deeds</strong> isliye banaya hai taaki hum sab mil kar apni rozana ki 5 Farz Namaz, Roza, Quran-e-Pak ki Tilawat aur Tarawih ka hisab rakh sakein aur neki ke kaamon mein ek dusre ka hausla badha sakein.
+                </p>
             </div>
-        </div>
+        </section>
     </div>
 
     <!-- FIXED BOTTOM NAVIGATION BAR -->
@@ -624,10 +668,11 @@
         }
 
         function switchSection(section) {
+            const trackerCard = document.getElementById('trackerCard');
             const trackerSec = document.getElementById('sectionTracker');
             const dashSec = document.getElementById('sectionDashboard');
             const recordsSec = document.getElementById('sectionRecords');
-            const aboutSec = document.getElementById('sectionAbout');
+            const publicAboutCard = document.getElementById('publicAboutCard');
             
             const trackerBtn = document.getElementById('navTrackerBtn');
             const dashBtn = document.getElementById('navDashBtn');
@@ -637,7 +682,7 @@
             trackerSec.classList.add('hidden');
             dashSec.classList.add('hidden');
             recordsSec.classList.add('hidden');
-            aboutSec.classList.add('hidden');
+            publicAboutCard.classList.add('hidden');
 
             trackerBtn.classList.remove('active');
             dashBtn.classList.remove('active');
@@ -645,18 +690,22 @@
             aboutBtn.classList.remove('active');
 
             if (section === 'tracker') {
+                trackerCard.classList.remove('hidden');
                 trackerSec.classList.remove('hidden');
                 trackerBtn.classList.add('active');
             } else if (section === 'dashboard') {
+                trackerCard.classList.remove('hidden');
                 dashSec.classList.remove('hidden');
                 dashBtn.classList.add('active');
                 fetchAllDataAndRefresh();
             } else if (section === 'records') {
+                trackerCard.classList.remove('hidden');
                 recordsSec.classList.remove('hidden');
                 recordsBtn.classList.add('active');
                 fetchAllDataAndRefresh();
-            } else {
-                aboutSec.classList.remove('hidden');
+            } else if (section === 'about') {
+                trackerCard.classList.remove('hidden');
+                publicAboutCard.classList.remove('hidden');
                 aboutBtn.classList.add('active');
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1100,6 +1149,7 @@
 
         function showTracker(name, photo) {
             document.getElementById('authCard').classList.add('hidden');
+            document.getElementById('publicAboutCard').classList.add('hidden');
             document.getElementById('trackerCard').classList.remove('hidden');
             document.getElementById('hamburgerBtn').classList.remove('hidden');
             document.getElementById('bottomNavBar').classList.remove('hidden');
@@ -1118,6 +1168,7 @@
             document.getElementById('hamburgerBtn').classList.add('hidden');
             document.getElementById('bottomNavBar').classList.add('hidden');
             document.getElementById('authCard').classList.remove('hidden');
+            document.getElementById('publicAboutCard').classList.remove('hidden');
         }
 
         function markAll() {
