@@ -31,7 +31,7 @@
     <meta name="twitter:description" content="ZikrSphere | Daily Deen & Deeds developed by ABBU SHAHMA.">
     <meta name="twitter:image" content="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg">
 
-    <!-- GOOGLE SEARCH STRUCTURED DATA (WEBSITE LOGO + PERSON SCHEMA) -->
+    <!-- GOOGLE SEARCH STRUCTURED DATA -->
     <script type="application/ld+json">
     [
       {
@@ -64,26 +64,31 @@
     ]
     </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-deep: #021a13;
             --bg-emerald: #062f23;
-            --card-bg: rgba(8, 53, 40, 0.88);
-            --card-inner: rgba(4, 33, 24, 0.92);
+            --card-bg: rgba(8, 53, 40, 0.90);
+            --card-inner: rgba(4, 33, 24, 0.94);
             --gold: #d4af37;
             --gold-light: #fbe69b;
-            --gold-glow: rgba(212, 175, 55, 0.3);
+            --gold-glow: rgba(212, 175, 55, 0.35);
             --emerald-bright: #10b981;
             --amber: #f59e0b;
             --danger: #ef4444;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border-gold: rgba(212, 175, 55, 0.32);
-            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-gold: rgba(212, 175, 55, 0.35);
+            --border-subtle: rgba(255, 255, 255, 0.09);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', sans-serif; }
+
+        body.lang-ur {
+            font-family: 'Noto Nastaliq Urdu', 'Amiri', serif;
+            line-height: 2.1;
+        }
 
         body {
             background-color: var(--bg-deep);
@@ -93,15 +98,48 @@
                 repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.02) 0px, rgba(212, 175, 55, 0.02) 2px, transparent 2px, transparent 12px);
             color: var(--text-main);
             min-height: 100vh;
-            padding: 20px 15px 95px;
-            line-height: 1.5;
+            padding: 16px 14px 100px;
+            line-height: 1.55;
         }
 
-        .container { max-width: 600px; margin: 0 auto; }
+        .container { max-width: 620px; margin: 0 auto; }
+
+        /* LANGUAGE SWITCHER BAR */
+        .lang-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            background: rgba(4, 33, 24, 0.85);
+            padding: 7px 12px;
+            border-radius: 99px;
+            border: 1px solid var(--border-gold);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+        }
+        .lang-btn {
+            flex: 1;
+            padding: 6px 10px;
+            border-radius: 99px;
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s;
+            text-align: center;
+        }
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--gold), #b48a1e);
+            color: #021a13;
+            border-color: var(--gold-light);
+            box-shadow: 0 3px 12px var(--gold-glow);
+        }
 
         header {
             position: relative; text-align: center; margin-bottom: 20px; padding: 16px 15px;
-            border-radius: 20px; background: linear-gradient(180deg, rgba(212, 175, 55, 0.12) 0%, rgba(6, 47, 35, 0.45) 100%);
+            border-radius: 20px; background: linear-gradient(180deg, rgba(212, 175, 55, 0.14) 0%, rgba(6, 47, 35, 0.5) 100%);
             border: 1px solid var(--border-gold); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
@@ -121,14 +159,101 @@
         }
 
         .side-drawer {
-            width: 320px; max-width: 86vw; background: #04241b; border-right: 2px solid var(--gold);
+            width: 340px; max-width: 88vw; background: linear-gradient(180deg, #052c21, #021a13);
+            border-right: 2px solid var(--gold);
             height: 100%; padding: 22px 18px; overflow-y: auto;
-            box-shadow: 15px 0 40px rgba(0, 0, 0, 0.8); position: relative; animation: slideInLeft 0.25s ease-out;
+            box-shadow: 15px 0 40px rgba(0, 0, 0, 0.85); position: relative; animation: slideInLeft 0.25s ease-out;
         }
         @keyframes slideInLeft { from { transform: translateX(-100%); } to { transform: translateX(0); } }
 
         .drawer-close { position: absolute; top: 14px; right: 16px; font-size: 26px; color: var(--gold-light); cursor: pointer; }
-        .drawer-box { background: rgba(8, 53, 40, 0.75); border: 1px solid var(--border-gold); border-radius: 14px; padding: 14px; margin-top: 16px; }
+
+        /* UPGRADED VIP ADMIN MESSAGE CARD IN DRAWER */
+        .admin-contact-card {
+            background: linear-gradient(145deg, rgba(11, 79, 58, 0.65), rgba(4, 33, 24, 0.95));
+            border: 1.5px solid var(--gold);
+            border-radius: 18px;
+            padding: 16px;
+            margin-top: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.45), inset 0 0 15px rgba(212, 175, 55, 0.08);
+        }
+        .admin-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .admin-icon-badge {
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--gold), #b48a1e);
+            color: #021a13;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 19px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px var(--gold-glow);
+        }
+        .quick-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .quick-tag {
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 4px 9px;
+            border-radius: 99px;
+            background: rgba(212, 175, 55, 0.14);
+            color: var(--gold-light);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .quick-tag:hover {
+            background: var(--gold);
+            color: #021a13;
+        }
+        .admin-textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1.5px solid rgba(212, 175, 55, 0.35);
+            background: rgba(2, 26, 19, 0.9);
+            color: #fff;
+            font-size: 13px;
+            resize: vertical;
+            min-height: 90px;
+            outline: none;
+            transition: 0.25s;
+        }
+        .admin-textarea:focus {
+            border-color: var(--gold-light);
+            box-shadow: 0 0 12px var(--gold-glow);
+        }
+        .admin-send-btn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #10b981, #047857);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 13.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
+            transition: 0.25s;
+        }
+        .admin-send-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
 
         .bismillah { font-family: 'Amiri', serif; font-size: 26px; color: var(--gold-light); margin-bottom: 4px; text-shadow: 0 2px 12px rgba(212, 175, 55, 0.4); }
         header h1 {
@@ -144,16 +269,17 @@
         }
         .hijri-badge .ar-month { font-family: 'Amiri', serif; font-size: 17px; margin: 0 5px; color: #ffffff; }
 
+        /* 5-BUTTON BOTTOM NAVIGATION BAR (HOME FIRST) */
         .bottom-nav-bar {
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: rgba(3, 28, 20, 0.96); backdrop-filter: blur(14px);
-            border-top: 2px solid var(--gold); padding: 8px 8px; z-index: 1500;
+            border-top: 2px solid var(--gold); padding: 8px 6px; z-index: 1500;
             box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.7);
         }
-        .bottom-nav-inner { max-width: 600px; margin: 0 auto; display: flex; gap: 6px; }
+        .bottom-nav-inner { max-width: 620px; margin: 0 auto; display: flex; gap: 5px; }
         .bottom-nav-btn {
-            flex: 1; padding: 9px 4px; border: 1px solid rgba(212, 175, 55, 0.2);
-            background: rgba(8, 53, 40, 0.6); border-radius: 10px; font-size: 11.5px;
+            flex: 1; padding: 8px 3px; border: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(8, 53, 40, 0.6); border-radius: 10px; font-size: 11px;
             font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.25s;
             text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
@@ -166,7 +292,59 @@
             background: var(--card-bg); backdrop-filter: blur(16px); border-radius: 22px;
             padding: 22px 18px; margin-bottom: 20px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); border: 1px solid var(--border-gold);
         }
-        .card h2 { font-size: 16px; color: var(--gold-light); margin-bottom: 14px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; }
+        .card h2 { font-size: 16.5px; color: var(--gold-light); margin-bottom: 14px; font-weight: 700; display: flex; align-items: center; justify-content: space-between; }
+
+        /* HOME SECTION GUIDE CARDS */
+        .guide-box {
+            background: linear-gradient(160deg, rgba(4, 33, 24, 0.95), rgba(8, 53, 40, 0.75));
+            border: 1px solid var(--border-gold);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+        }
+        .guide-box h3 {
+            color: var(--gold-light);
+            font-size: 15.5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding-bottom: 6px;
+        }
+        .guide-box p, .guide-box li {
+            font-size: 13px;
+            color: #e2e8f0;
+            margin-bottom: 6px;
+        }
+        .guide-box ul, .guide-box ol {
+            padding-left: 18px;
+            margin-top: 6px;
+        }
+        body.lang-ur .guide-box {
+            direction: rtl;
+            text-align: right;
+        }
+        body.lang-ur .guide-box ul, body.lang-ur .guide-box ol {
+            padding-left: 0;
+            padding-right: 20px;
+        }
+        .rakat-Badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 10px 0;
+        }
+        .rakat-chip {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #a7f3d0;
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 10px;
+        }
 
         .tabs { display: flex; background: var(--card-inner); border-radius: 12px; padding: 4px; margin-bottom: 18px; border: 1px solid var(--border-subtle); }
         .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; border-radius: 9px; font-size: 13.5px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: 0.25s; }
@@ -219,7 +397,6 @@
         .modal-content { background: #062f23; border: 1.5px solid var(--gold); border-radius: 22px; padding: 22px 18px; width: 100%; max-width: 500px; max-height: 88vh; overflow-y: auto; position: relative; text-align: center; }
         .close-modal { position: absolute; top: 12px; right: 16px; font-size: 26px; color: var(--gold-light); cursor: pointer; line-height: 1; }
         .zoomed-avatar { width: 165px; height: 165px; border-radius: 50%; object-fit: cover; border: 3.5px solid var(--gold); margin: 0 auto 8px; cursor: zoom-in; }
-        .zoom-hint { font-size: 11px; color: var(--gold-light); background: rgba(212, 175, 55, 0.15); display: inline-block; padding: 4px 12px; border-radius: 99px; margin-bottom: 10px; cursor: pointer; }
 
         .photo-lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
         .photo-lightbox img { max-width: 92vw; max-height: 80vh; width: 480px; height: 480px; object-fit: cover; border-radius: 22px; border: 3px solid var(--gold); }
@@ -230,7 +407,7 @@
         .status-pill { font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); }
         .pill-ada { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
         .pill-qaza { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.4); }
-        .pill-nahi { background: rgba(239, 68, 68, 68, 0.18); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); }
+        .pill-nahi { background: rgba(239, 68, 68, 0.18); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); }
 
         .progress-container { background: var(--card-inner); border: 1px solid var(--border-subtle); padding: 12px 14px; border-radius: 14px; margin-bottom: 18px; }
         .progress-header { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--gold-light); }
@@ -239,20 +416,85 @@
 
         .form-group { margin-bottom: 14px; }
         label { display: block; font-size: 11px; font-weight: 700; color: #cbd5e1; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
-        select, input, textarea { width: 100%; padding: 11px 13px; border: 1px solid var(--border-subtle); border-radius: 10px; font-size: 14px; background: #042118; color: var(--text-main); outline: none; color-scheme: dark; }
-        textarea { resize: vertical; min-height: 85px; }
+        input { width: 100%; padding: 11px 13px; border: 1px solid var(--border-subtle); border-radius: 12px; font-size: 14px; background: #042118; color: var(--text-main); outline: none; color-scheme: dark; }
 
-        .namaz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-        .namaz-card { background: var(--card-inner); padding: 11px; border-radius: 12px; border: 1px solid var(--border-subtle); transition: 0.2s; }
+        /* ATTRACTIVE PREMIUM DROPDOWNS FOR NAMAZ, ROZA, TARAWIH, QURAN */
+        .namaz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+        .extra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+
+        .namaz-card {
+            background: linear-gradient(145deg, rgba(4, 33, 24, 0.96), rgba(8, 53, 40, 0.8));
+            padding: 13px;
+            border-radius: 16px;
+            border: 1.5px solid rgba(212, 175, 55, 0.25);
+            transition: all 0.25s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        .namaz-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
         .namaz-card.full-width { grid-column: span 2; }
-        .namaz-card.status-ada { border-color: var(--emerald-bright); background: rgba(16, 185, 129, 0.12); }
-        .namaz-card.status-qaza { border-color: var(--amber); background: rgba(245, 158, 11, 0.12); }
-        .namaz-card label { margin-bottom: 4px; font-size: 11.5px; color: var(--gold-light); display: flex; justify-content: space-between; align-items: center; }
-        .arabic-text { font-family: 'Amiri', serif; font-size: 13px; color: var(--gold-light); }
-        .extra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+        .namaz-card.status-ada {
+            border-color: var(--emerald-bright);
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.22), rgba(4, 33, 24, 0.95));
+            box-shadow: 0 6px 18px rgba(16, 185, 129, 0.25);
+        }
+        .namaz-card.status-qaza {
+            border-color: var(--amber);
+            background: linear-gradient(145deg, rgba(245, 158, 11, 0.22), rgba(4, 33, 24, 0.95));
+            box-shadow: 0 6px 18px rgba(245, 158, 11, 0.25);
+        }
+        .namaz-card label {
+            margin-bottom: 8px;
+            font-size: 12.5px;
+            color: var(--gold-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .arabic-text { font-family: 'Amiri', serif; font-size: 14px; color: var(--gold-light); }
+
+        select.modern-select {
+            width: 100%;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 11px 36px 11px 13px;
+            border-radius: 12px;
+            border: 1.5px solid rgba(212, 175, 55, 0.4);
+            background-color: #031c14;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fbe69b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 11px center;
+            background-size: 16px;
+            color: #ffffff;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.25s ease;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+        }
+        select.modern-select:hover, select.modern-select:focus {
+            border-color: var(--gold-light);
+            background-color: #062f23;
+            box-shadow: 0 0 12px var(--gold-glow);
+        }
+        .namaz-card.status-ada select.modern-select {
+            border-color: var(--emerald-bright);
+            background-color: rgba(6, 78, 59, 0.85);
+            color: #ecfdf5;
+        }
+        .namaz-card.status-qaza select.modern-select {
+            border-color: var(--amber);
+            background-color: rgba(120, 53, 15, 0.75);
+            color: #fef3c7;
+        }
+
         .history-box { background: var(--card-inner); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 14px; margin-top: 10px; max-height: 480px; overflow-y: auto; }
 
-        .btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--gold), #b48a1e); color: #021a13; border: none; border-radius: 11px; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 6px 20px var(--gold-glow); transition: 0.2s; }
+        .btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--gold), #b48a1e); color: #021a13; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 6px 20px var(--gold-glow); transition: 0.2s; }
         .btn-secondary { background: rgba(16, 185, 129, 0.15); color: #a7f3d0; border: 1px solid rgba(16, 185, 129, 0.35); box-shadow: none; margin-bottom: 14px; font-size: 13px; padding: 10px; }
         .hidden { display: none !important; }
         .help-text { font-size: 11.5px; color: var(--text-muted); text-align: center; margin-top: 12px; }
@@ -272,6 +514,7 @@
 </head>
 <body>
 
+    <!-- SIDE DRAWER MENU WITH UPGRADED VIP ADMIN MESSAGE BOX -->
     <div id="sideDrawerOverlay" class="side-drawer-overlay hidden" onclick="closeSideMenu(event)">
         <div class="side-drawer" onclick="event.stopPropagation()">
             <span class="drawer-close" onclick="toggleSideMenu()">&times;</span>
@@ -281,15 +524,30 @@
                 <p style="font-size: 11.5px; color: var(--emerald-bright);">🕌 ZikrSphere Community Member</p>
             </div>
 
-            <div class="drawer-box">
-                <label style="color: var(--gold-light); font-size: 12px; margin-bottom: 6px;">📩 Admin (ABBU SHAHMA) Ko Message Bhejein:</label>
-                <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">Agar aapko koi problem hai ya sujhav dena chahte hain, toh yahan likhein:</p>
-                <textarea id="adminMsgInput" placeholder="Apna message yahan likhein..."></textarea>
-                <button type="button" class="btn" id="sendMsgBtn" style="padding: 11px; font-size: 13.5px; margin-top: 8px;" onclick="sendMessageToAdmin()">📤 Admin Ko Bhejein</button>
+            <!-- VIP ADMIN MESSAGE CARD -->
+            <div class="admin-contact-card">
+                <div class="admin-card-header">
+                    <div class="admin-icon-badge">💬</div>
+                    <div>
+                        <div id="t_adminTitle" style="color: var(--gold-light); font-size: 13px; font-weight: 800; letter-spacing: 0.3px;">ADMIN (ABBU SHAHMA) DESK</div>
+                        <div id="t_adminSub" style="font-size: 11px; color: #a7f3d0;">Apna sujhav, salam ya problem bhejein:</div>
+                    </div>
+                </div>
+
+                <div class="quick-tags">
+                    <span class="quick-tag" onclick="addQuickTag('💡 Sujhav: ')">💡 Sujhav</span>
+                    <span class="quick-tag" onclick="addQuickTag('🛠️ Problem: ')">🛠️ Problem</span>
+                    <span class="quick-tag" onclick="addQuickTag('🤲 Assalamu Alaikum! ')">🤲 Salam / Dua</span>
+                </div>
+
+                <textarea id="adminMsgInput" class="admin-textarea" placeholder="Apna message yahan khubsurti se likhein..."></textarea>
+                <button type="button" class="admin-send-btn" id="sendMsgBtn" onclick="sendMessageToAdmin()">
+                    <span>🚀 Admin Ko Message Bhejein</span>
+                </button>
             </div>
 
             <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 10px;">
-                <button type="button" class="btn btn-secondary" style="margin: 0;" onclick="toggleSideMenu(); document.getElementById('changePhotoInput').click();">📸 Ultra-HD Profile Photo Badlein</button>
+                <button type="button" class="btn btn-secondary" style="margin: 0;" onclick="toggleSideMenu(); document.getElementById('changePhotoInput').click();">📸 HD Profile Photo Badlein</button>
                 <button type="button" class="btn btn-secondary" style="margin: 0;" onclick="toggleSideMenu(); exportMyReportCSV();">📥 Meri Report Download Karein</button>
                 <button type="button" class="logout-btn" style="width: 100%; justify-content: center; padding: 11px;" onclick="toggleSideMenu(); logout();">🚪 Logout Karein</button>
             </div>
@@ -297,11 +555,18 @@
     </div>
 
     <div class="container">
+        <!-- MULTI-LANGUAGE SWITCHER (ROMAN / HINDI / URDU) -->
+        <div class="lang-bar">
+            <button type="button" class="lang-btn active" id="langBtn-ro" onclick="setLanguage('ro')">🌐 Roman (Eng)</button>
+            <button type="button" class="lang-btn" id="langBtn-hi" onclick="setLanguage('hi')">🇮🇳 हिंदी (Hindi)</button>
+            <button type="button" class="lang-btn" id="langBtn-ur" onclick="setLanguage('ur')">🕌 اردو (Urdu)</button>
+        </div>
+
         <header>
             <button type="button" id="hamburgerBtn" class="menu-toggle-btn hidden" onclick="toggleSideMenu()" title="Menu & Admin Message">☰</button>
             <div class="bismillah">﷽</div>
             <h1>✨ ZikrSphere | Daily Deen & Deeds</h1>
-            <div class="ayah-box">
+            <div class="ayah-box" id="t_ayah">
                 "Neki aur taqwa ke kaamon mein ek dusre ki madad karo." (Al-Quran 5:2)
             </div>
             <div class="hijri-badge" id="hijriDateBadge">🌙 Hijri Calendar...</div>
@@ -318,20 +583,20 @@
 
             <form onsubmit="event.preventDefault(); handleAuth();">
                 <div class="form-group">
-                    <label>Aapka Naam / Community ID</label>
+                    <label id="t_labelName">Aapka Naam / Community ID</label>
                     <input type="text" id="authName" placeholder="Apna pura naam ya nickname dalein" autocomplete="username">
                 </div>
 
                 <div class="form-group">
-                    <label>Secret Password (PIN)</label>
+                    <label id="t_labelPass">Secret Password (PIN)</label>
                     <input type="password" id="authPass" placeholder="Apna secret password dalein" autocomplete="current-password">
                 </div>
 
                 <div class="form-group" id="photoGroup" style="display: none;">
-                    <label>Ultra-HD Profile Photo Upload Karein</label>
+                    <label>HD Profile Photo Upload Karein</label>
                     <div class="file-upload-wrapper">
                         <button type="button" class="file-upload-btn" id="regPhotoBtnText">📸 Gallery Se Apni Photo Chunein</button>
-                        <input type="file" id="authPhotoFile" accept="image/*" onchange="compressImageHD(this, function(base64){ tempBase64Photo = base64; document.getElementById('regPhotoBtnText').innerText = '✅ Ultra-HD Photo Select Ho Gayi!'; })">
+                        <input type="file" id="authPhotoFile" accept="image/*" onchange="compressImageHD(this, function(base64){ tempBase64Photo = base64; document.getElementById('regPhotoBtnText').innerText = '✅ Photo Select Ho Gayi!'; })">
                     </div>
                 </div>
 
@@ -344,19 +609,38 @@
         <div class="card hidden" id="trackerCard">
             <div class="user-banner">
                 <div class="user-profile-flex">
-                    <img id="userAvatar" src="https://i.ibb.co/6Wv1V6Zm/default-avatar.png" class="avatar-img" alt="Avatar" onclick="openMemberProfile(localStorage.getItem('namaz_user'))" title="Photo Badi Dekhein">
+                    <img id="userAvatar" src="https://i.ibb.co/6Wv1V6Zm/default-avatar.png" class="avatar-img" alt="Avatar" onclick="openMemberProfile(localStorage.getItem('namaz_user'))">
                     <div>
                         <div class="greeting" id="welcomeUser">Assalamu Alaikum!</div>
-                        <button type="button" class="photo-upload-chip" onclick="document.getElementById('changePhotoInput').click()">
-                            📸 HD Photo Upload / Badlein
+                        <button type="button" class="photo-upload-chip" id="t_uploadChip" onclick="document.getElementById('changePhotoInput').click()">
+                            📸 Photo Upload / Badlein
                         </button>
                         <input type="file" id="changePhotoInput" accept="image/*" style="display: none;" onchange="updateProfilePhoto(this)">
                     </div>
                 </div>
-                <button type="button" class="logout-btn" onclick="logout()">🚪 Logout Karein</button>
+                <button type="button" class="logout-btn" id="t_logoutBtn" onclick="logout()">🚪 Logout Karein</button>
             </div>
 
-            <!-- SECTION 1: PERSONAL TRACKER -->
+            <!-- SECTION 0: HOME (MAQSAD, NAMAZ, ROZA, TARAWIH KA BAYAN - BEFORE REPORT) -->
+            <div id="sectionHome" class="hidden">
+                <h2 id="t_homeTitle">🏠 ZikrSphere Home & Islami Rehnumai</h2>
+
+                <!-- 1. Maqsad -->
+                <div class="guide-box" id="homeBoxMaqsad"></div>
+
+                <!-- 2. Namaz ka Bayan -->
+                <div class="guide-box" id="homeBoxNamaz"></div>
+
+                <!-- 3. Roza ka Bayan -->
+                <div class="guide-box" id="homeBoxRoza"></div>
+
+                <!-- 4. Tarawih & Quran ka Bayan -->
+                <div class="guide-box" id="homeBoxTarawih"></div>
+
+                <button type="button" class="btn" id="t_goToReportBtn" onclick="switchSection('tracker')">📝 Aaj Ki Namaz & Roza Report Darj Karein ➔</button>
+            </div>
+
+            <!-- SECTION 1: PERSONAL TRACKER (REPORT) -->
             <div id="sectionTracker">
                 <div class="progress-container">
                     <div class="progress-header">
@@ -369,87 +653,87 @@
                 </div>
 
                 <div class="form-group">
-                    <label>📅 Tarik (Date)</label>
+                    <label id="t_dateLabel">📅 Tarik (Date)</label>
                     <input type="date" id="reportDate" onchange="checkDayAndLoadData()">
                 </div>
 
-                <button type="button" class="btn btn-secondary" onclick="markAll()">✨ Alhumdulillah! Sabhi 5 Farz Namaz Ada Ho Gayi</button>
+                <button type="button" class="btn btn-secondary" id="t_markAllBtn" onclick="markAll()">✨ Alhumdulillah! Sabhi 5 Farz Namaz Ada Ho Gayi</button>
 
-                <h2>🕋 5 Waqt Ki Farz Namaz</h2>
+                <h2 id="t_namazHeading">🕋 5 Waqt Ki Farz Namaz</h2>
                 <div class="namaz-grid">
                     <div class="namaz-card" id="card-fajr">
-                        <label><span>🌅 Fajr</span><span class="arabic-text">الفجر</span></label>
-                        <select id="fajr" onchange="updateUI()">
-                            <option value="Nahi">❌ Nahi</option>
-                            <option value="Ada">✅ Ada</option>
-                            <option value="Qaza">🕒 Qaza</option>
+                        <label><span id="t_fajr">🌅 Fajr</span><span class="arabic-text">الفجر</span></label>
+                        <select id="fajr" class="modern-select" onchange="updateUI()">
+                            <option value="Nahi">❌ Nahi Padhi</option>
+                            <option value="Ada">✅ Ba-Jamaat / Waqt Par Ada</option>
+                            <option value="Qaza">🕒 Qaza Padhi</option>
                         </select>
                     </div>
 
                     <div class="namaz-card" id="card-zuhr">
                         <label><span id="zuhrLabel">☀️ Zuhr</span><span id="zuhrArabic" class="arabic-text">الظهر</span></label>
-                        <select id="zuhr" onchange="updateUI()">
-                            <option value="Nahi">❌ Nahi</option>
-                            <option value="Ada">✅ Ada</option>
-                            <option value="Qaza">🕒 Qaza</option>
+                        <select id="zuhr" class="modern-select" onchange="updateUI()">
+                            <option value="Nahi">❌ Nahi Padhi</option>
+                            <option value="Ada">✅ Ba-Jamaat / Waqt Par Ada</option>
+                            <option value="Qaza">🕒 Qaza Padhi</option>
                         </select>
                     </div>
 
                     <div class="namaz-card" id="card-asr">
-                        <label><span>🌤️ Asr</span><span class="arabic-text">العصر</span></label>
-                        <select id="asr" onchange="updateUI()">
-                            <option value="Nahi">❌ Nahi</option>
-                            <option value="Ada">✅ Ada</option>
-                            <option value="Qaza">🕒 Qaza</option>
+                        <label><span id="t_asr">🌤️ Asr</span><span class="arabic-text">العصر</span></label>
+                        <select id="asr" class="modern-select" onchange="updateUI()">
+                            <option value="Nahi">❌ Nahi Padhi</option>
+                            <option value="Ada">✅ Ba-Jamaat / Waqt Par Ada</option>
+                            <option value="Qaza">🕒 Qaza Padhi</option>
                         </select>
                     </div>
 
                     <div class="namaz-card" id="card-maghrib">
-                        <label><span>🌇 Maghrib</span><span class="arabic-text">المغرب</span></label>
-                        <select id="maghrib" onchange="updateUI()">
-                            <option value="Nahi">❌ Nahi</option>
-                            <option value="Ada">✅ Ada</option>
-                            <option value="Qaza">🕒 Qaza</option>
+                        <label><span id="t_maghrib">🌇 Maghrib</span><span class="arabic-text">المغرب</span></label>
+                        <select id="maghrib" class="modern-select" onchange="updateUI()">
+                            <option value="Nahi">❌ Nahi Padhi</option>
+                            <option value="Ada">✅ Ba-Jamaat / Waqt Par Ada</option>
+                            <option value="Qaza">🕒 Qaza Padhi</option>
                         </select>
                     </div>
 
                     <div class="namaz-card full-width" id="card-isha">
-                        <label><span>🌌 Isha</span><span class="arabic-text">العشاء</span></label>
-                        <select id="isha" onchange="updateUI()">
-                            <option value="Nahi">❌ Nahi</option>
-                            <option value="Ada">✅ Ada</option>
-                            <option value="Qaza">🕒 Qaza</option>
+                        <label><span id="t_isha">🌌 Isha</span><span class="arabic-text">العشاء</span></label>
+                        <select id="isha" class="modern-select" onchange="updateUI()">
+                            <option value="Nahi">❌ Nahi Padhi</option>
+                            <option value="Ada">✅ Ba-Jamaat / Waqt Par Ada</option>
+                            <option value="Qaza">🕒 Qaza Padhi</option>
                         </select>
                     </div>
                 </div>
 
-                <h2>🌙 Roza, Quran & Tarawih</h2>
+                <h2 id="t_extraHeading">🌙 Roza, Quran & Tarawih</h2>
                 <div class="extra-grid">
                     <div class="namaz-card" id="card-roza">
-                        <label><span>✨ Roza</span><span class="arabic-text">الصوم</span></label>
-                        <select id="roza" onchange="updateUI()">
-                            <option value="Nahi">Nahi</option>
-                            <option value="Rakha">🌙 Rakha</option>
+                        <label><span id="t_roza">✨ Roza</span><span class="arabic-text">الصوم</span></label>
+                        <select id="roza" class="modern-select" onchange="updateUI()">
+                            <option value="Nahi">⚪ Aaj Roza Nahi Hai</option>
+                            <option value="Rakha">🌟 Alhumdulillah! Roza Rakha</option>
                         </select>
                     </div>
 
                     <div class="namaz-card" id="card-tarawih">
-                        <label><span>🕌 Tarawih</span><span class="arabic-text">التراويح</span></label>
-                        <select id="tarawih" onchange="updateUI()">
-                            <option value="Nahi">❌ Nahi</option>
-                            <option value="Ada">✅ Ada</option>
+                        <label><span id="t_tarawih">🕌 Tarawih</span><span class="arabic-text">التراويح</span></label>
+                        <select id="tarawih" class="modern-select" onchange="updateUI()">
+                            <option value="Nahi">⚪ Nahi Padhi</option>
+                            <option value="Ada">🕌 Alhumdulillah! Mukammal Ada</option>
                         </select>
                     </div>
 
                     <div class="namaz-card full-width" id="card-quran">
-                        <label><span>📖 Quran-e-Pak Tilawat</span><span class="arabic-text">القرآن</span></label>
-                        <select id="quran" onchange="updateUI()">
-                            <option value="Nahi">❌ Nahi Padha</option>
+                        <label><span id="t_quran">📖 Quran-e-Pak Tilawat</span><span class="arabic-text">القرآن</span></label>
+                        <select id="quran" class="modern-select" onchange="updateUI()">
+                            <option value="Nahi">⚪ Aaj Tilawat Nahi Hui</option>
                             <optgroup label="📄 Pages (1 se 20 Page)">
-                                <option value="1 Page">📖 1 Page</option><option value="2 Pages">📖 2 Pages</option><option value="3 Pages">📖 3 Pages</option><option value="4 Pages">📖 4 Pages</option><option value="5 Pages">📖 5 Pages</option><option value="6 Pages">📖 6 Pages</option><option value="7 Pages">📖 7 Pages</option><option value="8 Pages">📖 8 Pages</option><option value="9 Pages">📖 9 Pages</option><option value="10 Pages">📖 10 Pages</option><option value="11 Pages">📖 11 Pages</option><option value="12 Pages">📖 12 Pages</option><option value="13 Pages">📖 13 Pages</option><option value="14 Pages">📖 14 Pages</option><option value="15 Pages">📖 15 Pages</option><option value="16 Pages">📖 16 Pages</option><option value="17 Pages">📖 17 Pages</option><option value="18 Pages">📖 18 Pages</option><option value="19 Pages">📖 19 Pages</option><option value="20 Pages">📖 20 Pages</option>
+                                <option value="1 Page">📖 1 Page Tilawat</option><option value="2 Pages">📖 2 Pages Tilawat</option><option value="3 Pages">📖 3 Pages Tilawat</option><option value="4 Pages">📖 4 Pages Tilawat</option><option value="5 Pages">📖 5 Pages Tilawat</option><option value="6 Pages">📖 6 Pages Tilawat</option><option value="7 Pages">📖 7 Pages Tilawat</option><option value="8 Pages">📖 8 Pages Tilawat</option><option value="9 Pages">📖 9 Pages Tilawat</option><option value="10 Pages">📖 10 Pages Tilawat</option><option value="11 Pages">📖 11 Pages Tilawat</option><option value="12 Pages">📖 12 Pages Tilawat</option><option value="13 Pages">📖 13 Pages Tilawat</option><option value="14 Pages">📖 14 Pages Tilawat</option><option value="15 Pages">📖 15 Pages Tilawat</option><option value="16 Pages">📖 16 Pages Tilawat</option><option value="17 Pages">📖 17 Pages Tilawat</option><option value="18 Pages">📖 18 Pages Tilawat</option><option value="19 Pages">📖 19 Pages Tilawat</option><option value="20 Pages">📖 20 Pages Tilawat</option>
                             </optgroup>
                             <optgroup label="🌟 Para (1 se 5 Para)">
-                                <option value="1 Para">🌟 1 Para</option><option value="2 Paras">🌟 2 Paras</option><option value="3 Paras">🌟 3 Paras</option><option value="4 Paras">🌟 4 Paras</option><option value="5 Paras">👑 5 Paras</option>
+                                <option value="1 Para">🌟 1 Para Mukammal</option><option value="2 Paras">🌟 2 Paras Mukammal</option><option value="3 Paras">🌟 3 Paras Mukammal</option><option value="4 Paras">🌟 4 Paras Mukammal</option><option value="5 Paras">👑 5 Paras Mukammal</option>
                             </optgroup>
                         </select>
                     </div>
@@ -458,73 +742,69 @@
                 <button type="button" class="btn" id="submitBtn" onclick="saveReport()">💾 Pura Record Google Sheet Mein Save Karein</button>
             </div>
 
-            <!-- SECTION 2: COMMUNITY DASHBOARD -->
+            <!-- SECTION 2: COMMUNITY DASHBOARD (UNWANTED TEXT REMOVED) -->
             <div id="sectionDashboard" class="hidden">
-                <h2 style="margin-bottom: 14px;">🏆 Community Leaderboard <span>(Top Users)</span></h2>
-                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Kisi bhi member ki photo ya naam par click karke unki Ultra-HD photo, badges aur har namaz ki detail dekhein:</div>
-                
+                <h2 id="t_dashHeading" style="margin-bottom: 14px;">🏆 Community Leaderboard <span>(Top Users)</span></h2>
                 <div class="podium-container" id="podiumContainer"></div>
                 <div class="leaderboard-list" id="leaderboardList"></div>
             </div>
 
             <!-- SECTION 3: MERI A'AMAL -->
             <div id="sectionRecords" class="hidden">
-                <h2>📜 Meri A'amal (Puri Detail)</h2>
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Yahan aapki har roz ki bheji gayi mukammal ibadat report mahfooz hai:</p>
-                <button type="button" class="btn btn-secondary" onclick="exportMyReportCSV()">📥 Download My Report (Excel/CSV)</button>
+                <h2 id="t_recordsHeading">📜 Meri A'amal (Puri Detail)</h2>
+                <button type="button" class="btn btn-secondary" id="t_downloadBtn" onclick="exportMyReportCSV()">📥 Download My Report (Excel/CSV)</button>
                 <div class="history-box" id="userHistoryList">
                     <div style="text-align: center; color: var(--text-muted); font-size: 13px;">Data load ho raha hai...</div>
                 </div>
             </div>
         </div>
 
-        <!-- PUBLIC ABOUT DEVELOPER SECTION (VISIBLE WITHOUT LOGIN FOR GOOGLEBOT & VISITORS) -->
+        <!-- PUBLIC ABOUT DEVELOPER SECTION (GRAMMAR FIXED TO "BANAYA HOON" & ZOOM TEXT REMOVED) -->
         <section class="card" id="publicAboutCard">
-            <h2>👨‍💻 About Founder & Developer</h2>
+            <h2 id="t_aboutHeading">👨‍💻 About Founder & Developer</h2>
             <div class="dev-card">
                 <figure style="margin: 0;">
                     <img id="devPhotoImg" src="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg" alt="ABBU SHAHMA - Founder and Developer of ZikrSphere" title="ABBU SHAHMA" class="dev-photo" onclick="openFullScreenPhoto(this.src)">
-                    <br>
-                    <span class="zoom-hint" onclick="openFullScreenPhoto(document.getElementById('devPhotoImg').src)">🔍 Click to Zoom Photo</span>
                     <figcaption>
                         <h3 style="color: var(--gold-light); font-size: 22px; font-weight: 700; margin-top: 6px;">ABBU SHAHMA</h3>
                         <p style="font-size: 13px; color: var(--emerald-bright); font-weight: 700; margin-bottom: 12px;">Founder & Web Developer — ZikrSphere</p>
                     </figcaption>
                 </figure>
-                <p style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
-                    Assalamu Alaikum! Mera naam <strong>ABBU SHAHMA</strong> hai. Maine <strong>ZikrSphere | Daily Deen & Deeds</strong> isliye banaya hai taaki hum sab mil kar apni rozana ki 5 Farz Namaz, Roza, Quran-e-Pak ki Tilawat aur Tarawih ka hisab rakh sakein aur neki ke kaamon mein ek dusre ka hausla badha sakein.
+                <p id="t_aboutBio" style="font-size: 13px; color: var(--text-main); line-height: 1.65;">
+                    Assalamu Alaikum! Mera naam <strong>ABBU SHAHMA</strong> hai. Maine <strong>ZikrSphere | Daily Deen & Deeds</strong> isliye banaya hoon taaki hum sab mil kar apni rozana ki 5 Farz Namaz, Roza, Quran-e-Pak ki Tilawat aur Tarawih ka hisab rakh sakein aur neki ke kaamon mein ek dusre ka hausla badha sakein.
                 </p>
             </div>
         </section>
     </div>
 
-    <!-- FIXED BOTTOM NAVIGATION BAR -->
+    <!-- FIXED BOTTOM NAVIGATION BAR (HOME BEFORE REPORT) -->
     <div id="bottomNavBar" class="bottom-nav-bar hidden">
         <div class="bottom-nav-inner">
+            <button type="button" class="bottom-nav-btn" id="navHomeBtn" onclick="switchSection('home')">
+                <span id="t_navHome">🏠 Home</span>
+            </button>
             <button type="button" class="bottom-nav-btn active" id="navTrackerBtn" onclick="switchSection('tracker')">
-                <span>📝 Report</span>
+                <span id="t_navReport">📝 Report</span>
             </button>
             <button type="button" class="bottom-nav-btn" id="navDashBtn" onclick="switchSection('dashboard')">
-                <span>🏆 Dashboard</span>
+                <span id="t_navDash">🏆 Dashboard</span>
             </button>
             <button type="button" class="bottom-nav-btn" id="navRecordsBtn" onclick="switchSection('records')">
-                <span>📜 Meri A'amal</span>
+                <span id="t_navRecords">📜 Meri A'amal</span>
             </button>
             <button type="button" class="bottom-nav-btn" id="navAboutBtn" onclick="switchSection('about')">
-                <span>👨‍💻 About</span>
+                <span id="t_navAbout">👨‍💻 About</span>
             </button>
         </div>
     </div>
 
-    <!-- MEMBER PROFILE MODAL -->
+    <!-- MEMBER PROFILE MODAL (ZOOM BUTTON TEXT REMOVED) -->
     <div id="memberModal" class="modal hidden">
         <div class="modal-content">
             <span class="close-modal" onclick="closeMemberModal()">&times;</span>
             <div style="margin-bottom: 14px;">
-                <img id="modalUserAvatar" src="" class="zoomed-avatar" alt="Zoomed Photo" onclick="openFullScreenPhoto(this.src)">
-                <br>
-                <span class="zoom-hint" onclick="openFullScreenPhoto(document.getElementById('modalUserAvatar').src)">🔍 Full-Screen Ultra-HD Zoom Dekhein</span>
-                <h3 id="modalUserName" style="color: var(--gold-light); font-size: 20px; margin-top: 4px;">Naam</h3>
+                <img id="modalUserAvatar" src="" class="zoomed-avatar" alt="Profile Photo" onclick="openFullScreenPhoto(this.src)">
+                <h3 id="modalUserName" style="color: var(--gold-light); font-size: 20px; margin-top: 6px;">Naam</h3>
                 <div id="modalUserBadges" style="margin: 4px 0;"></div>
                 <div id="modalUserPoints" style="font-size: 12px; color: var(--emerald-bright); font-weight: 600; margin-top: 2px;">Total Stats</div>
             </div>
@@ -543,9 +823,227 @@
     <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJurfZRD8AyzWWXtY3VsThAcVZxi4QXYMakINqX_h55HrrnYog03eawNiSloQ6SJQHBA/exec';
         let currentMode = 'login';
+        let currentLang = localStorage.getItem('zikr_lang') || 'ro';
         let globalReports = [];
         let globalUsers = [];
         let tempBase64Photo = 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png';
+
+        /* MULTI-LANGUAGE TRANSLATION DICTIONARY (ROMAN, HINDI, URDU) */
+        const translations = {
+            ro: {
+                ayah: '"Neki aur taqwa ke kaamon mein ek dusre ki madad karo." (Al-Quran 5:2)',
+                homeTitle: '🏠 ZikrSphere Home & Islami Rehnumai',
+                goToReportBtn: '📝 Aaj Ki Namaz & Roza Report Darj Karein ➔',
+                progressText: '🌙 Aaj Ka Ibadat Focus',
+                dateLabel: '📅 Tarik (Date)',
+                markAllBtn: '✨ Alhumdulillah! Sabhi 5 Farz Namaz Ada Ho Gayi',
+                namazHeading: '🕋 5 Waqt Ki Farz Namaz',
+                extraHeading: '🌙 Roza, Quran & Tarawih',
+                submitBtn: '💾 Pura Record Google Sheet Mein Save Karein',
+                dashHeading: '🏆 Community Leaderboard (Top Users)',
+                recordsHeading: "📜 Meri A'amal (Puri Detail)",
+                aboutHeading: '👨‍💻 About Founder & Developer',
+                aboutBio: 'Assalamu Alaikum! Mera naam <strong>ABBU SHAHMA</strong> hai. Maine <strong>ZikrSphere | Daily Deen & Deeds</strong> isliye banaya hoon taaki hum sab mil kar apni rozana ki 5 Farz Namaz, Roza, Quran-e-Pak ki Tilawat aur Tarawih ka hisab rakh sakein aur neki ke kaamon mein ek dusre ka hausla badha sakein.',
+                navHome: '🏠 Home',
+                navReport: '📝 Report',
+                navDash: '🏆 Dashboard',
+                navRecords: "📜 Meri A'amal",
+                navAbout: '👨‍💻 About',
+                maqsadHTML: `
+                    <h3>🎯 ZikrSphere Ka Maqsad</h3>
+                    <p><strong>ZikrSphere | Daily Deen & Deeds</strong> ka maqsad har musalman bhai aur behen ko rozana ki 5 waqt ki Namaz, Roza, Quran-e-Pak ki Tilawat aur Tarawih ka paband banana hai. Jab hum ek community ke saath apni ibadat ka record rakhte hain, toh ek dusre ko dekh kar neki karne ka jazba badhta hai.</p>
+                `,
+                namazHTML: `
+                    <h3>🕋 Namaz Kis Tarah Padhi Jati Hai (Mukammal Bayan)</h3>
+                    <p>Islam mein Imaan ke baad sabse ahem farz <strong>5 Waqt ki Namaz</strong> hai. Qayamat ke din sabse pehle Namaz hi ka hisab hoga.</p>
+                    <div class="rakat-Badges">
+                        <span class="rakat-chip">🌅 Fajr: 4 (2 Sunnat, 2 Farz)</span>
+                        <span class="rakat-chip">☀️ Zuhr: 12 (4 Sunnat, 4 Farz, 2 Sunnat, 2 Nafl)</span>
+                        <span class="rakat-chip">🌤️ Asr: 8 (4 Sunnat, 4 Farz)</span>
+                        <span class="rakat-chip">🌇 Maghrib: 7 (3 Farz, 2 Sunnat, 2 Nafl)</span>
+                        <span class="rakat-chip">🌌 Isha: 17 (4 Sunnat, 4 Farz, 2 Sunnat, 2 Nafl, 3 Witr, 2 Nafl)</span>
+                    </div>
+                    <ol>
+                        <li><strong>Wudu aur Pakizgi:</strong> Sabse pehle achhi tarah Wudu karein, paak kapde pehnein aur Qibla (Kaaba) ki taraf munh karke khade hon.</li>
+                        <li><strong>Niyat aur Takbeer-e-Tahreema:</strong> Dil mein namaz ki niyat karein aur <em>"Allahu Akbar"</em> kehte hue kaano tak haath utha kar bandh lein.</li>
+                        <li><strong>Qiyam aur Qirat:</strong> Khade hokar Sana (<em>Subhanaka Allahumma...</em>), phir <em>A'uzu Billah</em>, <em>Bismillah</em>, <strong>Surah Fatiha</strong> aur koi ek Surah padhein.</li>
+                        <li><strong>Ruku:</strong> <em>"Allahu Akbar"</em> kehte hue Ruku mein jhukein aur kam se kam 3 baar <em>"Subhana Rabbiyal Azeem"</em> padhein, phir <em>"Sami Allahu Liman Hamidah, Rabbana Lakal Hamd"</em> kehte hue seedhe khade hon.</li>
+                        <li><strong>Sajdah:</strong> <em>"Allahu Akbar"</em> kehte hue Sajde mein jayein aur 3 baar <em>"Subhana Rabbiyal A'la"</em> padhein. Ek rakat mein 2 sajde hote hain.</li>
+                        <li><strong>Qa'dah aur Salam:</strong> Aakhri rakat mein baith kar <em>Attahiyyat</em>, <em>Durood-e-Ibrahimi</em> aur <em>Dua-e-Masura</em> padhein, phir dahini aur baayin taraf <em>"Assalamu Alaikum wa Rahmatullah"</em> keh kar namaz mukammal karein.</li>
+                    </ol>
+                `,
+                rozaHTML: `
+                    <h3>🌙 Roza Ka Bayan Aur Fazilat</h3>
+                    <p><strong>Roza (Sawm)</strong> Islam ke 5 badi buniyaadon mein se ek hai. Subah Sadiq (Sehri ka waqt khatam hone) se lekar Suraj doobne (Iftar) tak Allah ki raza ke liye khane, peene aur har buri baat se rukne ko Roza kehte hain.</p>
+                    <ul>
+                        <li><strong>Sehri Ki Dua/Niyat:</strong> <em>"Wa bisawmi ghadinn nawaiytu min shahri ramadan"</em> (Maine Ramzan ke kal ke roze ki niyat ki).</li>
+                        <li><strong>Iftar Ki Dua:</strong> <em>"Allahumma inni laka sumtu wa bika aamantu wa alayka tawakkaltu wa ala rizqika aftartu"</em>.</li>
+                        <li><strong>Roze Ke Aadab:</strong> Roze ki halat mein jhooth, gheebat, chugli aur gusse se mukammal parhez karein.</li>
+                    </ul>
+                `,
+                tarawihHTML: `
+                    <h3>🕌 Tarawih Aur Quran-e-Pak Tilawat Ka Bayan</h3>
+                    <p><strong>Namaz-e-Tarawih:</strong> Ramzan ke mahine mein Isha ki farz aur sunnat ke baad aur Witr se pehle <strong>20 Rakat Tarawih</strong> (2-2 rakat karke) padhna Sunnat-e-Muakkadah hai. Har 4 rakat ke baad thodi der baith kar Tasbeeh-e-Tarawih (<em>Subhana Zil Mulki Wal Malakoot...</em>) padhi jati hai.</p>
+                    <p><strong>Quran Tilawat:</strong> Rozana Quran-e-Pak ki tilawat karne se ghar mein barkat hoti hai aur har ek harf padhne par 10 nekiyan milti hain.</p>
+                `
+            },
+            hi: {
+                ayah: '"नेकी और तक़वा के कामों में एक-दूसरे की मदद करो।" (अल-क़ुरआन 5:2)',
+                homeTitle: '🏠 ज़िक्र-स्फीयर होम और इस्लामी रहनुमाई',
+                goToReportBtn: '📝 आज की नमाज़ और रोज़ा रिपोर्ट दर्ज करें ➔',
+                progressText: '🌙 आज का इबादत फोकस',
+                dateLabel: '📅 तारीख़ (Date)',
+                markAllBtn: '✨ अल्हम्दुलिल्लाह! सभी 5 फ़र्ज़ नमाज़ अदा हो गईं',
+                namazHeading: '🕋 5 वक़्त की फ़र्ज़ नमाज़',
+                extraHeading: '🌙 रोज़ा, क़ुरआन और तरावीह',
+                submitBtn: '💾 पूरा रिकॉर्ड गूगल शीट में सेव करें',
+                dashHeading: '🏆 कम्युनिटी लीडरबोर्ड (Top Users)',
+                recordsHeading: '📜 मेरे आमाल (पूरी डिटेल)',
+                aboutHeading: '👨‍💻 फाउंडर और डेवलपर के बारे में',
+                aboutBio: 'अस्सलामु अलैकुम! मेरा नाम <strong>ABBU SHAHMA</strong> है। मैंने <strong>ZikrSphere | Daily Deen & Deeds</strong> इसलिए बनाया हूँ ताकि हम सब मिल कर अपनी रोज़ाना की 5 फ़र्ज़ नमाज़, रोज़ा, क़ुरआन-ए-पाक की तिलावत और तरावीह का हिसाब रख सकें और नेकी के कामों में एक दूसरे का हौसला बढ़ा सकें।',
+                navHome: '🏠 होम',
+                navReport: '📝 रिपोर्ट',
+                navDash: '🏆 डैशबोर्ड',
+                navRecords: '📜 मेरे आमाल',
+                navAbout: '👨‍💻 परिचय',
+                maqsadHTML: `
+                    <h3>🎯 ZikrSphere का मक़सद</h3>
+                    <p><strong>ZikrSphere | Daily Deen & Deeds</strong> का मक़सद हर मुसलमान भाई और बहन को रोज़ाना की 5 वक़्त की नमाज़, रोज़ा, क़ुरआन-ए-पाक की तिलावत और तरावीह का पाबंद बनाना है। जब हम एक कम्युनिटी के साथ अपनी इबादत का रिकॉर्ड रखते हैं, तो एक-दूसरे को देख कर नेकी करने का जज़्बा बढ़ता है।</p>
+                `,
+                namazHTML: `
+                    <h3>🕋 नमाज़ किस तरह पढ़ी जाती है (मुकम्मल बयान)</h3>
+                    <p>इस्लाम में ईमान के बाद सबसे अहम फ़र्ज़ <strong>5 वक़्त की नमाज़</strong> है। क़यामत के दिन सबसे पहले नमाज़ ही का हिसाब होगा।</p>
+                    <div class="rakat-Badges">
+                        <span class="rakat-chip">🌅 फ़ज्र: 4 (2 सुन्नत, 2 फ़र्ज़)</span>
+                        <span class="rakat-chip">☀️ ज़ुहर: 12 (4 सुन्नत, 4 फ़र्ज़, 2 सुन्नत, 2 नफ़्ल)</span>
+                        <span class="rakat-chip">🌤️ असर: 8 (4 सुन्नत, 4 फ़र्ज़)</span>
+                        <span class="rakat-chip">🌇 मग़रिब: 7 (3 फ़र्ज़, 2 सुन्नत, 2 नफ़्ल)</span>
+                        <span class="rakat-chip">🌌 इशा: 17 (4 सुन्नत, 4 फ़र्ज़, 2 सुन्नत, 2 नफ़्ल, 3 वित्र, 2 नफ़्ल)</span>
+                    </div>
+                    <ol>
+                        <li><strong>वुज़ू और पाकीज़गी:</strong> सबसे पहले अच्छी तरह वुज़ू करें, पाक कपड़े पहनें और क़िबला (काबा) की तरफ़ मुँह करके खड़े हों।</li>
+                        <li><strong>नीयत और तकबीर-ए-तहरीमा:</strong> दिल में नमाज़ की नीयत करें और <em>"अल्लाहु अकबर"</em> कहते हुए कानों तक हाथ उठा कर बाँध लें।</li>
+                        <li><strong>क़ियाम और क़िरअत:</strong> खड़े होकर सना (<em>सुब्हानका अल्लाहुम्मा...</em>), फिर <em>अऊज़ु बिल्लाह</em>, <em>बिस्मिल्लाह</em>, <strong>सूरह फ़ातिहा</strong> और कोई एक सूरह पढ़ें।</li>
+                        <li><strong>रुकू:</strong> <em>"अल्लाहु अकबर"</em> कहते हुए रुकू में झुकें और कम से कम 3 बार <em>"सुब्हाना रब्बियल अज़ीम"</em> पढ़ें, फिर <em>"समिअल्लाहु लिमन हमिदह, रब्बना लकल हम्द"</em> कहते हुए सीधे खड़े हों।</li>
+                        <li><strong>सजदा:</strong> <em>"अल्लाहु अकबर"</em> कहते हुए सजदे में जाएँ और 3 बार <em>"सुब्हाना रब्बियल आला"</em> पढ़ें। एक रकात में 2 सजदे होते हैं।</li>
+                        <li><strong>क़ादा और सलाम:</strong> आख़िरी रकात में बैठ कर <em>अत्तहिय्यात</em>, <em>दुरूद-ए-इब्राहीमी</em> और <em>दुआ-ए-मासूरा</em> पढ़ें, फिर दाहिनी और बाईं तरफ़ <em>"अस्सलामु अलैकुम व रहमतुल्लाह"</em> कह कर नमाज़ मुकम्मल करें।</li>
+                    </ol>
+                `,
+                rozaHTML: `
+                    <h3>🌙 रोज़ा का बयान और फ़ज़ीलत</h3>
+                    <p><strong>रोज़ा (सौम)</strong> इस्लाम के 5 बड़े अरकान में से एक है। सुबह सादिक़ (सहरी का वक़्त ख़त्म होने) से लेकर सूरज डूबने (इफ़्तार) तक अल्लाह की रज़ा के लिए खाने, पीने और हर बुरी बात से रुकने को रोज़ा कहते हैं।</p>
+                    <ul>
+                        <li><strong>सहरी की दुआ/नीयत:</strong> <em>"व बिसौमि ग़दिन नवैतु मिन शहरि रमज़ान"</em> (मैंने रमज़ान के कल के रोज़े की नीयत की)।</li>
+                        <li><strong>इफ़्तार की दुआ:</strong> <em>"अल्लाहुम्मा इन्नी लका सुम्तु व बिका आमन्तु व अलैका तवक्कलतु व अला रिज़्क़िका अफ़्तरतु"</em>।</li>
+                        <li><strong>रोज़े के आदाब:</strong> रोज़े की हालत में झूठ, ग़ीबत, चुग़ली और ग़ुस्से से मुकम्मल परहेज़ करें।</li>
+                    </ul>
+                `,
+                tarawihHTML: `
+                    <h3>🕌 तरावीह और क़ुरआन-ए-पाक तिलावत का बयान</h3>
+                    <p><strong>नमाज़-ए-तरावीह:</strong> रमज़ान के महीने में इशा की फ़र्ज़ और सुन्नत के बाद और वित्र से पहले <strong>20 रकात तरावीह</strong> (2-2 रकात करके) पढ़ना सुन्नत-ए-मुअक्किदा है। हर 4 रकात के बाद थोड़ी देर बैठ कर तस्बीह-ए-तरावीह (<em>सुब्हाना ज़िल मुल्कि वल मलकूत...</em>) पढ़ी जाती है।</p>
+                    <p><strong>क़ुरआन तिलावत:</strong> रोज़ाना क़ुरआन-ए-पाक की तिलावत करने से घर में बरकत होती है और हर एक हर्फ़ पढ़ने पर 10 नेकियाँ मिलती हैं।</p>
+                `
+            },
+            ur: {
+                ayah: '"نیکی اور تقویٰ کے کاموں میں ایک دوسرے کی مدد کرو۔" (القرآن 5:2)',
+                homeTitle: '🏠 ذکر اسفیئر ہوم اور اسلامی رہنمائی',
+                goToReportBtn: '📝 آج کی نماز اور روزہ رپورٹ درج کریں ➔',
+                progressText: '🌙 آج کا عبادت فوکس',
+                dateLabel: '📅 تاریخ (Date)',
+                markAllBtn: '✨ الحمدللہ! پانچوں فرض نمازیں ادا ہو گئیں',
+                namazHeading: '🕋 5 وقت کی فرض نماز',
+                extraHeading: '🌙 روزہ، قرآن اور تراویح',
+                submitBtn: '💾 پورا ریکارڈ گوگل شیٹ میں محفوظ کریں',
+                dashHeading: '🏆 کمیونٹی لیڈر بورڈ (Top Users)',
+                recordsHeading: '📜 میرے اعمال (مکمل تفصیل)',
+                aboutHeading: '👨‍💻 بانی اور ڈیولپر کے بارے میں',
+                aboutBio: 'السلام علیکم! میرا نام <strong>ABBU SHAHMA</strong> ہے۔ میں نے <strong>ZikrSphere | Daily Deen & Deeds</strong> اس لیے بنایا ہوں تاکہ ہم سب مل کر اپنی روزانہ کی 5 فرض نماز، روزہ، قرآنِ پاک کی تلاوت اور تراویح کا حساب رکھ سکیں اور نیکی کے کاموں میں ایک دوسرے کا حوصلہ بڑھا سکیں۔',
+                navHome: '🏠 ہوم',
+                navReport: '📝 رپورٹ',
+                navDash: '🏆 ڈیش بورڈ',
+                navRecords: '📜 میرے اعمال',
+                navAbout: '👨‍💻 تعارف',
+                maqsadHTML: `
+                    <h3>🎯 ZikrSphere کا مقصد</h3>
+                    <p><strong>ZikrSphere | Daily Deen & Deeds</strong> کا مقصد ہر مسلمان بھائی اور بہن کو روزانہ کی پانچ وقت کی نماز، روزہ، قرآنِ پاک کی تلاوت اور تراویح کا پابند بنانا ہے۔ جب ہم ایک کمیونٹی کے ساتھ اپنی عبادت کا ریکارڈ رکھتے ہیں تو ایک دوسرے کو دیکھ کر نیکی کرنے کا جذبہ بڑھتا ہے۔</p>
+                `,
+                namazHTML: `
+                    <h3>🕋 نماز کس طرح پڑھی جاتی ہے (مکمل بیان)</h3>
+                    <p>اسلام میں ایمان کے بعد سب سے اہم فرض <strong>پانچ وقت کی نماز</strong> ہے۔ قیامت کے دن سب سے پہلے نماز ہی کا حساب ہوگا۔</p>
+                    <div class="rakat-Badges">
+                        <span class="rakat-chip">🌅 فجر: 4 (2 سنت، 2 فرض)</span>
+                        <span class="rakat-chip">☀️ ظہر: 12 (4 سنت، 4 فرض، 2 سنت، 2 نفل)</span>
+                        <span class="rakat-chip">🌤️ عصر: 8 (4 سنت، 4 فرض)</span>
+                        <span class="rakat-chip">🌇 مغرب: 7 (3 فرض، 2 سنت، 2 نفل)</span>
+                        <span class="rakat-chip">🌌 عشاء: 17 (4 سنت، 4 فرض، 2 سنت، 2 نفل، 3 وتر، 2 نفل)</span>
+                    </div>
+                    <ol>
+                        <li><strong>وضو اور پاکیزگی:</strong> سب سے پہلے اچھی طرح وضو کریں، پاک کپڑے پہنیں اور قبلہ (خانہ کعبہ) کی طرف رخ کر کے کھڑے ہوں۔</li>
+                        <li><strong>نیت اور تکبیرِ تحریمہ:</strong> دل میں نماز کی نیت کریں اور <em>"اللہ اکبر"</em> کہتے ہوئے کانوں کی لو تک ہاتھ اٹھا کر باندھ لیں۔</li>
+                        <li><strong>قیام اور قرات:</strong> کھڑے ہو کر ثناء (<em>سبحانک اللھم...</em>)، پھر تعوذ، تسمیہ، <strong>سورۃ الفاتحہ</strong> اور کوئی ایک سورت پڑھیں۔</li>
+                        <li><strong>رکوع:</strong> <em>"اللہ اکبر"</em> کہتے ہوئے رکوع میں جھکیں اور کم از کم 3 بار <em>"سبحان ربی العظیم"</em> پڑھیں، پھر <em>"سمع اللہ لمن حمدہ، ربنا لک الحمد"</em> کہتے ہوئے سیدھے کھڑے ہوں۔</li>
+                        <li><strong>سجدہ:</strong> <em>"اللہ اکبر"</em> کہتے ہوئے سجدے میں جائیں اور 3 بار <em>"سبحان ربی الاعلیٰ"</em> پڑھیں۔ ایک رکعت میں دو سجدے ہوتے ہیں۔</li>
+                        <li><strong>قعدہ اور سلام:</strong> آخری رکعت میں بیٹھ کر <em>التحیات</em>، <em>درودِ ابراہیمی</em> اور <em>دعائے ماثورہ</em> پڑھیں، پھر دائیں اور بائیں طرف <em>"السلام علیکم ورحمۃ اللہ"</em> کہہ کر نماز مکمل کریں۔</li>
+                    </ol>
+                `,
+                rozaHTML: `
+                    <h3>🌙 روزہ کا بیان اور فضیلت</h3>
+                    <p><strong>روزہ (صوم)</strong> اسلام کے پانچ بنیادی ارکان میں سے ایک ہے۔ صبح صادق (سحری کا وقت ختم ہونے) سے لے کر سورج غروب ہونے (افطار) تک اللہ کی رضا کے لیے کھانے، پینے اور ہر بری بات سے رکنے کو روزہ کہتے ہیں۔</p>
+                    <ul>
+                        <li><strong>سحری کی نیت:</strong> <em>"وَبِصَوْمِ غَدٍ نَّوَيْتُ مِنْ شَهْرِ رَمَضَانَ"</em> (میں نے رمضان کے کل کے روزے کی نیت کی)۔</li>
+                        <li><strong>افطار کی دعا:</strong> <em>"اللَّهُمَّ إِنِّي لَكَ صُمْتُ وَبِكَ آمَنْتُ وَعَلَيْكَ تَوَكَّلْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ"</em>۔</li>
+                        <li><strong>روزے کے آداب:</strong> روزے کی حالت میں جھوٹ، غیبت، چغلی اور غصے سے مکمل پرہیز کریں۔</li>
+                    </ul>
+                `,
+                tarawihHTML: `
+                    <h3>🕌 تراویح اور قرآنِ پاک تلاوت کا بیان</h3>
+                    <p><strong>نمازِ تراویح:</strong> رمضان المبارک میں عشاء کی فرض اور سنت کے بعد اور وتر سے پہلے <strong>20 رکعت تراویح</strong> (دو دو رکعت کر کے) پڑھنا سنتِ مؤکدہ ہے۔ ہر چار رکعت کے بعد تھوڑی دیر بیٹھ کر تسبیحِ تراویح (<em>سبحان ذی الملک والملکوت...</em>) پڑھی جاتی ہے۔</p>
+                    <p><strong>تلاوتِ قرآن:</strong> روزانہ قرآنِ پاک کی تلاوت کرنے سے دل کو سکون اور گھر میں برکت حاصل ہوتی ہے اور ہر حرف پر 10 نیکیاں ملتی ہیں۔</p>
+                `
+            }
+        };
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('zikr_lang', lang);
+
+            document.body.classList.toggle('lang-ur', lang === 'ur');
+            ['ro', 'hi', 'ur'].forEach(l => {
+                document.getElementById('langBtn-' + l).classList.toggle('active', l === lang);
+            });
+
+            const t = translations[lang];
+            document.getElementById('t_ayah').innerText = t.ayah;
+            document.getElementById('t_homeTitle').innerText = t.homeTitle;
+            document.getElementById('t_goToReportBtn').innerText = t.goToReportBtn;
+            document.getElementById('progressText').innerText = t.progressText;
+            document.getElementById('t_dateLabel').innerText = t.dateLabel;
+            document.getElementById('t_markAllBtn').innerText = t.markAllBtn;
+            document.getElementById('t_namazHeading').innerText = t.namazHeading;
+            document.getElementById('t_extraHeading').innerText = t.extraHeading;
+            document.getElementById('submitBtn').innerText = t.submitBtn;
+            document.getElementById('t_dashHeading').innerText = t.dashHeading;
+            document.getElementById('t_recordsHeading').innerText = t.recordsHeading;
+            document.getElementById('t_aboutHeading').innerText = t.aboutHeading;
+            document.getElementById('t_aboutBio').innerHTML = t.aboutBio;
+
+            document.getElementById('t_navHome').innerText = t.navHome;
+            document.getElementById('t_navReport').innerText = t.navReport;
+            document.getElementById('t_navDash').innerText = t.navDash;
+            document.getElementById('t_navRecords').innerText = t.navRecords;
+            document.getElementById('t_navAbout').innerText = t.navAbout;
+
+            document.getElementById('homeBoxMaqsad').innerHTML = t.maqsadHTML;
+            document.getElementById('homeBoxNamaz').innerHTML = t.namazHTML;
+            document.getElementById('homeBoxRoza').innerHTML = t.rozaHTML;
+            document.getElementById('homeBoxTarawih').innerHTML = t.tarawihHTML;
+        }
+
+        function addQuickTag(prefix) {
+            const box = document.getElementById('adminMsgInput');
+            box.value = prefix + box.value;
+            box.focus();
+        }
 
         const today = new Date();
         const yyyy = today.getFullYear();
@@ -557,6 +1055,7 @@
         dateInput.value = todayStr;
         dateInput.max = todayStr;
         
+        setLanguage(currentLang);
         loadHijriCalendar(today);
         checkDayAndLoadData();
 
@@ -669,27 +1168,35 @@
 
         function switchSection(section) {
             const trackerCard = document.getElementById('trackerCard');
+            const homeSec = document.getElementById('sectionHome');
             const trackerSec = document.getElementById('sectionTracker');
             const dashSec = document.getElementById('sectionDashboard');
             const recordsSec = document.getElementById('sectionRecords');
             const publicAboutCard = document.getElementById('publicAboutCard');
             
+            const homeBtn = document.getElementById('navHomeBtn');
             const trackerBtn = document.getElementById('navTrackerBtn');
             const dashBtn = document.getElementById('navDashBtn');
             const recordsBtn = document.getElementById('navRecordsBtn');
             const aboutBtn = document.getElementById('navAboutBtn');
 
+            homeSec.classList.add('hidden');
             trackerSec.classList.add('hidden');
             dashSec.classList.add('hidden');
             recordsSec.classList.add('hidden');
             publicAboutCard.classList.add('hidden');
 
+            homeBtn.classList.remove('active');
             trackerBtn.classList.remove('active');
             dashBtn.classList.remove('active');
             recordsBtn.classList.remove('active');
             aboutBtn.classList.remove('active');
 
-            if (section === 'tracker') {
+            if (section === 'home') {
+                trackerCard.classList.remove('hidden');
+                homeSec.classList.remove('hidden');
+                homeBtn.classList.add('active');
+            } else if (section === 'tracker') {
                 trackerCard.classList.remove('hidden');
                 trackerSec.classList.remove('hidden');
                 trackerBtn.classList.add('active');
@@ -771,7 +1278,7 @@
                         localStorage.setItem('namaz_photo', newPhoto);
                         document.getElementById('userAvatar').src = newPhoto;
                         document.getElementById('drawerUserAvatar').src = newPhoto;
-                        alert('✅ MashaAllah! Ultra-HD Profile Photo update ho gayi!');
+                        alert('✅ MashaAllah! Profile Photo update ho gayi!');
                         fetchAllDataAndRefresh();
                     } else {
                         alert('❌ ' + data.message);
@@ -792,7 +1299,7 @@
             }
 
             const btn = document.getElementById('sendMsgBtn');
-            btn.innerText = 'Bheja ja raha hai...';
+            btn.innerHTML = '<span>⏳ Bheja ja raha hai...</span>';
             btn.disabled = true;
 
             try {
@@ -808,7 +1315,7 @@
             } catch(e) {
                 alert('Message bhejne mein error aayi.');
             } finally {
-                btn.innerText = '📤 Admin Ko Bhejein';
+                btn.innerHTML = '<span>🚀 Admin Ko Message Bhejein</span>';
                 btn.disabled = false;
             }
         }
@@ -1157,6 +1664,7 @@
             if (photo) {
                 document.getElementById('userAvatar').src = photo;
             }
+            switchSection('home');
             fetchAllDataAndRefresh();
         }
 
@@ -1227,7 +1735,7 @@
                 alert('MashaAllah! Report save ho gayi!');
                 fetchAllDataAndRefresh();
             } finally {
-                btn.innerText = '💾 Pura Record Google Sheet Mein Save Karein';
+                btn.innerText = translations[currentLang].submitBtn;
                 btn.disabled = false;
             }
         }
