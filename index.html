@@ -10,6 +10,9 @@
     <meta name="description" content="ZikrSphere | Daily Deen & Deeds - Islamic Community Tracker founded and developed by ABBU SHAHMA. Track daily 5 Farz Namaz, Roza, Quran Tilawat, and Tarawih.">
     <meta name="keywords" content="ZikrSphere, ABBU SHAHMA, Abbu Shahma Developer, Islamic Tracker, Namaz Tracker, Daily Deen and Deeds">
 
+    <!-- PRELOAD DEVELOPER IMAGE SO GOOGLEBOT ALWAYS FETCHES IT -->
+    <link rel="preload" as="image" href="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg">
+
     <!-- STRONG FAVICON TAGS FOR GOOGLE SEARCH LOGO (logo.jpg) -->
     <link rel="icon" type="image/jpeg" sizes="16x16" href="https://osman-debug3.github.io/namaz/logo.jpg">
     <link rel="icon" type="image/jpeg" sizes="32x32" href="https://osman-debug3.github.io/namaz/logo.jpg">
@@ -105,22 +108,54 @@
         .container { max-width: 620px; margin: 0 auto; }
 
         header {
-            position: relative; text-align: center; margin-bottom: 20px; padding: 16px 15px;
+            position: relative; text-align: center; margin-bottom: 18px; padding: 16px 15px;
             border-radius: 20px; background: linear-gradient(180deg, rgba(212, 175, 55, 0.14) 0%, rgba(6, 47, 35, 0.5) 100%);
             border: 1px solid var(--border-gold); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .menu-toggle-btn {
-            position: absolute; top: 18px; left: 16px;
+            position: absolute; top: 18px; left: 14px;
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(6, 47, 35, 0.9));
             border: 1.5px solid var(--gold); color: var(--gold-light);
-            width: 42px; height: 42px; border-radius: 11px; font-size: 22px;
+            width: 42px; height: 42px; border-radius: 11px; font-size: 21px;
             display: flex; align-items: center; justify-content: center; cursor: pointer;
             box-shadow: 0 4px 14px rgba(0,0,0,0.4); transition: 0.2s;
         }
         .menu-toggle-btn:hover { transform: scale(1.06); background: var(--gold); color: #021a13; }
 
-        /* SIDE DRAWER OVERLAY (SEO FRIENDLY VISIBILITY TRANSITION) */
+        .notif-bell-btn {
+            position: absolute; top: 18px; right: 14px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(6, 47, 35, 0.9));
+            border: 1.5px solid var(--gold); color: var(--gold-light);
+            width: 42px; height: 42px; border-radius: 11px; font-size: 19px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.4); transition: 0.2s;
+        }
+        .notif-bell-btn:hover { transform: scale(1.06); background: var(--gold); color: #021a13; }
+        .notif-badge-dot {
+            position: absolute; top: -4px; right: -4px;
+            background: #ef4444; color: #fff; font-size: 10px; font-weight: 800;
+            width: 18px; height: 18px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 1.5px solid #021a13;
+        }
+
+        /* LATEST BROADCAST BANNER */
+        .broadcast-banner {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.22), rgba(16, 185, 129, 0.16));
+            border: 1.5px solid var(--gold);
+            border-radius: 14px;
+            padding: 11px 14px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+        }
+
+        /* SIDE DRAWER OVERLAY (SEO FRIENDLY - NO DISPLAY:NONE ON DEV PHOTO) */
         .side-drawer-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(2, 26, 19, 0.85); backdrop-filter: blur(6px); z-index: 2500;
@@ -131,9 +166,9 @@
         }
 
         .side-drawer {
-            width: 350px; max-width: 90vw; background: linear-gradient(180deg, #052c21, #021a13);
+            width: 360px; max-width: 92vw; background: linear-gradient(180deg, #052c21, #021a13);
             border-right: 2px solid var(--gold);
-            height: 100%; padding: 22px 16px 40px; overflow-y: auto;
+            height: 100%; padding: 20px 16px 36px; overflow-y: auto;
             box-shadow: 15px 0 40px rgba(0, 0, 0, 0.85); position: relative;
             transform: translateX(-100%); transition: transform 0.28s ease-out;
         }
@@ -143,40 +178,72 @@
 
         .drawer-close { position: absolute; top: 14px; right: 16px; font-size: 26px; color: var(--gold-light); cursor: pointer; }
 
-        /* SETTINGS & LANGUAGE CARD INSIDE DRAWER */
-        .settings-card {
-            background: linear-gradient(145deg, rgba(8, 53, 40, 0.9), rgba(4, 33, 24, 0.96));
-            border: 1.5px solid var(--gold);
-            border-radius: 18px;
-            padding: 14px;
+        /* CLEAN ACCORDION MENU BUTTONS INSIDE 3-LINE DRAWER */
+        .drawer-menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
             margin-top: 14px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
         }
-        .settings-header {
+        .drawer-nav-item {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 13px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            background: rgba(8, 53, 40, 0.75);
+            color: var(--text-main);
+            font-size: 13.5px;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: 0.2s;
         }
+        .drawer-nav-item:hover, .drawer-nav-item.active {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(16, 185, 129, 0.2));
+            border-color: var(--gold);
+            color: var(--gold-light);
+        }
+
+        .drawer-panel {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.25s ease, margin 0.25s ease;
+        }
+        .drawer-panel.open {
+            max-height: 900px;
+            opacity: 1;
+            margin-top: 6px;
+            margin-bottom: 8px;
+        }
+
+        .panel-inner-card {
+            background: linear-gradient(145deg, rgba(4, 33, 24, 0.96), rgba(8, 53, 40, 0.9));
+            border: 1.5px solid var(--gold);
+            border-radius: 16px;
+            padding: 14px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+        }
+
         .settings-lang-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 8px;
+            margin-bottom: 12px;
         }
         .lang-btn {
             padding: 9px 8px;
-            border-radius: 11px;
+            border-radius: 10px;
             border: 1px solid rgba(212, 175, 55, 0.35);
-            background: rgba(2, 26, 19, 0.75);
+            background: rgba(2, 26, 19, 0.8);
             color: var(--text-main);
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
             transition: 0.2s;
             text-align: center;
-        }
-        .lang-btn:hover {
-            border-color: var(--gold-light);
         }
         .lang-btn.active {
             background: linear-gradient(135deg, var(--gold), #b48a1e);
@@ -185,119 +252,116 @@
             box-shadow: 0 3px 12px var(--gold-glow);
         }
 
-        /* UPGRADED VIP ADMIN MESSAGE CARD IN DRAWER */
-        .admin-contact-card {
-            background: linear-gradient(145deg, rgba(11, 79, 58, 0.65), rgba(4, 33, 24, 0.95));
-            border: 1.5px solid var(--gold);
-            border-radius: 18px;
-            padding: 16px;
-            margin-top: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.45), inset 0 0 15px rgba(212, 175, 55, 0.08);
-        }
-        .admin-card-header {
+        /* 2-WAY WHATSAPP-STYLE CONVERSATION CHAT BOX */
+        .chat-messages-box {
+            background: rgba(2, 22, 16, 0.92);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 12px;
+            padding: 10px;
+            height: 230px;
+            overflow-y: auto;
             display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-        .admin-icon-badge {
-            width: 38px; height: 38px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--gold), #b48a1e);
-            color: #021a13;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 19px;
-            flex-shrink: 0;
-            box-shadow: 0 4px 10px var(--gold-glow);
-        }
-        .quick-tags {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 8px;
             margin-bottom: 10px;
         }
-        .quick-tag {
-            font-size: 10.5px;
-            font-weight: 700;
-            padding: 4px 9px;
-            border-radius: 99px;
-            background: rgba(212, 175, 55, 0.14);
-            color: var(--gold-light);
-            border: 1px solid rgba(212, 175, 55, 0.35);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .quick-tag:hover {
-            background: var(--gold);
-            color: #021a13;
-        }
-        .admin-textarea {
-            width: 100%;
-            padding: 12px;
+        .chat-bubble {
+            max-width: 85%;
+            padding: 8px 11px;
             border-radius: 12px;
-            border: 1.5px solid rgba(212, 175, 55, 0.35);
-            background: rgba(2, 26, 19, 0.9);
-            color: #fff;
-            font-size: 13px;
-            resize: vertical;
-            min-height: 85px;
-            outline: none;
-            transition: 0.25s;
+            font-size: 12px;
+            line-height: 1.45;
+            position: relative;
+            word-wrap: break-word;
         }
-        .admin-textarea:focus {
-            border-color: var(--gold-light);
-            box-shadow: 0 0 12px var(--gold-glow);
-        }
-        .admin-send-btn {
-            width: 100%;
-            margin-top: 10px;
-            padding: 12px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #10b981, #047857);
+        .chat-bubble.me {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #059669, #047857);
             color: #ffffff;
-            font-weight: 700;
-            font-size: 13.5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            border: 1px solid rgba(255,255,255,0.25);
-            box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
-            transition: 0.25s;
+            border-bottom-right-radius: 3px;
+            border: 1px solid rgba(110, 231, 183, 0.35);
         }
-        .admin-send-btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
+        .chat-bubble.other {
+            align-self: flex-start;
+            background: rgba(212, 175, 55, 0.16);
+            color: #f8fafc;
+            border-bottom-left-radius: 3px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+        .chat-sender {
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--gold-light);
+            margin-bottom: 2px;
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .chat-time {
+            font-size: 9px;
+            color: #cbd5e1;
+            opacity: 0.8;
+            margin-top: 3px;
+            text-align: right;
+        }
+        .chat-input-row {
+            display: flex;
+            gap: 6px;
+        }
+        .chat-input-row input {
+            flex: 1;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--gold);
+            background: #021a13;
+            color: #fff;
+            font-size: 12.5px;
+        }
+        .chat-send-btn {
+            padding: 0 14px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, var(--gold), #b48a1e);
+            color: #021a13;
+            font-weight: 800;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        /* NOTIFICATIONS LIST */
+        .notif-list-box {
+            max-height: 220px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .notif-item {
+            background: rgba(212, 175, 55, 0.12);
+            border-left: 3.5px solid var(--gold);
+            border-radius: 8px;
+            padding: 9px 11px;
+            font-size: 12px;
         }
 
         /* ABOUT DEVELOPER CARD INSIDE DRAWER */
-        .drawer-dev-card {
-            background: linear-gradient(180deg, rgba(212, 175, 55, 0.15) 0%, rgba(4, 33, 24, 0.96) 100%);
-            border: 1.5px solid var(--gold);
-            border-radius: 18px;
-            padding: 18px 14px;
-            margin-top: 16px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
         .drawer-dev-photo {
-            width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+            width: 115px; height: 115px; border-radius: 50%; object-fit: cover;
             border: 3px solid var(--gold); margin-bottom: 8px;
             box-shadow: 0 0 20px var(--gold-glow); cursor: zoom-in;
         }
 
         .bismillah { font-family: 'Amiri', serif; font-size: 26px; color: var(--gold-light); margin-bottom: 4px; text-shadow: 0 2px 12px rgba(212, 175, 55, 0.4); }
         header h1 {
-            font-size: 20px; font-weight: 700; background: linear-gradient(90deg, #ffffff, var(--gold-light));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; padding: 0 36px;
+            font-size: 19.5px; font-weight: 700; background: linear-gradient(90deg, #ffffff, var(--gold-light));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; padding: 0 42px;
         }
         .ayah-box { font-size: 12px; color: #cbd5e1; font-style: italic; max-width: 90%; margin: 0 auto; padding-top: 6px; border-top: 1px solid rgba(212, 175, 55, 0.2); }
 
         .hijri-badge {
             background: rgba(212, 175, 55, 0.16); border: 1px solid var(--gold); color: var(--gold-light);
-            padding: 5px 16px; border-radius: 99px; font-size: 14px; font-weight: 700;
+            padding: 5px 16px; border-radius: 99px; font-size: 13.5px; font-weight: 700;
             display: inline-block; margin-top: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         .hijri-badge .ar-month { font-family: 'Amiri', serif; font-size: 17px; margin: 0 5px; color: #ffffff; }
@@ -355,12 +419,9 @@
             padding-left: 18px;
             margin-top: 6px;
         }
-        body.lang-ur .guide-box, body.lang-ur .drawer-dev-card {
+        body.lang-ur .guide-box {
             direction: rtl;
             text-align: right;
-        }
-        body.lang-ur .drawer-dev-card figcaption, body.lang-ur .drawer-dev-card figure {
-            text-align: center;
         }
         body.lang-ur .guide-box ul, body.lang-ur .guide-box ol {
             padding-left: 0;
@@ -386,27 +447,11 @@
         .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; border-radius: 9px; font-size: 13.5px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: 0.25s; }
         .tab-btn.active { background: linear-gradient(135deg, var(--gold), #b48a1e); color: #021a13; }
 
-        .user-banner {
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(212, 175, 55, 0.12));
-            border: 1px solid var(--border-gold); padding: 14px 16px; border-radius: 16px; margin-bottom: 18px;
-        }
-        .user-profile-flex { display: flex; align-items: center; gap: 14px; }
-        .avatar-img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2.5px solid var(--gold); cursor: pointer; box-shadow: 0 0 15px var(--gold-glow); }
-        .user-banner .greeting { font-size: 15.5px; font-weight: 700; color: var(--gold-light); margin-bottom: 6px; }
-
-        .photo-upload-chip {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: linear-gradient(135deg, #10b981, #047857); color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.25); padding: 6px 12px; border-radius: 8px;
-            font-size: 11.5px; font-weight: 700; cursor: pointer;
-        }
-
         .logout-btn {
-            display: inline-flex; align-items: center; gap: 6px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
             background: linear-gradient(135deg, #ef4444, #991b1b); color: #ffffff;
-            border: 1px solid rgba(252, 165, 165, 0.4); padding: 9px 15px; border-radius: 10px;
-            font-size: 12.5px; font-weight: 700; cursor: pointer;
+            border: 1px solid rgba(252, 165, 165, 0.4); padding: 11px 15px; border-radius: 12px;
+            font-size: 13px; font-weight: 700; cursor: pointer; width: 100%;
         }
 
         .file-upload-wrapper { position: relative; overflow: hidden; display: inline-block; width: 100%; }
@@ -452,7 +497,7 @@
 
         .form-group { margin-bottom: 14px; }
         label { display: block; font-size: 11px; font-weight: 700; color: #cbd5e1; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
-        input { width: 100%; padding: 11px 13px; border: 1px solid var(--border-subtle); border-radius: 12px; font-size: 14px; background: #042118; color: var(--text-main); outline: none; color-scheme: dark; }
+        input, textarea { width: 100%; padding: 11px 13px; border: 1px solid var(--border-subtle); border-radius: 12px; font-size: 14px; background: #042118; color: var(--text-main); outline: none; color-scheme: dark; }
 
         /* ATTRACTIVE PREMIUM DROPDOWNS FOR NAMAZ, ROZA, TARAWIH, QURAN */
         .namaz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
@@ -538,82 +583,133 @@
 </head>
 <body>
 
-    <!-- THREE-LINE SIDE DRAWER MENU (SETTINGS + ADMIN DESK + ABOUT DEVELOPER + ACTIONS) -->
+    <!-- Hidden File Input for Changing Profile Photo -->
+    <input type="file" id="changePhotoInput" accept="image/*" style="display: none;" onchange="updateProfilePhoto(this)">
+
+    <!-- THREE-LINE SIDE DRAWER MENU -->
     <div id="sideDrawerOverlay" class="side-drawer-overlay" onclick="closeSideMenu(event)">
         <div class="side-drawer" onclick="event.stopPropagation()">
             <span class="drawer-close" onclick="toggleSideMenu()">&times;</span>
+            
+            <!-- USER PROFILE HEADER IN DRAWER -->
             <div style="text-align: center; padding-bottom: 14px; border-bottom: 1px solid var(--border-subtle);">
-                <img id="drawerUserAvatar" src="https://i.ibb.co/6Wv1V6Zm/default-avatar.png" style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2.5px solid var(--gold); margin-bottom: 6px;" alt="User Avatar">
-                <h3 id="drawerUserName" style="color: var(--gold-light); font-size: 16px;">Assalamu Alaikum</h3>
+                <img id="drawerUserAvatar" src="https://i.ibb.co/6Wv1V6Zm/default-avatar.png" style="width: 78px; height: 78px; border-radius: 50%; object-fit: cover; border: 2.5px solid var(--gold); margin-bottom: 6px; cursor: pointer;" alt="User Avatar" onclick="openFullScreenPhoto(this.src)">
+                <h3 id="drawerUserName" style="color: var(--gold-light); font-size: 17px;">Assalamu Alaikum</h3>
                 <p id="t_memberSub" style="font-size: 11.5px; color: var(--emerald-bright);">🕌 ZikrSphere Community Member</p>
             </div>
 
-            <!-- 1. SETTINGS & LANGUAGE OPTION INSIDE THREE-LINE MENU -->
-            <div class="settings-card">
-                <div class="settings-header">
-                    <div class="admin-icon-badge">⚙️</div>
-                    <div>
-                        <div id="t_settingsTitle" style="color: var(--gold-light); font-size: 13px; font-weight: 800;">SETTINGS & LANGUAGE</div>
-                        <div id="t_settingsSub" style="font-size: 11px; color: #a7f3d0;">Puri website ki bhasha chunein:</div>
-                    </div>
-                </div>
-                <div class="settings-lang-grid">
-                    <button type="button" class="lang-btn" id="langBtn-en" onclick="setLanguage('en')">🇬🇧 English</button>
-                    <button type="button" class="lang-btn active" id="langBtn-ro" onclick="setLanguage('ro')">🌐 Roman</button>
-                    <button type="button" class="lang-btn" id="langBtn-hi" onclick="setLanguage('hi')">🇮🇳 हिंदी</button>
-                    <button type="button" class="lang-btn" id="langBtn-ur" onclick="setLanguage('ur')">🕌 اردو</button>
-                </div>
-            </div>
+            <!-- COLLAPSIBLE MENU ITEMS INSIDE 3-LINE MENU -->
+            <div class="drawer-menu-list">
 
-            <!-- 2. VIP ADMIN MESSAGE CARD -->
-            <div class="admin-contact-card">
-                <div class="admin-card-header">
-                    <div class="admin-icon-badge">💬</div>
-                    <div>
-                        <div id="t_adminTitle" style="color: var(--gold-light); font-size: 13px; font-weight: 800; letter-spacing: 0.3px;">ADMIN (ABBU SHAHMA) DESK</div>
-                        <div id="t_adminSub" style="font-size: 11px; color: #a7f3d0;">Apna sujhav, salam ya problem bhejein:</div>
-                    </div>
-                </div>
-
-                <div class="quick-tags">
-                    <span class="quick-tag" id="t_tagSujhav" onclick="addQuickTag('💡 Suggestion: ')">💡 Sujhav</span>
-                    <span class="quick-tag" id="t_tagProblem" onclick="addQuickTag('🛠️ Problem: ')">🛠️ Problem</span>
-                    <span class="quick-tag" id="t_tagSalam" onclick="addQuickTag('🤲 Assalamu Alaikum! ')">🤲 Salam / Dua</span>
-                </div>
-
-                <textarea id="adminMsgInput" class="admin-textarea" placeholder="Apna message yahan khubsurti se likhein..."></textarea>
-                <button type="button" class="admin-send-btn" id="sendMsgBtn" onclick="sendMessageToAdmin()">
-                    <span id="t_sendMsgBtn">🚀 Admin Ko Message Bhejein</span>
+                <!-- MENU 1: ⚙️ SETTINGS (OPENS LANGUAGE & PROFILE SETTINGS) -->
+                <button type="button" class="drawer-nav-item" id="btnMenuSettings" onclick="toggleDrawerPanel('panelSettings', 'btnMenuSettings')">
+                    <span id="t_menuSettingsBtn">⚙️ Settings</span>
+                    <span>▾</span>
                 </button>
-            </div>
+                <div id="panelSettings" class="drawer-panel">
+                    <div class="panel-inner-card">
+                        <div id="t_settingsSub" style="font-size: 11.5px; color: var(--gold-light); font-weight: 700; margin-bottom: 8px;">🌐 Select Website Language:</div>
+                        <div class="settings-lang-grid">
+                            <button type="button" class="lang-btn" id="langBtn-en" onclick="setLanguage('en')">🇬🇧 English</button>
+                            <button type="button" class="lang-btn active" id="langBtn-ro" onclick="setLanguage('ro')">🌐 Roman</button>
+                            <button type="button" class="lang-btn" id="langBtn-hi" onclick="setLanguage('hi')">🇮🇳 हिंदी</button>
+                            <button type="button" class="lang-btn" id="langBtn-ur" onclick="setLanguage('ur')">🕌 اردو</button>
+                        </div>
+                        <div id="settingsPhotoWrap" class="hidden" style="border-top: 1px solid var(--border-subtle); padding-top: 10px; margin-top: 6px;">
+                            <button type="button" class="btn btn-secondary" id="t_drawerPhotoBtn" style="margin: 0; width: 100%;" onclick="document.getElementById('changePhotoInput').click();">📸 HD Profile Photo Badlein</button>
+                        </div>
+                    </div>
+                </div>
 
-            <!-- 3. ABOUT FOUNDER & DEVELOPER SECTION INSIDE THREE-LINE MENU -->
-            <div class="drawer-dev-card" id="drawerAboutCard">
-                <h3 id="t_aboutHeading" style="color: var(--gold-light); font-size: 14.5px; margin-bottom: 10px;">👨‍💻 About Founder & Developer</h3>
-                <figure style="margin: 0;">
-                    <img id="devPhotoImg" src="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg" alt="ABBU SHAHMA - Founder and Developer of ZikrSphere" title="ABBU SHAHMA" class="drawer-dev-photo" onclick="openFullScreenPhoto(this.src)">
-                    <figcaption>
-                        <h4 style="color: var(--gold-light); font-size: 19px; font-weight: 700; margin-top: 4px;">ABBU SHAHMA</h4>
-                        <p id="t_aboutRole" style="font-size: 12px; color: var(--emerald-bright); font-weight: 700; margin-bottom: 10px;">Founder & Web Developer — ZikrSphere</p>
-                    </figcaption>
-                </figure>
-                <p id="t_aboutBio" style="font-size: 12px; color: var(--text-main); line-height: 1.6;">
-                    Assalamu Alaikum! Mera naam <strong>ABBU SHAHMA</strong> hai. Maine <strong>ZikrSphere | Daily Deen & Deeds</strong> isliye banaya hoon taaki hum sab mil kar apni rozana ki 5 Farz Namaz, Roza, Quran-e-Pak ki Tilawat aur Tarawih ka hisab rakh sakein aur neki ke kaamon mein ek dusre ka hausla badha sakein.
-                </p>
-            </div>
+                <!-- MENU 2: 💬 LIVE CONVERSATION CHAT WITH ADMIN (WITH ADMIN REPLY) -->
+                <button type="button" class="drawer-nav-item" id="btnMenuChat" onclick="toggleDrawerPanel('panelChat', 'btnMenuChat')">
+                    <span id="t_menuChatBtn">💬 Admin Chat & Reply</span>
+                    <span>▾</span>
+                </button>
+                <div id="panelChat" class="drawer-panel">
+                    <div class="panel-inner-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span id="t_chatHeaderTitle" style="font-size: 12px; font-weight: 800; color: var(--gold-light);">💬 Direct Conversation</span>
+                            <span id="adminChatBadge" class="badge-chip hidden">👑 Admin Reply Mode</span>
+                        </div>
 
-            <!-- 4. USER ACCOUNT ACTIONS -->
-            <div id="drawerUserActions" class="hidden" style="margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
-                <button type="button" class="btn btn-secondary" id="t_drawerPhotoBtn" style="margin: 0;" onclick="toggleSideMenu(); document.getElementById('changePhotoInput').click();">📸 HD Profile Photo Badlein</button>
-                <button type="button" class="btn btn-secondary" id="t_drawerReportBtn" style="margin: 0;" onclick="toggleSideMenu(); exportMyReportCSV();">📥 Meri Report Download Karein</button>
-                <button type="button" class="logout-btn" id="t_drawerLogoutBtn" style="width: 100%; justify-content: center; padding: 11px;" onclick="toggleSideMenu(); logout();">🚪 Logout Karein</button>
+                        <!-- Admin Member Selector (Visible only when Admin is logged in) -->
+                        <div id="adminReplySelectorWrap" class="hidden" style="margin-bottom: 8px;">
+                            <label id="t_replyToLabel" style="font-size: 10px; color: #a7f3d0;">Reply to Member:</label>
+                            <select id="adminReplyTarget" class="modern-select" style="padding: 7px 10px; font-size: 12px;" onchange="renderChatConversation()"></select>
+                        </div>
+
+                        <!-- Conversation Messages History -->
+                        <div class="chat-messages-box" id="chatMessagesBox"></div>
+
+                        <!-- Message Input & Send -->
+                        <div class="chat-input-row">
+                            <input type="text" id="chatMsgInput" placeholder="Type message or reply..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+                            <button type="button" class="chat-send-btn" id="sendChatBtn" onclick="sendChatMessage()">➤</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MENU 3: 📢 ADMIN NOTIFICATIONS & BROADCAST TO ALL MEMBERS -->
+                <button type="button" class="drawer-nav-item" id="btnMenuNotif" onclick="toggleDrawerPanel('panelNotif', 'btnMenuNotif')">
+                    <span id="t_menuNotifBtn">📢 Admin Notifications</span>
+                    <span>▾</span>
+                </button>
+                <div id="panelNotif" class="drawer-panel">
+                    <div class="panel-inner-card">
+                        <div id="t_notifSubTitle" style="font-size: 12px; font-weight: 800; color: var(--gold-light); margin-bottom: 8px;">🔔 Community Announcements</div>
+                        
+                        <div class="notif-list-box" id="notifListBox"></div>
+
+                        <!-- Admin Broadcast Composer (Visible to Admin ABBU SHAHMA / OSMAN) -->
+                        <div id="adminBroadcastComposer" class="hidden" style="border-top: 1px solid rgba(212, 175, 55, 0.3); padding-top: 10px; margin-top: 8px;">
+                            <label id="t_broadcastLabel" style="font-size: 10.5px; color: var(--emerald-bright);">📢 Send Notification to ALL Members:</label>
+                            <textarea id="broadcastInput" rows="2" placeholder="Write announcement for all members..." style="font-size: 12px; padding: 8px; margin-bottom: 8px;"></textarea>
+                            <button type="button" class="btn" id="sendBroadcastBtn" style="padding: 9px; font-size: 12.5px;" onclick="sendAdminBroadcast()">📢 Send to All Members</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MENU 4: 👨‍💻 ABOUT FOUNDER & DEVELOPER (ABBU SHAHMA) -->
+                <button type="button" class="drawer-nav-item" id="btnMenuAbout" onclick="toggleDrawerPanel('panelAbout', 'btnMenuAbout')">
+                    <span id="t_menuAboutBtn">👨‍💻 About Developer</span>
+                    <span>▾</span>
+                </button>
+                <div id="panelAbout" class="drawer-panel">
+                    <div class="panel-inner-card" style="text-align: center;">
+                        <h3 id="t_aboutHeading" style="color: var(--gold-light); font-size: 14px; margin-bottom: 10px;">👨‍💻 About Founder & Developer</h3>
+                        <figure style="margin: 0;">
+                            <img id="devPhotoImg" src="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg" alt="ABBU SHAHMA - Founder and Developer of ZikrSphere" title="ABBU SHAHMA" class="drawer-dev-photo" onclick="openFullScreenPhoto(this.src)">
+                            <figcaption>
+                                <h4 style="color: var(--gold-light); font-size: 18px; font-weight: 700; margin-top: 2px;">ABBU SHAHMA</h4>
+                                <p id="t_aboutRole" style="font-size: 11.5px; color: var(--emerald-bright); font-weight: 700; margin-bottom: 8px;">Founder & Web Developer — ZikrSphere</p>
+                            </figcaption>
+                        </figure>
+                        <p id="t_aboutBio" style="font-size: 12px; color: var(--text-main); line-height: 1.6;">
+                            Assalamu Alaikum! Mera naam <strong>ABBU SHAHMA</strong> hai. Maine <strong>ZikrSphere | Daily Deen & Deeds</strong> isliye banaya hoon taaki hum sab mil kar apni rozana ki 5 Farz Namaz, Roza, Quran-e-Pak ki Tilawat aur Tarawih ka hisab rakh sakein aur neki ke kaamon mein ek dusre ka hausla badha sakein.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- LOGGED-IN USER EXTRA ACTIONS (DOWNLOAD & LOGOUT ONLY IN DRAWER) -->
+                <div id="drawerUserActions" class="hidden" style="margin-top: 8px; display: flex; flex-direction: column; gap: 9px;">
+                    <button type="button" class="drawer-nav-item" id="t_drawerReportBtn" onclick="toggleSideMenu(); exportMyReportCSV();">
+                        <span>📥 Download My Report (CSV)</span>
+                        <span>➔</span>
+                    </button>
+                    <button type="button" class="logout-btn" id="t_drawerLogoutBtn" onclick="toggleSideMenu(); logout();">🚪 Logout Karein</button>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="container">
         <header>
-            <button type="button" id="hamburgerBtn" class="menu-toggle-btn" onclick="toggleSideMenu()" title="Settings, About & Menu">☰</button>
+            <button type="button" id="hamburgerBtn" class="menu-toggle-btn" onclick="toggleSideMenu()" title="Menu & Settings">☰</button>
+            <button type="button" id="notifBellBtn" class="notif-bell-btn" onclick="openNotificationsFromBell()" title="Notifications">
+                🔔
+                <span id="notifBadgeCount" class="notif-badge-dot hidden">1</span>
+            </button>
             <div class="bismillah">﷽</div>
             <h1>✨ ZikrSphere | Daily Deen & Deeds</h1>
             <div class="ayah-box" id="t_ayah">
@@ -621,6 +717,18 @@
             </div>
             <div class="hijri-badge" id="hijriDateBadge">🌙 Hijri Calendar...</div>
         </header>
+
+        <!-- LATEST ADMIN BROADCAST BANNER (SHOWN WHEN ADMIN SENDS ANNOUNCEMENT) -->
+        <div id="latestBroadcastBanner" class="broadcast-banner hidden" onclick="openNotificationsFromBell()">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 18px;">📢</span>
+                <div>
+                    <div style="font-size: 10.5px; font-weight: 800; color: var(--gold-light); text-transform: uppercase;">Admin Announcement (ABBU SHAHMA)</div>
+                    <div id="latestBroadcastText" style="font-size: 12.5px; color: #fff; font-weight: 600;"></div>
+                </div>
+            </div>
+            <span style="font-size: 11px; color: var(--gold-light); font-weight: 700;">View ➔</span>
+        </div>
 
         <!-- LOGIN / REGISTER CARD -->
         <div class="card" id="authCard">
@@ -655,21 +763,8 @@
             <p class="help-text" id="authHelp">Naye hain? Upar "Community ID Banayein" par click karein.</p>
         </div>
 
-        <!-- MAIN APP CONTAINER (VISIBLE AFTER LOGIN) -->
+        <!-- MAIN APP CONTAINER (CLEAN - REPETITIVE PHOTO/LOGOUT BANNER REMOVED) -->
         <div class="card hidden" id="trackerCard">
-            <div class="user-banner">
-                <div class="user-profile-flex">
-                    <img id="userAvatar" src="https://i.ibb.co/6Wv1V6Zm/default-avatar.png" class="avatar-img" alt="Avatar" onclick="openMemberProfile(localStorage.getItem('namaz_user'))">
-                    <div>
-                        <div class="greeting" id="welcomeUser">Assalamu Alaikum!</div>
-                        <button type="button" class="photo-upload-chip" id="t_uploadChip" onclick="document.getElementById('changePhotoInput').click()">
-                            📸 Photo Upload / Badlein
-                        </button>
-                        <input type="file" id="changePhotoInput" accept="image/*" style="display: none;" onchange="updateProfilePhoto(this)">
-                    </div>
-                </div>
-                <button type="button" class="logout-btn" id="t_logoutBtn" onclick="logout()">🚪 Logout Karein</button>
-            </div>
 
             <!-- SECTION 0: HOME (MAQSAD, NAMAZ, ROZA, TARAWIH KA BAYAN - BEFORE REPORT) -->
             <div id="sectionHome" class="hidden">
@@ -807,10 +902,12 @@
 
     <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJurfZRD8AyzWWXtY3VsThAcVZxi4QXYMakINqX_h55HrrnYog03eawNiSloQ6SJQHBA/exec';
+        const ADMIN_NAMES = ['abbu shahma', 'osman', 'admin'];
         let currentMode = 'login';
         let currentLang = localStorage.getItem('zikr_lang') || 'ro';
         let globalReports = [];
         let globalUsers = [];
+        let globalMessages = [];
         let tempBase64Photo = 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png';
 
         /* COMPLETE 100% WEBSITE TRANSLATIONS (ENGLISH, ROMAN, HINDI, URDU) */
@@ -818,18 +915,22 @@
             en: {
                 ayah: '"Help one another in acts of righteousness and piety." (Al-Quran 5:2)',
                 memberSub: '🕌 ZikrSphere Community Member',
-                settingsTitle: '⚙️ SETTINGS & LANGUAGE',
-                settingsSub: 'Select language for the entire website:',
-                adminTitle: 'ADMIN (ABBU SHAHMA) DESK',
-                adminSub: 'Send your suggestion, salam or issue:',
-                tagSujhav: '💡 Suggestion',
-                tagProblem: '🛠️ Issue',
-                tagSalam: '🤲 Salam / Dua',
-                adminPlaceholder: 'Write your message here...',
-                sendMsgBtn: '🚀 Send Message to Admin',
-                sendingText: '⏳ Sending...',
+                menuSettingsBtn: '⚙️ Settings (Language & Photo)',
+                menuChatBtn: '💬 Admin Chat & Reply',
+                menuNotifBtn: '📢 Admin Notifications',
+                menuAboutBtn: '👨‍💻 About Developer',
+                settingsSub: '🌐 Select Website Language:',
+                chatHeaderTitle: '💬 Direct Conversation',
+                replyToLabel: 'Select Member to Reply:',
+                chatPlaceholder: 'Write message or reply...',
+                emptyChat: 'Assalamu Alaikum! Send a message to Admin (ABBU SHAHMA).',
+                notifSubTitle: '🔔 Official Community Notifications',
+                emptyNotif: 'No announcements yet.',
+                broadcastLabel: '📢 Send Notification to ALL Members:',
+                broadcastPlaceholder: 'Write announcement for all members...',
+                sendBroadcastBtn: '📢 Send to All Members',
                 drawerPhotoBtn: '📸 Change HD Profile Photo',
-                drawerReportBtn: '📥 Download My Report',
+                drawerReportBtn: '📥 Download My Report (CSV)',
                 drawerLogoutBtn: '🚪 Logout',
                 aboutHeading: '👨‍💻 About Founder & Developer',
                 aboutRole: 'Founder & Web Developer — ZikrSphere',
@@ -850,9 +951,6 @@
                 waitText: 'Please wait...',
                 authHelpLogin: 'New member? Click "Create Community ID" above.',
                 authHelpRegister: 'Already have an ID? Click "Login" above.',
-                greetingPrefix: 'Assalamu Alaikum, ',
-                uploadChip: '📸 Upload / Change Photo',
-                logoutBtn: '🚪 Logout',
                 homeTitle: '🏠 ZikrSphere Home & Islamic Guide',
                 goToReportBtn: '📝 Log Today\'s Salah & Deeds Report ➔',
                 progressText: '🌙 Today\'s Worship Focus',
@@ -889,7 +987,6 @@
                 recordsHeading: '📜 My Deeds (Complete History)',
                 downloadBtn: '📥 Download My Report (Excel/CSV)',
                 emptyHistory: 'No worship records saved yet.',
-                loadingText: 'Loading data...',
                 modalHistoryTitle: '📜 Complete Worship History:',
                 closeZoomBtn: '❌ Close',
                 navHome: '🏠 Home',
@@ -941,18 +1038,22 @@
             ro: {
                 ayah: '"Neki aur taqwa ke kaamon mein ek dusre ki madad karo." (Al-Quran 5:2)',
                 memberSub: '🕌 ZikrSphere Community Member',
-                settingsTitle: '⚙️ SETTINGS & LANGUAGE',
-                settingsSub: 'Puri website ki bhasha chunein:',
-                adminTitle: 'ADMIN (ABBU SHAHMA) DESK',
-                adminSub: 'Apna sujhav, salam ya problem bhejein:',
-                tagSujhav: '💡 Sujhav',
-                tagProblem: '🛠️ Problem',
-                tagSalam: '🤲 Salam / Dua',
-                adminPlaceholder: 'Apna message yahan khubsurti se likhein...',
-                sendMsgBtn: '🚀 Admin Ko Message Bhejein',
-                sendingText: '⏳ Bheja ja raha hai...',
+                menuSettingsBtn: '⚙️ Settings (Language & Photo)',
+                menuChatBtn: '💬 Admin Chat & Reply',
+                menuNotifBtn: '📢 Admin Notifications',
+                menuAboutBtn: '👨‍💻 About Developer',
+                settingsSub: '🌐 Puri Website Ki Bhasha Chunein:',
+                chatHeaderTitle: '💬 Admin Ke Sath Direct Baatcheet',
+                replyToLabel: 'Kis Member Ko Reply Dena Hai Chunein:',
+                chatPlaceholder: 'Apna message ya reply likhein...',
+                emptyChat: 'Assalamu Alaikum! Admin (ABBU SHAHMA) se yahan seedhe baat karein.',
+                notifSubTitle: '🔔 Sabhi Members Ke Liye Notifications',
+                emptyNotif: 'Abhi koi naya notification nahi hai.',
+                broadcastLabel: '📢 Ek Sath Sabhi Members Ko Message Bhejein:',
+                broadcastPlaceholder: 'Sabhi members ke liye announcement likhein...',
+                sendBroadcastBtn: '📢 Sabhi Members Ko Bhejein',
                 drawerPhotoBtn: '📸 HD Profile Photo Badlein',
-                drawerReportBtn: '📥 Meri Report Download Karein',
+                drawerReportBtn: '📥 Meri Report Download Karein (CSV)',
                 drawerLogoutBtn: '🚪 Logout Karein',
                 aboutHeading: '👨‍💻 About Founder & Developer',
                 aboutRole: 'Founder & Web Developer — ZikrSphere',
@@ -973,9 +1074,6 @@
                 waitText: 'Intezar karein...',
                 authHelpLogin: 'Naye hain? Upar "Community ID Banayein" par click karein.',
                 authHelpRegister: 'Pehle se ID hai? Upar "Login Karein" par click karein.',
-                greetingPrefix: 'Assalamu Alaikum, ',
-                uploadChip: '📸 Photo Upload / Badlein',
-                logoutBtn: '🚪 Logout Karein',
                 homeTitle: '🏠 ZikrSphere Home & Islami Rehnumai',
                 goToReportBtn: '📝 Aaj Ki Namaz & Roza Report Darj Karein ➔',
                 progressText: '🌙 Aaj Ka Ibadat Focus',
@@ -1012,7 +1110,6 @@
                 recordsHeading: "📜 Meri A'amal (Puri Detail)",
                 downloadBtn: '📥 Download My Report (Excel/CSV)',
                 emptyHistory: 'Abhi tak koi record save nahi hai.',
-                loadingText: 'Data load ho raha hai...',
                 modalHistoryTitle: '📜 Mukammal Ibadat Report:',
                 closeZoomBtn: '❌ Band Karein',
                 navHome: '🏠 Home',
@@ -1064,18 +1161,22 @@
             hi: {
                 ayah: '"नेकी और तक़वा के कामों में एक-दूसरे की मदद करो।" (अल-क़ुरआन 5:2)',
                 memberSub: '🕌 ZikrSphere कम्युनिटी मेंबर',
-                settingsTitle: '⚙️ सेटिंग्स और भाषा (LANGUAGE)',
-                settingsSub: 'पूरी वेबसाइट की भाषा चुनें:',
-                adminTitle: 'एडमिन (ABBU SHAHMA) डेस्क',
-                adminSub: 'अपना सुझाव, सलाम या समस्या भेजें:',
-                tagSujhav: '💡 सुझाव',
-                tagProblem: '🛠️ समस्या',
-                tagSalam: '🤲 सलाम / दुआ',
-                adminPlaceholder: 'अपना संदेश यहाँ लिखें...',
-                sendMsgBtn: '🚀 एडमिन को संदेश भेजें',
-                sendingText: '⏳ भेजा जा रहा है...',
+                menuSettingsBtn: '⚙️ सेटिंग्स (भाषा और फोटो)',
+                menuChatBtn: '💬 एडमिन चैट और रिप्लाई',
+                menuNotifBtn: '📢 एडमिन नोटिफिकेशन',
+                menuAboutBtn: '👨‍💻 डेवलपर का परिचय',
+                settingsSub: '🌐 पूरी वेबसाइट की भाषा चुनें:',
+                chatHeaderTitle: '💬 एडमिन के साथ सीधी बातचीत',
+                replyToLabel: 'किस मेंबर को रिप्लाई देना है चुनें:',
+                chatPlaceholder: 'अपना संदेश या रिप्लाई लिखें...',
+                emptyChat: 'अस्सलामु अलैकुम! एडमिन (ABBU SHAHMA) से यहाँ सीधी बात करें।',
+                notifSubTitle: '🔔 सभी मेंबर्स के लिए सूचनाएँ',
+                emptyNotif: 'अभी कोई नया नोटिफिकेशन नहीं है।',
+                broadcastLabel: '📢 एक साथ सभी मेंबर्स को संदेश भेजें:',
+                broadcastPlaceholder: 'सभी मेंबर्स के लिए सूचना लिखें...',
+                sendBroadcastBtn: '📢 सभी मेंबर्स को भेजें',
                 drawerPhotoBtn: '📸 प्रोफाइल फोटो बदलें',
-                drawerReportBtn: '📥 मेरी रिपोर्ट डाउनलोड करें',
+                drawerReportBtn: '📥 मेरी रिपोर्ट डाउनलोड करें (CSV)',
                 drawerLogoutBtn: '🚪 लॉगआउट करें',
                 aboutHeading: '👨‍💻 फाउंडर और डेवलपर के बारे में',
                 aboutRole: 'फाउंडर और वेब डेवलपर — ZikrSphere',
@@ -1096,9 +1197,6 @@
                 waitText: 'कृपया प्रतीक्षा करें...',
                 authHelpLogin: 'नए हैं? ऊपर "कम्युनिटी आईडी बनाएँ" पर क्लिक करें।',
                 authHelpRegister: 'पहले से आईडी है? ऊपर "लॉगिन करें" पर क्लिक करें।',
-                greetingPrefix: 'अस्सलामु अलैकुम, ',
-                uploadChip: '📸 फोटो अपलोड / बदलें',
-                logoutBtn: '🚪 लॉगआउट करें',
                 homeTitle: '🏠 ज़िक्र-स्फीयर होम और इस्लामी रहनुमाई',
                 goToReportBtn: '📝 आज की नमाज़ और रोज़ा रिपोर्ट दर्ज करें ➔',
                 progressText: '🌙 आज का इबादत फोकस',
@@ -1135,7 +1233,6 @@
                 recordsHeading: '📜 मेरे आमाल (पूरी डिटेल)',
                 downloadBtn: '📥 मेरी रिपोर्ट डाउनलोड करें (Excel/CSV)',
                 emptyHistory: 'अभी तक कोई रिकॉर्ड सेव नहीं है।',
-                loadingText: 'डेटा लोड हो रहा है...',
                 modalHistoryTitle: '📜 मुकम्मल इबादत रिपोर्ट:',
                 closeZoomBtn: '❌ बंद करें',
                 navHome: '🏠 होम',
@@ -1187,18 +1284,22 @@
             ur: {
                 ayah: '"نیکی اور تقویٰ کے کاموں میں ایک دوسرے کی مدد کرو۔" (القرآن 5:2)',
                 memberSub: '🕌 ذکر اسفیئر کمیونٹی ممبر',
-                settingsTitle: '⚙️ سیٹنگز اور زبان (LANGUAGE)',
-                settingsSub: 'پوری ویب سائٹ کی زبان منتخب کریں:',
-                adminTitle: 'ایڈمن (ABBU SHAHMA) ڈیسک',
-                adminSub: 'اپنی تجویز، سلام یا مسئلہ بھیجیں:',
-                tagSujhav: '💡 تجویز',
-                tagProblem: '🛠️ مسئلہ',
-                tagSalam: '🤲 سلام / دعا',
-                adminPlaceholder: 'اپنا پیغام یہاں لکھیں...',
-                sendMsgBtn: '🚀 ایڈمن کو پیغام بھیجیں',
-                sendingText: '⏳ بھیجا جا رہا ہے...',
+                menuSettingsBtn: '⚙️ سیٹنگز (زبان اور فوٹو)',
+                menuChatBtn: '💬 ایڈمن چیٹ اور رپلائی',
+                menuNotifBtn: '📢 ایڈمن نوٹیفکیشن',
+                menuAboutBtn: '👨‍💻 ڈیولپر کا تعارف',
+                settingsSub: '🌐 پوری ویب سائٹ کی زبان منتخب کریں:',
+                chatHeaderTitle: '💬 ایڈمن کے ساتھ براہِ راست گفتگو',
+                replyToLabel: 'کس ممبر کو جواب دینا ہے منتخب کریں:',
+                chatPlaceholder: 'اپنا پیغام یا جواب لکھیں...',
+                emptyChat: 'السلام علیکم! ایڈمن (ABBU SHAHMA) سے یہاں براہِ راست بات کریں۔',
+                notifSubTitle: '🔔 تمام ممبران کے لیے اعلانات',
+                emptyNotif: 'ابھی کوئی نیا اعلان نہیں ہے۔',
+                broadcastLabel: '📢 ایک ساتھ تمام ممبران کو پیغام بھیجیں:',
+                broadcastPlaceholder: 'تمام ممبران کے لیے اعلان لکھیں...',
+                sendBroadcastBtn: '📢 تمام ممبران کو بھیجیں',
                 drawerPhotoBtn: '📸 پروفائل فوٹو تبدیل کریں',
-                drawerReportBtn: '📥 میری رپورٹ ڈاؤن لوڈ کریں',
+                drawerReportBtn: '📥 میری رپورٹ ڈاؤن لوڈ کریں (CSV)',
                 drawerLogoutBtn: '🚪 لاگ آؤٹ کریں',
                 aboutHeading: '👨‍💻 بانی اور ڈیولپر کے بارے میں',
                 aboutRole: 'بانی اور ویب ڈیولپر — ZikrSphere',
@@ -1219,9 +1320,6 @@
                 waitText: 'انتظار فرمائیں...',
                 authHelpLogin: 'نئے ممبر ہیں؟ اوپر "کمیونٹی آئی ڈی بنائیں" پر کلک کریں۔',
                 authHelpRegister: 'پہلے سے آئی ڈی موجود ہے؟ اوپر "لاگ ان کریں" پر کلک کریں۔',
-                greetingPrefix: 'السلام علیکم، ',
-                uploadChip: '📸 فوٹو اپ لوڈ / تبدیل کریں',
-                logoutBtn: '🚪 لاگ آؤٹ کریں',
                 homeTitle: '🏠 ذکر اسفیئر ہوم اور اسلامی رہنمائی',
                 goToReportBtn: '📝 آج کی نماز اور روزہ رپورٹ درج کریں ➔',
                 progressText: '🌙 آج کا عبادت فوکس',
@@ -1258,7 +1356,6 @@
                 recordsHeading: '📜 میرے اعمال (مکمل تفصیل)',
                 downloadBtn: '📥 میری رپورٹ ڈاؤن لوڈ کریں (Excel/CSV)',
                 emptyHistory: 'ابھی تک کوئی ریکارڈ محفوظ نہیں ہے۔',
-                loadingText: 'ڈیٹا لوڈ ہو رہا ہے...',
                 modalHistoryTitle: '📜 مکمل عبادت رپورٹ:',
                 closeZoomBtn: '❌ بند کریں',
                 navHome: '🏠 ہوم',
@@ -1308,6 +1405,227 @@
                 `
             }
         };
+
+        function isUserAdmin() {
+            const u = (localStorage.getItem('namaz_user') || '').trim().toLowerCase();
+            return ADMIN_NAMES.includes(u);
+        }
+
+        function toggleDrawerPanel(panelId, btnId) {
+            const panels = ['panelSettings', 'panelChat', 'panelNotif', 'panelAbout'];
+            const btns = ['btnMenuSettings', 'btnMenuChat', 'btnMenuNotif', 'btnMenuAbout'];
+            panels.forEach((p, idx) => {
+                const el = document.getElementById(p);
+                const b = document.getElementById(btns[idx]);
+                if (p === panelId) {
+                    const isOpen = el.classList.toggle('open');
+                    b.classList.toggle('active', isOpen);
+                } else {
+                    el.classList.remove('open');
+                    b.classList.remove('active');
+                }
+            });
+        }
+
+        function openNotificationsFromBell() {
+            const overlay = document.getElementById('sideDrawerOverlay');
+            overlay.classList.add('open');
+            const savedName = localStorage.getItem('namaz_user') || 'ZikrSphere Guest';
+            const savedPhoto = localStorage.getItem('namaz_photo') || 'https://osman-debug3.github.io/namaz/logo.jpg';
+            document.getElementById('drawerUserName').innerText = savedName;
+            document.getElementById('drawerUserAvatar').src = savedPhoto;
+            toggleDrawerPanel('panelNotif', 'btnMenuNotif');
+        }
+
+        function parseRawMessageItem(item) {
+            // Supports structured format: "CHAT|sender|recipient|text" or "BROADCAST|admin|ALL|text" or legacy plain text
+            const rawText = (item.message || '').toString();
+            const sender = (item.name || 'Member').toString();
+            const time = item.date ? cleanDateString(item.date) : '';
+
+            if (rawText.startsWith('BROADCAST|')) {
+                const parts = rawText.split('|');
+                return { type: 'BROADCAST', from: parts[1] || sender, to: 'ALL', text: parts.slice(3).join('|'), time };
+            }
+            if (rawText.startsWith('REPLY|')) {
+                const parts = rawText.split('|');
+                return { type: 'CHAT', from: 'ADMIN (ABBU SHAHMA)', to: parts[1] || '', text: parts.slice(2).join('|'), time, isAdminReply: true };
+            }
+            if (rawText.startsWith('CHAT|')) {
+                const parts = rawText.split('|');
+                return { type: 'CHAT', from: parts[1] || sender, to: parts[2] || 'ADMIN', text: parts.slice(3).join('|'), time, isAdminReply: false };
+            }
+            return { type: 'CHAT', from: sender, to: 'ADMIN', text: rawText, time, isAdminReply: false };
+        }
+
+        function refreshChatAndNotificationsUI() {
+            const t = translations[currentLang];
+            const myName = (localStorage.getItem('namaz_user') || 'Guest').trim();
+            const adminMode = isUserAdmin();
+
+            document.getElementById('adminChatBadge').classList.toggle('hidden', !adminMode);
+            document.getElementById('adminReplySelectorWrap').classList.toggle('hidden', !adminMode);
+            document.getElementById('adminBroadcastComposer').classList.toggle('hidden', !adminMode);
+
+            const parsedList = globalMessages.map(parseRawMessageItem);
+            const broadcasts = parsedList.filter(m => m.type === 'BROADCAST');
+            const chats = parsedList.filter(m => m.type === 'CHAT');
+
+            // Render Notifications
+            const notifBox = document.getElementById('notifListBox');
+            const badgeDot = document.getElementById('notifBadgeCount');
+            const banner = document.getElementById('latestBroadcastBanner');
+
+            if (broadcasts.length === 0) {
+                notifBox.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:11.5px; padding:10px;">${t.emptyNotif}</div>`;
+                badgeDot.classList.add('hidden');
+                banner.classList.add('hidden');
+            } else {
+                badgeDot.innerText = broadcasts.length;
+                badgeDot.classList.remove('hidden');
+                const latest = broadcasts[broadcasts.length - 1];
+                document.getElementById('latestBroadcastText').innerText = latest.text;
+                banner.classList.remove('hidden');
+
+                notifBox.innerHTML = broadcasts.slice().reverse().map(b => `
+                    <div class="notif-item">
+                        <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--gold-light); font-weight:800; margin-bottom:3px;">
+                            <span>📢 ${b.from}</span>
+                            <span>${b.time}</span>
+                        </div>
+                        <div style="color:#fff;">${b.text}</div>
+                    </div>
+                `).join('');
+            }
+
+            // Populate Admin Reply Member Dropdown
+            if (adminMode) {
+                const targetSelect = document.getElementById('adminReplyTarget');
+                const currentTarget = targetSelect.value;
+                const memberNames = new Set();
+                globalUsers.forEach(u => {
+                    if (!ADMIN_NAMES.includes(u.name.toLowerCase())) memberNames.add(u.name);
+                });
+                chats.forEach(c => {
+                    if (!c.isAdminReply && !ADMIN_NAMES.includes(c.from.toLowerCase())) memberNames.add(c.from);
+                });
+                const membersArr = Array.from(memberNames);
+                targetSelect.innerHTML = membersArr.length === 0
+                    ? `<option value="ALL">All Members</option>`
+                    : membersArr.map(m => `<option value="${m}">👤 ${m}</option>`).join('');
+                if (currentTarget && membersArr.includes(currentTarget)) {
+                    targetSelect.value = currentTarget;
+                }
+            }
+
+            renderChatConversation();
+        }
+
+        function renderChatConversation() {
+            const t = translations[currentLang];
+            const myName = (localStorage.getItem('namaz_user') || 'Guest').trim();
+            const adminMode = isUserAdmin();
+            const chatBox = document.getElementById('chatMessagesBox');
+            const parsedChats = globalMessages.map(parseRawMessageItem).filter(m => m.type === 'CHAT');
+
+            let filtered = [];
+            if (adminMode) {
+                const selectedMember = document.getElementById('adminReplyTarget').value || '';
+                filtered = parsedChats.filter(c =>
+                    c.from.toLowerCase() === selectedMember.toLowerCase() ||
+                    c.to.toLowerCase() === selectedMember.toLowerCase()
+                );
+            } else {
+                filtered = parsedChats.filter(c =>
+                    c.from.toLowerCase() === myName.toLowerCase() ||
+                    c.to.toLowerCase() === myName.toLowerCase()
+                );
+            }
+
+            if (filtered.length === 0) {
+                chatBox.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:11.5px; margin:auto; padding:12px;">${t.emptyChat}</div>`;
+                return;
+            }
+
+            chatBox.innerHTML = filtered.map(c => {
+                const isMine = adminMode ? c.isAdminReply : (!c.isAdminReply && c.from.toLowerCase() === myName.toLowerCase());
+                const bubbleClass = isMine ? 'me' : 'other';
+                const senderLabel = c.isAdminReply ? '👑 Admin (ABBU SHAHMA)' : `👤 ${c.from}`;
+                return `
+                    <div class="chat-bubble ${bubbleClass}">
+                        <div class="chat-sender">
+                            <span>${senderLabel}</span>
+                        </div>
+                        <div>${c.text}</div>
+                        <div class="chat-time">${c.time}</div>
+                    </div>
+                `;
+            }).join('');
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chatMsgInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const myName = (localStorage.getItem('namaz_user') || 'Guest').trim();
+            const adminMode = isUserAdmin();
+            let encodedPayload = '';
+            let senderField = myName;
+
+            if (adminMode) {
+                const targetMember = document.getElementById('adminReplyTarget').value || 'Member';
+                encodedPayload = `REPLY|${targetMember}|${text}`;
+                senderField = 'ABBU SHAHMA';
+            } else {
+                encodedPayload = `CHAT|${myName}|ADMIN|${text}`;
+            }
+
+            // Optimistic UI update
+            globalMessages.push({
+                date: new Date().toISOString(),
+                name: senderField,
+                message: encodedPayload
+            });
+            input.value = '';
+            refreshChatAndNotificationsUI();
+
+            try {
+                await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent(senderField)}&message=${encodeURIComponent(encodedPayload)}`);
+                fetchAllDataAndRefresh();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function sendAdminBroadcast() {
+            const input = document.getElementById('broadcastInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const btn = document.getElementById('sendBroadcastBtn');
+            btn.disabled = true;
+            const encodedPayload = `BROADCAST|ABBU SHAHMA|ALL|${text}`;
+
+            globalMessages.push({
+                date: new Date().toISOString(),
+                name: 'ABBU SHAHMA',
+                message: encodedPayload
+            });
+            input.value = '';
+            refreshChatAndNotificationsUI();
+
+            try {
+                await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent('ABBU SHAHMA')}&message=${encodeURIComponent(encodedPayload)}`);
+                alert('✅ Notification sabhi members ko bhej diya gaya hai!');
+                fetchAllDataAndRefresh();
+            } catch (e) {
+                console.error(e);
+            } finally {
+                btn.disabled = false;
+            }
+        }
 
         function populateAllDropdowns(lang) {
             const t = translations[lang];
@@ -1372,20 +1690,23 @@
 
             const t = translations[lang];
 
-            // Header & Drawer
+            // Header & Drawer Menu
             document.getElementById('t_ayah').innerText = t.ayah;
             document.getElementById('t_memberSub').innerText = t.memberSub;
-            document.getElementById('t_settingsTitle').innerText = t.settingsTitle;
+            document.getElementById('t_menuSettingsBtn').innerText = t.menuSettingsBtn;
+            document.getElementById('t_menuChatBtn').innerText = t.menuChatBtn;
+            document.getElementById('t_menuNotifBtn').innerText = t.menuNotifBtn;
+            document.getElementById('t_menuAboutBtn').innerText = t.menuAboutBtn;
             document.getElementById('t_settingsSub').innerText = t.settingsSub;
-            document.getElementById('t_adminTitle').innerText = t.adminTitle;
-            document.getElementById('t_adminSub').innerText = t.adminSub;
-            document.getElementById('t_tagSujhav').innerText = t.tagSujhav;
-            document.getElementById('t_tagProblem').innerText = t.tagProblem;
-            document.getElementById('t_tagSalam').innerText = t.tagSalam;
-            document.getElementById('adminMsgInput').placeholder = t.adminPlaceholder;
-            document.getElementById('t_sendMsgBtn').innerText = t.sendMsgBtn;
+            document.getElementById('t_chatHeaderTitle').innerText = t.chatHeaderTitle;
+            document.getElementById('t_replyToLabel').innerText = t.replyToLabel;
+            document.getElementById('chatMsgInput').placeholder = t.chatPlaceholder;
+            document.getElementById('t_notifSubTitle').innerText = t.notifSubTitle;
+            document.getElementById('t_broadcastLabel').innerText = t.broadcastLabel;
+            document.getElementById('broadcastInput').placeholder = t.broadcastPlaceholder;
+            document.getElementById('sendBroadcastBtn').innerText = t.sendBroadcastBtn;
             document.getElementById('t_drawerPhotoBtn').innerText = t.drawerPhotoBtn;
-            document.getElementById('t_drawerReportBtn').innerText = t.drawerReportBtn;
+            document.getElementById('t_drawerReportBtn').innerHTML = `<span>${t.drawerReportBtn}</span><span>➔</span>`;
             document.getElementById('t_drawerLogoutBtn').innerText = t.drawerLogoutBtn;
             document.getElementById('t_aboutHeading').innerText = t.aboutHeading;
             document.getElementById('t_aboutRole').innerText = t.aboutRole;
@@ -1401,14 +1722,6 @@
             document.getElementById('t_labelPhoto').innerText = t.labelPhoto;
             document.getElementById('regPhotoBtnText').innerText = t.regPhotoBtnText;
             switchTab(currentMode);
-
-            // User Banner
-            const savedName = localStorage.getItem('namaz_user');
-            if (savedName) {
-                document.getElementById('welcomeUser').innerText = t.greetingPrefix + savedName + '!';
-            }
-            document.getElementById('t_uploadChip').innerText = t.uploadChip;
-            document.getElementById('t_logoutBtn').innerText = t.logoutBtn;
 
             // Home & Tracker
             document.getElementById('t_homeTitle').innerText = t.homeTitle;
@@ -1453,12 +1766,7 @@
             populateAllDropdowns(lang);
             renderCommunityLeaderboard();
             renderUserHistory();
-        }
-
-        function addQuickTag(prefix) {
-            const box = document.getElementById('adminMsgInput');
-            box.value = prefix + box.value;
-            box.focus();
+            refreshChatAndNotificationsUI();
         }
 
         const today = new Date();
@@ -1498,6 +1806,7 @@
             const savedPhoto = localStorage.getItem('namaz_photo') || 'https://osman-debug3.github.io/namaz/logo.jpg';
             document.getElementById('drawerUserName').innerText = savedName;
             document.getElementById('drawerUserAvatar').src = savedPhoto;
+            refreshChatAndNotificationsUI();
         }
 
         function closeSideMenu(e) {
@@ -1539,7 +1848,6 @@
         }
 
         function translateStatusVal(val) {
-            const t = translations[currentLang];
             if (val === 'Ada') return '✅ Ada';
             if (val === 'Qaza') return '🕒 Qaza';
             if (val === 'Rakha') return '🌟 Rakha';
@@ -1694,7 +2002,6 @@
                     const data = await res.json();
                     if (data.result === 'success') {
                         localStorage.setItem('namaz_photo', newPhoto);
-                        document.getElementById('userAvatar').src = newPhoto;
                         document.getElementById('drawerUserAvatar').src = newPhoto;
                         alert('✅ MashaAllah! Profile Photo updated!');
                         fetchAllDataAndRefresh();
@@ -1705,38 +2012,6 @@
                     alert('Error updating photo.');
                 }
             });
-        }
-
-        async function sendMessageToAdmin() {
-            const msg = document.getElementById('adminMsgInput').value.trim();
-            const senderName = localStorage.getItem('namaz_user') || 'Member';
-            const t = translations[currentLang];
-
-            if (!msg) {
-                alert(t.adminPlaceholder);
-                return;
-            }
-
-            const btnSpan = document.getElementById('t_sendMsgBtn');
-            btnSpan.innerText = t.sendingText;
-            document.getElementById('sendMsgBtn').disabled = true;
-
-            try {
-                const res = await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent(senderName)}&message=${encodeURIComponent(msg)}`);
-                const data = await res.json();
-                if (data.result === 'success') {
-                    alert('✅ ' + data.message);
-                    document.getElementById('adminMsgInput').value = '';
-                    toggleSideMenu();
-                } else {
-                    alert('❌ ' + (data.message || 'Please deploy Apps Script as New Version!'));
-                }
-            } catch(e) {
-                alert('Error sending message.');
-            } finally {
-                btnSpan.innerText = t.sendMsgBtn;
-                document.getElementById('sendMsgBtn').disabled = false;
-            }
         }
 
         function getDayNameFromDate(dateStr) {
@@ -1775,17 +2050,21 @@
                 if (data.result === 'success') {
                     globalReports = data.reports || [];
                     globalUsers = data.users || [];
+                    if (data.messages) {
+                        globalMessages = data.messages;
+                    }
                     const savedName = localStorage.getItem('namaz_user');
                     if (savedName) {
                         const me = globalUsers.find(u => u.name.toLowerCase() === savedName.toLowerCase());
                         if (me && me.photo) {
                             localStorage.setItem('namaz_photo', me.photo);
-                            document.getElementById('userAvatar').src = me.photo;
+                            document.getElementById('drawerUserAvatar').src = me.photo;
                         }
                     }
                     updateUI();
                     renderCommunityLeaderboard();
                     renderUserHistory();
+                    refreshChatAndNotificationsUI();
                 }
             } catch (e) {
                 console.error(e);
@@ -2082,14 +2361,14 @@
         }
 
         function showTracker(name, photo) {
-            const t = translations[currentLang];
             document.getElementById('authCard').classList.add('hidden');
             document.getElementById('trackerCard').classList.remove('hidden');
             document.getElementById('bottomNavBar').classList.remove('hidden');
             document.getElementById('drawerUserActions').classList.remove('hidden');
-            document.getElementById('welcomeUser').innerText = t.greetingPrefix + name + '!';
+            document.getElementById('settingsPhotoWrap').classList.remove('hidden');
+            document.getElementById('drawerUserName').innerText = name;
             if (photo) {
-                document.getElementById('userAvatar').src = photo;
+                document.getElementById('drawerUserAvatar').src = photo;
             }
             switchSection('home');
             fetchAllDataAndRefresh();
@@ -2102,6 +2381,7 @@
             document.getElementById('trackerCard').classList.add('hidden');
             document.getElementById('bottomNavBar').classList.add('hidden');
             document.getElementById('drawerUserActions').classList.add('hidden');
+            document.getElementById('settingsPhotoWrap').classList.add('hidden');
             document.getElementById('authCard').classList.remove('hidden');
         }
 
