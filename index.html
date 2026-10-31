@@ -5,13 +5,14 @@
     <meta name="google-site-verification" content="rW9cGFHMlhNqHxvCfr6nPBlGQpn8Eib-bnkORhQfVJc" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>ZikrSphere | Daily Deen & Deeds by ABBU SHAHMA</title>
-    <meta name="author" content="ABBU SHAHMA">
-    <meta name="description" content="ZikrSphere | Daily Deen & Deeds - Islamic Community Tracker founded and developed by ABBU SHAHMA. Track daily 5 Farz Namaz, Roza, Quran Tilawat, and Tarawih.">
-    <meta name="keywords" content="ZikrSphere, ABBU SHAHMA, Abbu Shahma Developer, Islamic Tracker, Namaz Tracker, Daily Deen and Deeds">
+    <title>ZikrSphere | Daily Deen & Deeds by ABBU SHAHMA & Muhammad Sibgathullah</title>
+    <meta name="author" content="ABBU SHAHMA, Muhammad Sibgathullah">
+    <meta name="description" content="ZikrSphere | Daily Deen & Deeds - Islamic Community Tracker by ABBU SHAHMA and Muhammad Sibgathullah. Track daily 5 Farz Namaz, Roza, Quran Tilawat, and Tarawih.">
+    <meta name="keywords" content="ZikrSphere, ABBU SHAHMA, Muhammad Sibgathullah, Abbu Shahma Developer, Muhammad Sibgathullah ZikrSphere, Islamic Tracker, Namaz Tracker">
 
-    <!-- PRELOAD DEVELOPER IMAGE SO GOOGLEBOT ALWAYS FETCHES IT -->
+    <!-- PRELOAD IMAGES SO GOOGLEBOT ALWAYS FETCHES BOTH PHOTOS -->
     <link rel="preload" as="image" href="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg">
+    <link rel="preload" as="image" href="https://osman-debug3.github.io/namaz/muhammad-sibgathullah.jpg">
 
     <!-- STRONG FAVICON TAGS FOR GOOGLE SEARCH LOGO (logo.jpg) -->
     <link rel="icon" type="image/jpeg" sizes="16x16" href="https://osman-debug3.github.io/namaz/logo.jpg">
@@ -21,20 +22,21 @@
     <link rel="shortcut icon" type="image/jpeg" href="https://osman-debug3.github.io/namaz/logo.jpg">
     <link rel="apple-touch-icon" href="https://osman-debug3.github.io/namaz/logo.jpg">
 
-    <!-- OPEN GRAPH & TWITTER TAGS FOR ABBU SHAHMA PHOTO INDEXING -->
+    <!-- OPEN GRAPH & TWITTER TAGS FOR ABBU SHAHMA & MUHAMMAD SIBGATHULLAH -->
     <meta property="og:site_name" content="ZikrSphere">
-    <meta property="og:title" content="ABBU SHAHMA - Founder & Developer | ZikrSphere">
-    <meta property="og:description" content="ZikrSphere | Daily Deen & Deeds developed by ABBU SHAHMA.">
+    <meta property="og:title" content="ZikrSphere | ABBU SHAHMA & Muhammad Sibgathullah">
+    <meta property="og:description" content="ZikrSphere | Daily Deen & Deeds - ABBU SHAHMA & Muhammad Sibgathullah.">
     <meta property="og:image" content="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg">
     <meta property="og:image:alt" content="ABBU SHAHMA - Founder and Developer of ZikrSphere">
+    <meta property="og:image" content="https://osman-debug3.github.io/namaz/muhammad-sibgathullah.jpg">
+    <meta property="og:image:alt" content="Muhammad Sibgathullah - ZikrSphere">
     <meta property="og:url" content="https://osman-debug3.github.io/namaz/">
     <meta property="og:type" content="profile">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ABBU SHAHMA - Founder & Developer | ZikrSphere">
-    <meta name="twitter:description" content="ZikrSphere | Daily Deen & Deeds developed by ABBU SHAHMA.">
-    <meta name="twitter:image" content="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg">
+    <meta name="twitter:title" content="ZikrSphere | ABBU SHAHMA & Muhammad Sibgathullah">
+    <meta name="twitter:image" content="https://osman-debug3.github.io/namaz/muhammad-sibgathullah.jpg">
 
-    <!-- GOOGLE SEARCH STRUCTURED DATA -->
+    <!-- GOOGLE SEARCH STRUCTURED DATA FOR BOTH ABBU SHAHMA & MUHAMMAD SIBGATHULLAH -->
     <script type="application/ld+json">
     [
       {
@@ -60,8 +62,24 @@
         },
         "worksFor": {
           "@type": "Organization",
-          "name": "ZikrSphere",
-          "logo": "https://osman-debug3.github.io/namaz/logo.jpg"
+          "name": "ZikrSphere"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Muhammad Sibgathullah",
+        "alternateName": "Sibgathullah",
+        "jobTitle": "Co-Founder & Islamic Guide — ZikrSphere",
+        "description": "Muhammad Sibgathullah - ZikrSphere | Daily Deen & Deeds Community Leader.",
+        "url": "https://osman-debug3.github.io/namaz/",
+        "image": [
+          "https://osman-debug3.github.io/namaz/muhammad-sibgathullah.jpg",
+          "https://osman-debug3.github.io/namaz/IMG_20250608_110400_431.jpg"
+        ],
+        "worksFor": {
+          "@type": "Organization",
+          "name": "ZikrSphere"
         }
       }
     ]
@@ -105,10 +123,10 @@
             line-height: 1.55;
         }
 
-        .container { max-width: 620px; margin: 0 auto; }
+        .container { max-width: 620px; margin: 0 auto; position: relative; }
 
         header {
-            position: relative; text-align: center; margin-bottom: 18px; padding: 16px 15px;
+            position: relative; text-align: center; margin-bottom: 14px; padding: 16px 15px;
             border-radius: 20px; background: linear-gradient(180deg, rgba(212, 175, 55, 0.14) 0%, rgba(6, 47, 35, 0.5) 100%);
             border: 1px solid var(--border-gold); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
@@ -125,37 +143,167 @@
 
         .notif-bell-btn {
             position: absolute; top: 18px; right: 14px;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(6, 47, 35, 0.9));
-            border: 1.5px solid var(--gold); color: var(--gold-light);
-            width: 42px; height: 42px; border-radius: 11px; font-size: 19px;
+            background: #0d212d;
+            border: 1.5px solid rgba(56, 189, 248, 0.45); color: #e2e8f0;
+            width: 42px; height: 42px; border-radius: 11px; font-size: 18px;
             display: flex; align-items: center; justify-content: center; cursor: pointer;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.4); transition: 0.2s;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.5); transition: 0.2s;
         }
-        .notif-bell-btn:hover { transform: scale(1.06); background: var(--gold); color: #021a13; }
+        .notif-bell-btn:hover, .notif-bell-btn.active {
+            border-color: #38bdf8;
+            background: #132f41;
+            box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
+        }
         .notif-badge-dot {
-            position: absolute; top: -4px; right: -4px;
-            background: #ef4444; color: #fff; font-size: 10px; font-weight: 800;
-            width: 18px; height: 18px; border-radius: 50%;
+            position: absolute; top: -5px; right: -5px;
+            background: #0284c7; color: #fff; font-size: 10px; font-weight: 800;
+            min-width: 19px; height: 19px; padding: 0 4px; border-radius: 99px;
             display: flex; align-items: center; justify-content: center;
-            border: 1.5px solid #021a13;
+            border: 2px solid #021a13;
         }
 
-        /* LATEST BROADCAST BANNER */
-        .broadcast-banner {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.22), rgba(16, 185, 129, 0.16));
-            border: 1.5px solid var(--gold);
-            border-radius: 14px;
-            padding: 11px 14px;
-            margin-bottom: 16px;
+        /* GAIN.GG STYLE FLOATING NOTIFICATION DROPDOWN POPUP */
+        .notif-dropdown-popup {
+            position: absolute;
+            top: 68px;
+            right: 0;
+            width: 340px;
+            max-width: 94vw;
+            background: #0f1923;
+            border: 1px solid #1e2d3d;
+            border-top: 3px solid #00a8ff;
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+            z-index: 2200;
+            overflow: hidden;
+            animation: fadeInDown 0.18s ease-out;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .notif-popup-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 10px;
-            cursor: pointer;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+            padding: 13px 16px;
+            background: #13202d;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .notif-popup-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .notif-count-pill {
+            background: rgba(0, 168, 255, 0.2);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            font-size: 10.5px;
+            font-weight: 800;
+            padding: 1px 7px;
+            border-radius: 6px;
+        }
+        .notif-popup-list {
+            max-height: 330px;
+            overflow-y: auto;
+            divide-y: 1px solid rgba(255,255,255,0.06);
+        }
+        .notif-card-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            transition: background 0.2s;
+            text-align: left;
+        }
+        .notif-card-row:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .notif-circle-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .notif-icon-blue { background: rgba(56, 189, 248, 0.14); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .notif-icon-gold { background: rgba(245, 158, 11, 0.14); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .notif-icon-green { background: rgba(16, 185, 129, 0.14); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+
+        .notif-body-col {
+            flex: 1;
+            min-width: 0;
+        }
+        .notif-item-heading {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 3px;
+        }
+        .notif-item-desc {
+            font-size: 11.5px;
+            color: #94a3b8;
+            line-height: 1.45;
+            word-wrap: break-word;
+        }
+        .notif-item-time {
+            font-size: 10px;
+            color: #64748b;
+            margin-top: 6px;
+            font-weight: 600;
         }
 
-        /* SIDE DRAWER OVERLAY (SEO FRIENDLY - NO DISPLAY:NONE ON DEV PHOTO) */
+        /* GAIN.GG STYLE TOP ALERT BANNER BELOW HEADER */
+        .gain-alert-banner {
+            background: rgba(13, 33, 45, 0.92);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+            transition: 0.2s;
+        }
+        .gain-alert-banner:hover {
+            border-color: #38bdf8;
+        }
+        .gain-alert-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+        .gain-alert-title {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #38bdf8;
+            margin-bottom: 2px;
+        }
+        .gain-alert-desc {
+            font-size: 11.5px;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+
+        /* SIDE DRAWER OVERLAY (SEO FRIENDLY - NO DISPLAY:NONE ON PHOTOS) */
         .side-drawer-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(2, 26, 19, 0.85); backdrop-filter: blur(6px); z-index: 2500;
@@ -210,10 +358,10 @@
             max-height: 0;
             overflow: hidden;
             opacity: 0;
-            transition: max-height 0.3s ease, opacity 0.25s ease, margin 0.25s ease;
+            transition: max-height 0.35s ease, opacity 0.25s ease, margin 0.25s ease;
         }
         .drawer-panel.open {
-            max-height: 900px;
+            max-height: 1400px;
             opacity: 1;
             margin-top: 6px;
             margin-bottom: 8px;
@@ -328,28 +476,16 @@
             cursor: pointer;
         }
 
-        /* NOTIFICATIONS LIST */
-        .notif-list-box {
-            max-height: 220px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-        .notif-item {
-            background: rgba(212, 175, 55, 0.12);
-            border-left: 3.5px solid var(--gold);
-            border-radius: 8px;
-            padding: 9px 11px;
-            font-size: 12px;
-        }
-
-        /* ABOUT DEVELOPER CARD INSIDE DRAWER */
+        /* ABOUT DEVELOPER & MUHAMMAD SIBGATHULLAH CARDS */
         .drawer-dev-photo {
-            width: 115px; height: 115px; border-radius: 50%; object-fit: cover;
+            width: 118px; height: 118px; border-radius: 50%; object-fit: cover;
             border: 3px solid var(--gold); margin-bottom: 8px;
             box-shadow: 0 0 20px var(--gold-glow); cursor: zoom-in;
+        }
+        .founder-divider {
+            height: 1px;
+            background: rgba(212, 175, 55, 0.3);
+            margin: 16px 0;
         }
 
         .bismillah { font-family: 'Amiri', serif; font-size: 26px; color: var(--gold-light); margin-bottom: 4px; text-shadow: 0 2px 12px rgba(212, 175, 55, 0.4); }
@@ -581,7 +717,7 @@
         .help-text { font-size: 11.5px; color: var(--text-muted); text-align: center; margin-top: 12px; }
     </style>
 </head>
-<body>
+<body onclick="closeNotifDropdownOutside(event)">
 
     <!-- Hidden File Input for Changing Profile Photo -->
     <input type="file" id="changePhotoInput" accept="image/*" style="display: none;" onchange="updateProfilePhoto(this)">
@@ -650,34 +786,16 @@
                     </div>
                 </div>
 
-                <!-- MENU 3: 📢 ADMIN NOTIFICATIONS & BROADCAST TO ALL MEMBERS -->
-                <button type="button" class="drawer-nav-item" id="btnMenuNotif" onclick="toggleDrawerPanel('panelNotif', 'btnMenuNotif')">
-                    <span id="t_menuNotifBtn">📢 Admin Notifications</span>
-                    <span>▾</span>
-                </button>
-                <div id="panelNotif" class="drawer-panel">
-                    <div class="panel-inner-card">
-                        <div id="t_notifSubTitle" style="font-size: 12px; font-weight: 800; color: var(--gold-light); margin-bottom: 8px;">🔔 Community Announcements</div>
-                        
-                        <div class="notif-list-box" id="notifListBox"></div>
-
-                        <!-- Admin Broadcast Composer (Visible to Admin ABBU SHAHMA / OSMAN) -->
-                        <div id="adminBroadcastComposer" class="hidden" style="border-top: 1px solid rgba(212, 175, 55, 0.3); padding-top: 10px; margin-top: 8px;">
-                            <label id="t_broadcastLabel" style="font-size: 10.5px; color: var(--emerald-bright);">📢 Send Notification to ALL Members:</label>
-                            <textarea id="broadcastInput" rows="2" placeholder="Write announcement for all members..." style="font-size: 12px; padding: 8px; margin-bottom: 8px;"></textarea>
-                            <button type="button" class="btn" id="sendBroadcastBtn" style="padding: 9px; font-size: 12.5px;" onclick="sendAdminBroadcast()">📢 Send to All Members</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MENU 4: 👨‍💻 ABOUT FOUNDER & DEVELOPER (ABBU SHAHMA) -->
+                <!-- MENU 3: 👨‍💻 ABOUT FOUNDER & MUHAMMAD SIBGATHULLAH -->
                 <button type="button" class="drawer-nav-item" id="btnMenuAbout" onclick="toggleDrawerPanel('panelAbout', 'btnMenuAbout')">
-                    <span id="t_menuAboutBtn">👨‍💻 About Developer</span>
+                    <span id="t_menuAboutBtn">👨‍💻 About Founder & Team</span>
                     <span>▾</span>
                 </button>
                 <div id="panelAbout" class="drawer-panel">
                     <div class="panel-inner-card" style="text-align: center;">
-                        <h3 id="t_aboutHeading" style="color: var(--gold-light); font-size: 14px; margin-bottom: 10px;">👨‍💻 About Founder & Developer</h3>
+                        <h3 id="t_aboutHeading" style="color: var(--gold-light); font-size: 14px; margin-bottom: 12px;">👨‍💻 Founder & Leadership</h3>
+                        
+                        <!-- 1. ABBU SHAHMA -->
                         <figure style="margin: 0;">
                             <img id="devPhotoImg" src="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg" alt="ABBU SHAHMA - Founder and Developer of ZikrSphere" title="ABBU SHAHMA" class="drawer-dev-photo" onclick="openFullScreenPhoto(this.src)">
                             <figcaption>
@@ -687,6 +805,20 @@
                         </figure>
                         <p id="t_aboutBio" style="font-size: 12px; color: var(--text-main); line-height: 1.6;">
                             Assalamu Alaikum! Mera naam <strong>ABBU SHAHMA</strong> hai. Maine <strong>ZikrSphere | Daily Deen & Deeds</strong> isliye banaya hoon taaki hum sab mil kar apni rozana ki 5 Farz Namaz, Roza, Quran-e-Pak ki Tilawat aur Tarawih ka hisab rakh sakein aur neki ke kaamon mein ek dusre ka hausla badha sakein.
+                        </p>
+
+                        <div class="founder-divider"></div>
+
+                        <!-- 2. MUHAMMAD SIBGATHULLAH (INDEXED FOR GOOGLE IMAGES) -->
+                        <figure style="margin: 0;">
+                            <img id="sibgathullahPhotoImg" src="https://osman-debug3.github.io/namaz/muhammad-sibgathullah.jpg" alt="Muhammad Sibgathullah" title="Muhammad Sibgathullah - ZikrSphere" class="drawer-dev-photo" onclick="openFullScreenPhoto(this.src)" onerror="if(this.src.indexOf('muhammad-sibgathullah.jpg')!==-1){this.src='https://osman-debug3.github.io/namaz/IMG_20250608_110400_431.jpg';}else if(this.src.indexOf('IMG_20250608_110400_431.jpg')!==-1){this.src='https://osman-debug3.github.io/namaz/muhammad-sibgathullah.jpeg';}">
+                            <figcaption>
+                                <h4 style="color: var(--gold-light); font-size: 18px; font-weight: 700; margin-top: 2px;">Muhammad Sibgathullah</h4>
+                                <p style="font-size: 11.5px; color: var(--emerald-bright); font-weight: 700; margin-bottom: 6px;">Co-Founder & Islamic Guide — ZikrSphere</p>
+                            </figcaption>
+                        </figure>
+                        <p style="font-size: 12px; color: var(--text-main); line-height: 1.55;">
+                            <strong>Muhammad Sibgathullah</strong> — ZikrSphere | Daily Deen & Deeds Community Guide & Inspiration.
                         </p>
                     </div>
                 </div>
@@ -706,9 +838,9 @@
     <div class="container">
         <header>
             <button type="button" id="hamburgerBtn" class="menu-toggle-btn" onclick="toggleSideMenu()" title="Menu & Settings">☰</button>
-            <button type="button" id="notifBellBtn" class="notif-bell-btn" onclick="openNotificationsFromBell()" title="Notifications">
+            <button type="button" id="notifBellBtn" class="notif-bell-btn" onclick="toggleNotifPopup(event)" title="Notifications">
                 🔔
-                <span id="notifBadgeCount" class="notif-badge-dot hidden">1</span>
+                <span id="notifBadgeCount" class="notif-badge-dot hidden">0</span>
             </button>
             <div class="bismillah">﷽</div>
             <h1>✨ ZikrSphere | Daily Deen & Deeds</h1>
@@ -718,16 +850,35 @@
             <div class="hijri-badge" id="hijriDateBadge">🌙 Hijri Calendar...</div>
         </header>
 
-        <!-- LATEST ADMIN BROADCAST BANNER (SHOWN WHEN ADMIN SENDS ANNOUNCEMENT) -->
-        <div id="latestBroadcastBanner" class="broadcast-banner hidden" onclick="openNotificationsFromBell()">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 18px;">📢</span>
-                <div>
-                    <div style="font-size: 10.5px; font-weight: 800; color: var(--gold-light); text-transform: uppercase;">Admin Announcement (ABBU SHAHMA)</div>
-                    <div id="latestBroadcastText" style="font-size: 12.5px; color: #fff; font-weight: 600;"></div>
+        <!-- GAIN.GG STYLE FLOATING NOTIFICATIONS DROPDOWN POPUP -->
+        <div id="notifDropdownPopup" class="notif-dropdown-popup hidden" onclick="event.stopPropagation()">
+            <div class="notif-popup-header">
+                <div class="notif-popup-title">
+                    <span id="t_notifPopupTitle">Notifications</span>
+                    <span id="notifPopupCountPill" class="notif-count-pill">0</span>
                 </div>
+                <span style="cursor:pointer; color:#94a3b8; font-size:18px; line-height:1;" onclick="closeNotifPopup()">&times;</span>
             </div>
-            <span style="font-size: 11px; color: var(--gold-light); font-weight: 700;">View ➔</span>
+
+            <!-- ADMIN BROADCAST COMPOSER INSIDE POPUP (VISIBLE ONLY TO ADMIN) -->
+            <div id="adminBroadcastComposer" class="hidden" style="padding: 12px 14px; background: #0b131b; border-bottom: 1px solid rgba(56, 189, 248, 0.25);">
+                <div style="font-size: 11px; font-weight: 800; color: #38bdf8; margin-bottom: 6px;">📢 Send Admin Notification to All Members</div>
+                <input type="text" id="broadcastTitleInput" placeholder="Notification Title (e.g. Jumu'ah Mubarak / Important Notice)" style="padding: 8px 10px; font-size: 12px; margin-bottom: 6px; background: #13202d; border-color: rgba(56,189,248,0.35);">
+                <textarea id="broadcastInput" rows="2" placeholder="Write message for all members..." style="font-size: 12px; padding: 8px 10px; margin-bottom: 6px; background: #13202d; border-color: rgba(56,189,248,0.35);"></textarea>
+                <button type="button" class="btn" id="sendBroadcastBtn" style="padding: 8px; font-size: 12px; background: linear-gradient(135deg, #0284c7, #0369a1); color: #fff; box-shadow: none;" onclick="sendAdminBroadcast()">🚀 Publish Notification</button>
+            </div>
+
+            <!-- NOTIFICATION ITEMS LIST -->
+            <div class="notif-popup-list" id="notifListBox"></div>
+        </div>
+
+        <!-- GAIN.GG STYLE TOP ALERT BANNER BELOW HEADER -->
+        <div id="latestBroadcastBanner" class="gain-alert-banner hidden" onclick="toggleNotifPopup(event)">
+            <div class="gain-alert-icon">🔔</div>
+            <div style="flex: 1;">
+                <div id="latestBroadcastTitle" class="gain-alert-title">Admin Notice</div>
+                <div id="latestBroadcastText" class="gain-alert-desc"></div>
+            </div>
         </div>
 
         <!-- LOGIN / REGISTER CARD -->
@@ -763,7 +914,7 @@
             <p class="help-text" id="authHelp">Naye hain? Upar "Community ID Banayein" par click karein.</p>
         </div>
 
-        <!-- MAIN APP CONTAINER (CLEAN - REPETITIVE PHOTO/LOGOUT BANNER REMOVED) -->
+        <!-- MAIN APP CONTAINER -->
         <div class="card hidden" id="trackerCard">
 
             <!-- SECTION 0: HOME (MAQSAD, NAMAZ, ROZA, TARAWIH KA BAYAN - BEFORE REPORT) -->
@@ -896,13 +1047,13 @@
 
     <!-- FULL-SCREEN PHOTO ZOOM LIGHTBOX -->
     <div id="photoLightbox" class="photo-lightbox hidden" onclick="closeFullScreenPhoto()">
-        <img id="lightboxImg" src="" alt="ABBU SHAHMA Full Zoom">
+        <img id="lightboxImg" src="" alt="Full Zoom">
         <button type="button" class="btn" id="t_closeZoomBtn" style="max-width: 220px; margin-top: 16px;" onclick="closeFullScreenPhoto()">❌ Band Karein</button>
     </div>
 
     <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJurfZRD8AyzWWXtY3VsThAcVZxi4QXYMakINqX_h55HrrnYog03eawNiSloQ6SJQHBA/exec';
-        const ADMIN_NAMES = ['abbu shahma', 'osman', 'admin'];
+        const ADMIN_NAMES = ['abbu shahma', 'osman', 'admin', 'muhammad sibgathullah'];
         let currentMode = 'login';
         let currentLang = localStorage.getItem('zikr_lang') || 'ro';
         let globalReports = [];
@@ -917,22 +1068,18 @@
                 memberSub: '🕌 ZikrSphere Community Member',
                 menuSettingsBtn: '⚙️ Settings (Language & Photo)',
                 menuChatBtn: '💬 Admin Chat & Reply',
-                menuNotifBtn: '📢 Admin Notifications',
-                menuAboutBtn: '👨‍💻 About Developer',
+                menuAboutBtn: '👨‍💻 About Founder & Team',
                 settingsSub: '🌐 Select Website Language:',
                 chatHeaderTitle: '💬 Direct Conversation',
                 replyToLabel: 'Select Member to Reply:',
                 chatPlaceholder: 'Write message or reply...',
                 emptyChat: 'Assalamu Alaikum! Send a message to Admin (ABBU SHAHMA).',
-                notifSubTitle: '🔔 Official Community Notifications',
-                emptyNotif: 'No announcements yet.',
-                broadcastLabel: '📢 Send Notification to ALL Members:',
-                broadcastPlaceholder: 'Write announcement for all members...',
-                sendBroadcastBtn: '📢 Send to All Members',
+                notifPopupTitle: 'Notifications',
+                emptyNotif: 'No notifications yet.',
                 drawerPhotoBtn: '📸 Change HD Profile Photo',
                 drawerReportBtn: '📥 Download My Report (CSV)',
                 drawerLogoutBtn: '🚪 Logout',
-                aboutHeading: '👨‍💻 About Founder & Developer',
+                aboutHeading: '👨‍💻 Founder & Leadership',
                 aboutRole: 'Founder & Web Developer — ZikrSphere',
                 aboutBio: 'Assalamu Alaikum! My name is <strong>ABBU SHAHMA</strong>. I have created <strong>ZikrSphere | Daily Deen & Deeds</strong> so that we can all track our daily 5 Farz Salah, Fasting (Roza), Quran Recitation, and Tarawih together and encourage one another in good deeds.',
                 loginTab: '🔑 Login',
@@ -1040,22 +1187,18 @@
                 memberSub: '🕌 ZikrSphere Community Member',
                 menuSettingsBtn: '⚙️ Settings (Language & Photo)',
                 menuChatBtn: '💬 Admin Chat & Reply',
-                menuNotifBtn: '📢 Admin Notifications',
-                menuAboutBtn: '👨‍💻 About Developer',
+                menuAboutBtn: '👨‍💻 About Founder & Team',
                 settingsSub: '🌐 Puri Website Ki Bhasha Chunein:',
                 chatHeaderTitle: '💬 Admin Ke Sath Direct Baatcheet',
                 replyToLabel: 'Kis Member Ko Reply Dena Hai Chunein:',
                 chatPlaceholder: 'Apna message ya reply likhein...',
                 emptyChat: 'Assalamu Alaikum! Admin (ABBU SHAHMA) se yahan seedhe baat karein.',
-                notifSubTitle: '🔔 Sabhi Members Ke Liye Notifications',
+                notifPopupTitle: 'Notifications',
                 emptyNotif: 'Abhi koi naya notification nahi hai.',
-                broadcastLabel: '📢 Ek Sath Sabhi Members Ko Message Bhejein:',
-                broadcastPlaceholder: 'Sabhi members ke liye announcement likhein...',
-                sendBroadcastBtn: '📢 Sabhi Members Ko Bhejein',
                 drawerPhotoBtn: '📸 HD Profile Photo Badlein',
                 drawerReportBtn: '📥 Meri Report Download Karein (CSV)',
                 drawerLogoutBtn: '🚪 Logout Karein',
-                aboutHeading: '👨‍💻 About Founder & Developer',
+                aboutHeading: '👨‍💻 Founder & Leadership',
                 aboutRole: 'Founder & Web Developer — ZikrSphere',
                 aboutBio: 'Assalamu Alaikum! Mera naam <strong>ABBU SHAHMA</strong> hai. Maine <strong>ZikrSphere | Daily Deen & Deeds</strong> isliye banaya hoon taaki hum sab mil kar apni rozana ki 5 Farz Namaz, Roza, Quran-e-Pak ki Tilawat aur Tarawih ka hisab rakh sakein aur neki ke kaamon mein ek dusre ka hausla badha sakein.',
                 loginTab: '🔑 Login Karein',
@@ -1163,22 +1306,18 @@
                 memberSub: '🕌 ZikrSphere कम्युनिटी मेंबर',
                 menuSettingsBtn: '⚙️ सेटिंग्स (भाषा और फोटो)',
                 menuChatBtn: '💬 एडमिन चैट और रिप्लाई',
-                menuNotifBtn: '📢 एडमिन नोटिफिकेशन',
-                menuAboutBtn: '👨‍💻 डेवलपर का परिचय',
+                menuAboutBtn: '👨‍💻 फाउंडर और टीम परिचय',
                 settingsSub: '🌐 पूरी वेबसाइट की भाषा चुनें:',
                 chatHeaderTitle: '💬 एडमिन के साथ सीधी बातचीत',
                 replyToLabel: 'किस मेंबर को रिप्लाई देना है चुनें:',
                 chatPlaceholder: 'अपना संदेश या रिप्लाई लिखें...',
                 emptyChat: 'अस्सलामु अलैकुम! एडमिन (ABBU SHAHMA) से यहाँ सीधी बात करें।',
-                notifSubTitle: '🔔 सभी मेंबर्स के लिए सूचनाएँ',
+                notifPopupTitle: 'सूचनाएँ (Notifications)',
                 emptyNotif: 'अभी कोई नया नोटिफिकेशन नहीं है।',
-                broadcastLabel: '📢 एक साथ सभी मेंबर्स को संदेश भेजें:',
-                broadcastPlaceholder: 'सभी मेंबर्स के लिए सूचना लिखें...',
-                sendBroadcastBtn: '📢 सभी मेंबर्स को भेजें',
                 drawerPhotoBtn: '📸 प्रोफाइल फोटो बदलें',
                 drawerReportBtn: '📥 मेरी रिपोर्ट डाउनलोड करें (CSV)',
                 drawerLogoutBtn: '🚪 लॉगआउट करें',
-                aboutHeading: '👨‍💻 फाउंडर और डेवलपर के बारे में',
+                aboutHeading: '👨‍💻 फाउंडर और लीडरशिप',
                 aboutRole: 'फाउंडर और वेब डेवलपर — ZikrSphere',
                 aboutBio: 'अस्सलामु अलैकुम! मेरा नाम <strong>ABBU SHAHMA</strong> है। मैंने <strong>ZikrSphere | Daily Deen & Deeds</strong> इसलिए बनाया हूँ ताकि हम सब मिल कर अपनी रोज़ाना की 5 फ़र्ज़ नमाज़, रोज़ा, क़ुरआन-ए-पाक की तिलावत और तरावीह का हिसाब रख सकें और नेकी के कामों में एक दूसरे का हौसला बढ़ा सकें।',
                 loginTab: '🔑 लॉगिन करें',
@@ -1286,22 +1425,18 @@
                 memberSub: '🕌 ذکر اسفیئر کمیونٹی ممبر',
                 menuSettingsBtn: '⚙️ سیٹنگز (زبان اور فوٹو)',
                 menuChatBtn: '💬 ایڈمن چیٹ اور رپلائی',
-                menuNotifBtn: '📢 ایڈمن نوٹیفکیشن',
-                menuAboutBtn: '👨‍💻 ڈیولپر کا تعارف',
+                menuAboutBtn: '👨‍💻 بانی اور ٹیم کا تعارف',
                 settingsSub: '🌐 پوری ویب سائٹ کی زبان منتخب کریں:',
                 chatHeaderTitle: '💬 ایڈمن کے ساتھ براہِ راست گفتگو',
                 replyToLabel: 'کس ممبر کو جواب دینا ہے منتخب کریں:',
                 chatPlaceholder: 'اپنا پیغام یا جواب لکھیں...',
                 emptyChat: 'السلام علیکم! ایڈمن (ABBU SHAHMA) سے یہاں براہِ راست بات کریں۔',
-                notifSubTitle: '🔔 تمام ممبران کے لیے اعلانات',
+                notifPopupTitle: 'اعلانات (Notifications)',
                 emptyNotif: 'ابھی کوئی نیا اعلان نہیں ہے۔',
-                broadcastLabel: '📢 ایک ساتھ تمام ممبران کو پیغام بھیجیں:',
-                broadcastPlaceholder: 'تمام ممبران کے لیے اعلان لکھیں...',
-                sendBroadcastBtn: '📢 تمام ممبران کو بھیجیں',
                 drawerPhotoBtn: '📸 پروفائل فوٹو تبدیل کریں',
                 drawerReportBtn: '📥 میری رپورٹ ڈاؤن لوڈ کریں (CSV)',
                 drawerLogoutBtn: '🚪 لاگ آؤٹ کریں',
-                aboutHeading: '👨‍💻 بانی اور ڈیولپر کے بارے میں',
+                aboutHeading: '👨‍💻 بانی اور قیادت',
                 aboutRole: 'بانی اور ویب ڈیولپر — ZikrSphere',
                 aboutBio: 'السلام علیکم! میرا نام <strong>ABBU SHAHMA</strong> ہے۔ میں نے <strong>ZikrSphere | Daily Deen & Deeds</strong> اس لیے بنایا ہوں تاکہ ہم سب مل کر اپنی روزانہ کی 5 فرض نماز، روزہ، قرآنِ پاک کی تلاوت اور تراویح کا حساب رکھ سکیں اور نیکی کے کاموں میں ایک دوسرے کا حوصلہ بڑھا سکیں۔',
                 loginTab: '🔑 لاگ ان کریں',
@@ -1412,8 +1547,8 @@
         }
 
         function toggleDrawerPanel(panelId, btnId) {
-            const panels = ['panelSettings', 'panelChat', 'panelNotif', 'panelAbout'];
-            const btns = ['btnMenuSettings', 'btnMenuChat', 'btnMenuNotif', 'btnMenuAbout'];
+            const panels = ['panelSettings', 'panelChat', 'panelAbout'];
+            const btns = ['btnMenuSettings', 'btnMenuChat', 'btnMenuAbout'];
             panels.forEach((p, idx) => {
                 const el = document.getElementById(p);
                 const b = document.getElementById(btns[idx]);
@@ -1427,25 +1562,59 @@
             });
         }
 
-        function openNotificationsFromBell() {
-            const overlay = document.getElementById('sideDrawerOverlay');
-            overlay.classList.add('open');
-            const savedName = localStorage.getItem('namaz_user') || 'ZikrSphere Guest';
-            const savedPhoto = localStorage.getItem('namaz_photo') || 'https://osman-debug3.github.io/namaz/logo.jpg';
-            document.getElementById('drawerUserName').innerText = savedName;
-            document.getElementById('drawerUserAvatar').src = savedPhoto;
-            toggleDrawerPanel('panelNotif', 'btnMenuNotif');
+        /* GAIN.GG FLOATING BELL DROPDOWN FUNCTIONS */
+        function toggleNotifPopup(e) {
+            if (e) e.stopPropagation();
+            const popup = document.getElementById('notifDropdownPopup');
+            const bellBtn = document.getElementById('notifBellBtn');
+            const isHidden = popup.classList.toggle('hidden');
+            bellBtn.classList.toggle('active', !isHidden);
+            refreshChatAndNotificationsUI();
+        }
+
+        function closeNotifPopup() {
+            document.getElementById('notifDropdownPopup').classList.add('hidden');
+            document.getElementById('notifBellBtn').classList.remove('active');
+        }
+
+        function closeNotifDropdownOutside(e) {
+            const popup = document.getElementById('notifDropdownPopup');
+            const bellBtn = document.getElementById('notifBellBtn');
+            if (!popup.classList.contains('hidden') && !popup.contains(e.target) && !bellBtn.contains(e.target)) {
+                closeNotifPopup();
+            }
+        }
+
+        function formatRelativeDays(dateStr) {
+            if (!dateStr) return 'Just now';
+            const clean = cleanDateString(dateStr);
+            const parts = clean.split('-');
+            if (parts.length !== 3) return clean;
+            const d = new Date(parts[0], parts[1] - 1, parts[2]);
+            const now = new Date();
+            const diffDays = Math.floor((now - d) / (1000 * 60 * 60 * 24));
+            if (diffDays <= 0) return 'Today';
+            if (diffDays === 1) return '1 day ago';
+            return `${diffDays} days ago`;
         }
 
         function parseRawMessageItem(item) {
-            // Supports structured format: "CHAT|sender|recipient|text" or "BROADCAST|admin|ALL|text" or legacy plain text
             const rawText = (item.message || '').toString();
             const sender = (item.name || 'Member').toString();
             const time = item.date ? cleanDateString(item.date) : '';
 
             if (rawText.startsWith('BROADCAST|')) {
                 const parts = rawText.split('|');
-                return { type: 'BROADCAST', from: parts[1] || sender, to: 'ALL', text: parts.slice(3).join('|'), time };
+                // Supports BROADCAST|sender|ALL|Title::Body or plain text
+                const fullMsg = parts.slice(3).join('|');
+                let title = 'Community Notice';
+                let body = fullMsg;
+                if (fullMsg.indexOf('::') !== -1) {
+                    const tb = fullMsg.split('::');
+                    title = tb[0].trim() || 'Community Notice';
+                    body = tb.slice(1).join('::').trim();
+                }
+                return { type: 'BROADCAST', from: parts[1] || sender, to: 'ALL', title, text: body, time };
             }
             if (rawText.startsWith('REPLY|')) {
                 const parts = rawText.split('|');
@@ -1460,7 +1629,6 @@
 
         function refreshChatAndNotificationsUI() {
             const t = translations[currentLang];
-            const myName = (localStorage.getItem('namaz_user') || 'Guest').trim();
             const adminMode = isUserAdmin();
 
             document.getElementById('adminChatBadge').classList.toggle('hidden', !adminMode);
@@ -1471,31 +1639,46 @@
             const broadcasts = parsedList.filter(m => m.type === 'BROADCAST');
             const chats = parsedList.filter(m => m.type === 'CHAT');
 
-            // Render Notifications
+            // Render GAIN.GG Style Notifications Dropdown & Top Banner
             const notifBox = document.getElementById('notifListBox');
             const badgeDot = document.getElementById('notifBadgeCount');
+            const countPill = document.getElementById('notifPopupCountPill');
             const banner = document.getElementById('latestBroadcastBanner');
 
+            countPill.innerText = broadcasts.length;
+
             if (broadcasts.length === 0) {
-                notifBox.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:11.5px; padding:10px;">${t.emptyNotif}</div>`;
+                notifBox.innerHTML = `<div style="text-align:center; color:#94a3b8; font-size:12px; padding:22px 14px;">${t.emptyNotif}</div>`;
                 badgeDot.classList.add('hidden');
                 banner.classList.add('hidden');
             } else {
                 badgeDot.innerText = broadcasts.length;
                 badgeDot.classList.remove('hidden');
+
                 const latest = broadcasts[broadcasts.length - 1];
+                document.getElementById('latestBroadcastTitle').innerText = latest.title || 'Admin Announcement';
                 document.getElementById('latestBroadcastText').innerText = latest.text;
                 banner.classList.remove('hidden');
 
-                notifBox.innerHTML = broadcasts.slice().reverse().map(b => `
-                    <div class="notif-item">
-                        <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--gold-light); font-weight:800; margin-bottom:3px;">
-                            <span>📢 ${b.from}</span>
-                            <span>${b.time}</span>
+                const iconStyles = [
+                    { cls: 'notif-icon-blue', icon: '🔔' },
+                    { cls: 'notif-icon-gold', icon: '🏆' },
+                    { cls: 'notif-icon-green', icon: '✅' }
+                ];
+
+                notifBox.innerHTML = broadcasts.slice().reverse().map((b, idx) => {
+                    const st = iconStyles[idx % iconStyles.length];
+                    return `
+                        <div class="notif-card-row">
+                            <div class="notif-circle-icon ${st.cls}">${st.icon}</div>
+                            <div class="notif-body-col">
+                                <div class="notif-item-heading">${b.title || 'Admin Announcement'}</div>
+                                <div class="notif-item-desc">${b.text}</div>
+                                <div class="notif-item-time">${formatRelativeDays(b.time)}</div>
+                            </div>
                         </div>
-                        <div style="color:#fff;">${b.text}</div>
-                    </div>
-                `).join('');
+                    `;
+                }).join('');
             }
 
             // Populate Admin Reply Member Dropdown
@@ -1582,7 +1765,6 @@
                 encodedPayload = `CHAT|${myName}|ADMIN|${text}`;
             }
 
-            // Optimistic UI update
             globalMessages.push({
                 date: new Date().toISOString(),
                 name: senderField,
@@ -1600,25 +1782,27 @@
         }
 
         async function sendAdminBroadcast() {
-            const input = document.getElementById('broadcastInput');
-            const text = input.value.trim();
+            const titleInput = document.getElementById('broadcastTitleInput');
+            const bodyInput = document.getElementById('broadcastInput');
+            const title = (titleInput.value || '').trim() || 'Community Update';
+            const text = (bodyInput.value || '').trim();
             if (!text) return;
 
             const btn = document.getElementById('sendBroadcastBtn');
             btn.disabled = true;
-            const encodedPayload = `BROADCAST|ABBU SHAHMA|ALL|${text}`;
+            const encodedPayload = `BROADCAST|ABBU SHAHMA|ALL|${title}::${text}`;
 
             globalMessages.push({
                 date: new Date().toISOString(),
                 name: 'ABBU SHAHMA',
                 message: encodedPayload
             });
-            input.value = '';
+            titleInput.value = '';
+            bodyInput.value = '';
             refreshChatAndNotificationsUI();
 
             try {
                 await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent('ABBU SHAHMA')}&message=${encodeURIComponent(encodedPayload)}`);
-                alert('✅ Notification sabhi members ko bhej diya gaya hai!');
                 fetchAllDataAndRefresh();
             } catch (e) {
                 console.error(e);
@@ -1690,21 +1874,16 @@
 
             const t = translations[lang];
 
-            // Header & Drawer Menu
             document.getElementById('t_ayah').innerText = t.ayah;
             document.getElementById('t_memberSub').innerText = t.memberSub;
             document.getElementById('t_menuSettingsBtn').innerText = t.menuSettingsBtn;
             document.getElementById('t_menuChatBtn').innerText = t.menuChatBtn;
-            document.getElementById('t_menuNotifBtn').innerText = t.menuNotifBtn;
             document.getElementById('t_menuAboutBtn').innerText = t.menuAboutBtn;
             document.getElementById('t_settingsSub').innerText = t.settingsSub;
             document.getElementById('t_chatHeaderTitle').innerText = t.chatHeaderTitle;
             document.getElementById('t_replyToLabel').innerText = t.replyToLabel;
             document.getElementById('chatMsgInput').placeholder = t.chatPlaceholder;
-            document.getElementById('t_notifSubTitle').innerText = t.notifSubTitle;
-            document.getElementById('t_broadcastLabel').innerText = t.broadcastLabel;
-            document.getElementById('broadcastInput').placeholder = t.broadcastPlaceholder;
-            document.getElementById('sendBroadcastBtn').innerText = t.sendBroadcastBtn;
+            document.getElementById('t_notifPopupTitle').innerText = t.notifPopupTitle;
             document.getElementById('t_drawerPhotoBtn').innerText = t.drawerPhotoBtn;
             document.getElementById('t_drawerReportBtn').innerHTML = `<span>${t.drawerReportBtn}</span><span>➔</span>`;
             document.getElementById('t_drawerLogoutBtn').innerText = t.drawerLogoutBtn;
@@ -1712,7 +1891,6 @@
             document.getElementById('t_aboutRole').innerText = t.aboutRole;
             document.getElementById('t_aboutBio').innerHTML = t.aboutBio;
 
-            // Auth Card
             document.getElementById('loginTab').innerText = t.loginTab;
             document.getElementById('registerTab').innerText = t.registerTab;
             document.getElementById('t_labelName').innerText = t.labelName;
@@ -1723,7 +1901,6 @@
             document.getElementById('regPhotoBtnText').innerText = t.regPhotoBtnText;
             switchTab(currentMode);
 
-            // Home & Tracker
             document.getElementById('t_homeTitle').innerText = t.homeTitle;
             document.getElementById('t_goToReportBtn').innerText = t.goToReportBtn;
             document.getElementById('progressText').innerText = t.progressText;
@@ -1745,7 +1922,6 @@
             document.getElementById('t_quran').innerText = t.quran;
             document.getElementById('submitBtn').innerText = t.submitBtn;
 
-            // Dashboard, Records, Modal & Bottom Nav
             document.getElementById('t_dashHeading').innerText = t.dashHeading;
             document.getElementById('t_recordsHeading').innerText = t.recordsHeading;
             document.getElementById('t_downloadBtn').innerText = t.downloadBtn;
@@ -1757,7 +1933,6 @@
             document.getElementById('t_navDash').innerText = t.navDash;
             document.getElementById('t_navRecords').innerText = t.navRecords;
 
-            // Home Guide Content
             document.getElementById('homeBoxMaqsad').innerHTML = t.maqsadHTML;
             document.getElementById('homeBoxNamaz').innerHTML = t.namazHTML;
             document.getElementById('homeBoxRoza').innerHTML = t.rozaHTML;
