@@ -5,14 +5,15 @@
     <meta name="google-site-verification" content="rW9cGFHMlhNqHxvCfr6nPBlGQpn8Eib-bnkORhQfVJc" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>ZikrSphere | Daily Deen & Deeds by ABBU SHAHMA</title>
-    <meta name="author" content="ABBU SHAHMA">
-    <meta name="description" content="ZikrSphere | Daily Deen & Deeds - Islamic Community Tracker founded and developed by ABBU SHAHMA (abbu shahma bdr, abbu shahma dhiu, abbu shahma budhibir, abbu shahma 1278, Osman Sardar, Osman Bey).">
+    <title>ZikrSphere | Daily Deen & Deeds by ABBU SHAHMA & Muhammad Sibgathullah</title>
+    <meta name="author" content="ABBU SHAHMA, Muhammad Sibgathullah">
+    <meta name="description" content="ZikrSphere | Daily Deen & Deeds - Islamic Community Tracker by ABBU SHAHMA (abbu shahma bdr, abbu shahma dhiu, abbu shahma budhibir, abbu shahma 1278, Osman Sardar, Osman Bey) and Muhammad Sibgathullah.">
     <meta name="keywords" content="ZikrSphere, abbu shahma, ABBU SHAHMA, abbu shahma bdr, abbu shahma dhiu, ABBU SHAHMA BDR, ABBU SHAHMA DHIU, ABBU SHAHMA BUDHIBIR, abbu shahma budhibir, abbu shahma 1278, ABBU SHAHMA 1278, OSMAN, osman, OSMAN SARDAR, osman sardar, osman bey, OSMAN BEY, Muhammad Sibgathullah">
 
     <!-- PRELOAD DEVELOPER IMAGES FOR GOOGLEBOT -->
     <link rel="preload" as="image" href="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg">
     <link rel="preload" as="image" href="https://osman-debug3.github.io/namaz/muhammad-sibgathullah.jpg">
+    <link rel="preload" as="image" href="https://osman-debug3.github.io/namaz/IMG_20250608_110400_431.jpg">
 
     <!-- STRONG FAVICON TAGS FOR GOOGLE SEARCH LOGO (logo.jpg) -->
     <link rel="icon" type="image/jpeg" sizes="16x16" href="https://osman-debug3.github.io/namaz/logo.jpg">
@@ -24,14 +25,18 @@
 
     <!-- OPEN GRAPH & TWITTER TAGS FOR GOOGLE IMAGE INDEXING -->
     <meta property="og:site_name" content="ZikrSphere">
-    <meta property="og:title" content="ABBU SHAHMA - Founder & Developer | ZikrSphere">
-    <meta property="og:description" content="ZikrSphere | Daily Deen & Deeds developed by ABBU SHAHMA.">
+    <meta property="og:title" content="ZikrSphere | ABBU SHAHMA & Muhammad Sibgathullah">
+    <meta property="og:description" content="ZikrSphere | Daily Deen & Deeds developed by ABBU SHAHMA & Muhammad Sibgathullah.">
     <meta property="og:image" content="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg">
     <meta property="og:image:alt" content="abbu shahma, ABBU SHAHMA, abbu shahma bdr, abbu shahma dhiu, ABBU SHAHMA BDR, ABBU SHAHMA DHIU, ABBU SHAHMA BUDHIBIR, abbu shahma budhibir, abbu shahma 1278, ABBU SHAHMA 1278, OSMAN, osman, OSMAN SARDAR, osman sardar, osman bey, OSMAN BEY">
+    <meta property="og:image" content="https://osman-debug3.github.io/namaz/muhammad-sibgathullah.jpg">
+    <meta property="og:image:alt" content="Muhammad Sibgathullah">
+    <meta property="og:image" content="https://osman-debug3.github.io/namaz/IMG_20250608_110400_431.jpg">
+    <meta property="og:image:alt" content="Muhammad Sibgathullah">
     <meta property="og:url" content="https://osman-debug3.github.io/namaz/">
     <meta property="og:type" content="profile">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ABBU SHAHMA - Founder & Developer | ZikrSphere">
+    <meta name="twitter:title" content="ZikrSphere | ABBU SHAHMA & Muhammad Sibgathullah">
     <meta name="twitter:image" content="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg">
 
     <!-- GOOGLE SEARCH STRUCTURED DATA (ALL ALTERNATE NAMES INVISIBLE ON PAGE, VISIBLE TO GOOGLE) -->
@@ -85,12 +90,22 @@
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Muhammad Sibgathullah",
-        "alternateName": "Sibgathullah",
+        "alternateName": [
+          "Muhammad Sibgathullah",
+          "Sibgathullah"
+        ],
+        "jobTitle": "Co-Founder & Islamic Guide — ZikrSphere",
+        "description": "Muhammad Sibgathullah — ZikrSphere | Daily Deen & Deeds Community Guide & Inspiration.",
         "url": "https://osman-debug3.github.io/namaz/",
         "image": [
           "https://osman-debug3.github.io/namaz/muhammad-sibgathullah.jpg",
-          "https://osman-debug3.github.io/namaz/IMG_20250608_110400_431.jpg"
-        ]
+          "https://osman-debug3.github.io/namaz/IMG_20250608_110400_431.jpg",
+          "https://osman-debug3.github.io/namaz/muhammad-sibgathullah.jpeg"
+        ],
+        "worksFor": {
+          "@type": "Organization",
+          "name": "ZikrSphere"
+        }
       }
     ]
     </script>
@@ -367,7 +382,7 @@
             transition: max-height 0.35s ease, opacity 0.25s ease, margin 0.25s ease;
         }
         .drawer-panel.open {
-            max-height: 1400px;
+            max-height: 1500px;
             opacity: 1;
             margin-top: 6px;
             margin-bottom: 8px;
@@ -526,11 +541,16 @@
             cursor: pointer;
         }
 
-        /* ABOUT DEVELOPER PHOTO */
+        /* ABOUT DEVELOPER & MUHAMMAD SIBGATHULLAH PHOTOS */
         .drawer-dev-photo {
             width: 122px; height: 122px; border-radius: 50%; object-fit: cover;
             border: 3px solid var(--gold); margin-bottom: 8px;
             box-shadow: 0 0 20px var(--gold-glow); cursor: zoom-in;
+        }
+        .founder-divider {
+            height: 1px;
+            background: rgba(212, 175, 55, 0.35);
+            margin: 16px 0;
         }
 
         .bismillah { font-family: 'Amiri', serif; font-size: 26px; color: var(--gold-light); margin-bottom: 4px; text-shadow: 0 2px 12px rgba(212, 175, 55, 0.4); }
@@ -843,7 +863,7 @@
                     </div>
                 </div>
 
-                <!-- MENU 3: 👨‍💻 ABOUT FOUNDER & DEVELOPER (ONLY ONE CLEAN NAME ON UI: ABBU SHAHMA) -->
+                <!-- MENU 3: 👨‍💻 ABOUT FOUNDER (ABBU SHAHMA) & MUHAMMAD SIBGATHULLAH -->
                 <button type="button" class="drawer-nav-item" id="btnMenuAbout" onclick="toggleDrawerPanel('panelAbout', 'btnMenuAbout')">
                     <span id="t_menuAboutBtn">👨‍💻 About Developer</span>
                     <span>▾</span>
@@ -852,6 +872,7 @@
                     <div class="panel-inner-card" style="text-align: center;">
                         <h3 id="t_aboutHeading" style="color: var(--gold-light); font-size: 14px; margin-bottom: 12px;">👨‍💻 About Founder & Developer</h3>
                         
+                        <!-- 1. ABBU SHAHMA (ONLY ONE CLEAN NAME VISIBLE ON UI, ALL ALT NAMES IN SEO) -->
                         <figure style="margin: 0;">
                             <img id="devPhotoImg" src="https://osman-debug3.github.io/namaz/abbu-shahma.jpeg" alt="abbu shahma, ABBU SHAHMA, abbu shahma bdr, abbu shahma dhiu, ABBU SHAHMA BDR, ABBU SHAHMA DHIU, ABBU SHAHMA BUDHIBIR, abbu shahma budhibir, abbu shahma 1278, ABBU SHAHMA 1278, OSMAN, osman, OSMAN SARDAR, osman sardar, osman bey, OSMAN BEY" title="ABBU SHAHMA" class="drawer-dev-photo" onclick="openFullScreenPhoto(this.src)">
                             <figcaption>
@@ -861,6 +882,20 @@
                         </figure>
                         <p id="t_aboutBio" style="font-size: 12px; color: var(--text-main); line-height: 1.6;">
                             Assalamu Alaikum! Mera naam <strong>ABBU SHAHMA</strong> hai. Maine <strong>ZikrSphere | Daily Deen & Deeds</strong> isliye banaya hoon taaki hum sab mil kar apni rozana ki 5 Farz Namaz, Roza, Quran-e-Pak ki Tilawat aur Tarawih ka hisab rakh sakein aur neki ke kaamon mein ek dusre ka hausla badha sakein.
+                        </p>
+
+                        <div class="founder-divider"></div>
+
+                        <!-- 2. MUHAMMAD SIBGATHULLAH (AUTO-DETECTS FILENAME & INDEXED FOR GOOGLE SEARCH) -->
+                        <figure style="margin: 0;">
+                            <img id="sibgathullahPhotoImg" src="https://osman-debug3.github.io/namaz/muhammad-sibgathullah.jpg" alt="Muhammad Sibgathullah" title="Muhammad Sibgathullah" class="drawer-dev-photo" onclick="openFullScreenPhoto(this.src)" data-fallback-step="0" onerror="handleSibgathullahImgError(this)">
+                            <figcaption>
+                                <h4 style="color: var(--gold-light); font-size: 18px; font-weight: 700; margin-top: 2px;">Muhammad Sibgathullah</h4>
+                                <p style="font-size: 11.5px; color: var(--emerald-bright); font-weight: 700; margin-bottom: 6px;">Co-Founder & Islamic Guide — ZikrSphere</p>
+                            </figcaption>
+                        </figure>
+                        <p style="font-size: 12px; color: var(--text-main); line-height: 1.55;">
+                            <strong>Muhammad Sibgathullah</strong> — ZikrSphere | Daily Deen & Deeds Community Guide & Inspiration.
                         </p>
                     </div>
                 </div>
@@ -1090,13 +1125,35 @@
 
     <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJurfZRD8AyzWWXtY3VsThAcVZxi4QXYMakINqX_h55HrrnYog03eawNiSloQ6SJQHBA/exec';
-        const ADMIN_NAMES = ['abbu shahma', 'osman', 'admin', 'osman sardar', 'osman bey'];
+        const ADMIN_NAMES = ['abbu shahma', 'osman', 'admin', 'osman sardar', 'osman bey', 'muhammad sibgathullah'];
         let currentMode = 'login';
         let currentLang = localStorage.getItem('zikr_lang') || 'ro';
         let globalReports = [];
         let globalUsers = [];
         let globalMessages = [];
         let tempBase64Photo = 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png';
+
+        /* SMART FALLBACK FOR MUHAMMAD SIBGATHULLAH IMAGE FILENAME */
+        function handleSibgathullahImgError(imgEl) {
+            const fallbacks = [
+                'https://osman-debug3.github.io/namaz/IMG_20250608_110400_431.jpg',
+                'https://osman-debug3.github.io/namaz/muhammad-sibgathullah.jpeg',
+                'https://osman-debug3.github.io/namaz/sibgathullah.jpg',
+                'https://osman-debug3.github.io/namaz/sibgathullah.jpeg',
+                'https://osman-debug3.github.io/namaz/IMG_20250608_110400_431.jpeg'
+            ];
+            let step = parseInt(imgEl.getAttribute('data-fallback-step') || '0', 10);
+            if (step < fallbacks.length) {
+                imgEl.setAttribute('data-fallback-step', (step + 1).toString());
+                imgEl.src = fallbacks[step];
+            } else {
+                // If user registered as Muhammad Sibgathullah in sheet, use their uploaded HD photo
+                const found = globalUsers.find(u => u.name.toLowerCase().includes('sibgathullah'));
+                if (found && found.photo) {
+                    imgEl.src = found.photo;
+                }
+            }
+        }
 
         /* COMPLETE 100% WEBSITE TRANSLATIONS (ENGLISH, ROMAN, HINDI, URDU) */
         const translations = {
@@ -1681,8 +1738,8 @@
         function buildMessageSystemState() {
             let chatsMap = new Map();
             let broadcastsMap = new Map();
-            let onlineMap = {}; // userLower -> timestampMs
-            let seenMap = {};   // "viewerLower->senderLower" -> indexOrder
+            let onlineMap = {};
+            let seenMap = {};
 
             globalMessages.forEach((item, index) => {
                 const rawText = (item.message || '').toString();
@@ -1811,9 +1868,6 @@
         }
 
         function getMessageTickStatus(chatObj, state) {
-            // 3 Ticks (Seen): recipient opened chat after this message's order
-            // 2 Ticks (Online): recipient is currently online
-            // 1 Tick (Offline): recipient is offline
             if (chatObj.isAdminReply) {
                 const memberLower = (chatObj.to || '').toLowerCase();
                 const seenOrder = state.seenMap[`${memberLower}->admin`];
@@ -1923,7 +1977,6 @@
             const broadcasts = state.broadcasts.filter(b => !dismissed.includes(b.id));
             const chats = state.chats;
 
-            // Render Notifications Inside Bell Dropdown Popup Only
             const notifBox = document.getElementById('notifListBox');
             const badgeDot = document.getElementById('notifBadgeCount');
             const countPill = document.getElementById('notifPopupCountPill');
@@ -1961,7 +2014,6 @@
                 }).join('');
             }
 
-            // Populate Admin Reply Member Dropdown
             if (adminMode) {
                 const targetSelect = document.getElementById('adminReplyTarget');
                 const currentTarget = targetSelect.value;
@@ -1992,7 +2044,6 @@
             const state = buildMessageSystemState();
             const parsedChats = state.chats;
 
-            // Update Partner Online/Offline Status Indicator
             const partnerBar = document.getElementById('chatPartnerOnlineStatus');
             if (adminMode) {
                 const selectedMember = document.getElementById('adminReplyTarget').value || 'Member';
