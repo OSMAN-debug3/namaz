@@ -126,7 +126,7 @@
         .container { max-width: 620px; margin: 0 auto; position: relative; }
 
         header {
-            position: relative; text-align: center; margin-bottom: 14px; padding: 16px 15px;
+            position: relative; text-align: center; margin-bottom: 18px; padding: 16px 15px;
             border-radius: 20px; background: linear-gradient(180deg, rgba(212, 175, 55, 0.14) 0%, rgba(6, 47, 35, 0.5) 100%);
             border: 1px solid var(--border-gold); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
@@ -141,39 +141,43 @@
         }
         .menu-toggle-btn:hover { transform: scale(1.06); background: var(--gold); color: #021a13; }
 
+        /* NOTIFICATION BELL BUTTON MATCHED TO EMERALD & GOLD THEME */
         .notif-bell-btn {
             position: absolute; top: 18px; right: 14px;
-            background: #0d212d;
-            border: 1.5px solid rgba(56, 189, 248, 0.45); color: #e2e8f0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(6, 47, 35, 0.9));
+            border: 1.5px solid var(--gold); color: var(--gold-light);
             width: 42px; height: 42px; border-radius: 11px; font-size: 18px;
             display: flex; align-items: center; justify-content: center; cursor: pointer;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.5); transition: 0.2s;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.4); transition: 0.2s;
         }
         .notif-bell-btn:hover, .notif-bell-btn.active {
-            border-color: #38bdf8;
-            background: #132f41;
-            box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
+            transform: scale(1.06);
+            background: linear-gradient(135deg, var(--gold), #b48a1e);
+            color: #021a13;
+            box-shadow: 0 0 15px var(--gold-glow);
         }
         .notif-badge-dot {
             position: absolute; top: -5px; right: -5px;
-            background: #0284c7; color: #fff; font-size: 10px; font-weight: 800;
+            background: linear-gradient(135deg, #10b981, #047857);
+            color: #ffffff; font-size: 10px; font-weight: 800;
             min-width: 19px; height: 19px; padding: 0 4px; border-radius: 99px;
             display: flex; align-items: center; justify-content: center;
-            border: 2px solid #021a13;
+            border: 1.5px solid var(--gold-light);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
-        /* GAIN.GG STYLE FLOATING NOTIFICATION DROPDOWN POPUP */
+        /* FLOATING NOTIFICATION DROPDOWN POPUP (MATCHED TO EMERALD & GOLD WEBSITE THEME) */
         .notif-dropdown-popup {
             position: absolute;
             top: 68px;
             right: 0;
-            width: 340px;
+            width: 345px;
             max-width: 94vw;
-            background: #0f1923;
-            border: 1px solid #1e2d3d;
-            border-top: 3px solid #00a8ff;
-            border-radius: 10px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+            background: linear-gradient(180deg, #062f23 0%, #021a13 100%);
+            border: 1.5px solid var(--gold);
+            border-top: 3.5px solid var(--gold-light);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 25px rgba(212, 175, 55, 0.22);
             z-index: 2200;
             overflow: hidden;
             animation: fadeInDown 0.18s ease-out;
@@ -187,46 +191,45 @@
             align-items: center;
             justify-content: space-between;
             padding: 13px 16px;
-            background: #13202d;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.18), rgba(6, 47, 35, 0.85));
+            border-bottom: 1px solid var(--border-gold);
         }
         .notif-popup-title {
-            font-size: 13.5px;
-            font-weight: 700;
-            color: #ffffff;
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--gold-light);
             display: flex;
             align-items: center;
             gap: 8px;
         }
         .notif-count-pill {
-            background: rgba(0, 168, 255, 0.2);
-            color: #38bdf8;
-            border: 1px solid rgba(56, 189, 248, 0.35);
+            background: rgba(16, 185, 129, 0.22);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.45);
             font-size: 10.5px;
             font-weight: 800;
-            padding: 1px 7px;
-            border-radius: 6px;
+            padding: 1px 8px;
+            border-radius: 99px;
         }
         .notif-popup-list {
             max-height: 330px;
             overflow-y: auto;
-            divide-y: 1px solid rgba(255,255,255,0.06);
         }
         .notif-card-row {
             display: flex;
             align-items: flex-start;
             gap: 12px;
             padding: 14px 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.16);
             transition: background 0.2s;
             text-align: left;
         }
         .notif-card-row:hover {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(212, 175, 55, 0.08);
         }
         .notif-circle-icon {
-            width: 34px;
-            height: 34px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -235,72 +238,38 @@
             flex-shrink: 0;
             margin-top: 2px;
         }
-        .notif-icon-blue { background: rgba(56, 189, 248, 0.14); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
-        .notif-icon-gold { background: rgba(245, 158, 11, 0.14); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
-        .notif-icon-green { background: rgba(16, 185, 129, 0.14); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .notif-icon-gold {
+            background: rgba(212, 175, 55, 0.18);
+            color: var(--gold-light);
+            border: 1px solid var(--gold);
+        }
+        .notif-icon-emerald {
+            background: rgba(16, 185, 129, 0.18);
+            color: #6ee7b7;
+            border: 1px solid var(--emerald-bright);
+        }
 
         .notif-body-col {
             flex: 1;
             min-width: 0;
         }
         .notif-item-heading {
-            font-size: 12.5px;
+            font-size: 13px;
             font-weight: 700;
-            color: #f8fafc;
+            color: var(--gold-light);
             margin-bottom: 3px;
         }
         .notif-item-desc {
-            font-size: 11.5px;
-            color: #94a3b8;
+            font-size: 12px;
+            color: #e2e8f0;
             line-height: 1.45;
             word-wrap: break-word;
         }
         .notif-item-time {
             font-size: 10px;
-            color: #64748b;
+            color: var(--emerald-bright);
             margin-top: 6px;
-            font-weight: 600;
-        }
-
-        /* GAIN.GG STYLE TOP ALERT BANNER BELOW HEADER */
-        .gain-alert-banner {
-            background: rgba(13, 33, 45, 0.92);
-            border: 1px solid rgba(56, 189, 248, 0.35);
-            border-radius: 10px;
-            padding: 12px 16px;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            cursor: pointer;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-            transition: 0.2s;
-        }
-        .gain-alert-banner:hover {
-            border-color: #38bdf8;
-        }
-        .gain-alert-icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 8px;
-            background: rgba(56, 189, 248, 0.15);
-            color: #38bdf8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 17px;
-            flex-shrink: 0;
-        }
-        .gain-alert-title {
-            font-size: 12.5px;
             font-weight: 700;
-            color: #38bdf8;
-            margin-bottom: 2px;
-        }
-        .gain-alert-desc {
-            font-size: 11.5px;
-            color: #cbd5e1;
-            line-height: 1.4;
         }
 
         /* SIDE DRAWER OVERLAY (SEO FRIENDLY - NO DISPLAY:NONE ON PHOTOS) */
@@ -850,35 +819,27 @@
             <div class="hijri-badge" id="hijriDateBadge">🌙 Hijri Calendar...</div>
         </header>
 
-        <!-- GAIN.GG STYLE FLOATING NOTIFICATIONS DROPDOWN POPUP -->
+        <!-- FLOATING NOTIFICATIONS DROPDOWN POPUP (OPENS ONLY WHEN CLICKING THE BELL ICON) -->
         <div id="notifDropdownPopup" class="notif-dropdown-popup hidden" onclick="event.stopPropagation()">
             <div class="notif-popup-header">
                 <div class="notif-popup-title">
+                    <span>🔔</span>
                     <span id="t_notifPopupTitle">Notifications</span>
                     <span id="notifPopupCountPill" class="notif-count-pill">0</span>
                 </div>
-                <span style="cursor:pointer; color:#94a3b8; font-size:18px; line-height:1;" onclick="closeNotifPopup()">&times;</span>
+                <span style="cursor:pointer; color:var(--gold-light); font-size:20px; line-height:1;" onclick="closeNotifPopup()">&times;</span>
             </div>
 
             <!-- ADMIN BROADCAST COMPOSER INSIDE POPUP (VISIBLE ONLY TO ADMIN) -->
-            <div id="adminBroadcastComposer" class="hidden" style="padding: 12px 14px; background: #0b131b; border-bottom: 1px solid rgba(56, 189, 248, 0.25);">
-                <div style="font-size: 11px; font-weight: 800; color: #38bdf8; margin-bottom: 6px;">📢 Send Admin Notification to All Members</div>
-                <input type="text" id="broadcastTitleInput" placeholder="Notification Title (e.g. Jumu'ah Mubarak / Important Notice)" style="padding: 8px 10px; font-size: 12px; margin-bottom: 6px; background: #13202d; border-color: rgba(56,189,248,0.35);">
-                <textarea id="broadcastInput" rows="2" placeholder="Write message for all members..." style="font-size: 12px; padding: 8px 10px; margin-bottom: 6px; background: #13202d; border-color: rgba(56,189,248,0.35);"></textarea>
-                <button type="button" class="btn" id="sendBroadcastBtn" style="padding: 8px; font-size: 12px; background: linear-gradient(135deg, #0284c7, #0369a1); color: #fff; box-shadow: none;" onclick="sendAdminBroadcast()">🚀 Publish Notification</button>
+            <div id="adminBroadcastComposer" class="hidden" style="padding: 12px 14px; background: rgba(4, 33, 24, 0.96); border-bottom: 1px solid var(--border-gold);">
+                <div style="font-size: 11px; font-weight: 800; color: var(--gold-light); margin-bottom: 6px;">📢 Send Admin Notification to All Members</div>
+                <input type="text" id="broadcastTitleInput" placeholder="Notification Title (e.g. Jumu'ah Mubarak / Important Notice)" style="padding: 8px 10px; font-size: 12px; margin-bottom: 6px; background: #021a13; border: 1px solid var(--border-gold);">
+                <textarea id="broadcastInput" rows="2" placeholder="Write message for all members..." style="font-size: 12px; padding: 8px 10px; margin-bottom: 8px; background: #021a13; border: 1px solid var(--border-gold);"></textarea>
+                <button type="button" class="btn" id="sendBroadcastBtn" style="padding: 9px; font-size: 12.5px;" onclick="sendAdminBroadcast()">🚀 Publish Notification</button>
             </div>
 
             <!-- NOTIFICATION ITEMS LIST -->
             <div class="notif-popup-list" id="notifListBox"></div>
-        </div>
-
-        <!-- GAIN.GG STYLE TOP ALERT BANNER BELOW HEADER -->
-        <div id="latestBroadcastBanner" class="gain-alert-banner hidden" onclick="toggleNotifPopup(event)">
-            <div class="gain-alert-icon">🔔</div>
-            <div style="flex: 1;">
-                <div id="latestBroadcastTitle" class="gain-alert-title">Admin Notice</div>
-                <div id="latestBroadcastText" class="gain-alert-desc"></div>
-            </div>
         </div>
 
         <!-- LOGIN / REGISTER CARD -->
@@ -1562,7 +1523,7 @@
             });
         }
 
-        /* GAIN.GG FLOATING BELL DROPDOWN FUNCTIONS */
+        /* FLOATING BELL DROPDOWN FUNCTIONS (ONLY SHOWN WHEN CLICKING BELL) */
         function toggleNotifPopup(e) {
             if (e) e.stopPropagation();
             const popup = document.getElementById('notifDropdownPopup');
@@ -1586,7 +1547,7 @@
         }
 
         function formatRelativeDays(dateStr) {
-            if (!dateStr) return 'Just now';
+            if (!dateStr) return 'Today';
             const clean = cleanDateString(dateStr);
             const parts = clean.split('-');
             if (parts.length !== 3) return clean;
@@ -1605,7 +1566,6 @@
 
             if (rawText.startsWith('BROADCAST|')) {
                 const parts = rawText.split('|');
-                // Supports BROADCAST|sender|ALL|Title::Body or plain text
                 const fullMsg = parts.slice(3).join('|');
                 let title = 'Community Notice';
                 let body = fullMsg;
@@ -1639,31 +1599,24 @@
             const broadcasts = parsedList.filter(m => m.type === 'BROADCAST');
             const chats = parsedList.filter(m => m.type === 'CHAT');
 
-            // Render GAIN.GG Style Notifications Dropdown & Top Banner
+            // Render Notifications Inside Bell Dropdown Popup Only
             const notifBox = document.getElementById('notifListBox');
             const badgeDot = document.getElementById('notifBadgeCount');
             const countPill = document.getElementById('notifPopupCountPill');
-            const banner = document.getElementById('latestBroadcastBanner');
 
             countPill.innerText = broadcasts.length;
 
             if (broadcasts.length === 0) {
-                notifBox.innerHTML = `<div style="text-align:center; color:#94a3b8; font-size:12px; padding:22px 14px;">${t.emptyNotif}</div>`;
+                notifBox.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:12px; padding:22px 14px;">${t.emptyNotif}</div>`;
                 badgeDot.classList.add('hidden');
-                banner.classList.add('hidden');
             } else {
                 badgeDot.innerText = broadcasts.length;
                 badgeDot.classList.remove('hidden');
 
-                const latest = broadcasts[broadcasts.length - 1];
-                document.getElementById('latestBroadcastTitle').innerText = latest.title || 'Admin Announcement';
-                document.getElementById('latestBroadcastText').innerText = latest.text;
-                banner.classList.remove('hidden');
-
                 const iconStyles = [
-                    { cls: 'notif-icon-blue', icon: '🔔' },
-                    { cls: 'notif-icon-gold', icon: '🏆' },
-                    { cls: 'notif-icon-green', icon: '✅' }
+                    { cls: 'notif-icon-gold', icon: '🔔' },
+                    { cls: 'notif-icon-emerald', icon: '🕌' },
+                    { cls: 'notif-icon-gold', icon: '✨' }
                 ];
 
                 notifBox.innerHTML = broadcasts.slice().reverse().map((b, idx) => {
@@ -1672,7 +1625,7 @@
                         <div class="notif-card-row">
                             <div class="notif-circle-icon ${st.cls}">${st.icon}</div>
                             <div class="notif-body-col">
-                                <div class="notif-item-heading">${b.title || 'Admin Announcement'}</div>
+                                <div class="notif-item-heading">${b.title || 'Community Notice'}</div>
                                 <div class="notif-item-desc">${b.text}</div>
                                 <div class="notif-item-time">${formatRelativeDays(b.time)}</div>
                             </div>
@@ -1784,7 +1737,7 @@
         async function sendAdminBroadcast() {
             const titleInput = document.getElementById('broadcastTitleInput');
             const bodyInput = document.getElementById('broadcastInput');
-            const title = (titleInput.value || '').trim() || 'Community Update';
+            const title = (titleInput.value || '').trim() || 'Community Notice';
             const text = (bodyInput.value || '').trim();
             if (!text) return;
 
