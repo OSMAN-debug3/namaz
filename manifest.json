@@ -1,1 +1,25 @@
-
+{
+  "name": "ZikrSphere | Daily Deen & Deeds",
+  "short_name": "ZikrSphere",
+  "description": "Islamic Community Tracker for 5 Farz Namaz, Tahajjud, Duha, Roza & Quran by ABBU SHAHMA.",
+  "start_url": "/namaz/index.html",
+  "scope": "/namaz/",
+  "display": "standalone",
+  "background_color": "#021a13",
+  "theme_color": "#062f23",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://osman-debug3.github.io/namaz/logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://osman-debug3.github.io/namaz/logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}
