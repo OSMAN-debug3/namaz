@@ -1910,7 +1910,7 @@ async function saveReport() {
         btn.disabled = false;
     }
 }
-/* PWA SERVICE WORKER & INSTALL APP BUTTON */
+/* PWA SERVICE WORKER & ALWAYS-VISIBLE INSTALL APP BUTTON */
 let deferredInstallPrompt = null;
 
 if ('serviceWorker' in navigator) {
@@ -1922,14 +1922,16 @@ if ('serviceWorker' in navigator) {
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredInstallPrompt = e;
-    const installBtn = document.getElementById('pwaInstallBtn');
-    if (installBtn) {
-        installBtn.classList.remove('hidden');
-        installBtn.onclick = async () => {
-            installBtn.classList.add('hidden');
-            deferredInstallPrompt.prompt();
-            await deferredInstallPrompt.userChoice;
-            deferredInstallPrompt = null;
-        };
-    }
 });
+
+async function installZikrSphereApp() {
+    if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        const { outcome } = await deferredInstallPrompt.userChoice;
+        if (outcome === 'accepted') {
+            deferredInstallPrompt = null;
+        }
+    } else {
+        alert('📲 ZikrSphere App Install Karne Ke Liye:\n\n1. Mobile Chrome mein upar 3-dot menu (⋮) par click karein aur "Add to Home screen" ya "Install app" chunein.\n2. Computer par URL bar ke kone mein Install icon par click karein.');
+    }
+}
