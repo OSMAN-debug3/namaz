@@ -2,18 +2,20 @@
 <html lang="en">
 <head>
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "ca081af3-7201-48d8-a6d3-e0fd6e624ccb",
-      notifyButton: { enable: true }
-    });
-  });
-</script> 
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "ca081af3-7201-48d8-a6d3-e0fd6e624ccb",
+          notifyButton: { enable: true }
+        });
+      });
+    </script>
     <meta charset="UTF-8">
     <meta name="google-site-verification" content="rW9cGFHMlhNqHxvCfr6nPBlGQpn8Eib-bnkORhQfVJc" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#062f23">
+    <link rel="manifest" href="manifest.json">
     
     <title>ZikrSphere | Daily Deen & Deeds by ABBU SHAHMA, Muhammad Sibgathullah & MD FIROZ ALAM</title>
     <meta name="author" content="ABBU SHAHMA, Muhammad Sibgathullah, MD FIROZ ALAM">
@@ -156,8 +158,6 @@
     <!-- GOOGLE FONTS & EXTERNAL STYLESHEET -->
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#062f23"> 
 </head>
 <body onclick="closeNotifDropdownOutside(event)">
 
@@ -297,7 +297,7 @@
 
                         <div class="founder-divider"></div>
 
-                        <!-- 3. MD FIROZ ALAM (ONLY "MD FIROZ ALAM" VISIBLE ON UI, ALL OTHER ALIASES IN SEO ALT) -->
+                        <!-- 3. MD FIROZ ALAM -->
                         <figure style="margin: 0;">
                             <img id="firozPhotoImg" src="https://osman-debug3.github.io/namaz/md-firoz-alam.jpg" alt="MD FIROZ ALAM, md firoz alam, firoz alam, FIROZ ALAM, FIROZ, firoz, firoz alam 1249, MD FIROZ ALAM 1249, md firoz alam 1249, FIROZ ALAM 1249, md firoz alam dhiu, MD FIROZ ALAM DHIU, firoz alam dhiu, FIROZ ALAM DHIU" title="MD FIROZ ALAM" class="drawer-dev-photo" onclick="openFullScreenPhoto(this.src)" onerror="if(this.src.indexOf('md-firoz-alam.jpg')!==-1){this.src='https://osman-debug3.github.io/namaz/image_9faaff.jpg';}else if(this.src.indexOf('image_9faaff.jpg')!==-1){this.src='https://osman-debug3.github.io/namaz/firoz-alam.jpg';}else if(this.src.indexOf('firoz-alam.jpg')!==-1){this.src='https://osman-debug3.github.io/namaz/md-firoz-alam.jpeg';}">
                             <figcaption>
@@ -310,6 +310,12 @@
                         </p>
                     </div>
                 </div>
+
+                <!-- INSTALL APP BUTTON INSIDE SIDE DRAWER AS WELL -->
+                <button type="button" class="drawer-nav-item" onclick="installZikrSphereApp()" style="border-color: #10b981; color: #a7f3d0;">
+                    <span>📲 Install ZikrSphere Mobile App</span>
+                    <span>⬇️</span>
+                </button>
 
                 <!-- LOGGED-IN USER EXTRA ACTIONS -->
                 <div id="drawerUserActions" class="hidden" style="margin-top: 10px; display: flex; flex-direction: column; gap: 10px;">
@@ -339,8 +345,8 @@
             </div>
             <div class="hijri-badge" id="hijriDateBadge">🌙 Hijri Calendar...</div>
             <div style="margin-top: 10px;">
-    <button type="button" id="pwaInstallBtn" class="btn hidden" style="max-width: 240px; padding: 9px 16px; font-size: 12.5px; border-radius: 99px;">📲 Install ZikrSphere App</button>
-</div>
+                <button type="button" id="pwaInstallBtn" class="btn" onclick="installZikrSphereApp()" style="max-width: 250px; padding: 9px 18px; font-size: 12.5px; border-radius: 99px; background: linear-gradient(135deg, #10b981, #047857); color: #ffffff; border: 1.5px solid #fbe69b;">📲 Install ZikrSphere App</button>
+            </div>
         </header>
 
         <!-- FLOATING NOTIFICATIONS DROPDOWN POPUP -->
