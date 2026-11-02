@@ -1,31 +1,45 @@
 {
-  "id": "/namaz/",
   "name": "ZikrSphere | Daily Deen & Deeds",
   "short_name": "ZikrSphere",
-  "description": "Islamic Community Tracker for 5 Farz Namaz, Tahajjud, Duha, Roza & Quran by ABBU SHAHMA.",
-  "start_url": "/namaz/index.html",
-  "scope": "/namaz/",
+  "description": "ZikrSphere Islamic Community Tracker by ABBU SHAHMA, Muhammad Sibgathullah & MD FIROZ ALAM",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#021a13",
-  "theme_color": "#062f23",
-  "orientation": "portrait-primary",
+  "background_color": "#061f17",
+  "theme_color": "#061f17",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "https://osman-debug3.github.io/namaz/logo.jpg",
-      "sizes": "any",
+      "src": "logo.jpg",
+      "sizes": "192x192",
       "type": "image/jpeg"
     },
     {
-      "src": "https://cdn-icons-png.flaticon.com/192/4358/4358667.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
+      "src": "logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "📝 Aaj Ki Report",
+      "short_name": "Report",
+      "description": "Apni rozana ki namaz aur a'amal darj karein",
+      "url": "./index.html#report",
+      "icons": [{ "src": "logo.jpg", "sizes": "192x192" }]
     },
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/4358/4358667.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "name": "📿 Digital Tasbeeh",
+      "short_name": "Tasbeeh",
+      "description": "Vibration wali Tasbeeh kholein",
+      "url": "./index.html#zikr-native-tools",
+      "icons": [{ "src": "logo.jpg", "sizes": "192x192" }]
+    },
+    {
+      "name": "📖 Namaz Guide",
+      "short_name": "Namaz Guide",
+      "description": "Namaz aur deeni masail padhein",
+      "url": "./namaz-guide.html",
+      "icons": [{ "src": "logo.jpg", "sizes": "192x192" }]
     }
   ]
 }
