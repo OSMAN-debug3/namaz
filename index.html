@@ -675,5 +675,170 @@
     <!-- EXTERNAL JAVASCRIPT FILES -->
     <script src="translations.js"></script>
     <script src="app.js"></script>
+    <!-- ================= ZIKRSPHERE NATIVE APP FEATURES ================= -->
+<div id="zikr-native-tools" style="max-width: 600px; margin: 20px auto; padding: 15px; background: #08291e; border: 1px solid #d4af37; border-radius: 14px; color: #ffffff; font-family: sans-serif;">
+  <h3 style="color: #d4af37; text-align: center; margin-top: 0;">✨ ZikrSphere Smart App Tools</h3>
+
+  <!-- 1. Vibration Digital Tasbeeh -->
+  <div style="background: #051a13; padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 15px; border: 1px solid #14523d;">
+    <h4 style="margin: 0 0 8px 0; color: #4ade80;">📳 Digital Tasbeeh (With Vibration)</h4>
+    <div id="tasbeeh-count" style="font-size: 42px; font-weight: bold; color: #d4af37; margin: 10px 0;">0</div>
+    <button onclick="tapTasbeeh()" style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #047857); color: white; font-size: 18px; font-weight: bold; border: 3px solid #d4af37; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.4);">
+      TAP ZIKR
+    </button>
+    <div style="margin-top: 10px;">
+      <button onclick="resetTasbeeh()" style="background: transparent; color: #f87171; border: 1px solid #f87171; padding: 5px 12px; border-radius: 6px; cursor: pointer;">Reset</button>
+    </div>
+  </div>
+
+  <!-- 2. Live GPS Namaz Timings & Qibla Direction -->
+  <div style="background: #051a13; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #14523d;">
+    <h4 style="margin: 0 0 8px 0; color: #4ade80;">🧭 Live GPS Namaz Time & Qibla</h4>
+    <p id="qibla-info" style="margin: 5px 0; font-size: 14px; color: #fde047;">Location lene ke liye button dabayein...</p>
+    <div id="namaz-times-box" style="font-size: 14px; line-height: 1.7; margin-top: 8px;"></div>
+    <button onclick="getLiveNamazAndQibla()" style="margin-top: 10px; width: 100%; background: #d4af37; color: #051a13; font-weight: bold; border: none; padding: 10px; border-radius: 8px; cursor: pointer;">
+      📍 Meri Location Se Namaz & Qibla Dekhein
+    </button>
+  </div>
+
+  <!-- 3. Lock Screen Tilawat Audio Player -->
+  <div style="background: #051a13; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #14523d;">
+    <h4 style="margin: 0 0 8px 0; color: #4ade80;">🔊 Tilawat Player (Lock Screen Supported)</h4>
+    <audio id="zikr-audio" controls style="width: 100%; margin-top: 5px;" onplay="setupLockScreenMedia()">
+      <source src="https://server8.mp3quran.net/afs/001.mp3" type="audio/mpeg">
+    </audio>
+    <small style="color: #a7f3d0; display: block; margin-top: 5px;">Surah Al-Fatiha (Mishary Rashid Alafasy) - Phone lock hone par bhi chalegi.</small>
+  </div>
+
+  <!-- 4. Screen Wake-Lock & Direct WhatsApp Share -->
+  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <button id="wakelock-btn" onclick="toggleWakeLock()" style="flex: 1; background: #0f3d2e; color: #fff; border: 1px solid #4ade80; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold;">
+      💡 Screen On Rakhein: OFF
+    </button>
+    <button onclick="shareZikrReport()" style="flex: 1; background: #25D366; color: #051a13; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold;">
+      📤 WhatsApp Share
+    </button>
+  </div>
+</div>
+
+<script>
+  // 1. VIBRATION TASBEEH
+  let zikrCount = parseInt(localStorage.getItem('zikr_tasbeeh') || '0');
+  document.getElementById('tasbeeh-count').innerText = zikrCount;
+
+  function tapTasbeeh() {
+    zikrCount++;
+    localStorage.setItem('zikr_tasbeeh', zikrCount);
+    document.getElementById('tasbeeh-count').innerText = zikrCount;
+    if (navigator.vibrate) {
+      if (zikrCount % 33 === 0 || zikrCount % 100 === 0) {
+        navigator.vibrate([120, 60, 250]); // 33 ya 100 par lamba vibration
+      } else {
+        navigator.vibrate(35); // Har tap par halka vibration
+      }
+    }
+  }
+
+  function resetTasbeeh() {
+    zikrCount = 0;
+    localStorage.setItem('zikr_tasbeeh', 0);
+    document.getElementById('tasbeeh-count').innerText = 0;
+    if (navigator.vibrate) navigator.vibrate(80);
+  }
+
+  // 2. GPS NAMAZ TIMINGS & QIBLA ANGLE
+  function getLiveNamazAndQibla() {
+    const info = document.getElementById('qibla-info');
+    const box = document.getElementById('namaz-times-box');
+    if (!navigator.geolocation) {
+      info.innerText = "Aapke phone mein GPS support nahi hai.";
+      return;
+    }
+    info.innerText = "⏳ GPS se location li ja rahi hai...";
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+
+      // Qibla Bearing Calculation (Kaaba: 21.4225N, 39.8262E)
+      const kaabaLat = 21.4225 * Math.PI / 180;
+      const kaabaLng = 39.8262 * Math.PI / 180;
+      const userLat = lat * Math.PI / 180;
+      const dLng = kaabaLng - (lng * Math.PI / 180);
+      const y = Math.sin(dLng);
+      const x = Math.cos(userLat) * Math.tan(kaabaLat) - Math.sin(userLat) * Math.cos(dLng);
+      let qibla = Math.atan2(y, x) * 180 / Math.PI;
+      qibla = (qibla + 360) % 360;
+      info.innerText = `🕋 Qibla Direction: North se ${Math.round(qibla)}° degree par hai.`;
+
+      // Fetch Namaz Timings from Aladhan API
+      try {
+        const res = await fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lng}&method=1`);
+        const data = await res.json();
+        const t = data.data.timings;
+        box.innerHTML = `
+          <b>Fajr:</b> ${t.Fajr} | <b>Dhuhr:</b> ${t.Dhuhr} | <b>Asr:</b> ${t.Asr}<br>
+          <b>Maghrib:</b> ${t.Maghrib} | <b>Isha:</b> ${t.Isha}
+        `;
+      } catch (e) {
+        box.innerText = "Namaz time load karne mein internet error aaya.";
+      }
+    }, () => {
+      info.innerText = "❌ Kripaya phone ki Location (GPS) permission Allow karein.";
+    });
+  }
+
+  // 3. LOCK SCREEN MEDIA CONTROLS
+  function setupLockScreenMedia() {
+    if ('mediaSession' in navigator) {
+      const audio = document.getElementById('zikr-audio');
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: 'Surah Al-Fatiha Tilawat',
+        artist: 'ZikrSphere | Daily Deen & Deeds',
+        album: 'ZikrSphere Community',
+        artwork: [{ src: 'logo.jpg', sizes: '512x512', type: 'image/jpeg' }]
+      });
+      navigator.mediaSession.setActionHandler('play', () => audio.play());
+      navigator.mediaSession.setActionHandler('pause', () => audio.pause());
+    }
+  }
+
+  // 4. SCREEN WAKE LOCK (Screen Band Na Hone Dena)
+  let wakeLockObj = null;
+  async function toggleWakeLock() {
+    const btn = document.getElementById('wakelock-btn');
+    if (!('wakeLock' in navigator)) {
+      alert("Aapka browser Wake-Lock support nahi karta.");
+      return;
+    }
+    try {
+      if (wakeLockObj === null) {
+        wakeLockObj = await navigator.wakeLock.request('screen');
+        btn.innerText = "💡 Screen On Rakhein: ON ✅";
+        btn.style.background = "#15803d";
+      } else {
+        await wakeLockObj.release();
+        wakeLockObj = null;
+        btn.innerText = "💡 Screen On Rakhein: OFF";
+        btn.style.background = "#0f3d2e";
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  // 5. DIRECT WHATSAPP & NATIVE SHARE
+  function shareZikrReport() {
+    const shareText = `🕌 *Alhamdulillah!* Maine aaj *ZikrSphere* par ${zikrCount} martaba Tasbeeh mukammal ki aur apni Namaz track ki.\n\n📲 Aap bhi join karein:\nhttps://osman-debug3.github.io/namaz/`;
+    if (navigator.share) {
+      navigator.share({
+        title: 'ZikrSphere | Daily Deen & Deeds',
+        text: shareText,
+        url: 'https://osman-debug3.github.io/namaz/'
+      });
+    } else {
+      window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+    }
+  }
+</script>
 </body>
 </html>
