@@ -1910,3 +1910,26 @@ async function saveReport() {
         btn.disabled = false;
     }
 }
+/* PWA SERVICE WORKER & INSTALL APP BUTTON */
+let deferredInstallPrompt = null;
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/namaz/sw.js').catch(err => console.log(err));
+    });
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    const installBtn = document.getElementById('pwaInstallBtn');
+    if (installBtn) {
+        installBtn.classList.remove('hidden');
+        installBtn.onclick = async () => {
+            installBtn.classList.add('hidden');
+            deferredInstallPrompt.prompt();
+            await deferredInstallPrompt.userChoice;
+            deferredInstallPrompt = null;
+        };
+    }
+});
