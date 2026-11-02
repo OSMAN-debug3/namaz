@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://osman-debug3.github.io/namaz/</loc>
-    <Priority>1.0</Priority>
+    <priority>1.0</priority>
     <changefreq>daily</changefreq>
     <image:image>
       <image:loc>https://osman-debug3.github.io/namaz/abbu-shahma.jpeg</image:loc>
