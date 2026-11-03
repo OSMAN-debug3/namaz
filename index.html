@@ -675,69 +675,192 @@
     <!-- EXTERNAL JAVASCRIPT FILES -->
     <script src="translations.js"></script>
     <script src="app.js"></script>
-  <!-- ================= ZIKRSPHERE: FULL-SCREEN QURAN MUSHAF, PDF & ZIKR ================= -->
+<!-- ================= ZIKRSPHERE: REAL PRINTED MUSHAF PAGE & ZIKR ================= -->
+<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
   #zikr-quran-modal {
     display: none;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: #041610;
+    background: #1a1a1a;
     z-index: 99999;
     overflow-y: auto;
-    padding: 12px;
-    color: #ffffff;
+    padding: 0;
     font-family: sans-serif;
   }
-  /* TRUE FULL SCREEN MODE FOR QURAN */
-  #zikr-quran-modal.quran-fullscreen-active {
-    padding: 0 !important;
-    background: #03110c !important;
+
+  /* Top Compact Floating Control Bar */
+  .mushaf-top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #062319;
+    border-bottom: 2px solid #d4af37;
+    padding: 8px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
   }
-  #zikr-quran-modal.quran-fullscreen-active .hide-on-fullscreen {
-    display: none !important;
+
+  /* REAL PRINTED MUSHAF PAPER & BLUE ORNATE FRAME */
+  .real-mushaf-wrapper {
+    max-width: 680px;
+    margin: 12px auto 30px auto;
+    background: #ffffff;
+    padding: 14px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.7);
+    position: relative;
+    border-radius: 4px;
   }
-  #zikr-quran-modal.quran-fullscreen-active .zq-container {
-    max-width: 100% !important;
-    margin: 0 !important;
+
+  /* Red Bookmark Ribbon like Real Quran */
+  #quran-red-ribbon {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 42px;
+    width: 28px;
+    height: 75px;
+    background: linear-gradient(180deg, #b91c1c, #ef4444);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    z-index: 50;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
   }
-  #zikr-quran-modal.quran-fullscreen-active #zq-tab-quran {
-    border: none !important;
-    border-radius: 0 !important;
-    min-height: 100vh !important;
-    padding: 10px !important;
+
+  /* Outer Blue & Gold Islamic Border */
+  .mushaf-outer-frame {
+    border: 3px solid #0284c7;
+    background: #e0f2fe;
+    padding: 6px;
+    position: relative;
   }
-  .zq-container {
-    max-width: 800px;
-    margin: 0 auto 50px auto;
+
+  .mushaf-ornate-border {
+    border: 8px double #0369a1;
+    background: #fffdf9;
+    padding: 14px 18px 20px 18px;
+    position: relative;
+    outline: 2px solid #d4af37;
+    outline-offset: -5px;
   }
-  .zq-card {
-    background: #08291e;
-    border: 1px solid #d4af37;
-    border-radius: 14px;
-    padding: 15px;
-    margin-bottom: 16px;
-  }
-  /* Pure Arabic Mushaf Page Styling */
-  .mushaf-page-box {
-    background: #051c14;
-    border: 2px solid #d4af37;
-    border-radius: 12px;
-    padding: 22px 18px;
-    margin-top: 10px;
-    text-align: justify;
+
+  /* Top Header Boxes (Juz on Right, Surah on Left) */
+  .mushaf-top-headers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px double #0284c7;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
     direction: rtl;
+    font-family: 'Amiri', serif;
+  }
+
+  .mushaf-header-pill {
+    background: #fffdf9;
+    border: 2px solid #0284c7;
+    border-radius: 20px;
+    padding: 2px 16px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #111827;
+    box-shadow: inset 0 0 6px rgba(2, 132, 199, 0.25);
+  }
+
+  /* Ornate Blue Surah Title Banner */
+  .mushaf-surah-banner {
+    background: linear-gradient(90deg, #0284c7 0%, #bae6fd 20%, #ffffff 50%, #bae6fd 80%, #0284c7 100%);
+    border: 3px double #0369a1;
+    border-radius: 8px;
+    text-align: center;
+    padding: 6px 12px;
+    margin: 12px 0 8px 0;
+    font-family: 'Amiri', serif;
+    font-size: 26px;
+    font-weight: bold;
+    color: #0f172a;
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.2);
+  }
+
+  .mushaf-bismillah {
+    text-align: center;
+    font-family: 'Amiri Quran', 'Amiri', serif;
+    font-size: 26px;
+    color: #000000;
+    margin: 6px 0 14px 0;
+  }
+
+  /* Main 15-Line Style Justified Black Arabic Text */
+  .mushaf-arabic-lines {
+    direction: rtl;
+    text-align: justify;
+    text-align-last: center;
+    font-family: 'Amiri Quran', 'Amiri', serif;
+    font-size: 29px;
     line-height: 2.35;
-    font-size: 28px;
-    color: #ffffff;
-    box-shadow: inset 0 0 25px rgba(0,0,0,0.6);
+    color: #000000;
+    word-spacing: 2px;
   }
-  .mushaf-ayah-num {
+
+  .mushaf-ayah-span {
+    cursor: pointer;
+    padding: 2px 1px;
+    border-radius: 6px;
+    transition: background 0.2s;
+  }
+  .mushaf-ayah-span:hover {
+    background: rgba(2, 132, 199, 0.12);
+  }
+  /* Highlighted Nishani Ayah */
+  .mushaf-ayah-marked {
+    background: #fef08a !important;
+    border-bottom: 2px solid #d97706;
+  }
+
+  /* Blue Ornate Ayah Number Circle */
+  .mushaf-ayah-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #e0f2fe;
+    border: 2px solid #0284c7;
+    color: #0369a1;
+    border-radius: 50%;
+    min-width: 30px;
+    height: 30px;
+    font-size: 17px;
+    font-family: 'Amiri', serif;
+    font-weight: bold;
+    margin: 0 5px;
+    padding: 0 4px;
+    vertical-align: middle;
+    box-shadow: inset 0 0 4px rgba(2,132,199,0.4);
+  }
+
+  /* Bottom Center Page Number Box */
+  .mushaf-bottom-footer {
+    border-top: 3px double #0284c7;
+    margin-top: 14px;
+    padding-top: 8px;
+    text-align: center;
+  }
+  .mushaf-page-num-pill {
     display: inline-block;
-    color: #d4af37;
+    background: #fffdf9;
+    border: 2px solid #0284c7;
+    border-radius: 16px;
+    padding: 1px 22px;
+    font-family: 'Amiri', serif;
     font-size: 20px;
-    margin: 0 6px;
-    user-select: none;
+    font-weight: bold;
+    color: #0f172a;
   }
+
+  /* Floating Trigger Button */
   #zikr-nav-trigger-fallback {
     position: fixed;
     bottom: 18px;
@@ -755,306 +878,217 @@
   }
 </style>
 
-<!-- Floating Button to Open Zikr & Quran -->
+<!-- Button to Open Quran & Zikr -->
 <button id="zikr-nav-trigger-fallback" onclick="openZikrQuranSection()">
   📿 Zikr & Quran
 </button>
 
-<!-- Main Modal -->
+<!-- Full Screen Modal -->
 <div id="zikr-quran-modal">
-  <div class="zq-container">
-    
-    <!-- Top Header (Hides in Fullscreen) -->
-    <div class="hide-on-fullscreen" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #d4af37; padding-bottom: 10px;">
-      <h2 style="margin: 0; color: #d4af37; font-size: 20px;">📿 Quran Pak & Zikr</h2>
-      <button onclick="closeZikrQuranSection()" style="background: #ef4444; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; cursor: pointer;">
-        ✖ Wapas Jayein
+
+  <!-- Sticky Top Navigation Bar -->
+  <div class="mushaf-top-bar">
+    <div style="display:flex; gap:6px; align-items:center;">
+      <button onclick="switchZQTab('quran')" id="tab-btn-quran" style="background:#d4af37; color:#041610; border:none; padding:7px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">
+        📖 Quran Pak
+      </button>
+      <button onclick="switchZQTab('tools')" id="tab-btn-tools" style="background:#0f3d2e; color:#fde047; border:1px solid #d4af37; padding:7px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">
+        📿 Tasbeeh & Qibla
       </button>
     </div>
 
-    <!-- Sub-Tabs (Hides in Fullscreen) -->
-    <div class="hide-on-fullscreen" style="display: flex; gap: 10px; margin-bottom: 14px;">
-      <button id="tab-btn-quran" onclick="switchZQTab('quran')" style="flex: 1; padding: 12px; border-radius: 10px; border: 2px solid #d4af37; background: #d4af37; color: #041610; font-weight: bold; cursor: pointer; font-size: 15px;">
-        📖 Quran Pak (Mushaf & PDF)
+    <div id="quran-quick-controls" style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+      <!-- Para Selector -->
+      <select id="quran-juz-select" onchange="jumpByJuz(this.value)" style="padding:6px; border-radius:6px; background:#041610; color:#fff; border:1px solid #4ade80; font-size:13px;">
+        <option value="">Para (1-30)</option>
+      </select>
+
+      <!-- Surah Selector -->
+      <select id="quran-surah-select" onchange="jumpBySurahPage(this.value)" style="max-width:150px; padding:6px; border-radius:6px; background:#041610; color:#fff; border:1px solid #4ade80; font-size:13px;">
+        <option value="">Surah Chunein</option>
+      </select>
+
+      <!-- Jump to Saved Nishani -->
+      <button onclick="jumpToSavedNishani()" style="background:#ef4444; color:#fff; border:none; padding:6px 10px; border-radius:6px; font-weight:bold; cursor:pointer; font-size:12px;">
+        🔖 Meri Nishani
       </button>
-      <button id="tab-btn-tools" onclick="switchZQTab('tools')" style="flex: 1; padding: 12px; border-radius: 10px; border: 1px solid #d4af37; background: #08291e; color: #d4af37; font-weight: bold; cursor: pointer; font-size: 15px;">
-        ✨ Tasbeeh & Qibla
+
+      <!-- Toggle Scanned Image vs HD Mushaf -->
+      <button id="scan-toggle-btn" onclick="toggleScannedImageMode()" style="background:#0284c7; color:#fff; border:none; padding:6px 10px; border-radius:6px; font-weight:bold; cursor:pointer; font-size:12px;">
+        🖼️ Scanned Safha
       </button>
     </div>
 
-    <!-- ================= TAB 1: PURE QURAN MUSHAF & PDF (FULL SCREEN) ================= -->
-    <div id="zq-tab-quran" class="zq-card">
-      
-      <!-- Top Control Bar: Fullscreen + PDF Switch + Nishani -->
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; background: #051a13; padding: 10px; border-radius: 10px; border: 1px solid #14523d;">
-        <button id="fullscreen-toggle-btn" onclick="toggleQuranFullScreen()" style="background: #d4af37; color: #041610; border: none; padding: 9px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;">
-          🖥️ Full Screen Mein Padhein
-        </button>
-
-        <button id="pdf-toggle-btn" onclick="togglePdfMode()" style="background: #0f3d2e; color: #4ade80; border: 1px solid #4ade80; padding: 9px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;">
-          📄 Full Quran PDF Kholein
-        </button>
-
-        <button onclick="savePageNishani()" style="background: #10b981; color: #041610; border: none; padding: 9px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;">
-          🔖 Is Safhe Par Nishani Lagayein
-        </button>
-      </div>
-
-      <!-- Saved Nishani Banner -->
-      <div id="nishani-banner" style="background: #051a13; border: 1px dashed #d4af37; padding: 10px 12px; border-radius: 10px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-        <div>
-          <span style="color: #fde047; font-size: 12px;">🔖 Aapki Aakhri Nishani: </span>
-          <strong id="nishani-text" style="color: #ffffff; font-size: 14px;">Safha (Page) 1</strong>
-        </div>
-        <button id="nishani-jump-btn" onclick="jumpToSavedPageNishani()" style="display: none; background: #d4af37; color: #041610; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px;">
-          👉 Nishani Par Jayein
-        </button>
-      </div>
-
-      <!-- MODE A: PURE ARABIC MUSHAF READER (PAGE 1 TO 604 - NO TRANSLATION) -->
-      <div id="mushaf-reader-Section">
-        <!-- Navigation: Para (Juz), Surah, and Page (1-604) -->
-        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
-          <!-- Para / Siparah Selector -->
-          <select id="quran-juz-select" onchange="jumpByJuz(this.value)" style="flex: 1; min-width: 120px; padding: 9px; border-radius: 8px; background: #051a13; color: #fff; border: 1px solid #4ade80;">
-            <option value="">📚 Para (Siparah) Chunein</option>
-          </select>
-
-          <!-- Surah Selector (Jumps to exact Page of that Surah) -->
-          <select id="quran-surah-select" onchange="jumpBySurahPage(this.value)" style="flex: 1.5; min-width: 150px; padding: 9px; border-radius: 8px; background: #051a13; color: #fff; border: 1px solid #4ade80;">
-            <option value="">📖 Surah Se Safha Kholein...</option>
-          </select>
-
-          <!-- Font Size Controls -->
-          <div style="display: flex; gap: 4px;">
-            <button onclick="changeQuranFont(3)" style="background:#051a13; color:#fde047; border:1px solid #d4af37; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:bold;">A+</button>
-            <button onclick="changeQuranFont(-3)" style="background:#051a13; color:#fde047; border:1px solid #d4af37; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:bold;">A-</button>
-          </div>
-        </div>
-
-        <!-- Next / Previous Safha (Page) Bar -->
-        <div style="display: flex; justify-content: space-between; align-items: center; background: #051a13; padding: 8px 12px; border-radius: 8px; border: 1px solid #14523d; margin-bottom: 10px;">
-          <button onclick="changeMushafPage(1)" style="background: #d4af37; color: #041610; border: none; padding: 8px 14px; border-radius: 6px; font-weight: bold; cursor: pointer;">
-            ⬅️ Agla Safha
-          </button>
-
-          <div style="text-align: center;">
-            <span style="color: #4ade80; font-weight: bold;">Safha (Page): </span>
-            <input type="number" id="mushaf-page-input" min="1" max="604" value="1" onchange="loadMushafPage(this.value)" style="width: 65px; text-align: center; padding: 5px; border-radius: 6px; background: #08291e; color: #fff; border: 1px solid #d4af37; font-weight: bold;">
-            <span style="color: #a7f3d0; font-size: 13px;"> / 604</span>
-          </div>
-
-          <button onclick="changeMushafPage(-1)" style="background: #d4af37; color: #041610; border: none; padding: 8px 14px; border-radius: 6px; font-weight: bold; cursor: pointer;">
-            Pichla Safha ➡️
-          </button>
-        </div>
-
-        <!-- Continuous Pure Arabic Mushaf Page Box -->
-        <div id="mushaf-page-header" style="display: flex; justify-content: space-between; color: #fde047; font-size: 14px; padding: 0 6px; margin-bottom: 4px;">
-          <span id="mushaf-surah-label">Surah Al-Fatiha</span>
-          <span id="mushaf-juz-label">Para 1</span>
-        </div>
-
-        <div id="mushaf-arabic-content" class="mushaf-page-box">
-          ⏳ Quran Pak ka Safha load ho raha hai...
-        </div>
-      </div>
-
-      <!-- MODE B: DIRECT FULL QURAN PDF VIEWER (HIDDEN BY DEFAULT) -->
-      <div id="quran-pdf-section" style="display: none; margin-top: 10px;">
-        <div style="background: #051a13; padding: 10px; border-radius: 8px; margin-bottom: 8px; text-align: center;">
-          <span style="color: #fde047; font-size: 14px;">📖 15-Line Tajweedi Quran Pak (Full PDF)</span>
-          <a href="https://archive.org/download/Quran15Lines/Quran%2015%20Lines.pdf" target="_blank" style="margin-left: 10px; color: #4ade80; text-decoration: underline; font-size: 13px; font-weight: bold;">
-            📥 Offline PDF Download Karein
-          </a>
-        </div>
-        <iframe id="quran-pdf-frame" src="" style="width: 100%; height: 82vh; border: 2px solid #d4af37; border-radius: 10px; background: #fff;"></iframe>
-      </div>
-
-    </div>
-
-    <!-- ================= TAB 2: SMART ZIKR TOOLS ================= -->
-    <div id="zq-tab-tools" class="zq-card" style="display: none;">
-      <h3 style="color: #d4af37; text-align: center; margin-top: 0;">✨ ZikrSphere Smart App Tools</h3>
-
-      <!-- 1. Vibration Digital Tasbeeh -->
-      <div style="background: #051a13; padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 15px; border: 1px solid #14523d;">
-        <h4 style="margin: 0 0 8px 0; color: #4ade80;">📳 Digital Tasbeeh (With Vibration)</h4>
-        <div id="tasbeeh-count" style="font-size: 42px; font-weight: bold; color: #d4af37; margin: 10px 0;">0</div>
-        <button onclick="tapTasbeeh()" style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #047857); color: white; font-size: 18px; font-weight: bold; border: 3px solid #d4af37; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.4);">
-          TAP ZIKR
-        </button>
-        <div style="margin-top: 10px;">
-          <button onclick="resetTasbeeh()" style="background: transparent; color: #f87171; border: 1px solid #f87171; padding: 5px 12px; border-radius: 6px; cursor: pointer;">Reset</button>
-        </div>
-      </div>
-
-      <!-- 2. Live GPS Namaz Timings & Qibla Direction -->
-      <div style="background: #051a13; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #14523d;">
-        <h4 style="margin: 0 0 8px 0; color: #4ade80;">🧭 Live GPS Namaz Time & Qibla</h4>
-        <p id="qibla-info" style="margin: 5px 0; font-size: 14px; color: #fde047;">Location lene ke liye button dabayein...</p>
-        <div id="namaz-times-box" style="font-size: 14px; line-height: 1.7; margin-top: 8px;"></div>
-        <button onclick="getLiveNamazAndQibla()" style="margin-top: 10px; width: 100%; background: #d4af37; color: #051a13; font-weight: bold; border: none; padding: 10px; border-radius: 8px; cursor: pointer;">
-          📍 Meri Location Se Namaz & Qibla Dekhein
-        </button>
-      </div>
-
-      <!-- 3. Lock Screen Tilawat Audio Player -->
-      <div style="background: #051a13; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #14523d;">
-        <h4 style="margin: 0 0 8px 0; color: #4ade80;">🔊 Tilawat Player (Lock Screen Supported)</h4>
-        <audio id="zikr-audio" controls style="width: 100%; margin-top: 5px;" onplay="setupLockScreenMedia()">
-          <source src="https://server8.mp3quran.net/afs/001.mp3" type="audio/mpeg">
-        </audio>
-        <small style="color: #a7f3d0; display: block; margin-top: 5px;">Surah Al-Fatiha (Mishary Rashid Alafasy) - Phone lock hone par bhi chalegi.</small>
-      </div>
-
-      <!-- 4. Screen Wake-Lock & Direct WhatsApp Share -->
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <button id="wakelock-btn" onclick="toggleWakeLock()" style="flex: 1; background: #0f3d2e; color: #fff; border: 1px solid #4ade80; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold;">
-          💡 Screen On Rakhein: OFF
-        </button>
-        <button onclick="shareZikrReport()" style="flex: 1; background: #25D366; color: #051a13; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold;">
-          📤 WhatsApp Share
-        </button>
-      </div>
-    </div>
-
+    <button onclick="closeZikrQuranSection()" style="background:#374151; color:#fff; border:1px solid #9ca3af; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">
+      ✖ Band Karein
+    </button>
   </div>
+
+  <!-- ================= TAB 1: REAL PRINTED MUSHAF PAGE ================= -->
+  <div id="zq-tab-quran">
+
+    <!-- Page Turn Bar & Direct Surah+Ayah Finder -->
+    <div style="max-width:680px; margin:10px auto 0 auto; padding:0 10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+      <button onclick="changeMushafPage(1)" style="background:#0284c7; color:#fff; border:none; padding:8px 14px; border-radius:6px; font-weight:bold; cursor:pointer;">
+        ⬅️ Agla Safha
+      </button>
+
+      <div style="color:#fff; font-size:13px; display:flex; align-items:center; gap:5px;">
+        <span>Safha:</span>
+        <input type="number" id="mushaf-page-input" min="1" max="604" value="1" onchange="loadMushafPage(this.value)" style="width:58px; text-align:center; padding:5px; border-radius:5px; font-weight:bold;">
+        <span>/ 604</span>
+        <input type="number" id="find-ayah-input" placeholder="Aayat (78)" style="width:78px; padding:5px; border-radius:5px; margin-left:6px;">
+        <button onclick="findAyahOnCurrentSurah()" style="background:#d4af37; color:#000; border:none; padding:5px 9px; border-radius:5px; font-weight:bold; cursor:pointer;">Go</button>
+      </div>
+
+      <button onclick="changeMushafPage(-1)" style="background:#0284c7; color:#fff; border:none; padding:8px 14px; border-radius:6px; font-weight:bold; cursor:pointer;">
+        Pichla Safha ➡️
+      </button>
+    </div>
+
+    <div style="text-align:center; color:#fde047; font-size:12px; margin-top:6px;">
+      💡 <b>Tip:</b> Kisi bhi Aayat par ungli se tap (click) karein—wahin <b>🔖 Laal Feeta (Nishani)</b> lag jayegi!
+    </div>
+
+    <!-- THE ACTUAL MUSHAF PAGE (EXACTLY LIKE USER PHOTO) -->
+    <div class="real-mushaf-wrapper">
+      <!-- Red Bookmark Ribbon -->
+      <div id="quran-red-ribbon" title="Aapki Nishani"></div>
+
+      <!-- Mode 1: HD Blue-Bordered White Mushaf Page -->
+      <div id="hd-mushaf-view" class="mushaf-outer-frame">
+        <div class="mushaf-ornate-border">
+          
+          <!-- Top Bar: Juz Right, Surah Left -->
+          <div class="mushaf-top-headers">
+            <div id="mushaf-juz-top" class="mushaf-header-pill">الجزء الأول</div>
+            <div id="mushaf-surah-top" class="mushaf-header-pill">سُورَةُ ٱلْفَاتِحَةِ</div>
+          </div>
+
+          <!-- Arabic Content Area -->
+          <div id="mushaf-arabic-content" class="mushaf-arabic-lines">
+            ⏳ Safha load ho raha hai...
+          </div>
+
+          <!-- Bottom Page Number in Arabic Digits -->
+          <div class="mushaf-bottom-footer">
+            <div id="mushaf-arabic-page-no" class="mushaf-page-num-pill">١</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Mode 2: Original Scanned Printed Page Image (1 to 604) -->
+      <div id="scanned-mushaf-view" style="display:none; text-align:center;">
+        <img id="scanned-page-img" src="" alt="Quran Page" style="width:100%; height:auto; display:block; margin:0 auto; border:2px solid #0284c7;" />
+        <button onclick="saveCurrentPageRibbon()" style="margin-top:10px; background:#ef4444; color:#fff; border:none; padding:10px 18px; border-radius:8px; font-weight:bold; cursor:pointer;">
+          🔖 Is Safhe Par Laal Feeta (Nishani) Lagayein
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TAB 2: SMART ZIKR TOOLS ================= -->
+  <div id="zq-tab-tools" style="display:none; max-width:600px; margin:20px auto; padding:15px; background:#08291e; border:1px solid #d4af37; border-radius:14px; color:#fff;">
+    <h3 style="color:#d4af37; text-align:center; margin-top:0;">✨ ZikrSphere Smart App Tools</h3>
+
+    <div style="background:#051a13; padding:15px; border-radius:10px; text-align:center; margin-bottom:15px; border:1px solid #14523d;">
+      <h4 style="margin:0 0 8px 0; color:#4ade80;">📳 Digital Tasbeeh (With Vibration)</h4>
+      <div id="tasbeeh-count" style="font-size:42px; font-weight:bold; color:#d4af37; margin:10px 0;">0</div>
+      <button onclick="tapTasbeeh()" style="width:120px; height:120px; border-radius:50%; background:linear-gradient(135deg, #10b981, #047857); color:white; font-size:18px; font-weight:bold; border:3px solid #d4af37; cursor:pointer;">
+        TAP ZIKR
+      </button>
+      <div style="margin-top:10px;">
+        <button onclick="resetTasbeeh()" style="background:transparent; color:#f87171; border:1px solid #f87171; padding:5px 12px; border-radius:6px; cursor:pointer;">Reset</button>
+      </div>
+    </div>
+
+    <div style="background:#051a13; padding:15px; border-radius:10px; margin-bottom:15px; border:1px solid #14523d;">
+      <h4 style="margin:0 0 8px 0; color:#4ade80;">🧭 Live GPS Namaz Time & Qibla</h4>
+      <p id="qibla-info" style="margin:5px 0; font-size:14px; color:#fde047;">Location lene ke liye button dabayein...</p>
+      <div id="namaz-times-box" style="font-size:14px; line-height:1.7; margin-top:8px;"></div>
+      <button onclick="getLiveNamazAndQibla()" style="margin-top:10px; width:100%; background:#d4af37; color:#051a13; font-weight:bold; border:none; padding:10px; border-radius:8px; cursor:pointer;">
+        📍 Meri Location Se Namaz & Qibla Dekhein
+      </button>
+    </div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <button id="wakelock-btn" onclick="toggleWakeLock()" style="flex:1; background:#0f3d2e; color:#fff; border:1px solid #4ade80; padding:10px; border-radius:8px; cursor:pointer; font-weight:bold;">
+        💡 Screen On Rakhein: OFF
+      </button>
+      <button onclick="shareZikrReport()" style="flex:1; background:#25D366; color:#051a13; border:none; padding:10px; border-radius:8px; cursor:pointer; font-weight:bold;">
+        📤 WhatsApp Share
+      </button>
+    </div>
+  </div>
+
 </div>
 
 <script>
-  // ================= AUTO-ADD BUTTON NEXT TO ADMIN TAB =================
+  // Convert English numbers to Arabic-Indic digits (١ ٢ ٣ ...)
+  function toArabicDigits(num) {
+    const arabic = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+    return String(num).split('').map(c => arabic[c] || c).join('');
+  }
+
+  const arabicJuzNames = [
+    "", "الجزء الأول", "الجزء الثاني", "الجزء الثالث", "الجزء الرابع", "الجزء الخامس",
+    "الجزء السادس", "الجزء السابع", "الجزء الثامن", "الجزء التاسع", "الجزء العاشر",
+    "الجزء الحادي عشر", "الجزء الثاني عشر", "الجزء الثالث عشر", "الجزء الرابع عشر", "الجزء الخامس عشر",
+    "الجزء السادس عشر", "الجزء السابع عشر", "الجزء الثامن عشر", "الجزء التاسع عشر", "الجزء العشرون",
+    "الجزء الحادي والعشرون", "الجزء الثاني والعشرون", "الجزء الثالث والعشرون", "الجزء الرابع والعشرون", "الجزء الخامس والعشرون",
+    "الجزء السادس والعشرون", "الجزء السابع والعشرون", "الجزء الثامن والعشرون", "الجزء التاسع والعشرون", "الجزء الثلاثون"
+  ];
+
+  const juzStartPages = [1,22,42,62,82,102,121,142,162,182,201,222,242,262,282,302,322,342,362,382,402,422,442,462,482,502,522,542,562,582];
+
+  let currentMushafPage = 1;
+  let activeSurahNumber = 1;
+  let isScannedMode = false;
+  let selectorsInitialized = false;
+
+  // Add Button Next to Admin
   function attachZikrButtonNearAdmin() {
     if (document.getElementById('zikr-injected-nav-btn')) return;
     const allElements = Array.from(document.querySelectorAll('button, a, div, li'));
-    const adminBtn = allElements.find(el => 
-      el.children.length === 0 && 
-      /admin/i.test(el.textContent.trim()) && 
-      el.textContent.trim().length < 25
-    );
-
+    const adminBtn = allElements.find(el => el.children.length === 0 && /admin/i.test(el.textContent.trim()) && el.textContent.trim().length < 25);
     if (adminBtn && adminBtn.parentElement) {
       const zikrBtn = document.createElement(adminBtn.tagName);
       zikrBtn.id = 'zikr-injected-nav-btn';
-      zikrBtn.className = adminBtn.className;
       zikrBtn.innerHTML = '📿 Zikr & Quran';
-      zikrBtn.style.cssText = 'display: inline-flex !important; align-items: center; justify-content: center; cursor: pointer; background: #d4af37; color: #041610; font-weight: bold; border-radius: 8px; padding: 8px 14px; margin: 4px; border: none;';
-      zikrBtn.onclick = (e) => {
-        e.preventDefault();
-        openZikrQuranSection();
-      };
+      zikrBtn.style.cssText = 'display:inline-flex !important; align-items:center; justify-content:center; cursor:pointer; background:#d4af37; color:#041610; font-weight:bold; border-radius:8px; padding:8px 14px; margin:4px; border:none;';
+      zikrBtn.onclick = (e) => { e.preventDefault(); openZikrQuranSection(); };
       adminBtn.parentElement.insertBefore(zikrBtn, adminBtn);
     }
   }
   setInterval(attachZikrButtonNearAdmin, 1500);
 
-  let currentMushafPage = 1;
-  let currentFontSize = 28;
-  let isFullScreenQuran = false;
-  let isPdfMode = false;
-
-  // Standard Madani Mushaf Starting Pages for 30 Siparah (Juz)
-  const juzStartPages = [1,22,42,62,82,102,121,142,162,182,201,222,242,262,282,302,322,342,362,382,402,422,442,462,482,502,522,542,562,582];
-
   function openZikrQuranSection() {
     document.getElementById('zikr-quran-modal').style.display = 'block';
     initMushafSelectors();
-    const savedPage = parseInt(localStorage.getItem('zikr_mushaf_page') || '1');
-    updatePageNishaniBanner();
-    loadMushafPage(savedPage);
+    const saved = JSON.parse(localStorage.getItem('zikr_mushaf_nishani') || '{"page": 582}');
+    loadMushafPage(saved.page || 582, saved.ayahKey || null);
   }
 
   function closeZikrQuranSection() {
-    if (document.fullscreenElement) {
-      document.exitFullscreen().catch(() => {});
-    }
-    document.getElementById('zikr-quran-modal').classList.remove('quran-fullscreen-active');
     document.getElementById('zikr-quran-modal').style.display = 'none';
   }
 
-  // FULL SCREEN TOGGLE
-  function toggleQuranFullScreen() {
-    const modal = document.getElementById('zikr-quran-modal');
-    const btn = document.getElementById('fullscreen-toggle-btn');
-    isFullScreenQuran = !isFullScreenQuran;
-
-    if (isFullScreenQuran) {
-      modal.classList.add('quran-fullscreen-active');
-      btn.innerText = '✖ Full Screen Band Karein';
-      btn.style.background = '#ef4444';
-      btn.style.color = '#ffffff';
-      if (modal.requestFullscreen) {
-        modal.requestFullscreen().catch(() => {});
-      }
-    } else {
-      modal.classList.remove('quran-fullscreen-active');
-      btn.innerText = '🖥️ Full Screen Mein Padhein';
-      btn.style.background = '#d4af37';
-      btn.style.color = '#041610';
-      if (document.fullscreenElement) {
-        document.exitFullscreen().catch(() => {});
-      }
-    }
-  }
-
-  // PDF MODE TOGGLE
-  function togglePdfMode() {
-    isPdfMode = !isPdfMode;
-    const mushafSec = document.getElementById('mushaf-reader-Section');
-    const pdfSec = document.getElementById('quran-pdf-section');
-    const pdfFrame = document.getElementById('quran-pdf-frame');
-    const btn = document.getElementById('pdf-toggle-btn');
-
-    if (isPdfMode) {
-      mushafSec.style.display = 'none';
-      pdfSec.style.display = 'block';
-      btn.innerText = '📖 Safha (Mushaf) Mode Par Wapas Jayein';
-      if (!pdfFrame.src || pdfFrame.src === window.location.href) {
-        pdfFrame.src = 'https://docs.google.com/gview?url=https://archive.org/download/Quran15Lines/Quran%2015%20Lines.pdf&embedded=true';
-      }
-    } else {
-      pdfSec.style.display = 'none';
-      mushafSec.style.display = 'block';
-      btn.innerText = '📄 Full Quran PDF Kholein';
-    }
-  }
-
   function switchZQTab(tab) {
-    const qTab = document.getElementById('zq-tab-quran');
-    const tTab = document.getElementById('zq-tab-tools');
-    const qBtn = document.getElementById('tab-btn-quran');
-    const tBtn = document.getElementById('tab-btn-tools');
-
-    if (tab === 'quran') {
-      qTab.style.display = 'block';
-      tTab.style.display = 'none';
-      qBtn.style.background = '#d4af37';
-      qBtn.style.color = '#041610';
-      tBtn.style.background = '#08291e';
-      tBtn.style.color = '#d4af37';
-    } else {
-      qTab.style.display = 'none';
-      tTab.style.display = 'block';
-      tBtn.style.background = '#d4af37';
-      tBtn.style.color = '#041610';
-      qBtn.style.background = '#08291e';
-      qBtn.style.color = '#d4af37';
-    }
+    document.getElementById('zq-tab-quran').style.display = (tab === 'quran') ? 'block' : 'none';
+    document.getElementById('quran-quick-controls').style.display = (tab === 'quran') ? 'flex' : 'none';
+    document.getElementById('zq-tab-tools').style.display = (tab === 'tools') ? 'block' : 'none';
   }
 
-  let selectorsLoaded = false;
   async function initMushafSelectors() {
-    if (selectorsLoaded) return;
-    // Populate 30 Para
+    if (selectorsInitialized) return;
     const juzSel = document.getElementById('quran-juz-select');
     juzStartPages.forEach((p, idx) => {
       const opt = document.createElement('option');
       opt.value = p;
-      opt.text = `Para ${idx + 1} (Safha ${p})`;
+      opt.text = `Para ${idx + 1}`;
       juzSel.appendChild(opt);
     });
-
-    // Populate 114 Surahs
     try {
       const res = await fetch('https://api.alquran.cloud/v1/surah');
       const data = await res.json();
@@ -1065,17 +1099,34 @@
         opt.text = `${s.number}. ${s.englishName} (${s.name})`;
         surahSel.appendChild(opt);
       });
-      selectorsLoaded = true;
+      selectorsInitialized = true;
     } catch (e) {}
   }
 
-  async function loadMushafPage(pageNo) {
+  function toggleScannedImageMode() {
+    isScannedMode = !isScannedMode;
+    document.getElementById('hd-mushaf-view').style.display = isScannedMode ? 'none' : 'block';
+    document.getElementById('scanned-mushaf-view').style.display = isScannedMode ? 'block' : 'none';
+    document.getElementById('scan-toggle-btn').innerText = isScannedMode ? '📖 HD Mushaf Mode' : '🖼️ Scanned Safha';
+    loadMushafPage(currentMushafPage);
+  }
+
+  async function loadMushafPage(pageNo, highlightAyahKey = null) {
     pageNo = Math.max(1, Math.min(604, parseInt(pageNo) || 1));
     currentMushafPage = pageNo;
     document.getElementById('mushaf-page-input').value = pageNo;
+    document.getElementById('mushaf-arabic-page-no').innerText = toArabicDigits(pageNo);
+
+    // Check if Ribbon belongs to this page
+    const saved = JSON.parse(localStorage.getItem('zikr_mushaf_nishani') || 'null');
+    document.getElementById('quran-red-ribbon').style.display = (saved && Number(saved.page) === Number(pageNo)) ? 'block' : 'none';
+
+    // Update Scanned Image URL (3-digit padded: 001.png to 604.png)
+    const padded = String(pageNo).padStart(3, '0');
+    document.getElementById('scanned-page-img').src = `https://raw.githubusercontent.com/GovarJabbar/Quran-PNG/master/${padded}.png`;
 
     const box = document.getElementById('mushaf-arabic-content');
-    box.innerHTML = '<p style="text-align:center; font-size:18px; color:#fde047;">⏳ Safha ' + pageNo + ' load ho raha hai...</p>';
+    box.innerHTML = '<div style="text-align:center; padding:40px; font-size:20px; color:#0369a1;">⏳ Safha ' + toArabicDigits(pageNo) + ' khul raha hai...</div>';
 
     try {
       const res = await fetch(`https://api.alquran.cloud/v1/page/${pageNo}/quran-uthmani`);
@@ -1083,26 +1134,77 @@
       const ayahs = data.data.ayahs;
 
       if (ayahs && ayahs.length > 0) {
-        document.getElementById('mushaf-surah-label').innerText = ayahs[0].surah.name + ' (' + ayahs[0].surah.englishName + ')';
-        document.getElementById('mushaf-juz-label').innerText = 'Para (Juz) ' + ayahs[0].juz + ' | Safha ' + pageNo;
+        activeSurahNumber = ayahs[0].surah.number;
+        document.getElementById('mushaf-surah-top').innerText = ayahs[0].surah.name;
+        document.getElementById('mushaf-juz-top').innerText = arabicJuzNames[ayahs[0].juz] || ('الجزء ' + toArabicDigits(ayahs[0].juz));
 
-        let continuousArabic = '';
+        let html = '';
         ayahs.forEach(a => {
-          if (a.numberInSurah === 1 && a.surah.number !== 1 && a.surah.number !== 9) {
-            continuousArabic += `<div style="text-align:center; color:#d4af37; margin: 12px 0; font-size:24px; border-top:1px solid #14523d; border-bottom:1px solid #14523d; padding:6px 0;">${a.surah.name}</div>`;
+          const ayahKey = `${a.surah.number}:${a.numberInSurah}`;
+          const isMarked = (saved && saved.ayahKey === ayahKey) || (highlightAyahKey === ayahKey);
+
+          // Show Ornate Blue Banner & Bismillah at start of a Surah
+          if (a.numberInSurah === 1) {
+            html += `<div class="mushaf-surah-banner">${a.surah.name}</div>`;
+            if (a.surah.number !== 1 && a.surah.number !== 9) {
+              html += `<div class="mushaf-bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</div>`;
+            }
           }
-          continuousArabic += `<span>${a.text}</span> <span class="mushaf-ayah-num">﴿${a.numberInSurah}﴾</span> `;
+
+          // Strip duplicate Bismillah from first ayah text if present
+          let cleanText = a.text;
+          if (a.numberInSurah === 1 && a.surah.number !== 1 && a.surah.number !== 9) {
+            cleanText = cleanText.replace('بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ', '').trim();
+          }
+
+          html += `<span id="ayah-span-${ayahKey}" onclick="markAyahNishani(${pageNo}, '${ayahKey}', '${a.surah.englishName}', ${a.numberInSurah})" class="mushaf-ayah-span ${isMarked ? 'mushaf-ayah-marked' : ''}">${cleanText} <span class="mushaf-ayah-circle">${toArabicDigits(a.numberInSurah)}</span></span> `;
         });
-        box.innerHTML = continuousArabic;
+
+        box.innerHTML = html;
+
+        if (highlightAyahKey) {
+          setTimeout(() => {
+            const el = document.getElementById(`ayah-span-${highlightAyahKey}`);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 250);
+        }
       }
-    } catch (err) {
-      box.innerHTML = '<p style="text-align:center; font-size:16px; color:#f87171;">❌ Internet check karein ya upar se PDF Mode kholein.</p>';
+    } catch (e) {
+      box.innerHTML = '<div style="text-align:center; color:#dc2626; font-size:18px;">Internet on karein.</div>';
     }
+  }
+
+  function markAyahNishani(pageNo, ayahKey, surahName, ayahNo) {
+    const obj = { page: pageNo, ayahKey: ayahKey, surahName: surahName, ayahNo: ayahNo };
+    localStorage.setItem('zikr_mushaf_nishani', JSON.stringify(obj));
+
+    document.querySelectorAll('.mushaf-ayah-span').forEach(el => el.classList.remove('mushaf-ayah-marked'));
+    const target = document.getElementById(`ayah-span-${ayahKey}`);
+    if (target) target.classList.add('mushaf-ayah-marked');
+
+    document.getElementById('quran-red-ribbon').style.display = 'block';
+    if (navigator.vibrate) navigator.vibrate(50);
+    alert(`🔖 Laal Feeta (Nishani) Lag Gayi!\n${surahName} - Aayat ${ayahNo} (Safha ${pageNo})`);
+  }
+
+  function saveCurrentPageRibbon() {
+    const obj = { page: currentMushafPage, ayahKey: null, surahName: 'Safha ' + currentMushafPage, ayahNo: '' };
+    localStorage.setItem('zikr_mushaf_nishani', JSON.stringify(obj));
+    document.getElementById('quran-red-ribbon').style.display = 'block';
+    alert(`🔖 Safha ${currentMushafPage} par Laal Feeta (Nishani) lag gayi!`);
+  }
+
+  function jumpToSavedNishani() {
+    const saved = JSON.parse(localStorage.getItem('zikr_mushaf_nishani') || 'null');
+    if (!saved) {
+      alert("Abhi koi Nishani save nahi hai. Kisi bhi Aayat par tap karke Nishani lagayein!");
+      return;
+    }
+    loadMushafPage(saved.page, saved.ayahKey);
   }
 
   function changeMushafPage(delta) {
     loadMushafPage(currentMushafPage + delta);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function jumpByJuz(pageNo) {
@@ -1111,50 +1213,35 @@
 
   async function jumpBySurahPage(surahNo) {
     if (!surahNo) return;
+    activeSurahNumber = surahNo;
     try {
       const res = await fetch(`https://api.alquran.cloud/v1/ayah/${surahNo}:1/quran-uthmani`);
       const data = await res.json();
-      if (data.data && data.data.page) {
-        loadMushafPage(data.data.page);
-      }
+      if (data.data && data.data.page) loadMushafPage(data.data.page);
     } catch (e) {}
   }
 
-  function changeQuranFont(delta) {
-    currentFontSize = Math.max(20, Math.min(46, currentFontSize + delta));
-    document.getElementById('mushaf-arabic-content').style.fontSize = currentFontSize + 'px';
-  }
-
-  function savePageNishani() {
-    const label = document.getElementById('mushaf-surah-label').innerText;
-    localStorage.setItem('zikr_mushaf_page', currentMushafPage);
-    localStorage.setItem('zikr_mushaf_label', label);
-    updatePageNishaniBanner();
-    if (navigator.vibrate) navigator.vibrate(60);
-    alert(`🔖 Nishani Save Ho Gayi!\nSafha (Page) No. ${currentMushafPage} (${label})`);
-  }
-
-  function updatePageNishaniBanner() {
-    const savedPage = localStorage.getItem('zikr_mushaf_page');
-    const savedLabel = localStorage.getItem('zikr_mushaf_label') || '';
-    const txt = document.getElementById('nishani-text');
-    const btn = document.getElementById('nishani-jump-btn');
-
-    if (savedPage) {
-      txt.innerText = `Safha No. ${savedPage} ${savedLabel ? '(' + savedLabel + ')' : ''}`;
-      btn.style.display = 'inline-block';
-    } else {
-      txt.innerText = 'Koi nishani save nahi hai';
-      btn.style.display = 'none';
+  // Example: User selects Al-Baqarah and types 78 -> Opens exact Mushaf page & highlights Ayah 78!
+  async function findAyahOnCurrentSurah() {
+    const ayahNo = parseInt(document.getElementById('find-ayah-input').value);
+    const surahNo = document.getElementById('quran-surah-select').value || activeSurahNumber || 2;
+    if (!ayahNo) return;
+    try {
+      const res = await fetch(`https://api.alquran.cloud/v1/ayah/${surahNo}:${ayahNo}/quran-uthmani`);
+      const data = await res.json();
+      if (data.data && data.data.page) {
+        const key = `${surahNo}:${ayahNo}`;
+        markAyahNishani(data.data.page, key, data.data.surah.englishName, ayahNo);
+        loadMushafPage(data.data.page, key);
+      } else {
+        alert("Yeh Aayat number is Surah mein nahi hai.");
+      }
+    } catch (e) {
+      alert("Aayat dhoondhne mein internet error.");
     }
   }
 
-  function jumpToSavedPageNishani() {
-    const savedPage = parseInt(localStorage.getItem('zikr_mushaf_page') || '1');
-    loadMushafPage(savedPage);
-  }
-
-  // ================= SMART TOOLS FUNCTIONS =================
+  // SMART TOOLS LOGIC
   let zikrCount = parseInt(localStorage.getItem('zikr_tasbeeh') || '0');
   document.getElementById('tasbeeh-count').innerText = zikrCount;
 
@@ -1162,107 +1249,52 @@
     zikrCount++;
     localStorage.setItem('zikr_tasbeeh', zikrCount);
     document.getElementById('tasbeeh-count').innerText = zikrCount;
-    if (navigator.vibrate) {
-      if (zikrCount % 33 === 0 || zikrCount % 100 === 0) {
-        navigator.vibrate([120, 60, 250]);
-      } else {
-        navigator.vibrate(35);
-      }
-    }
+    if (navigator.vibrate) navigator.vibrate((zikrCount % 33 === 0 || zikrCount % 100 === 0) ? [120, 60, 250] : 35);
   }
 
   function resetTasbeeh() {
     zikrCount = 0;
     localStorage.setItem('zikr_tasbeeh', 0);
     document.getElementById('tasbeeh-count').innerText = 0;
-    if (navigator.vibrate) navigator.vibrate(80);
   }
 
   function getLiveNamazAndQibla() {
     const info = document.getElementById('qibla-info');
     const box = document.getElementById('namaz-times-box');
-    if (!navigator.geolocation) {
-      info.innerText = "Aapke phone mein GPS support nahi hai.";
-      return;
-    }
-    info.innerText = "⏳ GPS se location li ja rahi hai...";
+    if (!navigator.geolocation) { info.innerText = "GPS support nahi hai."; return; }
+    info.innerText = "⏳ Location li ja rahi hai...";
     navigator.geolocation.getCurrentPosition(async (pos) => {
-      const lat = pos.coords.latitude;
-      const lng = pos.coords.longitude;
-      const kaabaLat = 21.4225 * Math.PI / 180;
-      const kaabaLng = 39.8262 * Math.PI / 180;
-      const userLat = lat * Math.PI / 180;
-      const dLng = kaabaLng - (lng * Math.PI / 180);
-      const y = Math.sin(dLng);
-      const x = Math.cos(userLat) * Math.tan(kaabaLat) - Math.sin(userLat) * Math.cos(dLng);
-      let qibla = Math.atan2(y, x) * 180 / Math.PI;
-      qibla = (qibla + 360) % 360;
+      const lat = pos.coords.latitude, lng = pos.coords.longitude;
+      const y = Math.sin((39.8262 - lng) * Math.PI / 180);
+      const x = Math.cos(lat * Math.PI / 180) * Math.tan(21.4225 * Math.PI / 180) - Math.sin(lat * Math.PI / 180) * Math.cos((39.8262 - lng) * Math.PI / 180);
+      let qibla = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
       info.innerText = `🕋 Qibla Direction: North se ${Math.round(qibla)}° degree par hai.`;
-
       try {
         const res = await fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lng}&method=1`);
         const data = await res.json();
         const t = data.data.timings;
-        box.innerHTML = `
-          <b>Fajr:</b> ${t.Fajr} | <b>Dhuhr:</b> ${t.Dhuhr} | <b>Asr:</b> ${t.Asr}<br>
-          <b>Maghrib:</b> ${t.Maghrib} | <b>Isha:</b> ${t.Isha}
-        `;
-      } catch (e) {
-        box.innerText = "Namaz time load karne mein internet error aaya.";
-      }
-    }, () => {
-      info.innerText = "❌ Kripaya phone ki Location (GPS) permission Allow karein.";
-    });
-  }
-
-  function setupLockScreenMedia() {
-    if ('mediaSession' in navigator) {
-      const audio = document.getElementById('zikr-audio');
-      navigator.mediaSession.metadata = new MediaMetadata({
-        title: 'Surah Al-Fatiha Tilawat',
-        artist: 'ZikrSphere | Daily Deen & Deeds',
-        album: 'ZikrSphere Community',
-        artwork: [{ src: 'logo.jpg', sizes: '512x512', type: 'image/jpeg' }]
-      });
-      navigator.mediaSession.setActionHandler('play', () => audio.play());
-      navigator.mediaSession.setActionHandler('pause', () => audio.pause());
-    }
+        box.innerHTML = `<b>Fajr:</b> ${t.Fajr} | <b>Dhuhr:</b> ${t.Dhuhr} | <b>Asr:</b> ${t.Asr}<br><b>Maghrib:</b> ${t.Maghrib} | <b>Isha:</b> ${t.Isha}`;
+      } catch (e) {}
+    }, () => { info.innerText = "❌ Location permission Allow karein."; });
   }
 
   let wakeLockObj = null;
   async function toggleWakeLock() {
     const btn = document.getElementById('wakelock-btn');
-    if (!('wakeLock' in navigator)) {
-      alert("Aapka browser Wake-Lock support nahi karta.");
-      return;
-    }
-    try {
-      if (wakeLockObj === null) {
-        wakeLockObj = await navigator.wakeLock.request('screen');
-        btn.innerText = "💡 Screen On Rakhein: ON ✅";
-        btn.style.background = "#15803d";
-      } else {
-        await wakeLockObj.release();
-        wakeLockObj = null;
-        btn.innerText = "💡 Screen On Rakhein: OFF";
-        btn.style.background = "#0f3d2e";
-      }
-    } catch (err) {
-      console.log(err);
+    if (!('wakeLock' in navigator)) return alert("Wake-Lock supported nahi hai.");
+    if (!wakeLockObj) {
+      wakeLockObj = await navigator.wakeLock.request('screen');
+      btn.innerText = "💡 Screen On Rakhein: ON ✅";
+    } else {
+      await wakeLockObj.release();
+      wakeLockObj = null;
+      btn.innerText = "💡 Screen On Rakhein: OFF";
     }
   }
 
   function shareZikrReport() {
-    const shareText = `🕌 *Alhamdulillah!* Maine aaj *ZikrSphere* par ${zikrCount} martaba Tasbeeh mukammal ki aur Quran ki tilawat ki.\n\n📲 Aap bhi join karein:\nhttps://osman-debug3.github.io/namaz/`;
-    if (navigator.share) {
-      navigator.share({
-        title: 'ZikrSphere | Daily Deen & Deeds',
-        text: shareText,
-        url: 'https://osman-debug3.github.io/namaz/'
-      });
-    } else {
-      window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
-    }
+    const text = `🕌 *Alhamdulillah!* Maine aaj *ZikrSphere* par ${zikrCount} martaba Tasbeeh aur Quran Pak ki tilawat ki.\n📲 Join karein: https://osman-debug3.github.io/namaz/`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
   }
 </script>
     
