@@ -675,7 +675,7 @@
     <!-- EXTERNAL JAVASCRIPT FILES -->
     <script src="translations.js"></script>
     <script src="app.js"></script>
-   <!-- ================= ZIKRSPHERE: ZIKR & QURAN SECTION (WITH NISHANI) ================= -->
+  <!-- ================= ZIKRSPHERE: FULL-SCREEN QURAN MUSHAF, PDF & ZIKR ================= -->
 <style>
   #zikr-quran-modal {
     display: none;
@@ -684,13 +684,31 @@
     background: #041610;
     z-index: 99999;
     overflow-y: auto;
-    padding: 15px;
+    padding: 12px;
     color: #ffffff;
     font-family: sans-serif;
   }
+  /* TRUE FULL SCREEN MODE FOR QURAN */
+  #zikr-quran-modal.quran-fullscreen-active {
+    padding: 0 !important;
+    background: #03110c !important;
+  }
+  #zikr-quran-modal.quran-fullscreen-active .hide-on-fullscreen {
+    display: none !important;
+  }
+  #zikr-quran-modal.quran-fullscreen-active .zq-container {
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+  #zikr-quran-modal.quran-fullscreen-active #zq-tab-quran {
+    border: none !important;
+    border-radius: 0 !important;
+    min-height: 100vh !important;
+    padding: 10px !important;
+  }
   .zq-container {
-    max-width: 650px;
-    margin: 0 auto 60px auto;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
   }
   .zq-card {
     background: #08291e;
@@ -699,18 +717,26 @@
     padding: 15px;
     margin-bottom: 16px;
   }
-  .ayah-box {
-    background: #051a13;
-    border: 1px solid #14523d;
-    border-radius: 10px;
-    padding: 14px;
-    margin-bottom: 12px;
-    transition: all 0.3s;
+  /* Pure Arabic Mushaf Page Styling */
+  .mushaf-page-box {
+    background: #051c14;
+    border: 2px solid #d4af37;
+    border-radius: 12px;
+    padding: 22px 18px;
+    margin-top: 10px;
+    text-align: justify;
+    direction: rtl;
+    line-height: 2.35;
+    font-size: 28px;
+    color: #ffffff;
+    box-shadow: inset 0 0 25px rgba(0,0,0,0.6);
   }
-  .ayah-bookmarked {
-    border: 2px solid #d4af37 !important;
-    background: #0c3829 !important;
-    box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+  .mushaf-ayah-num {
+    display: inline-block;
+    color: #d4af37;
+    font-size: 20px;
+    margin: 0 6px;
+    user-select: none;
   }
   #zikr-nav-trigger-fallback {
     position: fixed;
@@ -729,73 +755,122 @@
   }
 </style>
 
-<!-- Fallback button agar menu bar na mile -->
+<!-- Floating Button to Open Zikr & Quran -->
 <button id="zikr-nav-trigger-fallback" onclick="openZikrQuranSection()">
   📿 Zikr & Quran
 </button>
 
-<!-- Main Zikr & Quran Full Section -->
+<!-- Main Modal -->
 <div id="zikr-quran-modal">
   <div class="zq-container">
     
-    <!-- Top Header & Close Button -->
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #d4af37; padding-bottom: 10px;">
-      <h2 style="margin: 0; color: #d4af37; font-size: 20px;">📿 Zikr & Quran Pak</h2>
+    <!-- Top Header (Hides in Fullscreen) -->
+    <div class="hide-on-fullscreen" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #d4af37; padding-bottom: 10px;">
+      <h2 style="margin: 0; color: #d4af37; font-size: 20px;">📿 Quran Pak & Zikr</h2>
       <button onclick="closeZikrQuranSection()" style="background: #ef4444; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; cursor: pointer;">
         ✖ Wapas Jayein
       </button>
     </div>
 
-    <!-- Sub-Tabs: Quran vs Zikr Tools -->
-    <div style="display: flex; gap: 10px; margin-bottom: 16px;">
+    <!-- Sub-Tabs (Hides in Fullscreen) -->
+    <div class="hide-on-fullscreen" style="display: flex; gap: 10px; margin-bottom: 14px;">
       <button id="tab-btn-quran" onclick="switchZQTab('quran')" style="flex: 1; padding: 12px; border-radius: 10px; border: 2px solid #d4af37; background: #d4af37; color: #041610; font-weight: bold; cursor: pointer; font-size: 15px;">
-        📖 Quran & Nishani
+        📖 Quran Pak (Mushaf & PDF)
       </button>
       <button id="tab-btn-tools" onclick="switchZQTab('tools')" style="flex: 1; padding: 12px; border-radius: 10px; border: 1px solid #d4af37; background: #08291e; color: #d4af37; font-weight: bold; cursor: pointer; font-size: 15px;">
         ✨ Tasbeeh & Qibla
       </button>
     </div>
 
-    <!-- ================= TAB 1: QURAN PAK & NISHANI SYSTEM ================= -->
+    <!-- ================= TAB 1: PURE QURAN MUSHAF & PDF (FULL SCREEN) ================= -->
     <div id="zq-tab-quran" class="zq-card">
-      <h3 style="margin-top: 0; color: #4ade80; text-align: center;">📖 Al-Quran Al-Kareem</h3>
+      
+      <!-- Top Control Bar: Fullscreen + PDF Switch + Nishani -->
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; background: #051a13; padding: 10px; border-radius: 10px; border: 1px solid #14523d;">
+        <button id="fullscreen-toggle-btn" onclick="toggleQuranFullScreen()" style="background: #d4af37; color: #041610; border: none; padding: 9px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;">
+          🖥️ Full Screen Mein Padhein
+        </button>
 
-      <!-- Saved Nishani (Bookmark) Banner -->
-      <div id="nishani-banner" style="background: #051a13; border: 1px dashed #d4af37; padding: 12px; border-radius: 10px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <button id="pdf-toggle-btn" onclick="togglePdfMode()" style="background: #0f3d2e; color: #4ade80; border: 1px solid #4ade80; padding: 9px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;">
+          📄 Full Quran PDF Kholein
+        </button>
+
+        <button onclick="savePageNishani()" style="background: #10b981; color: #041610; border: none; padding: 9px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;">
+          🔖 Is Safhe Par Nishani Lagayein
+        </button>
+      </div>
+
+      <!-- Saved Nishani Banner -->
+      <div id="nishani-banner" style="background: #051a13; border: 1px dashed #d4af37; padding: 10px 12px; border-radius: 10px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
         <div>
-          <span style="color: #fde047; font-size: 13px; display: block;">🔖 Aapki Aakhri Nishani (Bookmark):</span>
-          <strong id="nishani-text" style="color: #ffffff; font-size: 15px;">Koi nishani save nahi hai</strong>
+          <span style="color: #fde047; font-size: 12px;">🔖 Aapki Aakhri Nishani: </span>
+          <strong id="nishani-text" style="color: #ffffff; font-size: 14px;">Safha (Page) 1</strong>
         </div>
-        <button id="nishani-jump-btn" onclick="jumpToSavedNishani()" style="display: none; background: #10b981; color: #041610; border: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+        <button id="nishani-jump-btn" onclick="jumpToSavedPageNishani()" style="display: none; background: #d4af37; color: #041610; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px;">
           👉 Nishani Par Jayein
         </button>
       </div>
 
-      <!-- Surah, Language & Ayah Jump Controls -->
-      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px;">
-        <select id="quran-surah-select" onchange="loadSelectedSurah()" style="flex: 2; min-width: 180px; padding: 10px; border-radius: 8px; background: #051a13; color: #fff; border: 1px solid #4ade80;">
-          <option value="">⏳ Surahs load ho rahi hain...</option>
-        </select>
+      <!-- MODE A: PURE ARABIC MUSHAF READER (PAGE 1 TO 604 - NO TRANSLATION) -->
+      <div id="mushaf-reader-Section">
+        <!-- Navigation: Para (Juz), Surah, and Page (1-604) -->
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
+          <!-- Para / Siparah Selector -->
+          <select id="quran-juz-select" onchange="jumpByJuz(this.value)" style="flex: 1; min-width: 120px; padding: 9px; border-radius: 8px; background: #051a13; color: #fff; border: 1px solid #4ade80;">
+            <option value="">📚 Para (Siparah) Chunein</option>
+          </select>
 
-        <select id="quran-lang-select" onchange="loadSelectedSurah()" style="flex: 1; min-width: 120px; padding: 10px; border-radius: 8px; background: #051a13; color: #fff; border: 1px solid #4ade80;">
-          <option value="hi.farooq">Hindi Tarjuma</option>
-          <option value="ur.jalandhry">Urdu Tarjuma</option>
-          <option value="en.asad">English</option>
-        </select>
+          <!-- Surah Selector (Jumps to exact Page of that Surah) -->
+          <select id="quran-surah-select" onchange="jumpBySurahPage(this.value)" style="flex: 1.5; min-width: 150px; padding: 9px; border-radius: 8px; background: #051a13; color: #fff; border: 1px solid #4ade80;">
+            <option value="">📖 Surah Se Safha Kholein...</option>
+          </select>
+
+          <!-- Font Size Controls -->
+          <div style="display: flex; gap: 4px;">
+            <button onclick="changeQuranFont(3)" style="background:#051a13; color:#fde047; border:1px solid #d4af37; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:bold;">A+</button>
+            <button onclick="changeQuranFont(-3)" style="background:#051a13; color:#fde047; border:1px solid #d4af37; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:bold;">A-</button>
+          </div>
+        </div>
+
+        <!-- Next / Previous Safha (Page) Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; background: #051a13; padding: 8px 12px; border-radius: 8px; border: 1px solid #14523d; margin-bottom: 10px;">
+          <button onclick="changeMushafPage(1)" style="background: #d4af37; color: #041610; border: none; padding: 8px 14px; border-radius: 6px; font-weight: bold; cursor: pointer;">
+            ⬅️ Agla Safha
+          </button>
+
+          <div style="text-align: center;">
+            <span style="color: #4ade80; font-weight: bold;">Safha (Page): </span>
+            <input type="number" id="mushaf-page-input" min="1" max="604" value="1" onchange="loadMushafPage(this.value)" style="width: 65px; text-align: center; padding: 5px; border-radius: 6px; background: #08291e; color: #fff; border: 1px solid #d4af37; font-weight: bold;">
+            <span style="color: #a7f3d0; font-size: 13px;"> / 604</span>
+          </div>
+
+          <button onclick="changeMushafPage(-1)" style="background: #d4af37; color: #041610; border: none; padding: 8px 14px; border-radius: 6px; font-weight: bold; cursor: pointer;">
+            Pichla Safha ➡️
+          </button>
+        </div>
+
+        <!-- Continuous Pure Arabic Mushaf Page Box -->
+        <div id="mushaf-page-header" style="display: flex; justify-content: space-between; color: #fde047; font-size: 14px; padding: 0 6px; margin-bottom: 4px;">
+          <span id="mushaf-surah-label">Surah Al-Fatiha</span>
+          <span id="mushaf-juz-label">Para 1</span>
+        </div>
+
+        <div id="mushaf-arabic-content" class="mushaf-page-box">
+          ⏳ Quran Pak ka Safha load ho raha hai...
+        </div>
       </div>
 
-      <!-- Quick Jump To Ayah Number -->
-      <div style="display: flex; gap: 8px; margin-bottom: 15px;">
-        <input type="number" id="jump-ayah-input" placeholder="Aayat No. dalein (jaise 78)" style="flex: 1; padding: 10px; border-radius: 8px; background: #051a13; color: #fff; border: 1px solid #14523d;">
-        <button onclick="scrollToAyahInput()" style="background: #d4af37; color: #041610; border: none; padding: 10px 16px; border-radius: 8px; font-weight: bold; cursor: pointer;">
-          🔍 Aayat Dekhein
-        </button>
+      <!-- MODE B: DIRECT FULL QURAN PDF VIEWER (HIDDEN BY DEFAULT) -->
+      <div id="quran-pdf-section" style="display: none; margin-top: 10px;">
+        <div style="background: #051a13; padding: 10px; border-radius: 8px; margin-bottom: 8px; text-align: center;">
+          <span style="color: #fde047; font-size: 14px;">📖 15-Line Tajweedi Quran Pak (Full PDF)</span>
+          <a href="https://archive.org/download/Quran15Lines/Quran%2015%20Lines.pdf" target="_blank" style="margin-left: 10px; color: #4ade80; text-decoration: underline; font-size: 13px; font-weight: bold;">
+            📥 Offline PDF Download Karein
+          </a>
+        </div>
+        <iframe id="quran-pdf-frame" src="" style="width: 100%; height: 82vh; border: 2px solid #d4af37; border-radius: 10px; background: #fff;"></iframe>
       </div>
 
-      <!-- Quran Ayahs Container -->
-      <div id="quran-ayahs-list" style="max-height: 60vh; overflow-y: auto; padding-right: 4px;">
-        <p style="text-align: center; color: #a7f3d0;">Upar se koi bhi Surah chunein...</p>
-      </div>
     </div>
 
     <!-- ================= TAB 2: SMART ZIKR TOOLS ================= -->
@@ -873,14 +948,75 @@
   }
   setInterval(attachZikrButtonNearAdmin, 1500);
 
+  let currentMushafPage = 1;
+  let currentFontSize = 28;
+  let isFullScreenQuran = false;
+  let isPdfMode = false;
+
+  // Standard Madani Mushaf Starting Pages for 30 Siparah (Juz)
+  const juzStartPages = [1,22,42,62,82,102,121,142,162,182,201,222,242,262,282,302,322,342,362,382,402,422,442,462,482,502,522,542,562,582];
+
   function openZikrQuranSection() {
     document.getElementById('zikr-quran-modal').style.display = 'block';
-    initQuranSurahList();
-    updateNishaniBanner();
+    initMushafSelectors();
+    const savedPage = parseInt(localStorage.getItem('zikr_mushaf_page') || '1');
+    updatePageNishaniBanner();
+    loadMushafPage(savedPage);
   }
 
   function closeZikrQuranSection() {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    }
+    document.getElementById('zikr-quran-modal').classList.remove('quran-fullscreen-active');
     document.getElementById('zikr-quran-modal').style.display = 'none';
+  }
+
+  // FULL SCREEN TOGGLE
+  function toggleQuranFullScreen() {
+    const modal = document.getElementById('zikr-quran-modal');
+    const btn = document.getElementById('fullscreen-toggle-btn');
+    isFullScreenQuran = !isFullScreenQuran;
+
+    if (isFullScreenQuran) {
+      modal.classList.add('quran-fullscreen-active');
+      btn.innerText = '✖ Full Screen Band Karein';
+      btn.style.background = '#ef4444';
+      btn.style.color = '#ffffff';
+      if (modal.requestFullscreen) {
+        modal.requestFullscreen().catch(() => {});
+      }
+    } else {
+      modal.classList.remove('quran-fullscreen-active');
+      btn.innerText = '🖥️ Full Screen Mein Padhein';
+      btn.style.background = '#d4af37';
+      btn.style.color = '#041610';
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+  }
+
+  // PDF MODE TOGGLE
+  function togglePdfMode() {
+    isPdfMode = !isPdfMode;
+    const mushafSec = document.getElementById('mushaf-reader-Section');
+    const pdfSec = document.getElementById('quran-pdf-section');
+    const pdfFrame = document.getElementById('quran-pdf-frame');
+    const btn = document.getElementById('pdf-toggle-btn');
+
+    if (isPdfMode) {
+      mushafSec.style.display = 'none';
+      pdfSec.style.display = 'block';
+      btn.innerText = '📖 Safha (Mushaf) Mode Par Wapas Jayein';
+      if (!pdfFrame.src || pdfFrame.src === window.location.href) {
+        pdfFrame.src = 'https://docs.google.com/gview?url=https://archive.org/download/Quran15Lines/Quran%2015%20Lines.pdf&embedded=true';
+      }
+    } else {
+      pdfSec.style.display = 'none';
+      mushafSec.style.display = 'block';
+      btn.innerText = '📄 Full Quran PDF Kholein';
+    }
   }
 
   function switchZQTab(tab) {
@@ -906,138 +1042,116 @@
     }
   }
 
-  // ================= QURAN & NISHANI (BOOKMARK) SYSTEM =================
-  let surahListLoaded = false;
-  let currentSurahName = '';
+  let selectorsLoaded = false;
+  async function initMushafSelectors() {
+    if (selectorsLoaded) return;
+    // Populate 30 Para
+    const juzSel = document.getElementById('quran-juz-select');
+    juzStartPages.forEach((p, idx) => {
+      const opt = document.createElement('option');
+      opt.value = p;
+      opt.text = `Para ${idx + 1} (Safha ${p})`;
+      juzSel.appendChild(opt);
+    });
 
-  async function initQuranSurahList() {
-    if (surahListLoaded) return;
-    const select = document.getElementById('quran-surah-select');
+    // Populate 114 Surahs
     try {
       const res = await fetch('https://api.alquran.cloud/v1/surah');
       const data = await res.json();
-      select.innerHTML = '';
+      const surahSel = document.getElementById('quran-surah-select');
       data.data.forEach(s => {
         const opt = document.createElement('option');
         opt.value = s.number;
-        opt.text = `${s.number}. ${s.englishName} (${s.name}) - ${s.numberOfAyahs} Aayaat`;
-        select.appendChild(opt);
+        opt.text = `${s.number}. ${s.englishName} (${s.name})`;
+        surahSel.appendChild(opt);
       });
-      surahListLoaded = true;
-
-      // Agar pehle se nishani hai toh wahi surah select karein, warna Al-Baqarah (2) ya Al-Fatiha (1)
-      const saved = JSON.parse(localStorage.getItem('zikr_quran_nishani') || 'null');
-      select.value = saved ? saved.surah : 1;
-      await loadSelectedSurah(saved ? saved.ayah : null);
-    } catch (err) {
-      select.innerHTML = '<option>Internet check karein...</option>';
-    }
+      selectorsLoaded = true;
+    } catch (e) {}
   }
 
-  async function loadSelectedSurah(scrollToAyah = null) {
-    const surahNo = document.getElementById('quran-surah-select').value || 1;
-    const lang = document.getElementById('quran-lang-select').value;
-    const listBox = document.getElementById('quran-ayahs-list');
-    const selectEl = document.getElementById('quran-surah-select');
-    currentSurahName = selectEl.options[selectEl.selectedIndex]?.text.split('(')[0] || `Surah ${surahNo}`;
+  async function loadMushafPage(pageNo) {
+    pageNo = Math.max(1, Math.min(604, parseInt(pageNo) || 1));
+    currentMushafPage = pageNo;
+    document.getElementById('mushaf-page-input').value = pageNo;
 
-    listBox.innerHTML = '<p style="text-align:center; color:#fde047;">⏳ Quran ki Aayaat load ho rahi hain...</p>';
+    const box = document.getElementById('mushaf-arabic-content');
+    box.innerHTML = '<p style="text-align:center; font-size:18px; color:#fde047;">⏳ Safha ' + pageNo + ' load ho raha hai...</p>';
 
     try {
-      const res = await fetch(`https://api.alquran.cloud/v1/surah/${surahNo}/editions/quran-uthmani,${lang}`);
+      const res = await fetch(`https://api.alquran.cloud/v1/page/${pageNo}/quran-uthmani`);
       const data = await res.json();
-      const arabicAyahs = data.data[0].ayahs;
-      const transAyahs = data.data[1].ayahs;
-      const saved = JSON.parse(localStorage.getItem('zikr_quran_nishani') || 'null');
+      const ayahs = data.data.ayahs;
 
-      let html = '';
-      arabicAyahs.forEach((ayah, index) => {
-        const aNo = ayah.numberInSurah;
-        const transText = transAyahs[index] ? transAyahs[index].text : '';
-        const isBookmarked = saved && String(saved.surah) === String(surahNo) && Number(saved.ayah) === Number(aNo);
+      if (ayahs && ayahs.length > 0) {
+        document.getElementById('mushaf-surah-label').innerText = ayahs[0].surah.name + ' (' + ayahs[0].surah.englishName + ')';
+        document.getElementById('mushaf-juz-label').innerText = 'Para (Juz) ' + ayahs[0].juz + ' | Safha ' + pageNo;
 
-        html += `
-          <div id="ayah-row-${aNo}" class="ayah-box ${isBookmarked ? 'ayah-bookmarked' : ''}">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-              <span style="background:#14523d; color:#4ade80; padding:4px 10px; border-radius:6px; font-size:13px; font-weight:bold;">
-                Aayat ${aNo}
-              </span>
-              <button onclick="saveNishani(${surahNo}, '${currentSurahName.replace(/'/g, "")}', ${aNo})" style="background:${isBookmarked ? '#d4af37' : '#0f3d2e'}; color:${isBookmarked ? '#041610' : '#fde047'}; border:1px solid #d4af37; padding:5px 10px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:bold;">
-                ${isBookmarked ? '✅ Nishani Lagi Hai' : '🔖 Nishani Lagayein'}
-              </button>
-            </div>
-            <p style="font-size:24px; text-align:right; direction:rtl; line-height:1.9; color:#ffffff; margin:10px 0;">
-              ${ayah.text}
-            </p>
-            <p style="font-size:14px; color:#d1fae5; line-height:1.6; margin:0;">
-              ${transText}
-            </p>
-          </div>
-        `;
-      });
-      listBox.innerHTML = html;
-
-      if (scrollToAyah) {
-        setTimeout(() => scrollToSpecificAyah(scrollToAyah), 300);
+        let continuousArabic = '';
+        ayahs.forEach(a => {
+          if (a.numberInSurah === 1 && a.surah.number !== 1 && a.surah.number !== 9) {
+            continuousArabic += `<div style="text-align:center; color:#d4af37; margin: 12px 0; font-size:24px; border-top:1px solid #14523d; border-bottom:1px solid #14523d; padding:6px 0;">${a.surah.name}</div>`;
+          }
+          continuousArabic += `<span>${a.text}</span> <span class="mushaf-ayah-num">﴿${a.numberInSurah}﴾</span> `;
+        });
+        box.innerHTML = continuousArabic;
       }
-    } catch (e) {
-      listBox.innerHTML = '<p style="text-align:center; color:#f87171;">❌ Aayaat load karne ke liye internet on karein.</p>';
+    } catch (err) {
+      box.innerHTML = '<p style="text-align:center; font-size:16px; color:#f87171;">❌ Internet check karein ya upar se PDF Mode kholein.</p>';
     }
   }
 
-  function saveNishani(surahNo, surahName, ayahNo) {
-    const obj = { surah: surahNo, name: surahName.trim(), ayah: ayahNo };
-    localStorage.setItem('zikr_quran_nishani', JSON.stringify(obj));
-    updateNishaniBanner();
-
-    document.querySelectorAll('.ayah-box').forEach(el => el.classList.remove('ayah-bookmarked'));
-    const row = document.getElementById(`ayah-row-${ayahNo}`);
-    if (row) row.classList.add('ayah-bookmarked');
-
-    if (navigator.vibrate) navigator.vibrate(50);
-    alert(`🔖 Nishani Save Ho Gayi!\n${surahName.trim()} - Aayat No. ${ayahNo}`);
+  function changeMushafPage(delta) {
+    loadMushafPage(currentMushafPage + delta);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function updateNishaniBanner() {
-    const saved = JSON.parse(localStorage.getItem('zikr_quran_nishani') || 'null');
+  function jumpByJuz(pageNo) {
+    if (pageNo) loadMushafPage(pageNo);
+  }
+
+  async function jumpBySurahPage(surahNo) {
+    if (!surahNo) return;
+    try {
+      const res = await fetch(`https://api.alquran.cloud/v1/ayah/${surahNo}:1/quran-uthmani`);
+      const data = await res.json();
+      if (data.data && data.data.page) {
+        loadMushafPage(data.data.page);
+      }
+    } catch (e) {}
+  }
+
+  function changeQuranFont(delta) {
+    currentFontSize = Math.max(20, Math.min(46, currentFontSize + delta));
+    document.getElementById('mushaf-arabic-content').style.fontSize = currentFontSize + 'px';
+  }
+
+  function savePageNishani() {
+    const label = document.getElementById('mushaf-surah-label').innerText;
+    localStorage.setItem('zikr_mushaf_page', currentMushafPage);
+    localStorage.setItem('zikr_mushaf_label', label);
+    updatePageNishaniBanner();
+    if (navigator.vibrate) navigator.vibrate(60);
+    alert(`🔖 Nishani Save Ho Gayi!\nSafha (Page) No. ${currentMushafPage} (${label})`);
+  }
+
+  function updatePageNishaniBanner() {
+    const savedPage = localStorage.getItem('zikr_mushaf_page');
+    const savedLabel = localStorage.getItem('zikr_mushaf_label') || '';
     const txt = document.getElementById('nishani-text');
     const btn = document.getElementById('nishani-jump-btn');
-    if (saved) {
-      txt.innerText = `${saved.name} | Aayat No. ${saved.ayah}`;
+
+    if (savedPage) {
+      txt.innerText = `Safha No. ${savedPage} ${savedLabel ? '(' + savedLabel + ')' : ''}`;
       btn.style.display = 'inline-block';
     } else {
-      txt.innerText = 'Koi nishani save nahi hai (Kisi bhi Aayat par 🔖 dabayein)';
+      txt.innerText = 'Koi nishani save nahi hai';
       btn.style.display = 'none';
     }
   }
 
-  async function jumpToSavedNishani() {
-    const saved = JSON.parse(localStorage.getItem('zikr_quran_nishani') || 'null');
-    if (!saved) return;
-    const select = document.getElementById('quran-surah-select');
-    if (String(select.value) !== String(saved.surah)) {
-      select.value = saved.surah;
-      await loadSelectedSurah(saved.ayah);
-    } else {
-      scrollToSpecificAyah(saved.ayah);
-    }
-  }
-
-  function scrollToAyahInput() {
-    const val = parseInt(document.getElementById('jump-ayah-input').value);
-    if (!val) return;
-    scrollToSpecificAyah(val);
-  }
-
-  function scrollToSpecificAyah(ayahNo) {
-    const row = document.getElementById(`ayah-row-${ayahNo}`);
-    if (row) {
-      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      row.style.outline = '3px solid #fde047';
-      setTimeout(() => { row.style.outline = 'none'; }, 2500);
-    } else {
-      alert(`Is Surah mein Aayat ${ayahNo} nahi mili.`);
-    }
+  function jumpToSavedPageNishani() {
+    const savedPage = parseInt(localStorage.getItem('zikr_mushaf_page') || '1');
+    loadMushafPage(savedPage);
   }
 
   // ================= SMART TOOLS FUNCTIONS =================
@@ -1148,35 +1262,6 @@
       });
     } else {
       window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
-    }
-  }
-</script>
-<button id="direct-app-install-btn" onclick="installMobileApp()" style="position: fixed; bottom: 18px; left: 18px; background: #10b981; color: #041610; font-weight: bold; border: 2px solid #fff; padding: 10px 16px; border-radius: 30px; cursor: pointer; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.5); font-size: 14px;">
-  📲 Download App
-</button>
-
-<script>
-  // Service Worker (sw.js) ko chalu karna zaroori hai
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js');
-  }
-
-  let deferredInstallPrompt = null;
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredInstallPrompt = e;
-  });
-
-  async function installMobileApp() {
-    if (deferredInstallPrompt) {
-      deferredInstallPrompt.prompt();
-      const { outcome } = await deferredInstallPrompt.userChoice;
-      if (outcome === 'accepted') {
-        document.getElementById('direct-app-install-btn').style.display = 'none';
-      }
-      deferredInstallPrompt = null;
-    } else {
-      alert("📲 App apne phone par lane ke liye:\n\n1. Chrome ke upar 3-dots (⋮) par tap karein.\n2. 'Add to Home screen' par tap karein.\n3. 'Install' ya 'Add' daba dein!");
     }
   }
 </script>
