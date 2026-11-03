@@ -1,45 +1,31 @@
 {
+  "id": "/namaz/",
   "name": "ZikrSphere | Daily Deen & Deeds",
   "short_name": "ZikrSphere",
-  "description": "ZikrSphere Islamic Community Tracker by ABBU SHAHMA, Muhammad Sibgathullah & MD FIROZ ALAM",
+  "description": "ZikrSphere Islamic Community Tracker",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#061f17",
   "theme_color": "#061f17",
   "orientation": "portrait",
   "icons": [
     {
+      "src": "https://cdn-icons-png.flaticon.com/192/2913/2913465.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2913/2913465.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
       "src": "logo.jpg",
       "sizes": "192x192",
       "type": "image/jpeg"
-    },
-    {
-      "src": "logo.jpg",
-      "sizes": "512x512",
-      "type": "image/jpeg"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "📝 Aaj Ki Report",
-      "short_name": "Report",
-      "description": "Apni rozana ki namaz aur a'amal darj karein",
-      "url": "./index.html#report",
-      "icons": [{ "src": "logo.jpg", "sizes": "192x192" }]
-    },
-    {
-      "name": "📿 Digital Tasbeeh",
-      "short_name": "Tasbeeh",
-      "description": "Vibration wali Tasbeeh kholein",
-      "url": "./index.html#zikr-native-tools",
-      "icons": [{ "src": "logo.jpg", "sizes": "192x192" }]
-    },
-    {
-      "name": "📖 Namaz Guide",
-      "short_name": "Namaz Guide",
-      "description": "Namaz aur deeni masail padhein",
-      "url": "./namaz-guide.html",
-      "icons": [{ "src": "logo.jpg", "sizes": "192x192" }]
     }
   ]
 }
