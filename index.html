@@ -1151,6 +1151,35 @@
     }
   }
 </script>
+<button id="direct-app-install-btn" onclick="installMobileApp()" style="position: fixed; bottom: 18px; left: 18px; background: #10b981; color: #041610; font-weight: bold; border: 2px solid #fff; padding: 10px 16px; border-radius: 30px; cursor: pointer; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.5); font-size: 14px;">
+  📲 Download App
+</button>
+
+<script>
+  // Service Worker (sw.js) ko chalu karna zaroori hai
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js');
+  }
+
+  let deferredInstallPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+  });
+
+  async function installMobileApp() {
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      const { outcome } = await deferredInstallPrompt.userChoice;
+      if (outcome === 'accepted') {
+        document.getElementById('direct-app-install-btn').style.display = 'none';
+      }
+      deferredInstallPrompt = null;
+    } else {
+      alert("📲 App apne phone par lane ke liye:\n\n1. Chrome ke upar 3-dots (⋮) par tap karein.\n2. 'Add to Home screen' par tap karein.\n3. 'Install' ya 'Add' daba dein!");
+    }
+  }
 </script>
+    
 </body>
 </html>
