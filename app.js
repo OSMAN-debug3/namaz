@@ -423,7 +423,8 @@ async function updateAccountDetails() {
 
 function refreshChatAndNotificationsUI() {
     const t = translations[currentLang];
-    const adminMode = isUserAdmin();
+    const loggedInUser = localStorage.getItem('namaz_user');
+    const adminMode = Boolean(loggedInUser) && isUserAdmin();
 
     document.getElementById('adminChatBadge').classList.toggle('hidden', !adminMode);
     document.getElementById('adminReplySelectorWrap').classList.toggle('hidden', !adminMode);
@@ -721,7 +722,7 @@ function setLanguage(lang) {
     document.getElementById('t_updateAccBtn').innerText = t.updateAccBtn;
     document.getElementById('t_chatHeaderTitle').innerText = t.chatHeaderTitle;
     document.getElementById('t_replyToLabel').innerText = t.replyToLabel;
-    document.getElementById('chatMsgInput').placeholder = t.chatPlaceholder;
+    document.getElementById('chatMsgInput').placeholder = '';
     document.getElementById('t_notifPopupTitle').innerText = t.notifPopupTitle;
     document.getElementById('t_clearNotifBtn').innerText = t.clearNotifBtn;
     document.getElementById('t_drawerPhotoBtn').innerText = t.drawerPhotoBtn;
@@ -734,9 +735,10 @@ function setLanguage(lang) {
     document.getElementById('loginTab').innerText = t.loginTab;
     document.getElementById('registerTab').innerText = t.registerTab;
     document.getElementById('t_labelName').innerText = t.labelName;
-    document.getElementById('authName').placeholder = t.placeholderName;
+    // Keep Login Inputs Completely Clean (No pre-written placeholder text)
+    document.getElementById('authName').placeholder = '';
     document.getElementById('t_labelPass').innerText = t.labelPass;
-    document.getElementById('authPass').placeholder = t.placeholderPass;
+    document.getElementById('authPass').placeholder = '';
     document.getElementById('t_labelPhoto').innerText = t.labelPhoto;
     document.getElementById('regPhotoBtnText').innerText = t.regPhotoBtnText;
     switchTab(currentMode);
@@ -813,6 +815,7 @@ checkDayAndLoadData();
 /* 100% RELIABLE OFFLINE + ONLINE HIJRI CALENDAR */
 async function loadHijriCalendar(dateObj) {
     const badge = document.getElementById('hijriDateBadge');
+    if (!badge) return;
     try {
         const enFmt = new Intl.DateTimeFormat('en-TN-u-ca-islamic-umalqura', {
             day: 'numeric',
@@ -848,14 +851,10 @@ function toggleSideMenu() {
     document.getElementById('drawerUserName').innerText = savedName;
     document.getElementById('drawerUserAvatar').src = savedPhoto;
 
-    const info = getMemberSerialAndInfo(savedName);
+    // Keep serial number badge hidden
     const serialBadge = document.getElementById('drawerUserSerialBadge');
-    if (info.serial) {
-        serialBadge.innerText = `Member Serial #${info.serial}`;
-        serialBadge.classList.remove('hidden');
-    } else {
-        serialBadge.classList.add('hidden');
-    }
+    if (serialBadge) serialBadge.classList.add('hidden');
+
     refreshChatAndNotificationsUI();
 }
 
@@ -905,16 +904,32 @@ function translateStatusVal(val) {
     return val;
 }
 
+/* CALCULATE POINTS FOR EVERY DEED IN A SINGLE REPORT */
+function calculateSingleReportPoints(r) {
+    if (!r) return 0;
+    let pts = 0;
+    ['fajr', 'zuhr', 'asr', 'maghrib', 'isha'].forEach(p => {
+        if (r[p] === 'Ada') pts += 1;
+        else if (r[p] === 'Qaza') pts += 0.5;
+    });
+    if (r.tahajjud === 'Ada') pts += 1;
+    if (r.duha === 'Ada') pts += 1;
+    if (r.roza === 'Rakha') pts += 1;
+    if (r.tarawih === 'Ada') pts += 1;
+    if (r.quran && r.quran !== 'Nahi') pts += 1;
+    return pts;
+}
+
 function createDetailedRecordHTML(r) {
     const t = translations[currentLang];
     const cleanDate = cleanDateString(r.date);
     const timeBadge = (r.time && r.time !== '-') ? ` • 🕒 ${r.time}` : '';
-    const adaCount = [r.fajr, r.zuhr, r.asr, r.maghrib, r.isha].filter(x => x === 'Ada').length;
+    const reportPts = calculateSingleReportPoints(r);
     return `
         <div class="detailed-record-card">
             <div class="detailed-record-header">
                 <span>📅 ${cleanDate} (${r.day || ''})${timeBadge}</span>
-                <span style="color: var(--emerald-bright);">${t.farzAdaLabel}: ${adaCount}/5</span>
+                <span style="color: var(--emerald-bright);">⭐ ${reportPts} Pts</span>
             </div>
             <div class="Status-pills-grid">
                 <span class="status-pill ${getPillClass(r.fajr)}"><span>${t.fajr}</span><strong>${translateStatusVal(r.fajr)}</strong></span>
@@ -1138,10 +1153,11 @@ async function fetchAllDataAndRefresh() {
     }
 }
 
+/* UPDATE UI & COUNT ALL DEEDS IN FOCUS PROGRESS */
 function updateUI() {
     const prayers = ['fajr', 'zuhr', 'asr', 'maghrib', 'isha'];
     let score = 0;
-    let totalPossible = 5;
+    let totalPossible = 10; // 5 Farz + Tahajjud + Duha + Roza + Tarawih + Quran
 
     prayers.forEach(p => {
         const val = document.getElementById(p).value;
@@ -1156,17 +1172,30 @@ function updateUI() {
         }
     });
 
-    document.getElementById('card-tahajjud').classList.toggle('status-ada', document.getElementById('tahajjud').value === 'Ada');
-    document.getElementById('card-duha').classList.toggle('status-ada', document.getElementById('duha').value === 'Ada');
-    document.getElementById('card-roza').classList.toggle('status-ada', document.getElementById('roza').value === 'Rakha');
-    document.getElementById('card-tarawih').classList.toggle('status-ada', document.getElementById('tarawih').value === 'Ada');
-    document.getElementById('card-quran').classList.toggle('status-ada', document.getElementById('quran').value !== 'Nahi');
+    const isTahajjud = document.getElementById('tahajjud').value === 'Ada';
+    const isDuha = document.getElementById('duha').value === 'Ada';
+    const isRoza = document.getElementById('roza').value === 'Rakha';
+    const isTarawih = document.getElementById('tarawih').value === 'Ada';
+    const isQuran = document.getElementById('quran').value !== 'Nahi';
+
+    document.getElementById('card-tahajjud').classList.toggle('status-ada', isTahajjud);
+    document.getElementById('card-duha').classList.toggle('status-ada', isDuha);
+    document.getElementById('card-roza').classList.toggle('status-ada', isRoza);
+    document.getElementById('card-tarawih').classList.toggle('status-ada', isTarawih);
+    document.getElementById('card-quran').classList.toggle('status-ada', isQuran);
+
+    if (isTahajjud) score += 1;
+    if (isDuha) score += 1;
+    if (isRoza) score += 1;
+    if (isTarawih) score += 1;
+    if (isQuran) score += 1;
 
     const percent = Math.round((score / totalPossible) * 100);
     document.getElementById('progressBar').style.width = percent + '%';
     document.getElementById('progressPercent').innerText = percent + '%';
 }
 
+/* 🏆 ALL-TIME TOTAL POINTS LEADERBOARD + 2nd LEFT, 1st CENTER, 3rd RIGHT + SQUARE PHOTOS */
 function renderCommunityLeaderboard() {
     const podiumContainer = document.getElementById('podiumContainer');
     const leaderboardList = document.getElementById('leaderboardList');
@@ -1176,40 +1205,52 @@ function renderCommunityLeaderboard() {
     podiumContainer.innerHTML = '';
     leaderboardList.innerHTML = '';
 
-    const currentDate = document.getElementById('reportDate').value;
-
+    // Calculate ALL-TIME Points across ALL deeds from the day user joined till today
     let userScores = globalUsers.map(u => {
-        const rep = globalReports.find(r => r.name.toLowerCase() === u.name.toLowerCase() && cleanDateString(r.date) === currentDate);
-        let points = 0;
-        if (rep) {
-            ['fajr', 'zuhr', 'asr', 'maghrib', 'isha'].forEach(p => {
-                if (rep[p] === 'Ada') points += 1;
-                else if (rep[p] === 'Qaza') points += 0.5;
-            });
-            if (rep.tahajjud === 'Ada') points += 1;
-            if (rep.duha === 'Ada') points += 1;
-            if (rep.roza === 'Rakha') points += 1;
-            if (rep.tarawih === 'Ada') points += 1;
-            if (rep.quran && rep.quran !== 'Nahi') points += 1;
-        }
+        const userAllReports = globalReports.filter(r => r.name.toLowerCase() === u.name.toLowerCase());
+        let totalPoints = 0;
+
+        userAllReports.forEach(rep => {
+            totalPoints += calculateSingleReportPoints(rep);
+        });
+
         const st = getUserStreakAndBadge(u.name, globalReports);
-        return { serial: u.serial, name: u.name, photo: u.photo, points: points, badge: st.badge };
+        return {
+            serial: u.serial,
+            name: u.name,
+            photo: u.photo,
+            points: totalPoints,
+            badge: st.badge
+        };
     });
 
     userScores.sort((a, b) => b.points - a.points);
 
+    if (userScores.length === 0) {
+        leaderboardList.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 12.5px;">${t.emptyRecord}</div>`;
+        return;
+    }
+
+    // Arrange Top 3 visually: 2nd on Left, 1st in Center, 3rd on Right, with Square Profile Photos
+    podiumContainer.style.cssText = 'display:flex; justify-content:center; align-items:flex-end; gap:12px; margin:20px auto;';
     let top3 = userScores.slice(0, 3);
-    top3.forEach((user, index) => {
-        let rankClass = index === 0 ? 'rank-1' : '';
-        let badgeText = index === 0 ? '👑 1st' : (index === 1 ? '🥈 2nd' : '🥉 3rd');
-        
+
+    const podiumOrder = [];
+    if (top3[1]) podiumOrder.push({ user: top3[1], rank: 2, badgeText: '🥈 2nd', order: 1 });
+    if (top3[0]) podiumOrder.push({ user: top3[0], rank: 1, badgeText: '👑 1st', order: 2 });
+    if (top3[2]) podiumOrder.push({ user: top3[2], rank: 3, badgeText: '🥉 3rd', order: 3 });
+
+    podiumOrder.forEach(item => {
+        const { user, rank, badgeText, order } = item;
+        const isFirst = rank === 1;
         const card = document.createElement('div');
-        card.className = `podium-card ${rankClass}`;
+        card.className = `podium-card ${isFirst ? 'rank-1' : ''} zs-podium-${rank}`;
+        card.style.cssText = `order:${order}; border-radius:8px; ${isFirst ? 'transform:translateY(-10px); border:2px solid #d4af37;' : 'border:1.5px solid rgba(212,175,55,0.45);'}`;
         card.onclick = () => openMemberProfile(user.name);
         card.innerHTML = `
             <div class="rank-badge">${badgeText}</div>
-            <img src="${user.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" alt="img">
-            <div class="name">#${user.serial} ${user.name}</div>
+            <img src="${user.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" alt="img" style="width:72px !important; height:72px !important; border-radius:6px !important; aspect-ratio:1/1 !important; object-fit:cover !important;">
+            <div class="name">${user.name}</div>
             <div class="score">⭐ ${user.points} Pts</div>
             ${user.badge ? `<div class="badge-chip">${user.badge}</div>` : ''}
         `;
@@ -1219,11 +1260,6 @@ function renderCommunityLeaderboard() {
     let remainingUsers = userScores.slice(3, 10);
     let restUsers = userScores.slice(10);
 
-    if (userScores.length === 0) {
-        leaderboardList.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 12.5px;">${t.emptyRecord}</div>`;
-        return;
-    }
-
     remainingUsers.forEach((user, idx) => {
         const item = document.createElement('div');
         item.className = 'leaderboard-item';
@@ -1231,9 +1267,9 @@ function renderCommunityLeaderboard() {
         item.innerHTML = `
             <div style="display: flex; align-items: center; gap: 10px;">
                 <span style="font-weight:700; color:var(--gold);">#${idx + 4}</span>
-                <img src="${user.photo}" style="width:38px; height:38px; border-radius:50%; object-fit:cover; border:1px solid var(--gold);">
+                <img src="${user.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:38px; height:38px; border-radius:6px; object-fit:cover; border:1px solid var(--gold);">
                 <div>
-                    <span style="font-weight:600; display:block;">${user.name} <small style="color:var(--text-muted);">(ID #${user.serial})</small></span>
+                    <span style="font-weight:600; display:block;">${user.name}</span>
                     ${user.badge ? `<span style="font-size:9.5px; color:var(--gold-light);">${user.badge}</span>` : ''}
                 </div>
             </div>
@@ -1255,8 +1291,8 @@ function renderCommunityLeaderboard() {
             item.innerHTML = `
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <span style="font-weight:600; color:var(--text-muted);">#${idx + 11}</span>
-                    <img src="${user.photo}" style="width:34px; height:34px; border-radius:50%; object-fit:cover;">
-                    <span>${user.name} <small style="color:var(--text-muted);">(ID #${user.serial})</small></span>
+                    <img src="${user.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:34px; height:34px; border-radius:6px; object-fit:cover;">
+                    <span>${user.name}</span>
                 </div>
                 <span style="color:var(--emerald-bright);">⭐ ${user.points} Pts</span>
             `;
@@ -1288,7 +1324,7 @@ function renderSupremeAdminPanel() {
 
     const qSelect = document.getElementById('admQuickUserSelect');
     const prevVal = qSelect.value;
-    qSelect.innerHTML = globalUsers.map(u => `<option value="${u.name}">#${u.serial} — ${u.name}</option>`).join('');
+    qSelect.innerHTML = globalUsers.map(u => `<option value="${u.name}">${u.name}</option>`).join('');
     if (prevVal) qSelect.value = prevVal;
 
     const pendingBox = document.getElementById('admPendingUsersList');
@@ -1300,8 +1336,7 @@ function renderSupremeAdminPanel() {
             return `
                 <div class="admin-user-row">
                     <div style="display:flex; align-items:center; gap:8px;">
-                        <span class="serial-pill" style="margin:0;">#${u.serial}</span>
-                        <img src="${u.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:30px; height:30px; border-radius:50%; object-fit:cover; border:1px solid var(--gold);">
+                        <img src="${u.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:30px; height:30px; border-radius:6px; object-fit:cover; border:1px solid var(--gold);">
                         <strong>${u.name}</strong>
                     </div>
                     <div style="display:flex; gap:5px;">
@@ -1324,10 +1359,10 @@ function renderSupremeAdminPanel() {
         return `
             <div class="admin-user-row">
                 <div style="display:flex; align-items:center; gap:9px;">
-                    <img src="${u.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:38px; height:38px; border-radius:50%; object-fit:cover; border:1.5px solid var(--gold);">
+                    <img src="${u.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:38px; height:38px; border-radius:6px; object-fit:cover; border:1.5px solid var(--gold);">
                     <div>
                         <div style="font-weight:800; color:var(--gold-light); font-size:13px;">
-                            <span style="color:var(--emerald-bright);">#${u.serial}</span> • ${u.name}
+                            ${u.name}
                         </div>
                         <div style="font-size:10.5px; color:#a7f3d0;">🔑 PIN: <strong>${u.password || '****'}</strong> | 📅 Joined: <strong>${u.createdAt || '-'}</strong></div>
                         <div style="font-size:10px; color:var(--text-muted);">📊 Reports: ${uReports.length} | 🕒 Last: ${lastSeenInfo}</div>
@@ -1344,7 +1379,7 @@ function renderSupremeAdminPanel() {
     runAdminMemberLookup();
 }
 
-/* 🔍 INSTANT MEMBER LOOKUP ENGINE (SEARCH BY SERIAL NO, NAME OR PIN) */
+/* 🔍 INSTANT MEMBER LOOKUP ENGINE */
 function runAdminMemberLookup() {
     const inputEl = document.getElementById('adminLookupInput');
     const resultBox = document.getElementById('adminLookupResultBox');
@@ -1352,7 +1387,7 @@ function runAdminMemberLookup() {
 
     const query = (inputEl.value || '').trim().toLowerCase();
     if (!query) {
-        resultBox.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:11.5px; padding:8px;">Upar kisi bhi member ka Serial No (jaise 1, 2) ya Naam type karein.</div>`;
+        resultBox.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:11.5px; padding:8px;">Upar kisi bhi member ka Naam type karein.</div>`;
         return;
     }
 
@@ -1365,7 +1400,7 @@ function runAdminMemberLookup() {
     });
 
     if (matchedUsers.length === 0) {
-        resultBox.innerHTML = `<div style="text-align:center; color:#fca5a5; font-size:12px; padding:10px;">❌ Is Serial No ya Naam se koi member nahi mila.</div>`;
+        resultBox.innerHTML = `<div style="text-align:center; color:#fca5a5; font-size:12px; padding:10px;">❌ Is naam se koi member nahi mila.</div>`;
         return;
     }
 
@@ -1375,11 +1410,13 @@ function runAdminMemberLookup() {
         let totalTahajjud = 0;
         let totalDuha = 0;
         let totalRoza = 0;
+        let totalPoints = 0;
         uRecords.forEach(r => {
             totalFarz += [r.fajr, r.zuhr, r.asr, r.maghrib, r.isha].filter(x => x === 'Ada').length;
             if (r.tahajjud === 'Ada') totalTahajjud++;
             if (r.duha === 'Ada') totalDuha++;
             if (r.roza === 'Rakha') totalRoza++;
+            totalPoints += calculateSingleReportPoints(r);
         });
         const st = getUserStreakAndBadge(u.name, globalReports);
         const safeName = u.name.replace(/'/g, "\\'");
@@ -1393,10 +1430,9 @@ function runAdminMemberLookup() {
             <div style="background:rgba(2,24,18,0.92); border:1.5px solid var(--gold); border-radius:14px; padding:14px; margin-bottom:12px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; border-bottom:1px solid rgba(212,175,55,0.25); padding-bottom:10px; margin-bottom:10px;">
                     <div style="display:flex; align-items:center; gap:12px;">
-                        <img src="${u.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:54px; height:54px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); cursor:pointer;" onclick="openFullScreenPhoto(this.src)">
+                        <img src="${u.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:54px; height:54px; border-radius:6px; object-fit:cover; border:2px solid var(--gold); cursor:pointer;" onclick="openFullScreenPhoto(this.src)">
                         <div>
-                            <span class="serial-pill">Serial No #${u.serial}</span>
-                            <div style="font-size:16px; font-weight:800; color:var(--gold-light);">${u.name}</div>
+                            <div style="font-size:16px; font-weight:800; color:var(--gold-light);">${u.name} <span style="color:var(--emerald-bright); font-size:13px;">(⭐ ${totalPoints} Pts)</span></div>
                             <div style="font-size:11px; color:#a7f3d0;">🔑 Password (PIN): <strong>${u.password || '****'}</strong> | 📅 Joined: <strong>${u.createdAt || '-'}</strong></div>
                         </div>
                     </div>
@@ -1432,7 +1468,7 @@ function runAdminMemberLookup() {
     }).join('');
 }
 
-/* ✨ AUTO-FORMAT & BUILD ALL GOOGLE SHEETS (MEMBERS, USERS, MESSAGES, LOOKUP) */
+/* ✨ AUTO-FORMAT & BUILD ALL GOOGLE SHEETS */
 async function adminFormatAndSyncAllSheets() {
     const btn = document.getElementById('formatSheetsBtn');
     btn.disabled = true;
@@ -1444,7 +1480,7 @@ async function adminFormatAndSyncAllSheets() {
             body: JSON.stringify({ action: 'formatAllSheets' })
         });
         const data = await res.json();
-        alert('✅ ' + (data.message || 'Sabhi Google Sheets (Sheet1, Members, Users, Messages, aur Lookup) VIP tarteeb mein set ho gayin!'));
+        alert('✅ ' + (data.message || 'Sabhi Google Sheets VIP tarteeb mein set ho gayin!'));
         fetchAllDataAndRefresh();
     } catch (e) {
         alert('✅ Request bhej di gayi! Apni Google Sheet check karein.');
@@ -1622,15 +1658,20 @@ function openMemberProfile(userName) {
 
     let totalNamazAda = 0;
     let totalRoza = 0;
+    let totalPoints = 0;
     userRecords.forEach(r => {
         totalNamazAda += [r.fajr, r.zuhr, r.asr, r.maghrib, r.isha].filter(x => x === 'Ada').length;
         if (r.roza === 'Rakha') totalRoza++;
+        totalPoints += calculateSingleReportPoints(r);
     });
 
     document.getElementById('modalUserName').innerText = userName;
-    document.getElementById('modalUserAvatar').src = userObj ? userObj.photo : 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png';
+    const avatarEl = document.getElementById('modalUserAvatar');
+    avatarEl.src = userObj ? userObj.photo : 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png';
+    avatarEl.style.borderRadius = '8px';
+
     if (document.getElementById('modalUserSerialBadge')) {
-        document.getElementById('modalUserSerialBadge').innerText = `Member Serial #${info.serial || '-'}`;
+        document.getElementById('modalUserSerialBadge').classList.add('hidden');
     }
     if (document.getElementById('modalUserJoinDate')) {
         document.getElementById('modalUserJoinDate').innerText = `📅 Joined: ${info.createdAt || '-'}`;
@@ -1643,7 +1684,7 @@ function openMemberProfile(userName) {
         badgeDiv.innerHTML = '';
     }
 
-    document.getElementById('modalUserPoints').innerText = `${t.statsDays}: ${userRecords.length} | ${t.statsNamaz}: ${totalNamazAda} | ${t.statsRoza}: ${totalRoza}`;
+    document.getElementById('modalUserPoints').innerText = `⭐ ${totalPoints} Pts | ${t.statsDays}: ${userRecords.length} | ${t.statsNamaz}: ${totalNamazAda} | ${t.statsRoza}: ${totalRoza}`;
 
     const histContainer = document.getElementById('modalUserHistory');
     histContainer.innerHTML = '';
@@ -1673,7 +1714,6 @@ function renderUserHistory() {
     const userRecords = globalReports.filter(r => r.name.toLowerCase() === savedName.toLowerCase());
     const st = getUserStreakAndBadge(savedName, globalReports);
 
-    // Update Summary Stats Cards
     let totalFarzAda = 0;
     let totalRoza = 0;
     userRecords.forEach(r => {
@@ -1738,6 +1778,12 @@ window.onload = function() {
     const savedPhoto = localStorage.getItem('namaz_photo');
     if (savedName && savedPass) {
         showTracker(savedName, savedPhoto);
+    } else {
+        document.body.classList.add('zs-logged-out');
+        document.getElementById('authName').value = '';
+        document.getElementById('authPass').value = '';
+        document.getElementById('authName').placeholder = '';
+        document.getElementById('authPass').placeholder = '';
     }
 };
 
@@ -1747,6 +1793,9 @@ function switchTab(mode) {
     document.getElementById('loginTab').classList.toggle('active', mode === 'login');
     document.getElementById('registerTab').classList.toggle('active', mode === 'register');
     const photoGroup = document.getElementById('photoGroup');
+
+    document.getElementById('authName').placeholder = '';
+    document.getElementById('authPass').placeholder = '';
 
     if (mode === 'login') {
         document.getElementById('authTitle').innerText = t.authTitleLogin;
@@ -1815,6 +1864,7 @@ async function handleAuth() {
 }
 
 function showTracker(name, photo) {
+    document.body.classList.remove('zs-logged-out');
     document.getElementById('authCard').classList.add('hidden');
     document.getElementById('trackerCard').classList.remove('hidden');
     document.getElementById('bottomNavBar').classList.remove('hidden');
@@ -1836,6 +1886,7 @@ function logout() {
     localStorage.removeItem('namaz_user');
     localStorage.removeItem('namaz_pass');
     localStorage.removeItem('namaz_photo');
+    document.body.classList.add('zs-logged-out');
     document.getElementById('trackerCard').classList.add('hidden');
     document.getElementById('bottomNavBar').classList.add('hidden');
     document.getElementById('drawerUserActions').classList.add('hidden');
@@ -1843,6 +1894,11 @@ function logout() {
     document.getElementById('accountUpdateWrap').classList.add('hidden');
     document.getElementById('supremeAdminHeaderBadge').classList.add('hidden');
     document.getElementById('navAdminBtn').classList.add('hidden');
+    document.getElementById('notifDropdownPopup').classList.add('hidden');
+    document.getElementById('authName').value = '';
+    document.getElementById('authPass').value = '';
+    document.getElementById('authName').placeholder = '';
+    document.getElementById('authPass').placeholder = '';
     document.getElementById('authCard').classList.remove('hidden');
 }
 
@@ -1910,28 +1966,14 @@ async function saveReport() {
         btn.disabled = false;
     }
 }
-/* PWA SERVICE WORKER & ALWAYS-VISIBLE INSTALL APP BUTTON */
-let deferredInstallPrompt = null;
 
+/* SILENT PWA SERVICE WORKER REGISTRATION */
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/namaz/sw.js').catch(err => console.log(err));
+        navigator.serviceWorker.register('/namaz/sw.js').catch(() => {});
     });
 }
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredInstallPrompt = e;
-});
-
-async function installZikrSphereApp() {
-    if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt();
-        const { outcome } = await deferredInstallPrompt.userChoice;
-        if (outcome === 'accepted') {
-            deferredInstallPrompt = null;
-        }
-    } else {
-        alert('📲 ZikrSphere App Install Karne Ke Liye:\n\n1. Mobile Chrome mein upar 3-dot menu (⋮) par click karein aur "Add to Home screen" ya "Install app" chunein.\n2. Computer par URL bar ke kone mein Install icon par click karein.');
-    }
+function installZikrSphereApp() {
+    // Install button removed as requested
 }
