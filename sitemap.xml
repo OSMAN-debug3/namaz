@@ -3,27 +3,21 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://osman-debug3.github.io/namaz/</loc>
-    <priority>1.0</priority>
     <changefreq>daily</changefreq>
+    <priority>1.0</priority>
     <image:image>
       <image:loc>https://osman-debug3.github.io/namaz/abbu-shahma.jpeg</image:loc>
-      <image:title>ABBU SHAHMA - abbu shahma bdr, abbu shahma dhiu, abbu shahma budhibir, abbu shahma 1278, Osman Sardar, Osman Bey</image:title>
-      <image:caption>ABBU SHAHMA Founder and Developer of ZikrSphere</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://osman-debug3.github.io/namaz/muhammad-sibgathullah.jpg</image:loc>
-      <image:title>Muhammad Sibgathullah - ZikrSphere</image:title>
-      <image:caption>Muhammad Sibgathullah Co-Founder and Islamic Guide ZikrSphere</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://osman-debug3.github.io/namaz/md-firoz-alam.jpg</image:loc>
-      <image:title>MD FIROZ ALAM - firoz alam 1249, md firoz alam dhiu, FIROZ ALAM</image:title>
-      <image:caption>MD FIROZ ALAM Core Member ZikrSphere</image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://osman-debug3.github.io/namaz/namaz-guide.html</loc>
-    <priority>0.9</priority>
     <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 </urlset>
