@@ -1,4 +1,4 @@
-/* ================= LEADERBOARD, ANTI-CHEAT STREAK & MERI A'AMAL MODULE ================= */
+/* ================= LEADERBOARD (ATTRACTIVE CIRCLE PODIUM), ANTI-CHEAT & MERI A'AMAL ================= */
 
 function getPillClass(val) {
     if (val === 'Ada' || val === 'Rakha') return 'pill-ada';
@@ -131,39 +131,62 @@ function renderCommunityLeaderboard() {
         return;
     }
 
-    podiumContainer.style.cssText = 'display:flex; justify-content:center; align-items:flex-end; gap:12px; margin:20px auto;';
+    // Attractive VIP Podium: 2nd Left, 1st Center, 3rd Right with Glowing Circle Avatars
+    podiumContainer.style.cssText = 'display:flex; justify-content:center; align-items:flex-end; gap:10px; margin:24px auto 18px auto; padding:0 4px;';
     const top3 = userScores.slice(0, 3);
     const podiumOrder = [];
-    if (top3[1]) podiumOrder.push({ user: top3[1], rank: 2, badgeText: '🥈 2nd', order: 1 });
-    if (top3[0]) podiumOrder.push({ user: top3[0], rank: 1, badgeText: '👑 1st', order: 2 });
-    if (top3[2]) podiumOrder.push({ user: top3[2], rank: 3, badgeText: '🥉 3rd', order: 3 });
+    if (top3[1]) podiumOrder.push({ user: top3[1], rank: 2, badgeText: '🥈 2nd', order: 1, ringColor: '#e2e8f0', glow: 'rgba(226,232,240,0.35)', badgeBg: 'linear-gradient(135deg,#cbd5e1,#94a3b8)' });
+    if (top3[0]) podiumOrder.push({ user: top3[0], rank: 1, badgeText: '👑 1st', order: 2, ringColor: '#fde047', glow: 'rgba(250,204,21,0.55)', badgeBg: 'linear-gradient(135deg,#fde047,#ca8a04)' });
+    if (top3[2]) podiumOrder.push({ user: top3[2], rank: 3, badgeText: '🥉 3rd', order: 3, ringColor: '#f59e0b', glow: 'rgba(245,158,11,0.35)', badgeBg: 'linear-gradient(135deg,#fbbf24,#b45309)' });
 
     podiumOrder.forEach(item => {
-        const { user, rank, badgeText, order } = item;
+        const { user, rank, badgeText, order, ringColor, glow, badgeBg } = item;
         const isFirst = rank === 1;
+        const avatarSize = isFirst ? '80px' : '66px';
         const card = document.createElement('div');
         card.className = `podium-card ${isFirst ? 'rank-1' : ''} zs-podium-${rank}`;
-        card.style.cssText = `order:${order}; border-radius:8px; ${isFirst ? 'transform:translateY(-10px); border:2px solid #d4af37;' : 'border:1.5px solid rgba(212,175,55,0.45);'}`;
+        card.style.cssText = `
+            order:${order};
+            flex:1;
+            max-width:${isFirst ? '185px' : '155px'};
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            padding:${isFirst ? '16px 10px 14px' : '14px 8px 12px'};
+            border-radius:18px;
+            background:${isFirst ? 'linear-gradient(160deg, rgba(16,85,60,0.95), rgba(4,32,23,0.98))' : 'linear-gradient(160deg, rgba(9,52,38,0.88), rgba(4,26,19,0.95))'};
+            border:${isFirst ? '2px solid #fde047' : '1.5px solid ' + ringColor};
+            box-shadow:0 8px 24px rgba(0,0,0,0.45), 0 0 16px ${glow};
+            transform:${isFirst ? 'translateY(-10px)' : 'none'};
+            cursor:pointer;
+            position:relative;
+        `;
         card.onclick = () => openMemberProfile(user.name);
         card.innerHTML = `
-            <div class="rank-badge">${badgeText}</div>
-            <img src="${user.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" alt="img" style="width:72px !important; height:72px !important; border-radius:6px !important; aspect-ratio:1/1 !important; object-fit:cover !important;">
-            <div class="name">${user.name}</div>
-            <div class="score">⭐ ${user.points} Pts</div>
-            ${user.badge ? `<div class="badge-chip">${user.badge}</div>` : ''}
+            <div style="position:relative; display:inline-flex; flex-direction:column; align-items:center; margin-bottom:10px;">
+                <img src="${user.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" alt="${user.name}" style="width:${avatarSize} !important; height:${avatarSize} !important; border-radius:50% !important; object-fit:cover !important; border:3px solid ${ringColor} !important; box-shadow:0 0 14px ${glow} !important; display:block !important; margin:0 auto !important;">
+                <span style="position:absolute; bottom:-8px; background:${badgeBg}; color:#041610; font-weight:800; font-size:11px; padding:2px 10px; border-radius:99px; box-shadow:0 2px 6px rgba(0,0,0,0.5); white-space:nowrap;">
+                    ${badgeText}
+                </span>
+            </div>
+            <div style="font-weight:800; font-size:${isFirst ? '14.5px' : '13px'}; color:#ffffff; margin-top:4px; line-height:1.25; word-break:break-word;">${user.name}</div>
+            <div style="color:#4ade80; font-weight:800; font-size:${isFirst ? '13.5px' : '12px'}; margin-top:4px;">⭐ ${user.points} Pts</div>
+            ${user.badge ? `<div class="badge-chip" style="margin-top:6px; font-size:9.5px; padding:2px 8px;">${user.badge}</div>` : ''}
         `;
         podiumContainer.appendChild(card);
     });
 
-    userScores.slice(3).forEach((user, idx) => {
+    userScores.slice(3).forEach((user) => {
         const item = document.createElement('div');
         item.className = 'leaderboard-item';
         item.onclick = () => openMemberProfile(user.name);
         item.innerHTML = `
             <div style="display: flex; align-items: center; gap: 10px;">
-                <img src="${user.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:38px; height:38px; border-radius:6px; object-fit:cover; border:1px solid var(--gold);">
+                <img src="${user.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:40px; height:40px; border-radius:50%; object-fit:cover; border:1.5px solid var(--gold);">
                 <div>
-                    <span style="font-weight:600; display:block;">${user.name}</span>
+                    <span style="font-weight:700; display:block;">${user.name}</span>
                     ${user.badge ? `<span style="font-size:9.5px; color:var(--gold-light);">${user.badge}</span>` : ''}
                 </div>
             </div>
@@ -190,7 +213,7 @@ function openMemberProfile(userName) {
     document.getElementById('modalUserName').innerText = userName;
     const avatarEl = document.getElementById('modalUserAvatar');
     avatarEl.src = userObj ? userObj.photo : 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png';
-    avatarEl.style.borderRadius = '8px';
+    avatarEl.style.borderRadius = '50%';
     document.getElementById('modalUserJoinDate').innerText = `📅 Joined: ${info.createdAt || '-'}`;
     document.getElementById('modalUserBadges').innerHTML = st.badge ? `<span class="badge-chip">${st.badge}</span>` : '';
     document.getElementById('modalUserPoints').innerText = `⭐ ${totalPoints} Pts | ${t.statsDays}: ${userRecords.length} | ${t.statsNamaz}: ${totalNamazAda} | ${t.statsRoza}: ${totalRoza}`;
