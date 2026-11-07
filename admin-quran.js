@@ -1,4 +1,4 @@
-/* ================= SUPREME ADMIN & FAST 1-CLICK IMAGE QURAN MODULE ================= */
+/* ================= SUPREME ADMIN & CLEAN LEFT/RIGHT TAP QURAN MODULE ================= */
 
 function renderSupremeAdminPanel() {
     if (!isUserAdmin()) return;
@@ -27,7 +27,7 @@ function renderSupremeAdminPanel() {
             return `
                 <div class="admin-user-row">
                     <div style="display:flex; align-items:center; gap:8px;">
-                        <img src="${u.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:30px; height:30px; border-radius:6px; object-fit:cover; border:1px solid var(--gold);">
+                        <img src="${u.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:30px; height:30px; border-radius:50%; object-fit:cover; border:1px solid var(--gold);">
                         <strong>${u.name}</strong>
                     </div>
                     <div style="display:flex; gap:5px;">
@@ -46,7 +46,7 @@ function renderSupremeAdminPanel() {
         return `
             <div class="admin-user-row">
                 <div style="display:flex; align-items:center; gap:9px;">
-                    <img src="${u.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:38px; height:38px; border-radius:6px; object-fit:cover; border:1.5px solid var(--gold);">
+                    <img src="${u.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:38px; height:38px; border-radius:50%; object-fit:cover; border:1.5px solid var(--gold);">
                     <div>
                         <div style="font-weight:800; color:var(--gold-light); font-size:13px;">${u.name}</div>
                         <div style="font-size:10.5px; color:#a7f3d0;">🔑 PIN: <strong>${u.password || '****'}</strong> | 📅 Joined: <strong>${u.createdAt || '-'}</strong> | 📊 Days: ${uReports.length}</div>
@@ -159,11 +159,10 @@ function exportMasterDatabaseCSV() {
     document.body.removeChild(link);
 }
 
-/* ================= FAST 1-CLICK IMAGE-ONLY QURAN & ZIKR INJECTION ================= */
+/* ================= FLOATING QURAN PILL BUTTON & LEFT/RIGHT TAP QURAN READER ================= */
 const quranJuzStartPages = [1,22,42,62,82,102,121,142,162,182,201,222,242,262,282,302,322,342,362,382,402,422,442,462,482,502,522,542,562,582];
 let currentQuranPageNo = 1;
 const quranImageCache = {};
-let zikrCount = parseInt(localStorage.getItem('zikr_tasbeeh') || '0');
 
 function injectQuranAndCleanStyles() {
     const style = document.createElement('style');
@@ -171,49 +170,161 @@ function injectQuranAndCleanStyles() {
       body.zs-logged-out #notifBellBtn,
       body.zs-logged-out #supremeAdminHeaderBadge,
       body.zs-logged-out #hijriDateBadge,
+      body.zs-logged-out #zikr-nav-trigger-fallback,
       body.zs-logged-out .zs-auth-only,
-      .serial-pill { display: none !important; }
-      #bottomNavBar .bottom-nav-inner { display:flex !important; flex-wrap:wrap !important; justify-content:center !important; gap:6px !important; }
-      #zikr-quran-modal { display:none; position:fixed; inset:0; background:#071712; z-index:999999; overflow-y:auto; }
-      .zq-top-bar { position:sticky; top:0; z-index:1000; background:#041f16; border-bottom:1.5px solid #d4af37; padding:8px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; color:#fff; }
-      .zq-page-frame { max-width:650px; margin:8px auto 30px auto; background:#fff; padding:4px; position:relative; border-radius:4px; }
-      #quran-red-ribbon { display:none; position:absolute; top:0; left:24px; width:24px; height:64px; background:linear-gradient(180deg,#991b1b,#ef4444); z-index:30; clip-path:polygon(0 0,100% 0,100% 100%,50% 82%,0 100%); }
+      #navZikrQuranBtn,
+      .serial-pill {
+        display: none !important;
+      }
+
+      /* Floating Gold Pill Button at Bottom-Right (Exactly like Image 1) */
+      #zikr-nav-trigger-fallback {
+        position: fixed;
+        bottom: 18px;
+        right: 18px;
+        background: linear-gradient(135deg, #d4af37, #b48a1e);
+        color: #041610;
+        font-weight: 800;
+        border: 2px solid #ffffff;
+        padding: 10px 18px;
+        border-radius: 30px;
+        cursor: pointer;
+        z-index: 9998;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.55);
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      /* Clean Fullscreen Quran Modal */
+      #zikr-quran-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: #061510;
+        z-index: 999999;
+        overflow-y: auto;
+        padding: 8px 6px 24px 6px;
+      }
+
+      /* Compact Mobile Header Right Above Quran Page */
+      .zq-compact-bar {
+        max-width: 620px;
+        margin: 0 auto 8px auto;
+        background: #042218;
+        border: 1.5px solid #d4af37;
+        border-radius: 14px;
+        padding: 6px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: nowrap;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+      }
+
+      /* Prominent Red Circular Cut (✕) Button */
+      .zq-cut-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: #ef4444;
+        color: #ffffff;
+        border: 2px solid #fca5a5;
+        font-size: 18px;
+        font-weight: 900;
+        line-height: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        flex-shrink: 0;
+        box-shadow: 0 2px 8px rgba(239,68,68,0.5);
+      }
+
+      /* Quran Page Container with Left & Right Click Zones */
+      .zq-page-frame {
+        max-width: 620px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 4px;
+        position: relative;
+        border-radius: 6px;
+        box-shadow: 0 8px 28px rgba(0,0,0,0.85);
+        user-select: none;
+      }
+
+      .zq-tap-left, .zq-tap-right {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 50%;
+        z-index: 25;
+        cursor: pointer;
+      }
+      /* Left side click = Next Page (Agla Safha) */
+      .zq-tap-left { left: 0; }
+      /* Right side click = Previous Page (Pichla Safha) */
+      .zq-tap-right { right: 0; }
+
+      #quran-red-ribbon {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 20px;
+        width: 22px;
+        height: 58px;
+        background: linear-gradient(180deg, #991b1b, #ef4444);
+        z-index: 30;
+        pointer-events: none;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+      }
     `;
     document.head.appendChild(style);
 
+    // 1. Create Floating "📖 Quran Pak" Pill Button like Image 1
+    if (!document.getElementById('zikr-nav-trigger-fallback')) {
+        const floatBtn = document.createElement('button');
+        floatBtn.id = 'zikr-nav-trigger-fallback';
+        floatBtn.type = 'button';
+        floatBtn.innerHTML = '📖 Quran Pak';
+        floatBtn.onclick = openZikrQuranSection;
+        document.body.appendChild(floatBtn);
+    }
+
+    // 2. Create Clean Mobile-Friendly Quran Modal with Cut (✕) Button & Left/Right Tap Zones
     const modal = document.createElement('div');
     modal.id = 'zikr-quran-modal';
     modal.innerHTML = `
-      <div class="zq-top-bar">
-        <div style="display:flex; gap:6px;">
-          <button type="button" onclick="switchZQModalTab('quran')" style="background:#d4af37; color:#041610; border:none; padding:6px 12px; border-radius:6px; font-weight:800; cursor:pointer;">📖 Quran Pak</button>
-          <button type="button" onclick="switchZQModalTab('zikr')" style="background:#082e22; color:#fde047; border:1px solid #d4af37; padding:6px 12px; border-radius:6px; font-weight:700; cursor:pointer;">📿 Tasbeeh</button>
+      <div class="zq-compact-bar">
+        <select id="zqJuzSelect" onchange="if(this.value) loadInstantQuranPage(this.value)" style="padding:5px 6px; border-radius:8px; background:#031710; color:#fff; border:1px solid #10b981; font-size:12px; font-weight:700; max-width:105px;">
+          <option value="">Para (1-30)</option>
+        </select>
+
+        <div style="color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; gap:4px;">
+          <input type="number" id="zqPageNumberInput" min="1" max="604" value="1" onchange="loadInstantQuranPage(this.value)" style="width:48px; text-align:center; padding:4px; border-radius:6px; font-weight:800; background:#031710; color:#fde047; border:1px solid #d4af37; font-size:12px;">
+          <span style="color:#a7f3d0;">/604</span>
         </div>
-        <div id="zqQuranControls" style="display:flex; gap:6px; align-items:center;">
-          <select id="zqJuzSelect" onchange="if(this.value) loadInstantQuranPage(this.value)" style="padding:5px; border-radius:6px; background:#031710; color:#fff; border:1px solid #10b981;">
-            <option value="">Para (1-30)</option>
-          </select>
-          <button type="button" onclick="saveCurrentQuranBookmark()" style="background:#10b981; color:#041610; border:none; padding:6px 10px; border-radius:6px; font-weight:800; cursor:pointer;">🔖 Nishani</button>
-          <button type="button" onclick="openSavedQuranBookmark()" style="background:#ef4444; color:#fff; border:none; padding:6px 10px; border-radius:6px; font-weight:800; cursor:pointer;">👉 Meri Nishani</button>
-        </div>
-        <button type="button" onclick="closeZikrQuranSection()" style="background:#374151; color:#fff; border:none; padding:6px 12px; border-radius:6px; font-weight:700; cursor:pointer;">✖ Band Karein</button>
+
+        <button type="button" onclick="saveCurrentQuranBookmark()" title="Nishani Lagayein" style="background:#10b981; color:#041610; border:none; padding:5px 8px; border-radius:8px; font-weight:800; cursor:pointer; font-size:11.5px; white-space:nowrap;">
+          🔖 Nishani
+        </button>
+
+        <button type="button" onclick="openSavedQuranBookmark()" title="Meri Nishani Par Jayein" style="background:#f59e0b; color:#041610; border:none; padding:5px 8px; border-radius:8px; font-weight:800; cursor:pointer; font-size:11.5px; white-space:nowrap;">
+          👉 Saved
+        </button>
+
+        <button type="button" class="zq-cut-btn" onclick="closeZikrQuranSection()" title="Band Karein">✕</button>
       </div>
-      <div id="zqQuranView">
-        <div style="max-width:650px; margin:8px auto; padding:0 10px; display:flex; justify-content:space-between; align-items:center;">
-          <button type="button" onclick="stepQuranPage(1)" style="background:#0284c7; color:#fff; border:none; padding:9px 16px; border-radius:6px; font-weight:800; cursor:pointer;">⬅️ Agla Safha</button>
-          <div style="color:#fff; font-weight:700;">Safha: <input type="number" id="zqPageNumberInput" min="1" max="604" value="1" onchange="loadInstantQuranPage(this.value)" style="width:58px; text-align:center; padding:5px; border-radius:5px; font-weight:800;"> / 604</div>
-          <button type="button" onclick="stepQuranPage(-1)" style="background:#0284c7; color:#fff; border:none; padding:9px 16px; border-radius:6px; font-weight:800; cursor:pointer;">Pichla Safha ➡️</button>
-        </div>
-        <div class="zq-page-frame">
-          <div id="quran-red-ribbon"></div>
-          <img id="instantQuranPageImg" src="" alt="Quran Safha" style="width:100%; height:auto; display:block;" />
-        </div>
-      </div>
-      <div id="zqZikrView" style="display:none; max-width:500px; margin:20px auto; padding:16px; background:#08291e; border:1px solid #d4af37; border-radius:12px; color:#fff; text-align:center;">
-        <h3 style="color:#d4af37; margin-top:0;">📳 Digital Tasbeeh</h3>
-        <div id="tasbeeh-count" style="font-size:46px; font-weight:800; color:#4ade80; margin:12px 0;">${zikrCount}</div>
-        <button type="button" onclick="tapTasbeeh()" style="width:125px; height:125px; border-radius:50%; background:linear-gradient(135deg,#10b981,#047857); color:#fff; font-size:18px; font-weight:800; border:3px solid #d4af37; cursor:pointer;">TAP ZIKR</button>
-        <div style="margin-top:12px;"><button type="button" onclick="resetTasbeeh()" style="background:transparent; color:#f87171; border:1px solid #f87171; padding:6px 16px; border-radius:6px; cursor:pointer;">Reset</button></div>
+
+      <div class="zq-page-frame">
+        <div id="quran-red-ribbon"></div>
+        <!-- Left Half Click = Forward (Agla Safha) -->
+        <div class="zq-tap-left" onclick="stepQuranPage(1)" title="Agla Safha"></div>
+        <!-- Right Half Click = Backward (Pichla Safha) -->
+        <div class="zq-tap-right" onclick="stepQuranPage(-1)" title="Pichla Safha"></div>
+        <img id="instantQuranPageImg" src="" alt="Quran Safha" style="width:100%; height:auto; display:block;" />
       </div>
     `;
     document.body.appendChild(modal);
@@ -222,7 +333,7 @@ function injectQuranAndCleanStyles() {
     quranJuzStartPages.forEach((p, idx) => {
         const opt = document.createElement('option');
         opt.value = p;
-        opt.text = `Para ${idx + 1} (Safha ${p})`;
+        opt.text = `Para ${idx + 1}`;
         juzSel.appendChild(opt);
     });
     preloadQuranPagesAround(1);
@@ -252,13 +363,6 @@ function closeZikrQuranSection() {
     document.getElementById('zikr-quran-modal').style.display = 'none';
 }
 
-function switchZQModalTab(tab) {
-    const isQ = (tab === 'quran');
-    document.getElementById('zqQuranView').style.display = isQ ? 'block' : 'none';
-    document.getElementById('zqQuranControls').style.display = isQ ? 'flex' : 'none';
-    document.getElementById('zqZikrView').style.display = isQ ? 'none' : 'block';
-}
-
 function loadInstantQuranPage(pageNo) {
     pageNo = Math.max(1, Math.min(604, parseInt(pageNo) || 1));
     currentQuranPageNo = pageNo;
@@ -285,19 +389,6 @@ function openSavedQuranBookmark() {
     const saved = parseInt(localStorage.getItem('zs_saved_mushaf_page') || '0');
     if (!saved) return alert('Abhi koi Nishani save nahi hai!');
     loadInstantQuranPage(saved);
-}
-
-function tapTasbeeh() {
-    zikrCount++;
-    localStorage.setItem('zikr_tasbeeh', zikrCount);
-    document.getElementById('tasbeeh-count').innerText = zikrCount;
-    if (navigator.vibrate) navigator.vibrate((zikrCount % 33 === 0 || zikrCount % 100 === 0) ? [120, 60, 250] : 35);
-}
-
-function resetTasbeeh() {
-    zikrCount = 0;
-    localStorage.setItem('zikr_tasbeeh', 0);
-    document.getElementById('tasbeeh-count').innerText = 0;
 }
 
 window.addEventListener('DOMContentLoaded', injectQuranAndCleanStyles);
