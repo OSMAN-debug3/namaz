@@ -4,6 +4,7 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJurfZRD8AyzWWXtY3V
 const SUPREME_ADMINS = ['abbu shahma', 'osman', 'admin', 'osman sardar', 'osman bey'];
 // CO-FOUNDER DEFAULT ADMINS
 const DEFAULT_ADMINS = [...SUPREME_ADMINS, 'muhammad sibgathullah', 'md firoz alam'];
+const ADMIN_NAMES = DEFAULT_ADMINS;
 
 let currentMode = 'login';
 let currentLang = localStorage.getItem('zikr_lang') || 'ro';
