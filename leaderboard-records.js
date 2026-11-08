@@ -1,4 +1,4 @@
-/* ================= LEADERBOARD (ATTRACTIVE CIRCLE PODIUM), ANTI-CHEAT & MERI A'AMAL ================= */
+/* ================= LEADERBOARD (ADMIN-ONLY REPORT VIEW), ANTI-CHEAT & MERI A'AMAL ================= */
 
 function getPillClass(val) {
     if (val === 'Ada' || val === 'Rakha') return 'pill-ada';
@@ -131,7 +131,6 @@ function renderCommunityLeaderboard() {
         return;
     }
 
-    // Attractive VIP Podium: 2nd Left, 1st Center, 3rd Right with Glowing Circle Avatars
     podiumContainer.style.cssText = 'display:flex; justify-content:center; align-items:flex-end; gap:10px; margin:24px auto 18px auto; padding:0 4px;';
     const top3 = userScores.slice(0, 3);
     const podiumOrder = [];
@@ -156,7 +155,7 @@ function renderCommunityLeaderboard() {
             text-align:center;
             padding:${isFirst ? '16px 10px 14px' : '14px 8px 12px'};
             border-radius:18px;
-            background:${isFirst ? 'linear-gradient(160deg, rgba(16,85,60,0.95), rgba(4,32,23,0.98))' : 'linear-gradient(160deg, rgba(9,52,38,0.88), rgba(4,26,19,0.95))'};
+            background:${isFirst ? 'linear-gradient(160deg, rgba(16,68,92,0.96), rgba(7,30,44,0.98))' : 'linear-gradient(160deg, rgba(12,48,66,0.9), rgba(6,24,36,0.95))'};
             border:${isFirst ? '2px solid #fde047' : '1.5px solid ' + ringColor};
             box-shadow:0 8px 24px rgba(0,0,0,0.45), 0 0 16px ${glow};
             transform:${isFirst ? 'translateY(-10px)' : 'none'};
@@ -172,7 +171,7 @@ function renderCommunityLeaderboard() {
                 </span>
             </div>
             <div style="font-weight:800; font-size:${isFirst ? '14.5px' : '13px'}; color:#ffffff; margin-top:4px; line-height:1.25; word-break:break-word;">${user.name}</div>
-            <div style="color:#4ade80; font-weight:800; font-size:${isFirst ? '13.5px' : '12px'}; margin-top:4px;">⭐ ${user.points} Pts</div>
+            <div style="color:#34d399; font-weight:800; font-size:${isFirst ? '13.5px' : '12px'}; margin-top:4px;">⭐ ${user.points} Pts</div>
             ${user.badge ? `<div class="badge-chip" style="margin-top:6px; font-size:9.5px; padding:2px 8px;">${user.badge}</div>` : ''}
         `;
         podiumContainer.appendChild(card);
@@ -196,7 +195,16 @@ function renderCommunityLeaderboard() {
     });
 }
 
+/* 🔒 PRIVACY PROTECTION: ONLY ADMIN CAN VIEW OTHER MEMBERS' REPORTS */
 function openMemberProfile(userName) {
+    const myName = (localStorage.getItem('namaz_user') || '').trim();
+    const isViewingSelf = myName.toLowerCase() === (userName || '').trim().toLowerCase();
+
+    if (!isUserAdmin() && !isViewingSelf) {
+        alert('🔒 Privacy Lock: Kisi dusre member ki mukammal Ibadat report sirf Admin hi dekh sakte hain.');
+        return;
+    }
+
     const t = translations[currentLang];
     const userObj = globalUsers.find(u => u.name.toLowerCase() === userName.toLowerCase());
     const userRecords = getValidUniqueUserReports(userName);
