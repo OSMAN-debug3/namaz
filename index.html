@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <!-- INSTANT 1-CLICK PWA INSTALL CAPTURE (MUST BE FIRST IN HEAD) -->
+    <script>
+      window.deferredInstallPrompt = null;
+      window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        window.deferredInstallPrompt = e;
+      });
+    </script>
+
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
       window.OneSignalDeferred = window.OneSignalDeferred || [];
@@ -9,13 +19,14 @@
           appId: "ca081af3-7201-48d8-a6d3-e0fd6e624ccb",
           notifyButton: { enable: false }
         });
+        try { await OneSignal.Notifications.requestPermission(); } catch(e) {}
       });
     </script>
-    <meta charset="UTF-8">
-    <link rel="canonical" href="https://zikrsphere.vercel.app/" />
+
     <meta name="google-site-verification" content="edHXVXITTAfMQl8u8ikPInDeuiBOflpyqihuVVBjpzU" />
+    <link rel="canonical" href="https://zikrsphere.vercel.app/" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#062f23">
+    <meta name="theme-color" content="#071e26">
     <link rel="manifest" href="manifest.json">
     
     <title>ZikrSphere | Daily Deen & Deeds by ABBU SHAHMA, Muhammad Sibgathullah & MD FIROZ ALAM</title>
@@ -44,6 +55,46 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <!-- ATTRACTIVE ROYAL SAPPHIRE-EMERALD & GOLD LUXURY THEME -->
+    <style>
+      :root {
+        --bg-deep: #061824 !important;
+        --bg-card: rgba(11, 37, 52, 0.88) !important;
+        --gold: #f59e0b !important;
+        --gold-light: #fde047 !important;
+        --emerald-bright: #34d399 !important;
+        --border-gold: rgba(251, 191, 36, 0.38) !important;
+      }
+      body {
+        background: radial-gradient(circle at 50% 0%, #0f3847 0%, #071f2b 50%, #041118 100%) !important;
+        color: #f8fafc !important;
+        padding-bottom: 130px !important;
+      }
+      header, .card, .side-drawer {
+        background: linear-gradient(155deg, rgba(13, 47, 63, 0.94) 0%, rgba(7, 27, 38, 0.96) 100%) !important;
+        border: 1.5px solid rgba(251, 191, 36, 0.35) !important;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+        backdrop-filter: blur(12px) !important;
+      }
+      .guide-box, .namaz-card, .admin-sub-box, .aamal-stat-card, .detailed-record-card, .leaderboard-item {
+        background: linear-gradient(145deg, rgba(16, 56, 74, 0.78), rgba(9, 33, 46, 0.88)) !important;
+        border: 1px solid rgba(52, 211, 153, 0.28) !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25) !important;
+      }
+      .btn {
+        background: linear-gradient(135deg, #f59e0b 0%, #eab308 50%, #d97706 100%) !important;
+        color: #04131a !important;
+        font-weight: 800 !important;
+        box-shadow: 0 6px 18px rgba(245, 158, 11, 0.35) !important;
+      }
+      .bottom-nav-bar {
+        background: rgba(6, 24, 34, 0.97) !important;
+        border-top: 1.5px solid #f59e0b !important;
+        backdrop-filter: blur(14px) !important;
+        z-index: 9990 !important;
+      }
+    </style>
 </head>
 <body class="zs-logged-out" onclick="closeNotifDropdownOutside(event)">
 
@@ -129,47 +180,67 @@
                     </div>
                 </div>
 
-                <!-- MENU 3: 👨‍💻 ABOUT DEVELOPER -->
+                <!-- MENU 3: 👨‍💻 ABOUT DEVELOPER (UPDATED POSITIONS FOR ALL 3 CO-FOUNDERS) -->
                 <button type="button" class="drawer-nav-item" id="btnMenuAbout" onclick="toggleDrawerPanel('panelAbout', 'btnMenuAbout')">
                     <span id="t_menuAboutBtn">👨‍💻 About Developer</span>
                     <span class="chevron-icon">▾</span>
                 </button>
                 <div id="panelAbout" class="drawer-panel">
                     <div class="panel-inner-card" style="text-align: center;">
-                        <h3 id="t_aboutHeading" style="color: var(--gold-light); font-size: 14.5px; margin-bottom: 14px;">👨‍💻 About Founder & Developer</h3>
+                        <h3 id="t_aboutHeading" style="color: var(--gold-light); font-size: 14.5px; margin-bottom: 14px;">👨‍💻 About Co-Founders & Developers</h3>
+                        
+                        <!-- 1. ABBU SHAHMA -->
                         <figure style="margin: 0;">
                             <img id="devPhotoImg" src="https://zikrsphere.vercel.app/abbu-shahma.jpeg" alt="ABBU SHAHMA" class="drawer-dev-photo" onclick="openFullScreenPhoto(this.src)">
                             <figcaption>
                                 <h4 style="color: var(--gold-light); font-size: 19px; font-weight: 800; margin-top: 4px;">ABBU SHAHMA</h4>
-                                <p id="t_aboutRole" style="font-size: 11.5px; color: var(--emerald-bright); font-weight: 700; margin-bottom: 8px;">Founder & Web Developer — ZikrSphere</p>
+                                <p id="t_aboutRole" style="font-size: 12px; color: var(--emerald-bright); font-weight: 800; margin-bottom: 8px;">Co-Founder & Lead Developer — ZikrSphere</p>
                             </figcaption>
                         </figure>
                         <p id="t_aboutBio" style="font-size: 12.5px; color: var(--text-main); line-height: 1.65;">
-                            Assalamu Alaikum! Mera naam <strong>ABBU SHAHMA</strong> hai. Maine <strong>ZikrSphere | Daily Deen & Deeds</strong> banaya hai.
+                            Assalamu Alaikum! Mera naam <strong>ABBU SHAHMA</strong> hai. Maine <strong>ZikrSphere | Daily Deen & Deeds</strong> isliye banaya hai taaki hum sab mil kar apni rozana ki 5 Farz Namaz, Roza, Quran-e-Pak ki Tilawat aur Tarawih ka hisab rakh sakein.
                         </p>
+
                         <div class="founder-divider"></div>
+
+                        <!-- 2. MUHAMMAD SIBGATHULLAH -->
                         <figure style="margin: 0;">
                             <img id="sibgathullahPhotoImg" src="https://zikrsphere.vercel.app/muhammad-sibgathullah.jpg" alt="Muhammad Sibgathullah" class="drawer-dev-photo" onclick="openFullScreenPhoto(this.src)" data-fallback-step="0" onerror="handleSibgathullahImgError(this)">
                             <figcaption>
                                 <h4 style="color: var(--gold-light); font-size: 18px; font-weight: 800; margin-top: 4px;">Muhammad Sibgathullah</h4>
-                                <p style="font-size: 11.5px; color: var(--emerald-bright); font-weight: 700; margin-bottom: 6px;">Co-Founder & Islamic Guide — ZikrSphere</p>
+                                <p style="font-size: 12px; color: var(--emerald-bright); font-weight: 800; margin-bottom: 6px;">Co-Founder & Islamic Advisor — ZikrSphere</p>
                             </figcaption>
                         </figure>
+                        <p style="font-size: 12px; color: var(--text-main); line-height: 1.55;">
+                            <strong>Muhammad Sibgathullah</strong> — Co-Founder & Islamic Advisor, ZikrSphere | Daily Deen & Deeds.
+                        </p>
+
                         <div class="founder-divider"></div>
+
+                        <!-- 3. MD FIROZ ALAM -->
                         <figure style="margin: 0;">
                             <img id="firozPhotoImg" src="https://zikrsphere.vercel.app/md-firoz-alam.jpg" alt="MD FIROZ ALAM" class="drawer-dev-photo" onclick="openFullScreenPhoto(this.src)">
                             <figcaption>
                                 <h4 style="color: var(--gold-light); font-size: 18px; font-weight: 800; margin-top: 4px;">MD FIROZ ALAM</h4>
-                                <p style="font-size: 11.5px; color: var(--emerald-bright); font-weight: 700; margin-bottom: 6px;">Core Member & Islamic Representative — ZikrSphere</p>
+                                <p style="font-size: 12px; color: var(--emerald-bright); font-weight: 800; margin-bottom: 6px;">Co-Founder & Project Coordinator — ZikrSphere</p>
                             </figcaption>
                         </figure>
+                        <p style="font-size: 12px; color: var(--text-main); line-height: 1.55;">
+                            <strong>MD FIROZ ALAM</strong> — Co-Founder & Project Coordinator, ZikrSphere | Daily Deen & Deeds.
+                        </p>
                     </div>
                 </div>
 
-                <!-- INSTALL APP BUTTON INSIDE 3-LINE SIDE MENU -->
-                <button type="button" class="drawer-nav-item" id="drawerInstallAppBtn" onclick="installZikrSphereApp()" style="border-color: #10b981; color: #a7f3d0;">
-                    <span>📲 Install ZikrSphere Mobile App</span>
+                <!-- 1-CLICK INSTALL APP BUTTON INSIDE 3-LINE SIDE MENU -->
+                <button type="button" class="drawer-nav-item" id="drawerInstallAppBtn" onclick="installZikrSphereApp()" style="border-color: #34d399; color: #fde047; background: rgba(16, 185, 129, 0.18);">
+                    <span>📲 Install ZikrSphere App (1-Click)</span>
                     <span>⬇️</span>
+                </button>
+
+                <!-- ENABLE PHONE SCREEN NOTIFICATIONS BUTTON -->
+                <button type="button" class="drawer-nav-item zs-auth-only" onclick="enablePhoneScreenNotifications()" style="border-color: #f59e0b; color: #fde047;">
+                    <span>🔔 Phone Screen Notification On Karein</span>
+                    <span>✨</span>
                 </button>
 
                 <!-- LOGGED-IN USER EXTRA ACTIONS -->
@@ -212,10 +283,10 @@
                     <span style="cursor:pointer; color:var(--gold-light); font-size:20px; line-height:1;" onclick="closeNotifPopup()">&times;</span>
                 </div>
             </div>
-            <div id="adminBroadcastComposer" class="hidden" style="padding: 12px 14px; background: rgba(4, 33, 24, 0.96); border-bottom: 1px solid var(--border-gold);">
+            <div id="adminBroadcastComposer" class="hidden" style="padding: 12px 14px; background: rgba(7, 27, 38, 0.96); border-bottom: 1px solid var(--border-gold);">
                 <div style="font-size: 11px; font-weight: 800; color: var(--gold-light); margin-bottom: 6px;">📢 Send Admin Notification to All Members</div>
-                <input type="text" id="broadcastTitleInput" placeholder="" style="padding: 8px 10px; font-size: 12px; margin-bottom: 6px; background: #021a13; border: 1px solid var(--border-gold);">
-                <textarea id="broadcastInput" rows="2" placeholder="" style="font-size: 12px; padding: 8px 10px; margin-bottom: 8px; background: #021a13; border: 1px solid var(--border-gold);"></textarea>
+                <input type="text" id="broadcastTitleInput" placeholder="" style="padding: 8px 10px; font-size: 12px; margin-bottom: 6px; background: #04131c; border: 1px solid var(--border-gold);">
+                <textarea id="broadcastInput" rows="2" placeholder="" style="font-size: 12px; padding: 8px 10px; margin-bottom: 8px; background: #04131c; border: 1px solid var(--border-gold);"></textarea>
                 <button type="button" class="btn" id="sendBroadcastBtn" style="padding: 9px; font-size: 12.5px;" onclick="sendAdminBroadcast()">🚀 Publish Notification</button>
             </div>
             <div class="notif-popup-list" id="notifListBox"></div>
@@ -367,7 +438,7 @@
             <div id="sectionAdmin" class="hidden">
                 <h2 class="admin-main-heading">
                     <span>👑 Supreme Admin Command Center</span>
-                    <span class="badge-chip">ABBU SHAHMA VIP</span>
+                    <span class="badge-chip" id="admRoleChip">ABBU SHAHMA VIP</span>
                 </h2>
                 <div class="admin-stats-grid">
                     <div class="admin-stat-box">
@@ -424,7 +495,8 @@
                     <button type="button" class="btn" style="padding: 11px; font-size: 13px; margin-top: 10px;" onclick="adminQuickSubmitReport()">⚡ Selected Member Ki Report Save Karein</button>
                 </div>
                 <div class="admin-sub-box">
-                    <h3><span>🔐 All Members Master Directory</span><span id="admDirectoryCountBadge" style="font-size: 11px; color: #a7f3d0;">0 Members</span></h3>
+                    <h3><span>🔐 All Members & Sub-Admin Control</span><span id="admDirectoryCountBadge" style="font-size: 11px; color: #a7f3d0;">0 Members</span></h3>
+                    <p style="font-size:11px; color:#fde047; margin-bottom:8px;">👑 Main Supreme Admin (ABBU SHAHMA) yahan se kisi bhi dost ko uske gaon/city ke liye <strong>Sub-Admin</strong> bana ya hata sakte hain:</p>
                     <div id="admAllMembersDirectory" style="max-height: 400px; overflow-y: auto;"></div>
                 </div>
             </div>
@@ -445,9 +517,6 @@
             </button>
             <button type="button" class="bottom-nav-btn" id="navRecordsBtn" onclick="switchSection('records')">
                 <span id="t_navRecords">📜 Meri A'amal</span>
-            </button>
-            <button type="button" class="bottom-nav-btn" id="navZikrQuranBtn" onclick="openZikrQuranSection()" style="border-color: #d4af37; color: #fde047;">
-                <span>📖 Quran & Zikr</span>
             </button>
             <button type="button" class="bottom-nav-btn admin-special hidden" id="navAdminBtn" onclick="switchSection('admin')">
                 <span id="t_navAdmin">👑 Admin</span>
