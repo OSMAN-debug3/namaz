@@ -1,9 +1,39 @@
-/* ================= SUPREME ADMIN & CLEAN LEFT/RIGHT TAP QURAN MODULE ================= */
+/* ================= SUPREME ADMIN, SUB-ADMIN PROMOTER & NON-OVERLAPPING QURAN MODULE ================= */
+
+async function toggleSubAdminStatus(targetName, makeAdmin) {
+    if (!isSupremeAdmin()) {
+        alert('⚠️ Sirf Main Supreme Admin (ABBU SHAHMA) hi kisi member ko Admin bana ya hata sakte hain!');
+        return;
+    }
+    const cleanTarget = (targetName || '').trim();
+    if (!cleanTarget) return;
+
+    const actionText = makeAdmin
+        ? `👑 Kya aap "${cleanTarget}" ko Sub-Admin banana chahte hain taaki woh apne gaon/shehar ke members ki report dekh sakein?`
+        : `⚠️ Kya aap "${cleanTarget}" se Admin power wapas lena chahte hain?`;
+    if (!confirm(actionText)) return;
+
+    const cmd = makeAdmin ? `SUBADMIN_ADD|${cleanTarget.toLowerCase()}` : `SUBADMIN_REMOVE|${cleanTarget.toLowerCase()}`;
+    globalMessages.push({ date: new Date().toISOString(), name: 'ABBU SHAHMA', message: cmd });
+    buildMessageSystemState();
+    renderSupremeAdminPanel();
+
+    try {
+        await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent('ABBU SHAHMA')}&message=${encodeURIComponent(cmd)}`);
+        alert(makeAdmin ? `✅ MashaAllah! "${cleanTarget}" ab Sub-Admin ban gaye hain!` : `✅ "${cleanTarget}" ko Admin se hata diya gaya hai.`);
+    } catch (e) {}
+}
 
 function renderSupremeAdminPanel() {
     if (!isUserAdmin()) return;
+    const isMainBoss = isSupremeAdmin();
     const currentDate = document.getElementById('reportDate').value || todayStr;
     document.getElementById('admPendingDateBadge').innerText = `📅 ${currentDate}`;
+
+    const roleChip = document.getElementById('admRoleChip');
+    if (roleChip) {
+        roleChip.innerText = isMainBoss ? '👑 MAIN SUPREME ADMIN (ABBU SHAHMA)' : '🌟 COMMUNITY SUB-ADMIN';
+    }
 
     const todaySubmittedSet = new Set(globalReports.filter(r => cleanDateString(r.date) === currentDate).map(r => r.name.toLowerCase()));
     const pendingMembers = globalUsers.filter(u => !todaySubmittedSet.has(u.name.toLowerCase()));
@@ -43,18 +73,38 @@ function renderSupremeAdminPanel() {
         const uReports = getValidUniqueUserReports(u.name);
         const safeName = u.name.replace(/'/g, "\\'");
         const safePass = (u.password || '').replace(/'/g, "\\'");
+        const uLower = u.name.toLowerCase();
+        const isTargetSupreme = SUPREME_ADMINS.includes(uLower);
+        const isTargetSubAdmin = DEFAULT_ADMINS.includes(uLower) || dynamicSubAdmins.has(uLower);
+
+        // Only Main Supreme Admin (ABBU SHAHMA) sees PINs, Delete buttons, and Make/Remove Admin buttons
+        const pinText = isMainBoss ? `🔑 PIN: <strong>${u.password || '****'}</strong> | ` : '';
+        const roleBadge = isTargetSupreme
+            ? `<span class="badge-chip" style="background:#fde047; color:#041610;">👑 Main Admin</span>`
+            : (isTargetSubAdmin ? `<span class="badge-chip" style="background:#34d399; color:#041610;">🌟 Sub-Admin</span>` : '');
+
+        let adminControls = `<button type="button" class="admin-mini-btn" onclick="openMemberProfile('${safeName}')">📜 Report</button>`;
+        if (isMainBoss && !isTargetSupreme) {
+            if (dynamicSubAdmins.has(uLower)) {
+                adminControls += `<button type="button" class="admin-mini-btn danger" onclick="toggleSubAdminStatus('${safeName}', false)">❌ Remove Admin</button>`;
+            } else {
+                adminControls += `<button type="button" class="admin-mini-btn" style="border-color:#fde047; color:#fde047;" onclick="toggleSubAdminStatus('${safeName}', true)">👑 Make Admin</button>`;
+            }
+            adminControls += `<button type="button" class="admin-mini-btn" onclick="adminEditMemberCredentials('${safeName}', '${safePass}')">✏️</button>`;
+            adminControls += `<button type="button" class="admin-mini-btn danger" onclick="adminRemoveMember('${safeName}')">🗑️</button>`;
+        }
+
         return `
             <div class="admin-user-row">
                 <div style="display:flex; align-items:center; gap:9px;">
                     <img src="${u.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:38px; height:38px; border-radius:50%; object-fit:cover; border:1.5px solid var(--gold);">
                     <div>
-                        <div style="font-weight:800; color:var(--gold-light); font-size:13px;">${u.name}</div>
-                        <div style="font-size:10.5px; color:#a7f3d0;">🔑 PIN: <strong>${u.password || '****'}</strong> | 📅 Joined: <strong>${u.createdAt || '-'}</strong> | 📊 Days: ${uReports.length}</div>
+                        <div style="font-weight:800; color:var(--gold-light); font-size:13px;">${u.name} ${roleBadge}</div>
+                        <div style="font-size:10.5px; color:#a7f3d0;">${pinText}📅 Joined: <strong>${u.createdAt || '-'}</strong> | 📊 Days: ${uReports.length}</div>
                     </div>
                 </div>
-                <div style="display:flex; gap:5px;">
-                    <button type="button" class="admin-mini-btn" onclick="adminEditMemberCredentials('${safeName}', '${safePass}')">✏️ Edit</button>
-                    <button type="button" class="admin-mini-btn danger" onclick="adminRemoveMember('${safeName}')">🗑️ Delete</button>
+                <div style="display:flex; gap:5px; flex-wrap:wrap; justify-content:flex-end;">
+                    ${adminControls}
                 </div>
             </div>
         `;
@@ -77,7 +127,13 @@ function runAdminMemberLookup() {
         const uRecords = getValidUniqueUserReports(u.name);
         let totalPts = 0;
         uRecords.forEach(r => totalPts += calculateSingleReportPoints(r));
-        return `<div style="padding:10px; border:1px solid var(--gold); border-radius:10px; margin-bottom:8px;"><strong>${u.name}</strong> — ⭐ ${totalPts} Pts (${uRecords.length} Days) | PIN: ${u.password || '****'}</div>`;
+        const safeName = u.name.replace(/'/g, "\\'");
+        return `
+            <div style="padding:10px; border:1px solid var(--gold); border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+                <div><strong>${u.name}</strong> — ⭐ ${totalPts} Pts (${uRecords.length} Days)</div>
+                <button type="button" class="admin-mini-btn" onclick="openMemberProfile('${safeName}')">📜 View Full Report</button>
+            </div>
+        `;
     }).join('');
 }
 
@@ -95,18 +151,21 @@ async function adminFormatAndSyncAllSheets() {
 }
 
 async function adminSendDirectReminder(memberName) {
+    const myName = (localStorage.getItem('namaz_user') || 'ABBU SHAHMA').trim();
     const msgId = 'm_' + Date.now();
-    const text = `Assalamu Alaikum ${memberName}! 🌙 Aaj ki Namaz report ZikrSphere par save kar lein.`;
-    const encodedPayload = `CHAT2|${msgId}|ABBU SHAHMA|${memberName}|1|${text}`;
-    globalMessages.push({ date: new Date().toISOString(), name: 'ABBU SHAHMA', message: encodedPayload });
-    try { await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent('ABBU SHAHMA')}&message=${encodeURIComponent(encodedPayload)}`); alert(`✅ Reminder sent!`); } catch (e) {}
+    const text = `Assalamu Alaikum ${memberName}! 🌙 Aaj ki Namaz aur Roza report ZikrSphere par zaroor save kar lein.`;
+    const encodedPayload = `CHAT2|${msgId}|${myName}|${memberName}|1|${text}`;
+    globalMessages.push({ date: new Date().toISOString(), name: myName, message: encodedPayload });
+    try { await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent(myName)}&message=${encodeURIComponent(encodedPayload)}`); alert(`✅ ${memberName} ko reminder bhej diya gaya!`); } catch (e) {}
 }
 
 async function RemindAllDefaultersBroadcast() {
+    const myName = (localStorage.getItem('namaz_user') || 'ABBU SHAHMA').trim();
     const bId = 'b_' + Date.now();
-    const encodedPayload = `BROADCAST2|${bId}|ABBU SHAHMA|ALL|🌙 Namaz Report Reminder::Assalamu Alaikum! Aaj ki Namaz report ZikrSphere par darj kar lein.`;
-    globalMessages.push({ date: new Date().toISOString(), name: 'ABBU SHAHMA', message: encodedPayload });
-    try { await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent('ABBU SHAHMA')}&message=${encodeURIComponent(encodedPayload)}`); alert('✅ Broadcast sent!'); } catch (e) {}
+    const encodedPayload = `BROADCAST2|${bId}|${myName}|ALL|🌙 Namaz Report Reminder::Assalamu Alaikum! Aaj ki Namaz report ZikrSphere par darj kar lein.`;
+    globalMessages.push({ date: new Date().toISOString(), name: myName, message: encodedPayload });
+    refreshChatAndNotificationsUI();
+    try { await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent(myName)}&message=${encodeURIComponent(encodedPayload)}`); alert('✅ Sabhi members ke phone par Notification bhej diya gaya!'); } catch (e) {}
 }
 
 async function adminQuickSubmitReport() {
@@ -127,6 +186,7 @@ async function adminQuickSubmitReport() {
 }
 
 async function adminEditMemberCredentials(oldName, currentPass) {
+    if (!isSupremeAdmin()) return alert('Sirf Main Supreme Admin hi ID/PIN badal sakte hain.');
     const newName = prompt(`Naya Naam:`, oldName);
     if (!newName) return;
     const newPass = prompt(`Naya PIN:`, currentPass);
@@ -138,6 +198,7 @@ async function adminEditMemberCredentials(oldName, currentPass) {
 }
 
 async function adminRemoveMember(targetUser) {
+    if (!isSupremeAdmin()) return alert('Sirf Main Supreme Admin hi member delete kar sakte hain.');
     if (!confirm(`Delete "${targetUser}"?`)) return;
     try {
         await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'adminDeleteUser', targetUser, deleteReports: true }) });
@@ -159,7 +220,7 @@ function exportMasterDatabaseCSV() {
     document.body.removeChild(link);
 }
 
-/* ================= FLOATING QURAN PILL BUTTON & LEFT/RIGHT TAP QURAN READER ================= */
+/* ================= FLOATING QURAN BUTTON (ABOVE BOTTOM BAR) & LEFT/RIGHT TAP QURAN ================= */
 const quranJuzStartPages = [1,22,42,62,82,102,121,142,162,182,201,222,242,262,282,302,322,342,362,382,402,422,442,462,482,502,522,542,562,582];
 let currentQuranPageNo = 1;
 const quranImageCache = {};
@@ -172,29 +233,44 @@ function injectQuranAndCleanStyles() {
       body.zs-logged-out #hijriDateBadge,
       body.zs-logged-out #zikr-nav-trigger-fallback,
       body.zs-logged-out .zs-auth-only,
-      #navZikrQuranBtn,
       .serial-pill {
         display: none !important;
       }
 
-      /* Floating Gold Pill Button at Bottom-Right (Exactly like Image 1) */
+      /* Floating Gold Pill Button Positioned ABOVE Bottom Nav Bar (bottom: 78px) so nothing is blocked */
       #zikr-nav-trigger-fallback {
         position: fixed;
-        bottom: 18px;
-        right: 18px;
-        background: linear-gradient(135deg, #d4af37, #b48a1e);
-        color: #041610;
+        bottom: 78px;
+        right: 14px;
+        background: linear-gradient(135deg, #fde047, #d97706);
+        color: #04131a;
         font-weight: 800;
         border: 2px solid #ffffff;
-        padding: 10px 18px;
+        padding: 9px 16px;
         border-radius: 30px;
         cursor: pointer;
-        z-index: 9998;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.55);
-        font-size: 14px;
+        z-index: 9995;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.65), 0 0 12px rgba(250,204,21,0.45);
+        font-size: 13.5px;
         display: inline-flex;
         align-items: center;
         gap: 6px;
+      }
+
+      /* Fit all Bottom Nav Buttons cleanly in 1 row on mobile */
+      #bottomNavBar .bottom-nav-inner {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        justify-content: space-between !important;
+        gap: 4px !important;
+        padding: 6px 6px !important;
+      }
+      #bottomNavBar .bottom-nav-btn {
+        flex: 1 1 0 !important;
+        min-width: 0 !important;
+        padding: 8px 4px !important;
+        font-size: 11.5px !important;
+        white-space: nowrap !important;
       }
 
       /* Clean Fullscreen Quran Modal */
@@ -202,18 +278,17 @@ function injectQuranAndCleanStyles() {
         display: none;
         position: fixed;
         inset: 0;
-        background: #061510;
+        background: #04131c;
         z-index: 999999;
         overflow-y: auto;
         padding: 8px 6px 24px 6px;
       }
 
-      /* Compact Mobile Header Right Above Quran Page */
       .zq-compact-bar {
         max-width: 620px;
         margin: 0 auto 8px auto;
-        background: #042218;
-        border: 1.5px solid #d4af37;
+        background: #082636;
+        border: 1.5px solid #f59e0b;
         border-radius: 14px;
         padding: 6px 10px;
         display: flex;
@@ -224,7 +299,6 @@ function injectQuranAndCleanStyles() {
         box-shadow: 0 4px 14px rgba(0,0,0,0.5);
       }
 
-      /* Prominent Red Circular Cut (✕) Button */
       .zq-cut-btn {
         width: 34px;
         height: 34px;
@@ -243,7 +317,6 @@ function injectQuranAndCleanStyles() {
         box-shadow: 0 2px 8px rgba(239,68,68,0.5);
       }
 
-      /* Quran Page Container with Left & Right Click Zones */
       .zq-page-frame {
         max-width: 620px;
         margin: 0 auto;
@@ -263,9 +336,7 @@ function injectQuranAndCleanStyles() {
         z-index: 25;
         cursor: pointer;
       }
-      /* Left side click = Next Page (Agla Safha) */
       .zq-tap-left { left: 0; }
-      /* Right side click = Previous Page (Pichla Safha) */
       .zq-tap-right { right: 0; }
 
       #quran-red-ribbon {
@@ -283,7 +354,6 @@ function injectQuranAndCleanStyles() {
     `;
     document.head.appendChild(style);
 
-    // 1. Create Floating "📖 Quran Pak" Pill Button like Image 1
     if (!document.getElementById('zikr-nav-trigger-fallback')) {
         const floatBtn = document.createElement('button');
         floatBtn.id = 'zikr-nav-trigger-fallback';
@@ -293,25 +363,24 @@ function injectQuranAndCleanStyles() {
         document.body.appendChild(floatBtn);
     }
 
-    // 2. Create Clean Mobile-Friendly Quran Modal with Cut (✕) Button & Left/Right Tap Zones
     const modal = document.createElement('div');
     modal.id = 'zikr-quran-modal';
     modal.innerHTML = `
       <div class="zq-compact-bar">
-        <select id="zqJuzSelect" onchange="if(this.value) loadInstantQuranPage(this.value)" style="padding:5px 6px; border-radius:8px; background:#031710; color:#fff; border:1px solid #10b981; font-size:12px; font-weight:700; max-width:105px;">
+        <select id="zqJuzSelect" onchange="if(this.value) loadInstantQuranPage(this.value)" style="padding:5px 6px; border-radius:8px; background:#04151f; color:#fff; border:1px solid #34d399; font-size:12px; font-weight:700; max-width:105px;">
           <option value="">Para (1-30)</option>
         </select>
 
         <div style="color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; gap:4px;">
-          <input type="number" id="zqPageNumberInput" min="1" max="604" value="1" onchange="loadInstantQuranPage(this.value)" style="width:48px; text-align:center; padding:4px; border-radius:6px; font-weight:800; background:#031710; color:#fde047; border:1px solid #d4af37; font-size:12px;">
+          <input type="number" id="zqPageNumberInput" min="1" max="604" value="1" onchange="loadInstantQuranPage(this.value)" style="width:48px; text-align:center; padding:4px; border-radius:6px; font-weight:800; background:#04151f; color:#fde047; border:1px solid #f59e0b; font-size:12px;">
           <span style="color:#a7f3d0;">/604</span>
         </div>
 
-        <button type="button" onclick="saveCurrentQuranBookmark()" title="Nishani Lagayein" style="background:#10b981; color:#041610; border:none; padding:5px 8px; border-radius:8px; font-weight:800; cursor:pointer; font-size:11.5px; white-space:nowrap;">
+        <button type="button" onclick="saveCurrentQuranBookmark()" style="background:#10b981; color:#041610; border:none; padding:5px 8px; border-radius:8px; font-weight:800; cursor:pointer; font-size:11.5px; white-space:nowrap;">
           🔖 Nishani
         </button>
 
-        <button type="button" onclick="openSavedQuranBookmark()" title="Meri Nishani Par Jayein" style="background:#f59e0b; color:#041610; border:none; padding:5px 8px; border-radius:8px; font-weight:800; cursor:pointer; font-size:11.5px; white-space:nowrap;">
+        <button type="button" onclick="openSavedQuranBookmark()" style="background:#f59e0b; color:#041610; border:none; padding:5px 8px; border-radius:8px; font-weight:800; cursor:pointer; font-size:11.5px; white-space:nowrap;">
           👉 Saved
         </button>
 
@@ -320,9 +389,7 @@ function injectQuranAndCleanStyles() {
 
       <div class="zq-page-frame">
         <div id="quran-red-ribbon"></div>
-        <!-- Left Half Click = Forward (Agla Safha) -->
         <div class="zq-tap-left" onclick="stepQuranPage(1)" title="Agla Safha"></div>
-        <!-- Right Half Click = Backward (Pichla Safha) -->
         <div class="zq-tap-right" onclick="stepQuranPage(-1)" title="Pichla Safha"></div>
         <img id="instantQuranPageImg" src="" alt="Quran Safha" style="width:100%; height:auto; display:block;" />
       </div>
