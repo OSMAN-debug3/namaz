@@ -1,11 +1,16 @@
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJurfZRD8AyzWWXtY3VsThAcVZxi4QXYMakINqX_h55HrrnYog03eawNiSloQ6SJQHBA/exec';
-const ADMIN_NAMES = ['abbu shahma', 'osman', 'admin', 'osman sardar', 'osman bey', 'muhammad sibgathullah'];
+
+// MAIN SUPREME ADMIN (Sirf Aap - Jo kisi bhi dost ko Admin bana ya hata sakte hain)
+const SUPREME_ADMINS = ['abbu shahma', 'osman', 'admin', 'osman sardar', 'osman bey'];
+// CO-FOUNDER DEFAULT ADMINS
+const DEFAULT_ADMINS = [...SUPREME_ADMINS, 'muhammad sibgathullah', 'md firoz alam'];
 
 let currentMode = 'login';
 let currentLang = localStorage.getItem('zikr_lang') || 'ro';
 let globalReports = [];
 let globalUsers = [];
 let globalMessages = [];
+let dynamicSubAdmins = new Set(JSON.parse(localStorage.getItem('zs_sub_admins') || '[]'));
 let tempBase64Photo = 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png';
 
 const today = new Date();
@@ -26,9 +31,9 @@ function getCurrent12HourTime() {
 
 function handleSibgathullahImgError(imgEl) {
     const fallbacks = [
-        'https://osman-debug3.github.io/namaz/IMG_20250608_110400_431.jpg',
-        'https://osman-debug3.github.io/namaz/muhammad-sibgathullah.jpeg',
-        'https://osman-debug3.github.io/namaz/sibgathullah.jpg'
+        'https://zikrsphere.vercel.app/IMG_20250608_110400_431.jpg',
+        'https://zikrsphere.vercel.app/muhammad-sibgathullah.jpeg',
+        'https://osman-debug3.github.io/namaz/IMG_20250608_110400_431.jpg'
     ];
     let step = parseInt(imgEl.getAttribute('data-fallback-step') || '0', 10);
     if (step < fallbacks.length) {
@@ -37,9 +42,17 @@ function handleSibgathullahImgError(imgEl) {
     }
 }
 
-function isUserAdmin() {
-    const u = (localStorage.getItem('namaz_user') || '').trim().toLowerCase();
-    return ADMIN_NAMES.includes(u);
+// Check if logged-in user is Main Supreme Admin (ABBU SHAHMA)
+function isSupremeAdmin(nameOverride) {
+    const u = (nameOverride || localStorage.getItem('namaz_user') || '').trim().toLowerCase();
+    return SUPREME_ADMINS.includes(u);
+}
+
+// Check if user is either Supreme Admin OR a Sub-Admin promoted by ABBU SHAHMA
+function isUserAdmin(nameOverride) {
+    const u = (nameOverride || localStorage.getItem('namaz_user') || '').trim().toLowerCase();
+    if (!u) return false;
+    return DEFAULT_ADMINS.includes(u) || dynamicSubAdmins.has(u);
 }
 
 function getMemberSerialAndInfo(userName) {
@@ -74,7 +87,7 @@ function toggleSideMenu() {
     const overlay = document.getElementById('sideDrawerOverlay');
     overlay.classList.toggle('open');
     const savedName = localStorage.getItem('namaz_user') || 'ZikrSphere Guest';
-    const savedPhoto = localStorage.getItem('namaz_photo') || 'https://osman-debug3.github.io/namaz/logo.jpg';
+    const savedPhoto = localStorage.getItem('namaz_photo') || 'https://zikrsphere.vercel.app/logo.jpg';
     document.getElementById('drawerUserName').innerText = savedName;
     document.getElementById('drawerUserAvatar').src = savedPhoto;
     if (typeof refreshChatAndNotificationsUI === 'function') refreshChatAndNotificationsUI();
@@ -115,16 +128,34 @@ function getDayNameFromDate(dateStr) {
     return days[dateObj.getDay()];
 }
 
+/* FIXED HIJRI CALENDAR (NEVER SHOWS 'BC' ON ANDROID) */
 async function loadHijriCalendar(dateObj) {
     const badge = document.getElementById('hijriDateBadge');
     if (!badge) return;
     try {
-        const enFmt = new Intl.DateTimeFormat('en-TN-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).format(dateObj);
-        const arMonth = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { month: 'long' }).format(dateObj);
-        badge.innerHTML = `🌙 ${enFmt.replace('AH', '')} <span class="ar-month">(${arMonth})</span> هـ`;
-    } catch (err) {
-        badge.innerText = '🌙 1448 Hijri';
-    }
+        const d = String(dateObj.getDate()).padStart(2, '0');
+        const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const y = dateObj.getFullYear();
+        const res = await fetch(`https://api.aladhan.com/v1/gToH/${d}-${m}-${y}`);
+        const data = await res.json();
+        if (data && data.data && data.data.hijri) {
+            const hijri = data.data.hijri;
+            badge.innerHTML = `🌙 ${hijri.day} ${hijri.month.en} <span class="ar-month">(${hijri.month.ar})</span> ${hijri.year} هـ`;
+            return;
+        }
+    } catch (e) {}
+
+    try {
+        const parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).formatToParts(dateObj);
+        const day = parts.find(p => p.type === 'day')?.value || '';
+        const month = parts.find(p => p.type === 'month')?.value || '';
+        const year = parts.find(p => p.type === 'year')?.value || '1448';
+        if ( !/BC|AD/i.test(month) && Number(year) < 1600 ) {
+            badge.innerHTML = `🌙 ${day} ${month} ${year} هـ`;
+            return;
+        }
+    } catch (err) {}
+    badge.innerHTML = `🌙 27 Jumādā al-ūlá (جُمَادَىٰ الْأُولَىٰ) 1448 هـ`;
 }
 
 function populateAllDropdowns(lang) {
@@ -192,8 +223,10 @@ function setLanguage(lang) {
     document.getElementById('t_drawerPhotoBtn').innerText = t.drawerPhotoBtn;
     document.getElementById('t_drawerReportBtn').innerHTML = `<span>${t.drawerReportBtn}</span><span>➔</span>`;
     document.getElementById('t_drawerLogoutBtn').innerText = t.drawerLogoutBtn;
-    document.getElementById('t_aboutHeading').innerText = t.aboutHeading;
-    document.getElementById('t_aboutRole').innerText = t.aboutRole;
+
+    // Keep Co-Founder & Lead Developer title intact across all languages
+    document.getElementById('t_aboutHeading').innerText = '👨‍💻 About Co-Founders & Developers';
+    document.getElementById('t_aboutRole').innerText = 'Co-Founder & Lead Developer — ZikrSphere';
     document.getElementById('t_aboutBio').innerHTML = t.aboutBio;
 
     document.getElementById('loginTab').innerText = t.loginTab;
@@ -293,9 +326,9 @@ async function fetchAllDataAndRefresh() {
                 if (typeof sendOnlineHeartbeat === 'function') sendOnlineHeartbeat();
             }
             updateUI();
+            if (typeof refreshChatAndNotificationsUI === 'function') refreshChatAndNotificationsUI();
             if (typeof renderCommunityLeaderboard === 'function') renderCommunityLeaderboard();
             if (typeof renderUserHistory === 'function') renderUserHistory();
-            if (typeof refreshChatAndNotificationsUI === 'function') refreshChatAndNotificationsUI();
             if (typeof renderSupremeAdminPanel === 'function') renderSupremeAdminPanel();
         }
     } catch (e) {
@@ -490,6 +523,10 @@ async function handleAuth() {
             localStorage.setItem('namaz_user', finalName);
             localStorage.setItem('namaz_pass', password);
             localStorage.setItem('namaz_photo', finalPhoto);
+            // Request phone notification permission right on login
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
             alert(data.message);
             showTracker(finalName, finalPhoto);
         } else {
@@ -513,8 +550,13 @@ function showTracker(name, photo) {
     document.getElementById('accountUpdateWrap').classList.remove('hidden');
     document.getElementById('drawerUserName').innerText = name;
     if (photo) document.getElementById('drawerUserAvatar').src = photo;
+
     const adminMode = isUserAdmin();
-    document.getElementById('supremeAdminHeaderBadge').classList.toggle('hidden', !adminMode);
+    const supremeBadge = document.getElementById('supremeAdminHeaderBadge');
+    supremeBadge.classList.toggle('hidden', !adminMode);
+    if (adminMode) {
+        supremeBadge.innerText = isSupremeAdmin() ? '👑 SUPREME ADMIN: ABBU SHAHMA' : `👑 COMMUNITY ADMIN: ${name.toUpperCase()}`;
+    }
     document.getElementById('navAdminBtn').classList.toggle('hidden', !adminMode);
     switchSection('home');
     fetchAllDataAndRefresh();
@@ -583,29 +625,59 @@ async function saveReport() {
     }
 }
 
-/* ✅ WORKING PWA INSTALL FUNCTION FOR 3-LINE SIDE MENU BUTTON */
-let deferredInstallPrompt = null;
-
+/* ================= 1-CLICK INSTANT APP INSTALL & PHONE SCREEN NOTIFICATIONS ================= */
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js').catch(() => {});
     });
 }
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredInstallPrompt = e;
-});
-
 async function installZikrSphereApp() {
-    if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt();
-        const { outcome } = await deferredInstallPrompt.userChoice;
+    if (window.deferredInstallPrompt) {
+        window.deferredInstallPrompt.prompt();
+        const { outcome } = await window.deferredInstallPrompt.userChoice;
         if (outcome === 'accepted') {
-            deferredInstallPrompt = null;
+            window.deferredInstallPrompt = null;
         }
+        return;
+    }
+    // Check if already installed in standalone mode
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+        alert('✅ ZikrSphere App aapke phone mein pehle se Install hai!');
+        return;
+    }
+    alert('📲 1-Click Install Ke Liye:\n\nAgar aapke phone mein ZikrSphere pehle se install nahi hai, toh browser ke upar kone mein 3-dot (⋮) dabayein aur "Install app" ya "Add to Home screen" par 1 tap karein—turant app screen par aa jayega!');
+}
+
+async function enablePhoneScreenNotifications() {
+    if (!('Notification' in window)) {
+        alert('Aapka browser notifications support nahi karta.');
+        return;
+    }
+    const perm = await Notification.requestPermission();
+    if (perm === 'granted') {
+        triggerNativePhoneNotification('🕌 ZikrSphere Notifications Active!', 'Alhumdulillah! Ab har Namaz reminder aur Admin message aapke phone ki screen par aayega.');
     } else {
-        alert('📲 ZikrSphere App Install Karne Ke Liye:\n\n1. Mobile Chrome mein upar 3-dot menu (⋮) par tap karein.\n2. "Add to Home screen" ya "Install app" par click karein.');
+        alert('⚠️ Kripya browser settings mein Notification ko "Allow" karein.');
+    }
+}
+
+function triggerNativePhoneNotification(title, bodyText) {
+    if (!('Notification' in window) || Notification.permission !== 'granted') return;
+    const options = {
+        body: bodyText,
+        icon: 'https://zikrsphere.vercel.app/logo.jpg',
+        badge: 'https://zikrsphere.vercel.app/logo.jpg',
+        vibrate: [200, 100, 200]
+    };
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(reg => {
+            reg.showNotification(title, options);
+        }).catch(() => {
+            new Notification(title, options);
+        });
+    } else {
+        new Notification(title, options);
     }
 }
 
@@ -630,4 +702,11 @@ window.addEventListener('DOMContentLoaded', () => {
     } else {
         document.body.classList.add('zs-logged-out');
     }
+
+    // Background check every 45 seconds for new Admin notifications/reminders
+    setInterval(() => {
+        if (localStorage.getItem('namaz_user')) {
+            fetchAllDataAndRefresh();
+        }
+    }, 45000);
 });
