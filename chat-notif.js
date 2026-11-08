@@ -1,4 +1,4 @@
-/* ================= CHAT & BELL NOTIFICATIONS MODULE ================= */
+/* ================= CHAT, SUB-ADMIN SYNC & PHONE SCREEN NOTIFICATIONS MODULE ================= */
 
 function toggleNotifPopup(e) {
     if (e) e.stopPropagation();
@@ -66,12 +66,25 @@ function buildMessageSystemState() {
     let broadcastsMap = new Map();
     let onlineMap = {};
     let seenMap = {};
+    let subAdminSet = new Set();
 
     globalMessages.forEach((item, index) => {
         const rawText = (item.message || '').toString();
         const sender = (item.name || 'Member').toString();
         const time = item.date ? cleanDateString(item.date) : '';
         const fallbackId = `legacy_${index}`;
+
+        // Sub-Admin Grant / Revoke Sync
+        if (rawText.startsWith('SUBADMIN_ADD|')) {
+            const targetUser = (rawText.split('|')[1] || '').trim().toLowerCase();
+            if (targetUser) subAdminSet.add(targetUser);
+            return;
+        }
+        if (rawText.startsWith('SUBADMIN_REMOVE|')) {
+            const targetUser = (rawText.split('|')[1] || '').trim().toLowerCase();
+            if (targetUser) subAdminSet.delete(targetUser);
+            return;
+        }
 
         if (rawText.startsWith('ONLINE|')) {
             const parts = rawText.split('|');
@@ -136,6 +149,10 @@ function buildMessageSystemState() {
         chatsMap.set(fallbackId, { id: fallbackId, type: 'CHAT', from: sender, to: 'ADMIN', text: rawText, time, isAdminReply: false, edited: false, order: index });
     });
 
+    // Save synced Sub-Admins
+    dynamicSubAdmins = subAdminSet;
+    localStorage.setItem('zs_sub_admins', JSON.stringify(Array.from(subAdminSet)));
+
     return { chats: Array.from(chatsMap.values()), broadcasts: Array.from(broadcastsMap.values()), onlineMap, seenMap };
 }
 
@@ -143,7 +160,7 @@ function isPartnerCurrentlyOnline(partnerName, state) {
     if (!partnerName) return false;
     const p = partnerName.toLowerCase();
     if (p === 'admin') {
-        return ADMIN_NAMES.some(a => (Date.now() - (state.onlineMap[a] || 0)) < 10 * 60 * 1000);
+        return DEFAULT_ADMINS.some(a => (Date.now() - (state.onlineMap[a] || 0)) < 10 * 60 * 1000);
     }
     return (Date.now() - (state.onlineMap[p] || 0)) < 10 * 60 * 1000;
 }
@@ -165,7 +182,6 @@ function getMessageTickStatus(chatObj, state) {
 async function markConversationSeen() {
     const myName = (localStorage.getItem('namaz_user') || '').trim();
     if (!myName) return;
-    const state = buildMessageSystemState();
     if (isUserAdmin()) {
         const selectedMember = (document.getElementById('adminReplyTarget').value || '').trim().toLowerCase();
         if (!selectedMember) return;
@@ -210,20 +226,62 @@ async function deleteChatMessage(msgId) {
     try { await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent(myName)}&message=${encodeURIComponent(payload)}`); } catch (e) {}
 }
 
+/* FIRE NATIVE PHONE SCREEN NOTIFICATION FOR NEW BROADCASTS & REMINDERS */
+function checkAndPopPhoneNotifications(broadcasts, chats) {
+    const myName = (localStorage.getItem('namaz_user') || '').trim();
+    if (!myName || typeof triggerNativePhoneNotification !== 'function') return;
+
+    const poppedIds = JSON.parse(localStorage.getItem('zs_popped_phone_notifs') || '[]');
+    let updated = false;
+
+    // 1. Check Broadcasts
+    broadcasts.forEach(b => {
+        if (!poppedIds.includes(b.id)) {
+            poppedIds.push(b.id);
+            updated = true;
+            triggerNativePhoneNotification(`🔔 ${b.title || 'ZikrSphere Notice'}`, b.text);
+        }
+    });
+
+    // 2. Check Direct Admin Reminders / Replies to this user
+    chats.forEach(c => {
+        if (c.isAdminReply && c.to.toLowerCase() === myName.toLowerCase() && !poppedIds.includes(c.id)) {
+            poppedIds.push(c.id);
+            updated = true;
+            triggerNativePhoneNotification(`👑 Admin Message (${c.from})`, c.text);
+        }
+    });
+
+    if (updated) {
+        localStorage.setItem('zs_popped_phone_notifs', JSON.stringify(poppedIds.slice(-100)));
+    }
+}
+
 function refreshChatAndNotificationsUI() {
     const t = translations[currentLang];
-    const loggedIn = Boolean(localStorage.getItem('namaz_user'));
+    const state = buildMessageSystemState();
+
+    const myName = (localStorage.getItem('namaz_user') || '').trim();
+    const loggedIn = Boolean(myName);
     const adminMode = loggedIn && isUserAdmin();
 
     document.getElementById('adminChatBadge').classList.toggle('hidden', !adminMode);
     document.getElementById('adminReplySelectorWrap').classList.toggle('hidden', !adminMode);
     document.getElementById('adminBroadcastComposer').classList.toggle('hidden', !adminMode);
-    document.getElementById('supremeAdminHeaderBadge').classList.toggle('hidden', !adminMode);
+    const supremeBadge = document.getElementById('supremeAdminHeaderBadge');
+    supremeBadge.classList.toggle('hidden', !adminMode);
+    if (adminMode) {
+        supremeBadge.innerText = isSupremeAdmin() ? '👑 SUPREME ADMIN: ABBU SHAHMA' : `👑 COMMUNITY ADMIN: ${myName.toUpperCase()}`;
+    }
     document.getElementById('navAdminBtn').classList.toggle('hidden', !adminMode);
 
-    const state = buildMessageSystemState();
     const dismissed = JSON.parse(localStorage.getItem('zikr_dismissed_notifs') || '[]');
     const broadcasts = state.broadcasts.filter(b => !dismissed.includes(b.id));
+
+    // Trigger Real Phone Screen Notification for any new message/broadcast
+    if (loggedIn) {
+        checkAndPopPhoneNotifications(broadcasts, state.chats);
+    }
 
     const notifBox = document.getElementById('notifListBox');
     const badgeDot = document.getElementById('notifBadgeCount');
@@ -254,8 +312,8 @@ function refreshChatAndNotificationsUI() {
         const targetSelect = document.getElementById('adminReplyTarget');
         const currentTarget = targetSelect.value;
         const memberNames = new Set();
-        globalUsers.forEach(u => { if (!ADMIN_NAMES.includes(u.name.toLowerCase())) memberNames.add(u.name); });
-        state.chats.forEach(c => { if (!c.isAdminReply && !ADMIN_NAMES.includes(c.from.toLowerCase())) memberNames.add(c.from); });
+        globalUsers.forEach(u => { if (!SUPREME_ADMINS.includes(u.name.toLowerCase())) memberNames.add(u.name); });
+        state.chats.forEach(c => { if (!c.isAdminReply && !SUPREME_ADMINS.includes(c.from.toLowerCase())) memberNames.add(c.from); });
         const arr = Array.from(memberNames);
         targetSelect.innerHTML = arr.length === 0 ? `<option value="ALL">All Members</option>` : arr.map(m => `<option value="${m}">👤 ${m}</option>`).join('');
         if (currentTarget && arr.includes(currentTarget)) targetSelect.value = currentTarget;
@@ -291,7 +349,7 @@ function renderChatConversation() {
 
     chatBox.innerHTML = filtered.map(c => {
         const isMine = adminMode ? c.isAdminReply : (!c.isAdminReply && c.from.toLowerCase() === myName.toLowerCase());
-        const senderLabel = c.isAdminReply ? '👑 Admin (ABBU SHAHMA)' : `👤 ${c.from}`;
+        const senderLabel = c.isAdminReply ? `👑 Admin (${c.from})` : `👤 ${c.from}`;
         const safeText = c.text.replace(/'/g, "\\'").replace(/"/g, '&quot;');
         const tickLevel = getMessageTickStatus(c, state);
         const tickHTML = isMine ? (tickLevel === 3 ? `<span class="tick-3">✓✓✓</span>` : (tickLevel === 2 ? `<span class="tick-2">✓✓</span>` : `<span class="tick-1">✓</span>`)) : '';
@@ -316,8 +374,8 @@ async function sendChatMessage() {
     const adminMode = isUserAdmin();
     const msgId = 'm_' + Date.now();
     const targetMember = adminMode ? (document.getElementById('adminReplyTarget').value || 'Member') : 'ADMIN';
-    const senderField = adminMode ? 'ABBU SHAHMA' : myName;
-    const encodedPayload = adminMode ? `CHAT2|${msgId}|ABBU SHAHMA|${targetMember}|1|${text}` : `CHAT2|${msgId}|${myName}|ADMIN|0|${text}`;
+    const senderField = adminMode ? myName : myName;
+    const encodedPayload = adminMode ? `CHAT2|${msgId}|${myName}|${targetMember}|1|${text}` : `CHAT2|${msgId}|${myName}|ADMIN|0|${text}`;
 
     globalMessages.push({ date: new Date().toISOString(), name: senderField, message: encodedPayload });
     input.value = '';
@@ -332,11 +390,12 @@ async function sendAdminBroadcast() {
     const text = (bodyInput.value || '').trim();
     if (!text) return;
 
+    const myName = (localStorage.getItem('namaz_user') || 'ABBU SHAHMA').trim();
     const bId = 'b_' + Date.now();
-    const encodedPayload = `BROADCAST2|${bId}|ABBU SHAHMA|ALL|${title}::${text}`;
-    globalMessages.push({ date: new Date().toISOString(), name: 'ABBU SHAHMA', message: encodedPayload });
+    const encodedPayload = `BROADCAST2|${bId}|${myName}|ALL|${title}::${text}`;
+    globalMessages.push({ date: new Date().toISOString(), name: myName, message: encodedPayload });
     titleInput.value = '';
     bodyInput.value = '';
     refreshChatAndNotificationsUI();
-    try { await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent('ABBU SHAHMA')}&message=${encodeURIComponent(encodedPayload)}`); } catch (e) {}
+    try { await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent(myName)}&message=${encodeURIComponent(encodedPayload)}`); } catch (e) {}
 }
