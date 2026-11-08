@@ -1,4 +1,4 @@
-/* ================= CHAT, SUB-ADMIN SYNC & PHONE SCREEN NOTIFICATIONS MODULE ================= */
+/* ================= CHAT, UNREAD BADGE FIX & BELL NOTIFICATIONS MODULE ================= */
 
 function toggleNotifPopup(e) {
     if (e) e.stopPropagation();
@@ -6,12 +6,29 @@ function toggleNotifPopup(e) {
     const bellBtn = document.getElementById('notifBellBtn');
     const isHidden = popup.classList.toggle('hidden');
     bellBtn.classList.toggle('active', !isHidden);
+
+    if (!isHidden) {
+        // Mark all current broadcasts as seen/dismissed instantly when bell is opened
+        const state = buildMessageSystemState();
+        const dismissed = JSON.parse(localStorage.getItem('zikr_dismissed_notifs') || '[]');
+        let changed = false;
+        state.broadcasts.forEach(b => {
+            if (!dismissed.includes(b.id)) {
+                dismissed.push(b.id);
+                changed = true;
+            }
+        });
+        if (changed) {
+            localStorage.setItem('zikr_dismissed_notifs', JSON.stringify(dismissed));
+        }
+    }
     refreshChatAndNotificationsUI();
 }
 
 function closeNotifPopup() {
     document.getElementById('notifDropdownPopup').classList.add('hidden');
     document.getElementById('notifBellBtn').classList.remove('active');
+    refreshChatAndNotificationsUI();
 }
 
 function closeNotifDropdownOutside(e) {
@@ -74,7 +91,6 @@ function buildMessageSystemState() {
         const time = item.date ? cleanDateString(item.date) : '';
         const fallbackId = `legacy_${index}`;
 
-        // Sub-Admin Grant / Revoke Sync
         if (rawText.startsWith('SUBADMIN_ADD|')) {
             const targetUser = (rawText.split('|')[1] || '').trim().toLowerCase();
             if (targetUser) subAdminSet.add(targetUser);
@@ -85,7 +101,6 @@ function buildMessageSystemState() {
             if (targetUser) subAdminSet.delete(targetUser);
             return;
         }
-
         if (rawText.startsWith('ONLINE|')) {
             const parts = rawText.split('|');
             const u = (parts[1] || sender).toLowerCase();
@@ -146,10 +161,8 @@ function buildMessageSystemState() {
             chatsMap.set(id, { id, type: 'CHAT', from, to, text, time, isAdminReply, edited: false, order: index });
             return;
         }
-        chatsMap.set(fallbackId, { id: fallbackId, type: 'CHAT', from: sender, to: 'ADMIN', text: rawText, time, isAdminReply: false, edited: false, order: index });
     });
 
-    // Save synced Sub-Admins
     dynamicSubAdmins = subAdminSet;
     localStorage.setItem('zs_sub_admins', JSON.stringify(Array.from(subAdminSet)));
 
@@ -226,7 +239,6 @@ async function deleteChatMessage(msgId) {
     try { await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent(myName)}&message=${encodeURIComponent(payload)}`); } catch (e) {}
 }
 
-/* FIRE NATIVE PHONE SCREEN NOTIFICATION FOR NEW BROADCASTS & REMINDERS */
 function checkAndPopPhoneNotifications(broadcasts, chats) {
     const myName = (localStorage.getItem('namaz_user') || '').trim();
     if (!myName || typeof triggerNativePhoneNotification !== 'function') return;
@@ -234,7 +246,6 @@ function checkAndPopPhoneNotifications(broadcasts, chats) {
     const poppedIds = JSON.parse(localStorage.getItem('zs_popped_phone_notifs') || '[]');
     let updated = false;
 
-    // 1. Check Broadcasts
     broadcasts.forEach(b => {
         if (!poppedIds.includes(b.id)) {
             poppedIds.push(b.id);
@@ -243,7 +254,6 @@ function checkAndPopPhoneNotifications(broadcasts, chats) {
         }
     });
 
-    // 2. Check Direct Admin Reminders / Replies to this user
     chats.forEach(c => {
         if (c.isAdminReply && c.to.toLowerCase() === myName.toLowerCase() && !poppedIds.includes(c.id)) {
             poppedIds.push(c.id);
@@ -276,24 +286,34 @@ function refreshChatAndNotificationsUI() {
     document.getElementById('navAdminBtn').classList.toggle('hidden', !adminMode);
 
     const dismissed = JSON.parse(localStorage.getItem('zikr_dismissed_notifs') || '[]');
-    const broadcasts = state.broadcasts.filter(b => !dismissed.includes(b.id));
+    const allBroadcasts = state.broadcasts;
+    const unreadBroadcasts = allBroadcasts.filter(b => !dismissed.includes(b.id));
 
-    // Trigger Real Phone Screen Notification for any new message/broadcast
     if (loggedIn) {
-        checkAndPopPhoneNotifications(broadcasts, state.chats);
+        checkAndPopPhoneNotifications(allBroadcasts, state.chats);
     }
 
     const notifBox = document.getElementById('notifListBox');
-    const badgeDot = document.getElementById('notifBadgeCount');
-    document.getElementById('notifPopupCountPill').innerText = broadcasts.length;
+    const badgeDot = document.getElementById('notifBellBtn').querySelector('.notif-badge-dot') || document.getElementById('notifBadgeCount');
+    
+    // Only unread count shows on bell
+    const unreadCount = unreadBroadcasts.length;
+    document.getElementById('notifPopupCountPill').innerText = unreadCount;
 
-    if (broadcasts.length === 0) {
-        notifBox.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:12px; padding:22px 14px;">${t.emptyNotif}</div>`;
-        badgeDot.classList.add('hidden');
+    if (unreadCount === 0) {
+        if (badgeDot) badgeDot.classList.add('hidden');
     } else {
-        badgeDot.innerText = broadcasts.length;
-        badgeDot.classList.remove('hidden');
-        notifBox.innerHTML = broadcasts.slice().reverse().map(b => `
+        if (badgeDot) {
+            badgeDot.innerText = unreadCount;
+            badgeDot.classList.remove('hidden');
+        }
+    }
+
+    // Show ALL broadcasts inside the dropdown list so user can see history, but unread count is separate
+    if (allBroadcasts.length === 0) {
+        notifBox.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:12px; padding:22px 14px;">${t.emptyNotif}</div>`;
+    } else {
+        notifBox.innerHTML = allBroadcasts.slice().reverse().map(b => `
             <div class="notif-card-row">
                 <div class="notif-circle-icon notif-icon-gold">🔔</div>
                 <div class="notif-body-col">
