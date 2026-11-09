@@ -1,4 +1,4 @@
-/* ================= LEADERBOARD (ADMIN-ONLY REPORT VIEW), ANTI-CHEAT & MERI A'AMAL ================= */
+/* ================= LEADERBOARD (100% FULL CIRCLE ORB PODIUM), PRIVACY LOCK & MERI A'AMAL ================= */
 
 function getPillClass(val) {
     if (val === 'Ada' || val === 'Rakha') return 'pill-ada';
@@ -74,9 +74,9 @@ function getUserStreakAndBadge(userName) {
     }
 
     let badge = '';
-    if (streak >= 30) badge = '👑 Aashiq-e-Namaz (30+ Days)';
-    else if (streak >= 7) badge = '⭐ 7-Day Streaker';
-    else if (streak >= 3) badge = '✨ Consistent (3+ Days)';
+    if (streak >= 30) badge = '👑 Aashiq-e-Namaz';
+    else if (streak >= 7) badge = '⭐ 7-Day Streak';
+    else if (streak >= 3) badge = '✨ 3+ Days';
     return { streak, badge };
 }
 
@@ -89,7 +89,7 @@ function createDetailedRecordHTML(r) {
         <div class="detailed-record-card">
             <div class="detailed-record-header">
                 <span>📅 ${cleanDate} (${r.day || ''})${timeBadge}</span>
-                <span style="color: var(--emerald-bright);">⭐ ${reportPts} Pts</span>
+                <span style="color: #fde047; font-weight:800;">⭐ ${reportPts} Pts</span>
             </div>
             <div class="Status-pills-grid">
                 <span class="status-pill ${getPillClass(r.fajr)}"><span>${t.fajr}</span><strong>${translateStatusVal(r.fajr)}</strong></span>
@@ -131,65 +131,110 @@ function renderCommunityLeaderboard() {
         return;
     }
 
-    podiumContainer.style.cssText = 'display:flex; justify-content:center; align-items:flex-end; gap:10px; margin:24px auto 18px auto; padding:0 4px;';
+    // ✅ 100% FULL CIRCULAR ORB MEDALLIONS FOR TOP 3 (2nd Left, 1st Center Elevated, 3rd Right)
+    podiumContainer.style.cssText = 'display:flex; justify-content:center; align-items:center; gap:12px; margin:28px auto 22px auto; padding:8px 2px;';
     const top3 = userScores.slice(0, 3);
     const podiumOrder = [];
-    if (top3[1]) podiumOrder.push({ user: top3[1], rank: 2, badgeText: '🥈 2nd', order: 1, ringColor: '#e2e8f0', glow: 'rgba(226,232,240,0.35)', badgeBg: 'linear-gradient(135deg,#cbd5e1,#94a3b8)' });
-    if (top3[0]) podiumOrder.push({ user: top3[0], rank: 1, badgeText: '👑 1st', order: 2, ringColor: '#fde047', glow: 'rgba(250,204,21,0.55)', badgeBg: 'linear-gradient(135deg,#fde047,#ca8a04)' });
-    if (top3[2]) podiumOrder.push({ user: top3[2], rank: 3, badgeText: '🥉 3rd', order: 3, ringColor: '#f59e0b', glow: 'rgba(245,158,11,0.35)', badgeBg: 'linear-gradient(135deg,#fbbf24,#b45309)' });
+
+    if (top3[1]) {
+        podiumOrder.push({
+            user: top3[1],
+            rank: 2,
+            badgeText: '🥈 2nd',
+            order: 1,
+            orbBg: 'radial-gradient(circle at 30% 25%, rgba(56, 189, 248, 0.42) 0%, rgba(15, 42, 92, 0.94) 65%, rgba(6, 16, 38, 0.98) 100%)',
+            ringColor: '#38bdf8',
+            glow: 'rgba(56, 189, 248, 0.45)',
+            badgeBg: 'linear-gradient(135deg, #7dd3fc, #0284c7)',
+            ptsColor: '#7dd3fc'
+        });
+    }
+    if (top3[0]) {
+        podiumOrder.push({
+            user: top3[0],
+            rank: 1,
+            badgeText: '👑 1st',
+            order: 2,
+            orbBg: 'radial-gradient(circle at 30% 25%, rgba(250, 204, 21, 0.45) 0%, rgba(37, 56, 128, 0.95) 62%, rgba(9, 18, 44, 0.99) 100%)',
+            ringColor: '#fde047',
+            glow: 'rgba(250, 204, 21, 0.6)',
+            badgeBg: 'linear-gradient(135deg, #fde047, #d97706)',
+            ptsColor: '#fde047'
+        });
+    }
+    if (top3[2]) {
+        podiumOrder.push({
+            user: top3[2],
+            rank: 3,
+            badgeText: '🥉 3rd',
+            order: 3,
+            orbBg: 'radial-gradient(circle at 30% 25%, rgba(251, 146, 60, 0.42) 0%, rgba(67, 28, 92, 0.94) 65%, rgba(12, 14, 36, 0.98) 100%)',
+            ringColor: '#fb923c',
+            glow: 'rgba(251, 146, 60, 0.45)',
+            badgeBg: 'linear-gradient(135deg, #fdba74, #ea580c)',
+            ptsColor: '#fdba74'
+        });
+    }
 
     podiumOrder.forEach(item => {
-        const { user, rank, badgeText, order, ringColor, glow, badgeBg } = item;
+        const { user, rank, badgeText, order, orbBg, ringColor, glow, badgeBg, ptsColor } = item;
         const isFirst = rank === 1;
-        const avatarSize = isFirst ? '80px' : '66px';
-        const card = document.createElement('div');
-        card.className = `podium-card ${isFirst ? 'rank-1' : ''} zs-podium-${rank}`;
-        card.style.cssText = `
-            order:${order};
-            flex:1;
-            max-width:${isFirst ? '185px' : '155px'};
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-            text-align:center;
-            padding:${isFirst ? '16px 10px 14px' : '14px 8px 12px'};
-            border-radius:18px;
-            background:${isFirst ? 'linear-gradient(160deg, rgba(16,68,92,0.96), rgba(7,30,44,0.98))' : 'linear-gradient(160deg, rgba(12,48,66,0.9), rgba(6,24,36,0.95))'};
-            border:${isFirst ? '2px solid #fde047' : '1.5px solid ' + ringColor};
-            box-shadow:0 8px 24px rgba(0,0,0,0.45), 0 0 16px ${glow};
-            transform:${isFirst ? 'translateY(-10px)' : 'none'};
-            cursor:pointer;
-            position:relative;
+        const orbSize = isFirst ? 'clamp(138px, 34vw, 172px)' : 'clamp(112px, 28vw, 142px)';
+        const avatarSize = isFirst ? 'clamp(56px, 14vw, 72px)' : 'clamp(44px, 11vw, 56px)';
+
+        const orbCard = document.createElement('div');
+        orbCard.style.cssText = `
+            order: ${order};
+            width: ${orbSize} !important;
+            height: ${orbSize} !important;
+            min-width: ${orbSize} !important;
+            min-height: ${orbSize} !important;
+            aspect-ratio: 1 / 1 !important;
+            border-radius: 50% !important;
+            background: ${orbBg} !important;
+            border: ${isFirst ? '3px' : '2.5px'} solid ${ringColor} !important;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.65), 0 0 24px ${glow}, inset 0 0 18px ${glow} !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            padding: 8px !important;
+            cursor: pointer !important;
+            position: relative !important;
+            transform: ${isFirst ? 'translateY(-12px)' : 'none'} !important;
+            transition: transform 0.25s ease !important;
         `;
-        card.onclick = () => openMemberProfile(user.name);
-        card.innerHTML = `
-            <div style="position:relative; display:inline-flex; flex-direction:column; align-items:center; margin-bottom:10px;">
-                <img src="${user.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" alt="${user.name}" style="width:${avatarSize} !important; height:${avatarSize} !important; border-radius:50% !important; object-fit:cover !important; border:3px solid ${ringColor} !important; box-shadow:0 0 14px ${glow} !important; display:block !important; margin:0 auto !important;">
-                <span style="position:absolute; bottom:-8px; background:${badgeBg}; color:#041610; font-weight:800; font-size:11px; padding:2px 10px; border-radius:99px; box-shadow:0 2px 6px rgba(0,0,0,0.5); white-space:nowrap;">
-                    ${badgeText}
-                </span>
+        orbCard.onclick = () => openMemberProfile(user.name);
+        orbCard.innerHTML = `
+            <span style="position:absolute; top:-11px; background:${badgeBg}; color:#04101e; font-weight:900; font-size:${isFirst ? '11px' : '10px'}; padding:2px 10px; border-radius:99px; box-shadow:0 4px 10px rgba(0,0,0,0.6); border:1.5px solid #ffffff; white-space:nowrap;">
+                ${badgeText}
+            </span>
+            <img src="${user.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" alt="${user.name}" style="width:${avatarSize} !important; height:${avatarSize} !important; border-radius:50% !important; object-fit:cover !important; border:2.5px solid ${ringColor} !important; box-shadow:0 0 12px ${glow} !important; margin-top:4px !important; flex-shrink:0 !important;">
+            <div style="font-weight:800; font-size:${isFirst ? '12.5px' : '11px'}; color:#ffffff; margin-top:5px; line-height:1.15; max-width:88%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                ${user.name}
             </div>
-            <div style="font-weight:800; font-size:${isFirst ? '14.5px' : '13px'}; color:#ffffff; margin-top:4px; line-height:1.25; word-break:break-word;">${user.name}</div>
-            <div style="color:#34d399; font-weight:800; font-size:${isFirst ? '13.5px' : '12px'}; margin-top:4px;">⭐ ${user.points} Pts</div>
-            ${user.badge ? `<div class="badge-chip" style="margin-top:6px; font-size:9.5px; padding:2px 8px;">${user.badge}</div>` : ''}
+            <div style="color:${ptsColor}; font-weight:900; font-size:${isFirst ? '12px' : '10.5px'}; margin-top:2px;">
+                ⭐ ${user.points} Pts
+            </div>
         `;
-        podiumContainer.appendChild(card);
+        podiumContainer.appendChild(orbCard);
     });
 
-    userScores.slice(3).forEach((user) => {
+    userScores.slice(3).forEach((user, idx) => {
         const item = document.createElement('div');
         item.className = 'leaderboard-item';
         item.onclick = () => openMemberProfile(user.name);
         item.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <img src="${user.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:40px; height:40px; border-radius:50%; object-fit:cover; border:1.5px solid var(--gold);">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span style="font-weight:800; color:#7dd3fc; font-size:12px; min-width:22px;">#${idx + 4}</span>
+                <img src="${user.photo || 'https://i.ibb.co/6Wv1V6Zm/default-avatar.png'}" style="width:42px; height:42px; border-radius:50%; object-fit:cover; border:2px solid #38bdf8; box-shadow:0 0 10px rgba(56,189,248,0.3);">
                 <div>
-                    <span style="font-weight:700; display:block;">${user.name}</span>
-                    ${user.badge ? `<span style="font-size:9.5px; color:var(--gold-light);">${user.badge}</span>` : ''}
+                    <span style="font-weight:800; color:#ffffff; display:block; font-size:13.5px;">${user.name}</span>
+                    ${user.badge ? `<span style="font-size:10px; color:#7dd3fc;">${user.badge}</span>` : ''}
                 </div>
             </div>
-            <span style="color:var(--emerald-bright); font-weight:700;">⭐ ${user.points} Pts</span>
+            <span style="color:#fde047; font-weight:800; font-size:13.5px;">⭐ ${user.points} Pts</span>
         `;
         leaderboardList.appendChild(item);
     });
