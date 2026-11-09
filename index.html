@@ -39,14 +39,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- ✨ ROYAL COSMIC BLUE, VIOLET-CYAN & GOLD LUXURY THEME (WITH DROPDOWN VISIBILITY FIX) -->
+    <!-- ✨ ROYAL COSMIC THEME WITH RED / GREEN / YELLOW SMART STATUS DROPDOWNS -->
     <style>
       :root {
         --bg-deep: #040b18 !important;
         --bg-card: rgba(10, 22, 46, 0.85) !important;
         --gold: #38bdf8 !important;
         --gold-light: #7dd3fc !important;
-        --emerald-bright: #38bdf8 !important;
+        --emerald-bright: #34d399 !important;
         --text-main: #f8fafc !important;
         --text-muted: #94a3b8 !important;
         --border-gold: rgba(56, 189, 248, 0.32) !important;
@@ -182,21 +182,25 @@
         grid-column: span 2 !important;
       }
 
-      .namaz-card {
-        background: linear-gradient(145deg, rgba(16, 36, 72, 0.85) 0%, rgba(8, 20, 44, 0.95) 100%) !important;
-        border: 1.5px solid rgba(56, 189, 248, 0.24) !important;
-        border-left: 4px solid #38bdf8 !important;
+      /* ============================================================================
+         🎯 3-COLOR SMART NAMAZ CARDS & DROPDOWNS (TUNED FOR DARK COSMIC BACKGROUND)
+         1. ❌ Nahi Padhi (Default) -> Dark Crimson-Red Glass (#ef4444 / #fca5a5)
+         2. ✅ Ada / Rakha          -> Dark Emerald-Green Glass (#10b981 / #6ee7b7)
+         3. 🕒 Qaza Padhi           -> Dark Amber-Yellow Glass (#f59e0b / #fde047)
+         ============================================================================ */
+
+      /* 1. DEFAULT / NAHI PADHI = DARK CRIMSON-RED GLASS */
+      .namaz-card,
+      .namaz-card.status-nahi {
+        background: linear-gradient(145deg, rgba(127, 29, 29, 0.28) 0%, rgba(12, 20, 38, 0.95) 100%) !important;
+        border: 1.5px solid rgba(239, 68, 68, 0.45) !important;
+        border-left: 5px solid #ef4444 !important;
         border-radius: 18px !important;
-        padding: 14px 14px !important;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        padding: 14px !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 14px rgba(239, 68, 68, 0.12) !important;
+        transition: all 0.25s ease !important;
         position: relative !important;
         overflow: hidden !important;
-      }
-      .namaz-card:hover {
-        transform: translateY(-2px) !important;
-        border-color: rgba(56, 189, 248, 0.55) !important;
-        box-shadow: 0 12px 28px rgba(14, 165, 233, 0.22) !important;
       }
 
       .namaz-card label {
@@ -207,7 +211,6 @@
         font-size: 13.5px !important;
         font-weight: 800 !important;
         color: #f8fafc !important;
-        letter-spacing: 0.3px !important;
       }
 
       .namaz-card .arabic-text {
@@ -221,59 +224,88 @@
         border-radius: 99px !important;
       }
 
-      /* ✅ FIXED DROPDOWN MENU: SOLID DARK BACKGROUND SO OPTIONS ARE ALWAYS 100% VISIBLE */
-      .modern-select,
-      .namaz-card .modern-select {
+      /* Default Dropdown inside Namaz Card = Soft Ruby Red */
+      .namaz-card .modern-select,
+      .namaz-card.status-nahi .modern-select {
         width: 100% !important;
         padding: 10px 12px !important;
         font-size: 13px !important;
-        font-weight: 700 !important;
-        color: #ffffff !important;
-        background-color: #061328 !important;
-        border: 1.5px solid rgba(148, 163, 184, 0.32) !important;
+        font-weight: 800 !important;
+        background-color: #1c0910 !important;
+        border: 1.5px solid #ef4444 !important;
+        color: #fca5a5 !important;
         border-radius: 12px !important;
         cursor: pointer !important;
+        box-shadow: inset 0 0 10px rgba(239, 68, 68, 0.18) !important;
         color-scheme: dark !important;
       }
 
-      /* Force every option & optgroup inside any dropdown to have dark background & bright white text */
+      /* 2. ✅ ADA / RAKHA / TILAWAT = DARK EMERALD-GREEN GLASS */
+      .namaz-card.status-ada {
+        background: linear-gradient(145deg, rgba(6, 95, 70, 0.42) 0%, rgba(8, 28, 38, 0.95) 100%) !important;
+        border: 1.5px solid #10b981 !important;
+        border-left: 5px solid #34d399 !important;
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45), 0 0 18px rgba(16, 185, 129, 0.25) !important;
+      }
+      .namaz-card.status-ada .modern-select {
+        background-color: #05221a !important;
+        border: 1.5px solid #34d399 !important;
+        color: #6ee7b7 !important;
+        box-shadow: 0 0 12px rgba(16, 185, 129, 0.28) !important;
+      }
+
+      /* 3. 🕒 QAZA PADHI = DARK AMBER-YELLOW GLASS */
+      .namaz-card.status-qaza {
+        background: linear-gradient(145deg, rgba(146, 64, 14, 0.42) 0%, rgba(20, 22, 38, 0.95) 100%) !important;
+        border: 1.5px solid #f59e0b !important;
+        border-left: 5px solid #fde047 !important;
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45), 0 0 18px rgba(245, 158, 11, 0.25) !important;
+      }
+      .namaz-card.status-qaza .modern-select {
+        background-color: #231605 !important;
+        border: 1.5px solid #fbbf24 !important;
+        color: #fde047 !important;
+        box-shadow: 0 0 12px rgba(245, 158, 11, 0.28) !important;
+      }
+
+      /* General modern-select outside namaz-cards (Admin / Chat) */
+      .modern-select {
+        background-color: #061328 !important;
+        color: #ffffff !important;
+        border: 1.5px solid rgba(56, 189, 248, 0.35) !important;
+        border-radius: 12px !important;
+        color-scheme: dark !important;
+      }
+
+      /* ✅ DROPDOWN OPEN LIST OPTIONS: DARK NAVY BACKGROUND WITH COLOR-CODED TEXT */
       select option,
       select optgroup,
       .modern-select option,
-      .modern-select optgroup,
-      .namaz-card.status-ada .modern-select option,
-      .namaz-card.status-qaza .modern-select option {
-        background-color: #051024 !important;
-        background: #051024 !important;
-        color: #ffffff !important;
-        font-weight: 700 !important;
+      .modern-select optgroup {
+        background-color: #061022 !important;
+        background: #061022 !important;
+        color: #6ee7b7 !important; /* Default option text = Mint Green (for Quran pages/Ada) */
+        font-weight: 800 !important;
         padding: 10px !important;
       }
-
-      /* Glowing Active State When 'Ada' or 'Rakha' is Selected */
-      .namaz-card.status-ada {
-        background: linear-gradient(135deg, rgba(14, 165, 233, 0.28) 0%, rgba(37, 99, 235, 0.24) 50%, rgba(10, 25, 56, 0.95) 100%) !important;
-        border: 1.5px solid #38bdf8 !important;
-        border-left: 5px solid #fde047 !important;
-        box-shadow: 0 10px 28px rgba(14, 165, 233, 0.3), 0 0 18px rgba(56, 189, 248, 0.25) !important;
+      /* Red Text for 'Nahi' inside open dropdown list */
+      select option[value="Nahi"],
+      .modern-select option[value="Nahi"] {
+        background-color: #16070c !important;
+        color: #fca5a5 !important;
       }
-      .namaz-card.status-ada .modern-select {
-        background-color: #082347 !important;
-        border-color: #7dd3fc !important;
-        color: #7dd3fc !important;
-        box-shadow: 0 0 12px rgba(56, 189, 248, 0.3) !important;
+      /* Green Text for 'Ada' and 'Rakha' inside open dropdown list */
+      select option[value="Ada"],
+      select option[value="Rakha"],
+      .modern-select option[value="Ada"],
+      .modern-select option[value="Rakha"] {
+        background-color: #051c16 !important;
+        color: #6ee7b7 !important;
       }
-
-      /* Glowing Amber State When 'Qaza' is Selected */
-      .namaz-card.status-qaza {
-        background: linear-gradient(135deg, rgba(245, 158, 11, 0.26) 0%, rgba(15, 28, 55, 0.95) 100%) !important;
-        border: 1.5px solid #fbbf24 !important;
-        border-left: 5px solid #f59e0b !important;
-        box-shadow: 0 8px 24px rgba(245, 158, 11, 0.22) !important;
-      }
-      .namaz-card.status-qaza .modern-select {
-        background-color: #241909 !important;
-        border-color: #fde047 !important;
+      /* Yellow Text for 'Qaza' inside open dropdown list */
+      select option[value="Qaza"],
+      .modern-select option[value="Qaza"] {
+        background-color: #1f1405 !important;
         color: #fde047 !important;
       }
 
@@ -299,18 +331,18 @@
         overflow: hidden !important;
       }
       .progress-fill {
-        background: linear-gradient(90deg, #38bdf8 0%, #818cf8 50%, #fde047 100%) !important;
-        box-shadow: 0 0 16px rgba(56, 189, 248, 0.8) !important;
+        background: linear-gradient(90deg, #10b981 0%, #38bdf8 55%, #fde047 100%) !important;
+        box-shadow: 0 0 16px rgba(16, 185, 129, 0.75) !important;
       }
 
       #t_markAllBtn {
-        background: linear-gradient(135deg, rgba(250, 204, 21, 0.18), rgba(245, 158, 11, 0.28)) !important;
-        border: 1.5px solid #fde047 !important;
-        color: #fde047 !important;
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.32)) !important;
+        border: 1.5px solid #34d399 !important;
+        color: #6ee7b7 !important;
         font-weight: 800 !important;
         border-radius: 14px !important;
         padding: 12px !important;
-        box-shadow: 0 6px 20px rgba(250, 204, 21, 0.18) !important;
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.2) !important;
       }
       .btn, #submitBtn {
         background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%) !important;
@@ -335,15 +367,21 @@
         border-radius: 12px !important;
       }
 
+      /* Meri A'amal History Pills also matched to Green / Yellow / Red */
       .status-pill.pill-ada {
-        background: rgba(14, 165, 233, 0.2) !important;
-        border: 1px solid #38bdf8 !important;
-        color: #7dd3fc !important;
+        background: rgba(16, 185, 129, 0.2) !important;
+        border: 1px solid #34d399 !important;
+        color: #6ee7b7 !important;
       }
       .status-pill.pill-qaza {
-        background: rgba(245, 158, 11, 0.2) !important;
+        background: rgba(245, 158, 11, 0.22) !important;
         border: 1px solid #fbbf24 !important;
         color: #fde047 !important;
+      }
+      .status-pill.pill-nahi {
+        background: rgba(239, 68, 68, 0.2) !important;
+        border: 1px solid #ef4444 !important;
+        color: #fca5a5 !important;
       }
 
       .bottom-nav-bar {
@@ -619,23 +657,23 @@
 
                 <h2 id="t_namazHeading">🕋 5 Waqt Ki Farz Namaz</h2>
                 <div class="namaz-grid">
-                    <div class="namaz-card" id="card-fajr">
+                    <div class="namaz-card status-nahi" id="card-fajr">
                         <label><span id="t_fajr">🌅 Fajr</span><span class="arabic-text">الفجر</span></label>
                         <select id="fajr" class="modern-select" onchange="updateUI()"></select>
                     </div>
-                    <div class="namaz-card" id="card-zuhr">
+                    <div class="namaz-card status-nahi" id="card-zuhr">
                         <label><span id="zuhrLabel">☀️ Zuhr</span><span id="zuhrArabic" class="arabic-text">الظهر</span></label>
                         <select id="zuhr" class="modern-select" onchange="updateUI()"></select>
                     </div>
-                    <div class="namaz-card" id="card-asr">
+                    <div class="namaz-card status-nahi" id="card-asr">
                         <label><span id="t_asr">🌤️ Asr</span><span class="arabic-text">العصر</span></label>
                         <select id="asr" class="modern-select" onchange="updateUI()"></select>
                     </div>
-                    <div class="namaz-card" id="card-maghrib">
+                    <div class="namaz-card status-nahi" id="card-maghrib">
                         <label><span id="t_maghrib">🌇 Maghrib</span><span class="arabic-text">المغرب</span></label>
                         <select id="maghrib" class="modern-select" onchange="updateUI()"></select>
                     </div>
-                    <div class="namaz-card full-width" id="card-isha">
+                    <div class="namaz-card full-width status-nahi" id="card-isha">
                         <label><span id="t_isha">🌌 Isha</span><span class="arabic-text">العشاء</span></label>
                         <select id="isha" class="modern-select" onchange="updateUI()"></select>
                     </div>
@@ -643,11 +681,11 @@
 
                 <h2 id="t_nawafilHeading">🌟 Nawafil Namaz (Tahajjud & Al-Duha)</h2>
                 <div class="namaz-grid">
-                    <div class="namaz-card" id="card-tahajjud">
+                    <div class="namaz-card status-nahi" id="card-tahajjud">
                         <label><span id="t_tahajjud">🌌 Tahajjud</span><span class="arabic-text">التهجد</span></label>
                         <select id="tahajjud" class="modern-select" onchange="updateUI()"></select>
                     </div>
-                    <div class="namaz-card" id="card-duha">
+                    <div class="namaz-card status-nahi" id="card-duha">
                         <label><span id="t_duha">☀️ Al-Duha (Chasht / Ishraq)</span><span class="arabic-text">الضحى</span></label>
                         <select id="duha" class="modern-select" onchange="updateUI()"></select>
                     </div>
@@ -655,15 +693,15 @@
 
                 <h2 id="t_extraHeading">🌙 Roza, Quran & Tarawih</h2>
                 <div class="extra-grid">
-                    <div class="namaz-card" id="card-roza">
+                    <div class="namaz-card status-nahi" id="card-roza">
                         <label><span id="t_roza">✨ Roza</span><span class="arabic-text">الصوم</span></label>
                         <select id="roza" class="modern-select" onchange="updateUI()"></select>
                     </div>
-                    <div class="namaz-card" id="card-tarawih">
+                    <div class="namaz-card status-nahi" id="card-tarawih">
                         <label><span id="t_tarawih">🕌 Tarawih</span><span class="arabic-text">التراويح</span></label>
                         <select id="tarawih" class="modern-select" onchange="updateUI()"></select>
                     </div>
-                    <div class="namaz-card full-width" id="card-quran">
+                    <div class="namaz-card full-width status-nahi" id="card-quran">
                         <label><span id="t_quran">📖 Quran-e-Pak Tilawat</span><span class="arabic-text">القرآن</span></label>
                         <select id="quran" class="modern-select" onchange="updateUI()"></select>
                     </div>
@@ -686,7 +724,7 @@
                         <div class="aamal-stat-lbl" id="t_myStatDaysLbl">📅 Kul Din</div>
                     </div>
                     <div class="aamal-stat-card">
-                        <div class="aamal-stat-val" id="myStatFarzRate" style="color: var(--emerald-bright);">0%</div>
+                        <div class="aamal-stat-val" id="myStatFarzRate" style="color: #6ee7b7;">0%</div>
                         <div class="aamal-stat-lbl" id="t_myStatFarzLbl">🕋 Farz Ada %</div>
                     </div>
                     <div class="aamal-stat-card">
@@ -716,7 +754,7 @@
                         <div class="admin-stat-label">👥 Kul Members</div>
                     </div>
                     <div class="admin-stat-box">
-                        <div class="admin-stat-num" id="admStatTodaySub" style="color: var(--emerald-bright);">0</div>
+                        <div class="admin-stat-num" id="admStatTodaySub" style="color: #6ee7b7;">0</div>
                         <div class="admin-stat-label">✅ Aaj Ki Reports</div>
                     </div>
                     <div class="admin-stat-box">
@@ -739,7 +777,7 @@
                     <div id="adminLookupResultBox" style="margin-top: 12px;"></div>
                 </div>
                 <div class="admin-sub-box">
-                    <h3><span>⚠️ Aaj Jin Logon Ne Report Nahi Bheji</span><span id="admPendingDateBadge" style="font-size: 11px; color: var(--emerald-bright);"></span></h3>
+                    <h3><span>⚠️ Aaj Jin Logon Ne Report Nahi Bheji</span><span id="admPendingDateBadge" style="font-size: 11px; color: #6ee7b7;"></span></h3>
                     <div id="admPendingUsersList" style="max-height: 200px; overflow-y: auto;"></div>
                 </div>
                 <div class="admin-sub-box">
@@ -823,5 +861,36 @@
     <script src="chat-notif.js"></script>
     <script src="leaderboard-records.js"></script>
     <script src="admin-quran.js"></script>
+
+    <!-- 🎨 AUTO SYNC RED (NAHI) / GREEN (ADA) / YELLOW (QAZA) ON ALL REPORT CARDS -->
+    <script>
+      (function() {
+        const ids = ['fajr', 'zuhr', 'asr', 'maghrib', 'isha', 'tahajjud', 'duha', 'roza', 'tarawih', 'quran'];
+        function syncCardColors() {
+          ids.forEach(function(id) {
+            const sel = document.getElementById(id);
+            const card = document.getElementById('card-' + id);
+            if (!sel || !card) return;
+            const val = sel.value;
+            card.classList.remove('status-nahi', 'status-ada', 'status-qaza');
+            if (val === 'Qaza') {
+              card.classList.add('status-qaza');
+            } else if (val && val !== 'Nahi') {
+              card.classList.add('status-ada');
+            } else {
+              card.classList.add('status-nahi');
+            }
+          });
+        }
+        const origUpdateUI = window.updateUI;
+        window.updateUI = function() {
+          if (typeof origUpdateUI === 'function') origUpdateUI();
+          syncCardColors();
+        };
+        window.addEventListener('DOMContentLoaded', function() {
+          setTimeout(syncCardColors, 150);
+        });
+      })();
+    </script>
 </body>
 </html>
