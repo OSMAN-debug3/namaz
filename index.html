@@ -39,7 +39,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- ✨ ROYAL COSMIC BLUE, VIOLET-CYAN & GOLD LUXURY THEME (ZERO GREEN) -->
+    <!-- ✨ ROYAL COSMIC BLUE, VIOLET-CYAN & GOLD LUXURY THEME (WITH DROPDOWN VISIBILITY FIX) -->
     <style>
       :root {
         --bg-deep: #040b18 !important;
@@ -53,7 +53,6 @@
         --border-subtle: rgba(148, 163, 184, 0.18) !important;
       }
 
-      /* Cosmic Starlight & Royal Midnight Indigo Background */
       body {
         background-color: #040b18 !important;
         background-image:
@@ -70,7 +69,6 @@
         padding-bottom: 135px !important;
       }
 
-      /* Main Glass Containers */
       header, .card, .side-drawer, .modal-content, .notif-dropdown-popup {
         background: linear-gradient(165deg, rgba(12, 26, 54, 0.88) 0%, rgba(6, 14, 31, 0.94) 100%) !important;
         border: 1.5px solid rgba(56, 189, 248, 0.28) !important;
@@ -80,7 +78,6 @@
         border-radius: 24px !important;
       }
 
-      /* Spiritual Engine Live Indicator */
       .spiritual-engine-pill {
         display: inline-flex;
         align-items: center;
@@ -110,7 +107,6 @@
         50% { transform: scale(1.35); opacity: 0.65; }
       }
 
-      /* Header Title */
       header h1 {
         font-family: 'Cormorant Garamond', Georgia, serif !important;
         font-size: clamp(28px, 6vw, 40px) !important;
@@ -148,7 +144,6 @@
         box-shadow: 0 0 18px rgba(14, 165, 233, 0.18) !important;
       }
 
-      /* ✅ FIX 1: REMOVE ALL GREEN FROM HOME PAGE RAKAT PILLS & BADGES */
       .rakat-pill, .guide-box span, .guide-box div span, .badge-chip {
         background: linear-gradient(135deg, rgba(14, 165, 233, 0.22), rgba(99, 102, 241, 0.22)) !important;
         border: 1px solid rgba(56, 189, 248, 0.45) !important;
@@ -165,7 +160,6 @@
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
       }
 
-      /* ✅ FIX 2: ULTRA-ATTRACTIVE PROFESSIONAL NAMAZ & IBADAT REPORT CARDS */
       #sectionTracker h2 {
         font-size: 16px !important;
         font-weight: 800 !important;
@@ -227,18 +221,33 @@
         border-radius: 99px !important;
       }
 
-      /* Sleek Interactive Select Dropdown inside Namaz Cards */
+      /* ✅ FIXED DROPDOWN MENU: SOLID DARK BACKGROUND SO OPTIONS ARE ALWAYS 100% VISIBLE */
+      .modern-select,
       .namaz-card .modern-select {
         width: 100% !important;
         padding: 10px 12px !important;
         font-size: 13px !important;
         font-weight: 700 !important;
-        color: #e2e8f0 !important;
-        background: rgba(5, 13, 28, 0.92) !important;
-        border: 1.5px solid rgba(148, 163, 184, 0.28) !important;
+        color: #ffffff !important;
+        background-color: #061328 !important;
+        border: 1.5px solid rgba(148, 163, 184, 0.32) !important;
         border-radius: 12px !important;
         cursor: pointer !important;
-        transition: all 0.2s ease !important;
+        color-scheme: dark !important;
+      }
+
+      /* Force every option & optgroup inside any dropdown to have dark background & bright white text */
+      select option,
+      select optgroup,
+      .modern-select option,
+      .modern-select optgroup,
+      .namaz-card.status-ada .modern-select option,
+      .namaz-card.status-qaza .modern-select option {
+        background-color: #051024 !important;
+        background: #051024 !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        padding: 10px !important;
       }
 
       /* Glowing Active State When 'Ada' or 'Rakha' is Selected */
@@ -249,9 +258,9 @@
         box-shadow: 0 10px 28px rgba(14, 165, 233, 0.3), 0 0 18px rgba(56, 189, 248, 0.25) !important;
       }
       .namaz-card.status-ada .modern-select {
-        background: linear-gradient(90deg, rgba(14, 165, 233, 0.32), rgba(59, 130, 246, 0.25)) !important;
+        background-color: #082347 !important;
         border-color: #7dd3fc !important;
-        color: #ffffff !important;
+        color: #7dd3fc !important;
         box-shadow: 0 0 12px rgba(56, 189, 248, 0.3) !important;
       }
 
@@ -263,9 +272,9 @@
         box-shadow: 0 8px 24px rgba(245, 158, 11, 0.22) !important;
       }
       .namaz-card.status-qaza .modern-select {
-        background: rgba(245, 158, 11, 0.22) !important;
+        background-color: #241909 !important;
         border-color: #fde047 !important;
-        color: #fef08a !important;
+        color: #fde047 !important;
       }
 
       /* Luxury Progress Card */
@@ -294,7 +303,6 @@
         box-shadow: 0 0 16px rgba(56, 189, 248, 0.8) !important;
       }
 
-      /* Mark All 5 Namaz Button & Save Report Button */
       #t_markAllBtn {
         background: linear-gradient(135deg, rgba(250, 204, 21, 0.18), rgba(245, 158, 11, 0.28)) !important;
         border: 1.5px solid #fde047 !important;
@@ -315,7 +323,6 @@
         font-size: 14px !important;
       }
 
-      /* Other Sub-Boxes & Inputs */
       .admin-sub-box, .aamal-stat-card, .detailed-record-card, .leaderboard-item, .settings-sub-box, .panel-inner-card, .admin-stat-box {
         background: linear-gradient(150deg, rgba(13, 28, 56, 0.8) 0%, rgba(7, 16, 34, 0.92) 100%) !important;
         border: 1px solid rgba(56, 189, 248, 0.24) !important;
@@ -328,7 +335,6 @@
         border-radius: 12px !important;
       }
 
-      /* Status Pills in Meri A'amal (Blue/Gold instead of old dark green) */
       .status-pill.pill-ada {
         background: rgba(14, 165, 233, 0.2) !important;
         border: 1px solid #38bdf8 !important;
@@ -340,7 +346,6 @@
         color: #fde047 !important;
       }
 
-      /* Bottom Navigation Bar */
       .bottom-nav-bar {
         background: rgba(4, 11, 24, 0.95) !important;
         border-top: 1.5px solid rgba(56, 189, 248, 0.35) !important;
@@ -361,7 +366,6 @@
         box-shadow: 0 0 16px rgba(56, 189, 248, 0.45) !important;
       }
 
-      /* Floating Quran Pak Pill Button */
       #zikr-nav-trigger-fallback {
         background: linear-gradient(135deg, #0ea5e9, #6366f1) !important;
         color: #ffffff !important;
