@@ -1,59 +1,80 @@
 /* ================= CHAT, PERMANENT SEEN BADGE & WORKING CUT (×) NOTIFICATIONS MODULE ================= */
 
-function getStableBroadcastId(rawId, from, title, body) {
+const ZS_SUPREME_LIST = (typeof SUPREME_ADMINS !== 'undefined')
+    ? SUPREME_ADMINS
+    : ['abbu shahma', 'osman', 'admin', 'osman sardar', 'osman bey'];
+
+const ZS_ADMIN_LIST = (typeof DEFAULT_ADMINS !== 'undefined')
+    ? DEFAULT_ADMINS
+    : ((typeof ADMIN_NAMES !== 'undefined') ? ADMIN_NAMES : [...ZS_SUPREME_LIST, 'muhammad sibgathullah', 'md firoz alam']);
+
+function checkIsSupremeAdmin() {
+    if (typeof isSupremeAdmin === 'function') return isSupremeAdmin();
+    const u = (localStorage.getItem('namaz_user') || '').trim().toLowerCase();
+    return ZS_SUPREME_LIST.includes(u);
+}
+
+function makeStableNotifKey(rawId, from, title, body) {
+    const cleanText = `${from}_${title}_${body}`.toLowerCase().replace(/[^a-z0-9]/g, '');
     if (rawId && !rawId.startsWith('legacy_')) return rawId;
-    const rawStr = `${from}_${title}_${body}`.toLowerCase().replace(/[^a-z0-9]/g, '');
-    return 'bst_' + rawStr.slice(0, 36);
+    return ' notif_' + cleanText.slice(0, 40);
 }
 
-function getSeenNotifsSet() {
-    const myName = (localStorage.getItem('namaz_user') || 'guest').trim().toLowerCase();
-    const globalSeen = JSON.parse(localStorage.getItem('zs_seen_notifs_v3') || '[]');
-    const userSeen = JSON.parse(localStorage.getItem(`zs_seen_notifs_${myName}`) || '[]');
-    return new Set([...globalSeen, ...userSeen]);
+function getPermanentSeenSet() {
+    try {
+        const globalSeen = JSON.parse(localStorage.getItem('zikr_seen_permanent_v4') || '[]');
+        const oldDismissed = JSON.parse(localStorage.getItem('zikr_dismissed_notifs') || '[]');
+        return new Set([...globalSeen, ...oldDismissed]);
+    } catch (e) {
+        return new Set();
+    }
 }
 
-function saveSeenNotifsSet(seenSet) {
-    const myName = (localStorage.getItem('namaz_user') || 'guest').trim().toLowerCase();
-    const arr = Array.from(seenSet);
-    localStorage.setItem('zs_seen_notifs_v3', JSON.stringify(arr));
-    localStorage.setItem(`zs_seen_notifs_${myName}`, JSON.stringify(arr));
+function savePermanentSeenSet(seenSet) {
+    try {
+        const arr = Array.from(seenSet);
+        localStorage.setItem('zikr_seen_permanent_v4', JSON.stringify(arr));
+        localStorage.setItem('zikr_dismissed_notifs', JSON.stringify(arr));
+    } catch (e) {}
 }
 
-function getDeletedNotifsSet() {
-    const myName = (localStorage.getItem('namaz_user') || 'guest').trim().toLowerCase();
-    const globalDel = JSON.parse(localStorage.getItem('zs_deleted_notifs_v3') || '[]');
-    const userDel = JSON.parse(localStorage.getItem(`zs_deleted_notifs_${myName}`) || '[]');
-    return new Set([...globalDel, ...userDel]);
+function getPermanentCutSet() {
+    try {
+        return new Set(JSON.parse(localStorage.getItem('zikr_cut_permanent_v4') || '[]'));
+    } catch (e) {
+        return new Set();
+    }
 }
 
-function saveDeletedNotifsSet(delSet) {
-    const myName = (localStorage.getItem('namaz_user') || 'guest').trim().toLowerCase();
-    const arr = Array.from(delSet);
-    localStorage.setItem('zs_deleted_notifs_v3', JSON.stringify(arr));
-    localStorage.setItem(`zs_deleted_notifs_${myName}`, JSON.stringify(arr));
+function savePermanentCutSet(cutSet) {
+    try {
+        localStorage.setItem('zikr_cut_permanent_v4', JSON.stringify(Array.from(cutSet)));
+    } catch (e) {}
 }
 
-async function markAllCurrentBroadcastsSeen() {
+async function markAllVisibleBroadcastsAsSeen() {
     const state = buildMessageSystemState();
-    const seenSet = getSeenNotifsSet();
+    const seenSet = getPermanentSeenSet();
     let changed = false;
 
     state.broadcasts.forEach(b => {
-        if (!seenSet.has(b.id)) {
+        if (!seenSet.has(b.id) || !seenSet.has(b.rawId)) {
             seenSet.add(b.id);
+            seenSet.add(b.rawId);
             changed = true;
         }
     });
 
     if (changed) {
-        saveSeenNotifsSet(seenSet);
+        savePermanentSeenSet(seenSet);
         const myName = (localStorage.getItem('namaz_user') || '').trim();
         if (myName && state.broadcasts.length > 0) {
             const maxOrder = Math.max(...state.broadcasts.map(b => b.order));
             const payload = `NOTIF_SEEN|${myName.toLowerCase()}|${maxOrder}`;
             globalMessages.push({ date: new Date().toISOString(), name: myName, message: payload });
-            try { await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent(myName)}&message=${encodeURIComponent(payload)}`); } catch (e) {}
+            try {
+                await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent(myName)}&message=${encodeURIComponent(payload)}`);
+            } catch (e) {}
         }
     }
 }
@@ -66,7 +87,7 @@ function toggleNotifPopup(e) {
     bellBtn.classList.toggle('active', !isHidden);
 
     if (!isHidden) {
-        markAllCurrentBroadcastsSeen();
+        markAllVisibleBroadcastsAsSeen();
     }
     refreshChatAndNotificationsUI();
 }
@@ -99,41 +120,48 @@ function formatRelativeDays(dateStr) {
 
 async function clearAllNotifications() {
     const state = buildMessageSystemState();
-    const delSet = getDeletedNotifsSet();
-    const seenSet = getSeenNotifsSet();
+    const cutSet = getPermanentCutSet();
+    const seenSet = getPermanentSeenSet();
 
     state.broadcasts.forEach(b => {
-        delSet.add(b.id);
+        cutSet.add(b.id);
+        cutSet.add(b.rawId);
         seenSet.add(b.id);
+        seenSet.add(b.rawId);
     });
-    saveDeletedNotifsSet(delSet);
-    saveSeenNotifsSet(seenSet);
+    savePermanentCutSet(cutSet);
+    savePermanentSeenSet(seenSet);
 
     if (isUserAdmin()) {
         const payload = `CLEAR_BROADCASTS|${Date.now()}`;
         globalMessages.push({ date: new Date().toISOString(), name: 'ABBU SHAHMA', message: payload });
-        try { await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent('ABBU SHAHMA')}&message=${encodeURIComponent(payload)}`); } catch (e) {}
+        try {
+            await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent('ABBU SHAHMA')}&message=${encodeURIComponent(payload)}`);
+        } catch (e) {}
     }
     refreshChatAndNotificationsUI();
 }
 
-/* ✅ WORKING 1-CLICK CUT (×) BUTTON FOR SINGLE NOTIFICATION */
-async function deleteSingleNotification(notifId, ev) {
+async function deleteSingleNotification(notifId, rawId, ev) {
     if (ev) ev.stopPropagation();
 
-    const delSet = getDeletedNotifsSet();
-    const seenSet = getSeenNotifsSet();
-    delSet.add(notifId);
-    seenSet.add(notifId);
-    saveDeletedNotifsSet(delSet);
-    saveSeenNotifsSet(seenSet);
+    const cutSet = getPermanentCutSet();
+    const seenSet = getPermanentSeenSet();
+    if (notifId) { cutSet.add(notifId); seenSet.add(notifId); }
+    if (rawId) { cutSet.add(rawId); seenSet.add(rawId); }
+    savePermanentCutSet(cutSet);
+    savePermanentSeenSet(seenSet);
 
-    const payload = `DELETE|${notifId}`;
+    const targetToDelete = rawId || notifId;
+    const payload = `DELETE|${targetToDelete}`;
     globalMessages.push({ date: new Date().toISOString(), name: 'ABBU SHAHMA', message: payload });
+
     refreshChatAndNotificationsUI();
 
     if (isUserAdmin()) {
-        try { await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent('ABBU SHAHMA')}&message=${encodeURIComponent(payload)}`); } catch (e) {}
+        try {
+            await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent('ABBU SHAHMA')}&message=${encodeURIComponent(payload)}`);
+        } catch (e) {}
     }
 }
 
@@ -164,9 +192,9 @@ function buildMessageSystemState() {
         if (rawText.startsWith('NOTIF_SEEN|')) {
             const parts = rawText.split('|');
             const viewer = (parts[1] || '').trim().toLowerCase();
-            const orderNum = parseInt(parts[2] || '0', 10);
+            const seenIdx = parseInt(parts[2] || '0', 10);
             if (viewer) {
-                notifSeenOrderMap[viewer] = Math.max(notifSeenOrderMap[viewer] || -1, orderNum);
+                notifSeenOrderMap[viewer] = Math.max(notifSeenOrderMap[viewer] || -1, seenIdx);
             }
             return;
         }
@@ -197,6 +225,11 @@ function buildMessageSystemState() {
             const targetId = rawText.split('|')[1];
             chatsMap.delete(targetId);
             broadcastsMap.delete(targetId);
+            for (let [k, val] of broadcastsMap.entries()) {
+                if (val.rawId === targetId || val.id === targetId) {
+                    broadcastsMap.delete(k);
+                }
+            }
             return;
         }
         if (rawText.startsWith('CLEAR_BROADCASTS|')) {
@@ -216,8 +249,17 @@ function buildMessageSystemState() {
                 title = tb[0].trim() || 'Community Notice';
                 body = tb.slice(1).join('::').trim();
             }
-            const stableId = getStableBroadcastId(rawId, from, title, body);
-            broadcastsMap.set(stableId, { id: stableId, type: 'BROADCAST', from, title, text: body, time, order: index });
+            const stableKey = makeStableNotifKey(rawId, from, title, body);
+            broadcastsMap.set(stableKey, {
+                id: stableKey,
+                rawId: rawId,
+                type: 'BROADCAST',
+                from,
+                title,
+                text: body,
+                time,
+                order: index
+            });
             return;
         }
         if (rawText.startsWith('CHAT2|')) {
@@ -233,7 +275,9 @@ function buildMessageSystemState() {
         }
     });
 
-    dynamicSubAdmins = subAdminSet;
+    if (typeof dynamicSubAdmins !== 'undefined') {
+        dynamicSubAdmins = subAdminSet;
+    }
     localStorage.setItem('zs_sub_admins', JSON.stringify(Array.from(subAdminSet)));
 
     return {
@@ -249,7 +293,7 @@ function isPartnerCurrentlyOnline(partnerName, state) {
     if (!partnerName) return false;
     const p = partnerName.toLowerCase();
     if (p === 'admin') {
-        return DEFAULT_ADMINS.some(a => (Date.now() - (state.onlineMap[a] || 0)) < 10 * 60 * 1000);
+        return ZS_ADMIN_LIST.some(a => (Date.now() - (state.onlineMap[a] || 0)) < 10 * 60 * 1000);
     }
     return (Date.now() - (state.onlineMap[p] || 0)) < 10 * 60 * 1000;
 }
@@ -358,19 +402,29 @@ function refreshChatAndNotificationsUI() {
     const supremeBadge = document.getElementById('supremeAdminHeaderBadge');
     supremeBadge.classList.toggle('hidden', !adminMode);
     if (adminMode) {
-        supremeBadge.innerText = isSupremeAdmin() ? '👑 SUPREME ADMIN: ABBU SHAHMA' : `👑 COMMUNITY ADMIN: ${myName.toUpperCase()}`;
+        supremeBadge.innerText = checkIsSupremeAdmin() ? '👑 SUPREME ADMIN: ABBU SHAHMA' : `👑 COMMUNITY ADMIN: ${myName.toUpperCase()}`;
     }
     document.getElementById('navAdminBtn').classList.toggle('hidden', !adminMode);
 
-    const delSet = getDeletedNotifsSet();
-    const seenSet = getSeenNotifsSet();
+    const cutSet = getPermanentCutSet();
+    const seenSet = getPermanentSeenSet();
     const serverSeenOrder = state.notifSeenOrderMap[myLower] !== undefined ? state.notifSeenOrderMap[myLower] : -1;
 
-    // 1. Filter out notifications the user has clicked Cut (×) or Clear All on
-    const visibleBroadcasts = state.broadcasts.filter(b => !delSet.has(b.id));
+    // 1. Hide notifications where user clicked Cut (×) or Clear All
+    const visibleBroadcasts = state.broadcasts.filter(b => !cutSet.has(b.id) && !cutSet.has(b.rawId));
 
-    // 2. Unread count = visible broadcasts that are NOT in seenSet AND have order > serverSeenOrder
-    const unreadBroadcasts = visibleBroadcasts.filter(b => !seenSet.has(b.id) && b.order > serverSeenOrder);
+    // If popup is currently open, mark all visible broadcasts as seen right away
+    const popupEl = document.getElementById('notifDropdownPopup');
+    if (popupEl && !popupEl.classList.contains('hidden')) {
+        visibleBroadcasts.forEach(b => {
+            seenSet.add(b.id);
+            seenSet.add(b.rawId);
+        });
+        savePermanentSeenSet(seenSet);
+    }
+
+    // 2. Unread notifications = visible notifications that have never been seen
+    const unreadBroadcasts = visibleBroadcasts.filter(b => !seenSet.has(b.id) && !seenSet.has(b.rawId) && b.order > serverSeenOrder);
 
     if (loggedIn) {
         checkAndPopPhoneNotifications(visibleBroadcasts, state.chats);
@@ -380,7 +434,7 @@ function refreshChatAndNotificationsUI() {
     const badgeDot = document.getElementById('notifBadgeCount');
     const unreadCount = unreadBroadcasts.length;
 
-    document.getElementById('notifPopupCountPill').innerText = visibleBroadcasts.length;
+    document.getElementById('notifPopupCountPill').innerText = unreadCount;
 
     if (unreadCount === 0) {
         if (badgeDot) badgeDot.classList.add('hidden');
@@ -395,14 +449,15 @@ function refreshChatAndNotificationsUI() {
         notifBox.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:12px; padding:22px 14px;">${t.emptyNotif}</div>`;
     } else {
         notifBox.innerHTML = visibleBroadcasts.slice().reverse().map(b => {
-            const safeId = b.id.replace(/'/g, "\\'");
+            const safeId = (b.id || '').replace(/'/g, "\\'");
+            const safeRawId = (b.rawId || '').replace(/'/g, "\\'");
             return `
                 <div class="notif-card-row">
                     <div class="notif-circle-icon notif-icon-gold">🔔</div>
                     <div class="notif-body-col">
                         <div class="notif-item-heading" style="display:flex; justify-content:space-between; align-items:center;">
                             <span>${b.title || 'Community Notice'}</span>
-                            <button type="button" onclick="deleteSingleNotification('${safeId}', event)" title="Cut Message" style="background:rgba(239,68,68,0.2); color:#fca5a5; border:1px solid rgba(239,68,68,0.45); border-radius:50%; width:22px; height:22px; font-size:14px; font-weight:900; line-height:1; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;">&times;</button>
+                            <span class="notif-single-del" onclick="deleteSingleNotification('${safeId}', '${safeRawId}', event)" title="Cut Message" style="cursor:pointer; color:#fca5a5; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); border-radius:50%; width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; font-size:15px; font-weight:900; line-height:1;">&times;</span>
                         </div>
                         <div class="notif-item-desc">${b.text}</div>
                         <div class="notif-item-time">${formatRelativeDays(b.time)}</div>
@@ -416,8 +471,8 @@ function refreshChatAndNotificationsUI() {
         const targetSelect = document.getElementById('adminReplyTarget');
         const currentTarget = targetSelect.value;
         const memberNames = new Set();
-        globalUsers.forEach(u => { if (!SUPREME_ADMINS.includes(u.name.toLowerCase())) memberNames.add(u.name); });
-        state.chats.forEach(c => { if (!c.isAdminReply && !SUPREME_ADMINS.includes(c.from.toLowerCase())) memberNames.add(c.from); });
+        globalUsers.forEach(u => { if (!ZS_SUPREME_LIST.includes(u.name.toLowerCase())) memberNames.add(u.name); });
+        state.chats.forEach(c => { if (!c.isAdminReply && !ZS_SUPREME_LIST.includes(c.from.toLowerCase())) memberNames.add(c.from); });
         const arr = Array.from(memberNames);
         targetSelect.innerHTML = arr.length === 0 ? `<option value="ALL">All Members</option>` : arr.map(m => `<option value="${m}">👤 ${m}</option>`).join('');
         if (currentTarget && arr.includes(currentTarget)) targetSelect.value = currentTarget;
