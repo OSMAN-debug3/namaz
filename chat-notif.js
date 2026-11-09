@@ -1,4 +1,62 @@
-/* ================= CHAT, UNREAD BADGE FIX & BELL NOTIFICATIONS MODULE ================= */
+/* ================= CHAT, PERMANENT SEEN BADGE & WORKING CUT (×) NOTIFICATIONS MODULE ================= */
+
+function getStableBroadcastId(rawId, from, title, body) {
+    if (rawId && !rawId.startsWith('legacy_')) return rawId;
+    const rawStr = `${from}_${title}_${body}`.toLowerCase().replace(/[^a-z0-9]/g, '');
+    return 'bst_' + rawStr.slice(0, 36);
+}
+
+function getSeenNotifsSet() {
+    const myName = (localStorage.getItem('namaz_user') || 'guest').trim().toLowerCase();
+    const globalSeen = JSON.parse(localStorage.getItem('zs_seen_notifs_v3') || '[]');
+    const userSeen = JSON.parse(localStorage.getItem(`zs_seen_notifs_${myName}`) || '[]');
+    return new Set([...globalSeen, ...userSeen]);
+}
+
+function saveSeenNotifsSet(seenSet) {
+    const myName = (localStorage.getItem('namaz_user') || 'guest').trim().toLowerCase();
+    const arr = Array.from(seenSet);
+    localStorage.setItem('zs_seen_notifs_v3', JSON.stringify(arr));
+    localStorage.setItem(`zs_seen_notifs_${myName}`, JSON.stringify(arr));
+}
+
+function getDeletedNotifsSet() {
+    const myName = (localStorage.getItem('namaz_user') || 'guest').trim().toLowerCase();
+    const globalDel = JSON.parse(localStorage.getItem('zs_deleted_notifs_v3') || '[]');
+    const userDel = JSON.parse(localStorage.getItem(`zs_deleted_notifs_${myName}`) || '[]');
+    return new Set([...globalDel, ...userDel]);
+}
+
+function saveDeletedNotifsSet(delSet) {
+    const myName = (localStorage.getItem('namaz_user') || 'guest').trim().toLowerCase();
+    const arr = Array.from(delSet);
+    localStorage.setItem('zs_deleted_notifs_v3', JSON.stringify(arr));
+    localStorage.setItem(`zs_deleted_notifs_${myName}`, JSON.stringify(arr));
+}
+
+async function markAllCurrentBroadcastsSeen() {
+    const state = buildMessageSystemState();
+    const seenSet = getSeenNotifsSet();
+    let changed = false;
+
+    state.broadcasts.forEach(b => {
+        if (!seenSet.has(b.id)) {
+            seenSet.add(b.id);
+            changed = true;
+        }
+    });
+
+    if (changed) {
+        saveSeenNotifsSet(seenSet);
+        const myName = (localStorage.getItem('namaz_user') || '').trim();
+        if (myName && state.broadcasts.length > 0) {
+            const maxOrder = Math.max(...state.broadcasts.map(b => b.order));
+            const payload = `NOTIF_SEEN|${myName.toLowerCase()}|${maxOrder}`;
+            globalMessages.push({ date: new Date().toISOString(), name: myName, message: payload });
+            try { await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent(myName)}&message=${encodeURIComponent(payload)}`); } catch (e) {}
+        }
+    }
+}
 
 function toggleNotifPopup(e) {
     if (e) e.stopPropagation();
@@ -8,19 +66,7 @@ function toggleNotifPopup(e) {
     bellBtn.classList.toggle('active', !isHidden);
 
     if (!isHidden) {
-        // Mark all current broadcasts as seen/dismissed instantly when bell is opened
-        const state = buildMessageSystemState();
-        const dismissed = JSON.parse(localStorage.getItem('zikr_dismissed_notifs') || '[]');
-        let changed = false;
-        state.broadcasts.forEach(b => {
-            if (!dismissed.includes(b.id)) {
-                dismissed.push(b.id);
-                changed = true;
-            }
-        });
-        if (changed) {
-            localStorage.setItem('zikr_dismissed_notifs', JSON.stringify(dismissed));
-        }
+        markAllCurrentBroadcastsSeen();
     }
     refreshChatAndNotificationsUI();
 }
@@ -53,9 +99,15 @@ function formatRelativeDays(dateStr) {
 
 async function clearAllNotifications() {
     const state = buildMessageSystemState();
-    const dismissed = JSON.parse(localStorage.getItem('zikr_dismissed_notifs') || '[]');
-    state.broadcasts.forEach(b => { if (!dismissed.includes(b.id)) dismissed.push(b.id); });
-    localStorage.setItem('zikr_dismissed_notifs', JSON.stringify(dismissed));
+    const delSet = getDeletedNotifsSet();
+    const seenSet = getSeenNotifsSet();
+
+    state.broadcasts.forEach(b => {
+        delSet.add(b.id);
+        seenSet.add(b.id);
+    });
+    saveDeletedNotifsSet(delSet);
+    saveSeenNotifsSet(seenSet);
 
     if (isUserAdmin()) {
         const payload = `CLEAR_BROADCASTS|${Date.now()}`;
@@ -65,17 +117,24 @@ async function clearAllNotifications() {
     refreshChatAndNotificationsUI();
 }
 
-async function deleteSingleNotification(notifId) {
-    const dismissed = JSON.parse(localStorage.getItem('zikr_dismissed_notifs') || '[]');
-    if (!dismissed.includes(notifId)) dismissed.push(notifId);
-    localStorage.setItem('zikr_dismissed_notifs', JSON.stringify(dismissed));
+/* ✅ WORKING 1-CLICK CUT (×) BUTTON FOR SINGLE NOTIFICATION */
+async function deleteSingleNotification(notifId, ev) {
+    if (ev) ev.stopPropagation();
+
+    const delSet = getDeletedNotifsSet();
+    const seenSet = getSeenNotifsSet();
+    delSet.add(notifId);
+    seenSet.add(notifId);
+    saveDeletedNotifsSet(delSet);
+    saveSeenNotifsSet(seenSet);
+
+    const payload = `DELETE|${notifId}`;
+    globalMessages.push({ date: new Date().toISOString(), name: 'ABBU SHAHMA', message: payload });
+    refreshChatAndNotificationsUI();
 
     if (isUserAdmin()) {
-        const payload = `DELETE|${notifId}`;
-        globalMessages.push({ date: new Date().toISOString(), name: 'ABBU SHAHMA', message: payload });
         try { await fetch(`${SCRIPT_URL}?action=sendMessage&name=${encodeURIComponent('ABBU SHAHMA')}&message=${encodeURIComponent(payload)}`); } catch (e) {}
     }
-    refreshChatAndNotificationsUI();
 }
 
 function buildMessageSystemState() {
@@ -83,6 +142,7 @@ function buildMessageSystemState() {
     let broadcastsMap = new Map();
     let onlineMap = {};
     let seenMap = {};
+    let notifSeenOrderMap = {};
     let subAdminSet = new Set();
 
     globalMessages.forEach((item, index) => {
@@ -99,6 +159,15 @@ function buildMessageSystemState() {
         if (rawText.startsWith('SUBADMIN_REMOVE|')) {
             const targetUser = (rawText.split('|')[1] || '').trim().toLowerCase();
             if (targetUser) subAdminSet.delete(targetUser);
+            return;
+        }
+        if (rawText.startsWith('NOTIF_SEEN|')) {
+            const parts = rawText.split('|');
+            const viewer = (parts[1] || '').trim().toLowerCase();
+            const orderNum = parseInt(parts[2] || '0', 10);
+            if (viewer) {
+                notifSeenOrderMap[viewer] = Math.max(notifSeenOrderMap[viewer] || -1, orderNum);
+            }
             return;
         }
         if (rawText.startsWith('ONLINE|')) {
@@ -137,7 +206,7 @@ function buildMessageSystemState() {
         if (rawText.startsWith('BROADCAST2|') || rawText.startsWith('BROADCAST|')) {
             const isV2 = rawText.startsWith('BROADCAST2|');
             const parts = rawText.split('|');
-            const id = isV2 ? (parts[1] || fallbackId) : fallbackId;
+            const rawId = isV2 ? (parts[1] || fallbackId) : fallbackId;
             const from = isV2 ? (parts[2] || sender) : (parts[1] || sender);
             const fullMsg = parts.slice(isV2 ? 4 : 3).join('|');
             let title = 'Community Notice';
@@ -147,7 +216,8 @@ function buildMessageSystemState() {
                 title = tb[0].trim() || 'Community Notice';
                 body = tb.slice(1).join('::').trim();
             }
-            broadcastsMap.set(id, { id, type: 'BROADCAST', from, title, text: body, time, order: index });
+            const stableId = getStableBroadcastId(rawId, from, title, body);
+            broadcastsMap.set(stableId, { id: stableId, type: 'BROADCAST', from, title, text: body, time, order: index });
             return;
         }
         if (rawText.startsWith('CHAT2|')) {
@@ -166,7 +236,13 @@ function buildMessageSystemState() {
     dynamicSubAdmins = subAdminSet;
     localStorage.setItem('zs_sub_admins', JSON.stringify(Array.from(subAdminSet)));
 
-    return { chats: Array.from(chatsMap.values()), broadcasts: Array.from(broadcastsMap.values()), onlineMap, seenMap };
+    return {
+        chats: Array.from(chatsMap.values()),
+        broadcasts: Array.from(broadcastsMap.values()),
+        onlineMap,
+        seenMap,
+        notifSeenOrderMap
+    };
 }
 
 function isPartnerCurrentlyOnline(partnerName, state) {
@@ -272,6 +348,7 @@ function refreshChatAndNotificationsUI() {
     const state = buildMessageSystemState();
 
     const myName = (localStorage.getItem('namaz_user') || '').trim();
+    const myLower = myName.toLowerCase();
     const loggedIn = Boolean(myName);
     const adminMode = loggedIn && isUserAdmin();
 
@@ -285,20 +362,25 @@ function refreshChatAndNotificationsUI() {
     }
     document.getElementById('navAdminBtn').classList.toggle('hidden', !adminMode);
 
-    const dismissed = JSON.parse(localStorage.getItem('zikr_dismissed_notifs') || '[]');
-    const allBroadcasts = state.broadcasts;
-    const unreadBroadcasts = allBroadcasts.filter(b => !dismissed.includes(b.id));
+    const delSet = getDeletedNotifsSet();
+    const seenSet = getSeenNotifsSet();
+    const serverSeenOrder = state.notifSeenOrderMap[myLower] !== undefined ? state.notifSeenOrderMap[myLower] : -1;
+
+    // 1. Filter out notifications the user has clicked Cut (×) or Clear All on
+    const visibleBroadcasts = state.broadcasts.filter(b => !delSet.has(b.id));
+
+    // 2. Unread count = visible broadcasts that are NOT in seenSet AND have order > serverSeenOrder
+    const unreadBroadcasts = visibleBroadcasts.filter(b => !seenSet.has(b.id) && b.order > serverSeenOrder);
 
     if (loggedIn) {
-        checkAndPopPhoneNotifications(allBroadcasts, state.chats);
+        checkAndPopPhoneNotifications(visibleBroadcasts, state.chats);
     }
 
     const notifBox = document.getElementById('notifListBox');
-    const badgeDot = document.getElementById('notifBellBtn').querySelector('.notif-badge-dot') || document.getElementById('notifBadgeCount');
-    
-    // Only unread count shows on bell
+    const badgeDot = document.getElementById('notifBadgeCount');
     const unreadCount = unreadBroadcasts.length;
-    document.getElementById('notifPopupCountPill').innerText = unreadCount;
+
+    document.getElementById('notifPopupCountPill').innerText = visibleBroadcasts.length;
 
     if (unreadCount === 0) {
         if (badgeDot) badgeDot.classList.add('hidden');
@@ -309,23 +391,25 @@ function refreshChatAndNotificationsUI() {
         }
     }
 
-    // Show ALL broadcasts inside the dropdown list so user can see history, but unread count is separate
-    if (allBroadcasts.length === 0) {
+    if (visibleBroadcasts.length === 0) {
         notifBox.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:12px; padding:22px 14px;">${t.emptyNotif}</div>`;
     } else {
-        notifBox.innerHTML = allBroadcasts.slice().reverse().map(b => `
-            <div class="notif-card-row">
-                <div class="notif-circle-icon notif-icon-gold">🔔</div>
-                <div class="notif-body-col">
-                    <div class="notif-item-heading">
-                        <span>${b.title || 'Community Notice'}</span>
-                        <span class="notif-single-del" onclick="deleteSingleNotification('${b.id}')">&times;</span>
+        notifBox.innerHTML = visibleBroadcasts.slice().reverse().map(b => {
+            const safeId = b.id.replace(/'/g, "\\'");
+            return `
+                <div class="notif-card-row">
+                    <div class="notif-circle-icon notif-icon-gold">🔔</div>
+                    <div class="notif-body-col">
+                        <div class="notif-item-heading" style="display:flex; justify-content:space-between; align-items:center;">
+                            <span>${b.title || 'Community Notice'}</span>
+                            <button type="button" onclick="deleteSingleNotification('${safeId}', event)" title="Cut Message" style="background:rgba(239,68,68,0.2); color:#fca5a5; border:1px solid rgba(239,68,68,0.45); border-radius:50%; width:22px; height:22px; font-size:14px; font-weight:900; line-height:1; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;">&times;</button>
+                        </div>
+                        <div class="notif-item-desc">${b.text}</div>
+                        <div class="notif-item-time">${formatRelativeDays(b.time)}</div>
                     </div>
-                    <div class="notif-item-desc">${b.text}</div>
-                    <div class="notif-item-time">${formatRelativeDays(b.time)}</div>
                 </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
     if (adminMode) {
@@ -394,7 +478,7 @@ async function sendChatMessage() {
     const adminMode = isUserAdmin();
     const msgId = 'm_' + Date.now();
     const targetMember = adminMode ? (document.getElementById('adminReplyTarget').value || 'Member') : 'ADMIN';
-    const senderField = adminMode ? myName : myName;
+    const senderField = myName;
     const encodedPayload = adminMode ? `CHAT2|${msgId}|${myName}|${targetMember}|1|${text}` : `CHAT2|${msgId}|${myName}|ADMIN|0|${text}`;
 
     globalMessages.push({ date: new Date().toISOString(), name: senderField, message: encodedPayload });
