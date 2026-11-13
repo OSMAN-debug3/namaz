@@ -25,7 +25,7 @@
     <meta name="google-site-verification" content="edHXVXITTAfMQl8u8ikPInDeuiBOflpyqihuVVBjpzU" />
     <link rel="canonical" href="https://zikrsphere.vercel.app/" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" id="metaThemeColor" content="#d4af37">
+    <meta name="theme-color" id="metaThemeColor" content="#0f766e">
     <link rel="manifest" href="manifest.json">
     
     <title>ZikrSphere | Daily Deen & Deeds by ABBU SHAHMA, Muhammad Sibgathullah & MD FIROZ ALAM</title>
@@ -39,33 +39,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=JetBrains+Mono:wght@600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- ✨ 5-THEME ENGINE + SOFT, EYE-SOOTHING PASTEL RED / GREEN / YELLOW REPORT CARDS -->
+    <!-- ✨ 5-THEME ENGINE + ULTRA-ATTRACTIVE NOOR WHITE LOGIN PAGE & SOFT PASTEL CARDS -->
     <style>
       /* ==========================================================================
          1. 5 SWITCHABLE COLOR THEMES (IN SETTINGS)
          ========================================================================== */
 
-      /* DEFAULT THEME 1: 👑 WHITE & GOLD */
+      /* THEME 1: 🕊️ NOOR WHITE (ROYAL PEARL WHITE, MOSQUE TEAL & WARM GOLD ACCENTS) */
       body,
-      body.theme-whitegold {
-        --bg-deep: #f9f3e6 !important;
-        --bg-body-grad: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.25) 0%, transparent 60%), linear-gradient(145deg, #fffdf9 0%, #f7efe0 50%, #efe2c9 100%) !important;
+      body.theme-noor {
+        --bg-deep: #e6f2f0 !important;
+        --bg-body-grad:
+          radial-gradient(circle at 50% 0%, rgba(13, 148, 136, 0.22) 0%, transparent 58%),
+          radial-gradient(circle at 90% 20%, rgba(212, 175, 55, 0.16) 0%, transparent 45%),
+          radial-gradient(circle at 10% 85%, rgba(20, 184, 166, 0.18) 0%, transparent 50%),
+          linear-gradient(160deg, #f4fbf9 0%, #e6f3f0 50%, #d8ece8 100%) !important;
         --bg-card: rgba(255, 255, 255, 0.96) !important;
-        --bg-subcard: #fcf8f0 !important;
-        --bg-input: #ffffff !important;
-        --gold: #b47d12 !important;
-        --gold-light: #d97706 !important;
-        --emerald-bright: #0f766e !important;
-        --text-main: #1e293b !important;
-        --text-muted: #64748b !important;
-        --border-gold: rgba(212, 175, 55, 0.5) !important;
-        --border-subtle: rgba(180, 125, 18, 0.16) !important;
-        --card-shadow: 0 12px 34px rgba(180, 134, 24, 0.14) !important;
-        --btn-grad: linear-gradient(135deg, #0f766e 0%, #0d9488 55%, #14b8a6 100%) !important;
+        --bg-subcard: #f1f8f6 !important;
+        --bg-input: #f8fcfb !important;
+        --gold: #0f766e !important;
+        --gold-light: #0d9488 !important;
+        --emerald-bright: #0d9488 !important;
+        --text-main: #0f172a !important;
+        --text-muted: #475569 !important;
+        --border-gold: rgba(13, 148, 136, 0.32) !important;
+        --border-subtle: rgba(15, 118, 110, 0.14) !important;
+        --card-shadow: 0 20px 45px rgba(15, 118, 110, 0.14), 0 4px 16px rgba(15, 23, 42, 0.06) !important;
+        --btn-grad: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%) !important;
         --btn-text: #ffffff !important;
-        --nav-bg: rgba(255, 252, 245, 0.97) !important;
+        --nav-bg: rgba(255, 255, 255, 0.96) !important;
+        --tabs-bg: #e6f3f0 !important;
+        --tab-inactive: #0f766e !important;
 
-        /* Soft Pastel Card Tokens for Light Themes */
+        /* Soft Pastel Card Tokens */
         --nahi-bg: linear-gradient(135deg, #fff5f5 0%, #fee2e2 100%);
         --nahi-border: #fca5a5;
         --nahi-accent: #ef4444;
@@ -85,24 +91,28 @@
         --qaza-sel-bg: #ffffff;
       }
 
-      /* THEME 2: 🕊️ NOOR WHITE & MOSQUE TEAL */
-      body.theme-noor {
-        --bg-deep: #eef3f6 !important;
-        --bg-body-grad: linear-gradient(145deg, #f8fafc 0%, #e6eff4 50%, #dde8ee 100%) !important;
-        --bg-card: rgba(255, 255, 255, 0.96) !important;
-        --bg-subcard: #f8fafc !important;
-        --bg-input: #f1f5f9 !important;
-        --gold: #0f766e !important;
-        --gold-light: #0d9488 !important;
+      /* THEME 2: 👑 WHITE & GOLD */
+      body.theme-whitegold {
+        --bg-deep: #f9f3e6 !important;
+        --bg-body-grad:
+          radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.28) 0%, transparent 60%),
+          linear-gradient(145deg, #fffdf9 0%, #f7efe0 50%, #efe2c9 100%) !important;
+        --bg-card: rgba(255, 255, 255, 0.97) !important;
+        --bg-subcard: #faf3e4 !important;
+        --bg-input: #fffdf9 !important;
+        --gold: #b47d12 !important;
+        --gold-light: #d97706 !important;
         --emerald-bright: #0f766e !important;
-        --text-main: #0f172a !important;
-        --text-muted: #475569 !important;
-        --border-gold: rgba(15, 118, 110, 0.25) !important;
-        --border-subtle: rgba(15, 23, 42, 0.1) !important;
-        --card-shadow: 0 12px 32px rgba(15, 23, 42, 0.08) !important;
-        --btn-grad: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%) !important;
+        --text-main: #1e293b !important;
+        --text-muted: #64748b !important;
+        --border-gold: rgba(212, 175, 55, 0.5) !important;
+        --border-subtle: rgba(180, 125, 18, 0.16) !important;
+        --card-shadow: 0 18px 42px rgba(180, 134, 24, 0.16) !important;
+        --btn-grad: linear-gradient(135deg, #b47d12 0%, #d97706 50%, #0f766e 100%) !important;
         --btn-text: #ffffff !important;
-        --nav-bg: rgba(255, 255, 255, 0.96) !important;
+        --nav-bg: rgba(255, 252, 245, 0.97) !important;
+        --tabs-bg: #f3e8d2 !important;
+        --tab-inactive: #78520a !important;
 
         --nahi-bg: linear-gradient(135deg, #fff5f5 0%, #fee2e2 100%);
         --nahi-border: #fca5a5;
@@ -141,8 +151,9 @@
         --btn-grad: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%) !important;
         --btn-text: #ffffff !important;
         --nav-bg: rgba(4, 11, 24, 0.96) !important;
+        --tabs-bg: rgba(5, 13, 28, 0.85) !important;
+        --tab-inactive: #94a3b8 !important;
 
-        /* Soft Translucent Tints for Dark Themes */
         --nahi-bg: linear-gradient(135deg, rgba(239, 68, 68, 0.14) 0%, rgba(15, 28, 55, 0.85) 100%);
         --nahi-border: rgba(248, 113, 113, 0.4);
         --nahi-accent: #f87171;
@@ -180,6 +191,8 @@
         --btn-grad: linear-gradient(135deg, #00f5d4 0%, #14b8a6 55%, #0d9488 100%) !important;
         --btn-text: #02201c !important;
         --nav-bg: rgba(4, 24, 30, 0.96) !important;
+        --tabs-bg: rgba(3, 18, 23, 0.85) !important;
+        --tab-inactive: #99f6e4 !important;
 
         --nahi-bg: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(8, 36, 44, 0.9) 100%);
         --nahi-border: rgba(248, 113, 113, 0.42);
@@ -218,6 +231,8 @@
         --btn-grad: linear-gradient(135deg, #fbbf24 0%, #f59e0b 55%, #d97706 100%) !important;
         --btn-text: #063829 !important;
         --nav-bg: rgba(6, 62, 46, 0.97) !important;
+        --tabs-bg: rgba(4, 52, 39, 0.85) !important;
+        --tab-inactive: #a7f3d0 !important;
 
         --nahi-bg: linear-gradient(135deg, rgba(239, 68, 68, 0.18) 0%, rgba(6, 78, 59, 0.9) 100%);
         --nahi-border: rgba(252, 165, 165, 0.45);
@@ -256,36 +271,49 @@
         box-shadow: var(--card-shadow) !important;
         backdrop-filter: blur(16px) !important;
         -webkit-backdrop-filter: blur(16px) !important;
-        border-radius: 22px !important;
+        border-radius: 24px !important;
         color: var(--text-main) !important;
       }
 
       header {
-        padding: 18px 16px 16px 16px !important;
-        margin-bottom: 14px !important;
+        padding: 20px 18px 18px 18px !important;
+        margin-bottom: 16px !important;
+        position: relative !important;
+        overflow: hidden !important;
       }
+      /* Decorative Royal Top Accent Line on Header */
+      header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #0d9488 0%, #d4af37 50%, #0f766e 100%);
+      }
+
       .bismillah {
         color: var(--gold) !important;
-        font-size: 22px !important;
-        margin-bottom: 2px !important;
+        font-size: 25px !important;
+        margin-bottom: 4px !important;
         text-shadow: none !important;
       }
       header h1 {
         font-family: 'Plus Jakarta Sans', sans-serif !important;
-        font-size: clamp(21px, 5vw, 27px) !important;
+        font-size: clamp(22px, 5.2vw, 28px) !important;
         font-weight: 800 !important;
         color: var(--text-main) !important;
-        margin: 2px 0 4px 0 !important;
+        margin: 2px 0 6px 0 !important;
         letter-spacing: -0.3px !important;
       }
       header h1 .cyan-italic {
         display: inline !important;
-        font-size: 0.58em !important;
+        font-size: 0.56em !important;
         font-weight: 800 !important;
         color: var(--gold) !important;
-        background: rgba(212, 175, 55, 0.14) !important;
+        background: var(--bg-subcard) !important;
         border: 1px solid var(--border-gold) !important;
-        padding: 3px 9px !important;
+        padding: 3px 10px !important;
         border-radius: 99px !important;
         vertical-align: middle !important;
         letter-spacing: 0.6px !important;
@@ -321,12 +349,14 @@
         box-shadow: none !important;
       }
       .ayah-box {
-        background: transparent !important;
-        border: none !important;
+        background: var(--bg-subcard) !important;
+        border: 1px solid var(--border-subtle) !important;
         color: var(--text-muted) !important;
-        font-size: 11.5px !important;
-        padding: 2px 6px !important;
-        margin: 4px auto 0 auto !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        padding: 7px 14px !important;
+        border-radius: 12px !important;
+        margin: 6px auto 0 auto !important;
       }
 
       .menu-toggle-btn, .notif-bell-btn {
@@ -344,7 +374,142 @@
       }
 
       /* ==========================================================================
-         3. CLEAN COLLAPSIBLE FIRST PAGE (HOME)
+         3. ✨ ULTRA-ATTRACTIVE LOGIN / REGISTER PAGE (#authCard) REDESIGN
+         ========================================================================== */
+      #authCard {
+        position: relative !important;
+        overflow: hidden !important;
+        padding: 26px 22px 24px 22px !important;
+        border: 1.5px solid var(--border-gold) !important;
+      }
+      #authCard::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #0f766e 0%, #d4af37 50%, #0d9488 100%);
+      }
+
+      /* New Royal Welcome Banner inside Login Card */
+      .auth-welcome-badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--bg-subcard);
+        border: 1px solid var(--border-gold);
+        color: var(--gold);
+        font-size: 11.5px;
+        font-weight: 800;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        padding: 7px 16px;
+        border-radius: 99px;
+        width: fit-content;
+        margin: 0 auto 16px auto;
+        box-shadow: 0 4px 12px rgba(15, 118, 110, 0.08);
+      }
+
+      /* Fixed Login/Register Segmented Tabs (No More Dark Box on White Card!) */
+      #authCard .tabs {
+        display: flex !important;
+        gap: 6px !important;
+        background: var(--tabs-bg) !important;
+        border: 1.5px solid var(--border-gold) !important;
+        padding: 5px !important;
+        border-radius: 16px !important;
+        margin-bottom: 20px !important;
+      }
+      #authCard .tab-btn {
+        flex: 1 !important;
+        padding: 11px 10px !important;
+        border-radius: 12px !important;
+        border: none !important;
+        background: transparent !important;
+        color: var(--tab-inactive) !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        cursor: pointer !important;
+        transition: all 0.25s ease !important;
+      }
+      #authCard .tab-btn.active {
+        background: var(--btn-grad) !important;
+        color: var(--btn-text) !important;
+        font-weight: 800 !important;
+        box-shadow: 0 6px 16px rgba(15, 118, 110, 0.28) !important;
+      }
+
+      /* High-Contrast Login Heading & Form Labels */
+      #authTitle {
+        color: var(--text-main) !important;
+        font-size: 20px !important;
+        font-weight: 800 !important;
+        text-align: center !important;
+        margin: 4px 0 18px 0 !important;
+        letter-spacing: -0.3px !important;
+      }
+      #authCard .form-group {
+        margin-bottom: 16px !important;
+      }
+      #authCard .form-group label,
+      .form-group label {
+        display: block !important;
+        color: var(--text-main) !important;
+        font-size: 13px !important;
+        font-weight: 800 !important;
+        margin-bottom: 7px !important;
+      }
+      #authCard input[type="text"],
+      #authCard input[type="password"] {
+        width: 100% !important;
+        padding: 13px 15px !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        background: var(--bg-input) !important;
+        border: 1.5px solid var(--border-gold) !important;
+        color: var(--text-main) !important;
+        border-radius: 14px !important;
+        box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.03) !important;
+        transition: all 0.2s ease !important;
+      }
+      #authCard input[type="text"]:focus,
+      #authCard input[type="password"]:focus {
+        border-color: var(--gold) !important;
+        box-shadow: 0 0 0 3.5px rgba(13, 148, 136, 0.18) !important;
+        outline: none !important;
+      }
+
+      /* Photo Upload Button & Help Text on Login Card */
+      #authCard .file-upload-btn {
+        background: var(--bg-subcard) !important;
+        border: 1.5px dashed var(--gold) !important;
+        color: var(--gold) !important;
+        font-weight: 800 !important;
+        padding: 12px !important;
+        border-radius: 14px !important;
+        width: 100% !important;
+      }
+      #authBtn {
+        margin-top: 6px !important;
+        padding: 15px !important;
+        font-size: 15px !important;
+        letter-spacing: 0.3px !important;
+        box-shadow: 0 10px 24px rgba(15, 118, 110, 0.3) !important;
+      }
+      #authHelp {
+        color: var(--text-muted) !important;
+        font-size: 12.5px !important;
+        font-weight: 600 !important;
+        text-align: center !important;
+        margin-top: 16px !important;
+        padding-top: 12px !important;
+        border-top: 1px solid var(--border-subtle) !important;
+      }
+
+      /* ==========================================================================
+         4. CLEAN COLLAPSIBLE FIRST PAGE (HOME)
          ========================================================================== */
       .home-hero-banner {
         background: linear-gradient(135deg, #0d9488 0%, #0f766e 55%, #115e59 100%);
@@ -414,7 +579,7 @@
         font-size: 10.5px;
         font-weight: 700;
         color: var(--gold);
-        background: rgba(212, 175, 55, 0.14);
+        background: rgba(15, 118, 110, 0.12);
         padding: 2px 8px;
         border-radius: 99px;
         flex-shrink: 0;
@@ -442,7 +607,7 @@
         margin-top: 8px !important;
       }
       .rakat-pill, .badge-chip {
-        background: rgba(212, 175, 55, 0.15) !important;
+        background: rgba(15, 118, 110, 0.12) !important;
         border: 1px solid var(--gold) !important;
         color: var(--gold) !important;
         font-weight: 700 !important;
@@ -450,7 +615,7 @@
       }
 
       /* ==========================================================================
-         4. SOFT, SUBTLE & ELEGANT NAMAZ CARDS (PASTEL TINTS — NO HARSH COLORS!)
+         5. SOFT, SUBTLE & ELEGANT NAMAZ CARDS (PASTEL TINTS)
          ========================================================================== */
       #sectionTracker h2, #sectionHome h2, #sectionDashboard h2, #sectionRecords h2 {
         font-size: 16px !important;
@@ -470,7 +635,6 @@
         grid-column: span 2 !important;
       }
 
-      /* 1. ❌ NAHI PADHI = SOFT ROSE-BLUSH PASTEL CARD */
       .namaz-card,
       .namaz-card.status-nahi {
         background: var(--nahi-bg) !important;
@@ -515,7 +679,6 @@
         box-shadow: none !important;
       }
 
-      /* 2. ✅ ADA / RAKHA = SOFT MINT-EMERALD PASTEL CARD */
       .namaz-card.status-ada {
         background: var(--ada-bg) !important;
         border: 1.5px solid var(--ada-border) !important;
@@ -537,7 +700,6 @@
         box-shadow: none !important;
       }
 
-      /* 3. 🕒 QAZA PADHI = SOFT WARM-AMBER PASTEL CARD */
       .namaz-card.status-qaza {
         background: var(--qaza-bg) !important;
         border: 1.5px solid var(--qaza-border) !important;
@@ -559,7 +721,6 @@
         box-shadow: none !important;
       }
 
-      /* Clean, Soft Dropdown List Options */
       select option,
       select optgroup,
       .modern-select option,
@@ -582,7 +743,7 @@
         color: #b45309 !important;
       }
 
-      /* Progress Bar & Other UI Elements */
+      /* General UI Elements */
       .progress-container, .admin-sub-box, .aamal-stat-card, .detailed-record-card, .leaderboard-item, .settings-sub-box, .panel-inner-card, .admin-stat-box {
         background: var(--bg-subcard) !important;
         border: 1px solid var(--border-gold) !important;
@@ -621,7 +782,7 @@
         border-radius: 14px !important;
         padding: 14px !important;
       }
-      .tab-btn.active, .lang-btn.active, .theme-btn.active {
+      .lang-btn.active, .theme-btn.active {
         background: var(--btn-grad) !important;
         color: var(--btn-text) !important;
         font-weight: 800 !important;
@@ -649,7 +810,7 @@
       }
     </style>
 </head>
-<body class="zs-logged-out theme-whitegold" onclick="closeNotifDropdownOutside(event)">
+<body class="zs-logged-out theme-noor" onclick="closeNotifDropdownOutside(event)">
 
     <input type="file" id="changePhotoInput" accept="image/*" style="display: none;" onchange="updateProfilePhoto(this)">
 
@@ -678,8 +839,8 @@
                         <div class="settings-sub-box">
                             <div class="settings-box-title" style="color: var(--gold); font-weight: 800; margin-bottom: 8px;">🎨 Website Color Theme Chunein:</div>
                             <div class="settings-lang-grid">
-                                <button type="button" class="lang-btn theme-btn active" id="themeBtn-whitegold" onclick="setZikrTheme('whitegold')" style="grid-column: span 2;">👑 White & Gold (Royal Masjid)</button>
-                                <button type="button" class="lang-btn theme-btn" id="themeBtn-noor" onclick="setZikrTheme('noor')">🕊️ Noor White</button>
+                                <button type="button" class="lang-btn theme-btn active" id="themeBtn-noor" onclick="setZikrTheme('noor')" style="grid-column: span 2;">🕊️ Noor White (Royal Mosque Pearl)</button>
+                                <button type="button" class="lang-btn theme-btn" id="themeBtn-whitegold" onclick="setZikrTheme('whitegold')">👑 White & Gold</button>
                                 <button type="button" class="lang-btn theme-btn" id="themeBtn-neon" onclick="setZikrTheme('neon')">🕌 Neon Aqua</button>
                                 <button type="button" class="lang-btn theme-btn" id="themeBtn-emerald" onclick="setZikrTheme('emerald')">🌿 Pure Green</button>
                                 <button type="button" class="lang-btn theme-btn" id="themeBtn-cosmic" onclick="setZikrTheme('cosmic')">🌌 Cosmic Blue</button>
@@ -852,8 +1013,9 @@
             <div class="notif-popup-list" id="notifListBox"></div>
         </div>
 
-        <!-- LOGIN / REGISTER CARD -->
+        <!-- ✨ REDESIGNED LUXURY LOGIN / REGISTER CARD -->
         <div class="card" id="authCard">
+            <div class="auth-welcome-badge">🕌 ZikrSphere Spiritual Portal</div>
             <div class="tabs">
                 <button type="button" class="tab-btn active" id="loginTab" onclick="switchTab('login')">🔑 Login Karein</button>
                 <button type="button" class="tab-btn" id="registerTab" onclick="switchTab('register')">✨ Community ID Banayein</button>
@@ -861,15 +1023,15 @@
             <h2 id="authTitle">Apni ID Mein Login Karein</h2>
             <form onsubmit="event.preventDefault(); handleAuth();" autocomplete="off">
                 <div class="form-group">
-                    <label id="t_labelName">Aapka Naam / Community ID</label>
+                    <label id="t_labelName">👤 Aapka Naam / Community ID</label>
                     <input type="text" id="authName" placeholder="" value="" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label id="t_labelPass">Secret Password (PIN)</label>
+                    <label id="t_labelPass">🔒 Secret Password (PIN)</label>
                     <input type="password" id="authPass" placeholder="" value="" autocomplete="new-password">
                 </div>
                 <div class="form-group" id="photoGroup" style="display: none;">
-                    <label id="t_labelPhoto">HD Profile Photo Upload Karein</label>
+                    <label id="t_labelPhoto">📸 HD Profile Photo Upload Karein</label>
                     <div class="file-upload-wrapper">
                         <button type="button" class="file-upload-btn" id="regPhotoBtnText">📸 Gallery Se Apni Photo Chunein</button>
                         <input type="file" id="authPhotoFile" accept="image/*" onchange="compressImageHD(this, function(base64){ tempBase64Photo = base64; document.getElementById('regPhotoBtnText').innerText = translations[currentLang].regPhotoSelectedText; })">
@@ -1132,8 +1294,8 @@
     <!-- 🎨 5-THEME ENGINE + LIVE CLOCK + SOFT PASTEL CARD SYNC -->
     <script>
       function setZikrTheme(themeName) {
-        const validThemes = ['whitegold', 'noor', 'cosmic', 'neon', 'emerald'];
-        const chosen = validThemes.includes(themeName) ? themeName : 'whitegold';
+        const validThemes = ['noor', 'whitegold', 'cosmic', 'neon', 'emerald'];
+        const chosen = validThemes.includes(themeName) ? themeName : 'noor';
         localStorage.setItem('zikr_color_theme', chosen);
 
         validThemes.forEach(function(t) {
@@ -1145,13 +1307,13 @@
 
         const metaTheme = document.getElementById('metaThemeColor');
         if (metaTheme) {
-          const colors = { whitegold: '#d4af37', noor: '#0f766e', cosmic: '#040b18', neon: '#041d24', emerald: '#063829' };
-          metaTheme.setAttribute('content', colors[chosen] || '#d4af37');
+          const colors = { noor: '#0f766e', whitegold: '#d4af37', cosmic: '#040b18', neon: '#041d24', emerald: '#063829' };
+          metaTheme.setAttribute('content', colors[chosen] || '#0f766e');
         }
       }
 
       (function() {
-        const savedTheme = localStorage.getItem('zikr_color_theme') || 'whitegold';
+        const savedTheme = localStorage.getItem('zikr_color_theme') || 'noor';
         setZikrTheme(savedTheme);
 
         function updateClocks() {
