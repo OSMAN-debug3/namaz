@@ -25,7 +25,7 @@
     <meta name="google-site-verification" content="edHXVXITTAfMQl8u8ikPInDeuiBOflpyqihuVVBjpzU" />
     <link rel="canonical" href="https://zikrsphere.vercel.app/" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#031014">
+    <meta name="theme-color" id="metaThemeColor" content="#0f766e">
     <link rel="manifest" href="manifest.json">
     
     <title>ZikrSphere | Daily Deen & Deeds by ABBU SHAHMA, Muhammad Sibgathullah & MD FIROZ ALAM</title>
@@ -39,185 +39,319 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=JetBrains+Mono:wght@600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- ✨ MASJID AL-NOOR FUTURISTIC NEON AQUA LED DISPLAY THEME -->
+    <!-- ✨ MULTI-THEME ENGINE (NOOR WHITE / COSMIC BLUE / NEON AQUA / EMERALD) + CLEAN HOME -->
     <style>
-      :root {
+      /* ==========================================================================
+         1. THEME VARIABLES (SWITCHABLE FROM SETTINGS)
+         ========================================================================== */
+
+      /* DEFAULT THEME: 🕊️ NOOR WHITE & MOSQUE TEAL (IMAGE 2 STYLE) */
+      body,
+      body.theme-noor {
+        --bg-deep: #eef3f6 !important;
+        --bg-body-grad: linear-gradient(145deg, #f8fafc 0%, #e6eff4 50%, #dde8ee 100%) !important;
+        --bg-card: rgba(255, 255, 255, 0.96) !important;
+        --bg-subcard: #f8fafc !important;
+        --bg-input: #f1f5f9 !important;
+        --gold: #0f766e !important;
+        --gold-light: #0d9488 !important;
+        --emerald-bright: #0f766e !important;
+        --text-main: #0f172a !important;
+        --text-muted: #475569 !important;
+        --border-gold: rgba(15, 118, 110, 0.22) !important;
+        --border-subtle: rgba(15, 23, 42, 0.1) !important;
+        --card-shadow: 0 12px 32px rgba(15, 23, 42, 0.08) !important;
+        --btn-grad: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%) !important;
+        --btn-text: #ffffff !important;
+        --nav-bg: rgba(255, 255, 255, 0.96) !important;
+      }
+
+      /* THEME 2: 🌌 COSMIC BLUE (ROYAL MIDNIGHT NAVY & SKY CYAN) */
+      body.theme-cosmic {
+        --bg-deep: #040b18 !important;
+        --bg-body-grad: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.2) 0%, transparent 55%), linear-gradient(180deg, #030712 0%, #07142b 50%, #040b18 100%) !important;
+        --bg-card: rgba(10, 22, 46, 0.92) !important;
+        --bg-subcard: rgba(15, 32, 64, 0.78) !important;
+        --bg-input: #051024 !important;
+        --gold: #38bdf8 !important;
+        --gold-light: #7dd3fc !important;
+        --emerald-bright: #38bdf8 !important;
+        --text-main: #f8fafc !important;
+        --text-muted: #94a3b8 !important;
+        --border-gold: rgba(56, 189, 248, 0.28) !important;
+        --border-subtle: rgba(148, 163, 184, 0.16) !important;
+        --card-shadow: 0 18px 42px rgba(0, 0, 0, 0.65) !important;
+        --btn-grad: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%) !important;
+        --btn-text: #ffffff !important;
+        --nav-bg: rgba(4, 11, 24, 0.96) !important;
+      }
+
+      /* THEME 3: 🕌 NEON AQUA (MASJID DIGITAL BOARD DARK TEAL) */
+      body.theme-neon {
         --bg-deep: #031014 !important;
-        --bg-card: rgba(5, 22, 28, 0.92) !important;
+        --bg-body-grad: radial-gradient(circle at 50% 0%, rgba(0, 245, 212, 0.2) 0%, transparent 55%), linear-gradient(180deg, #020a0d 0%, #051920 50%, #020c10 100%) !important;
+        --bg-card: rgba(6, 24, 31, 0.94) !important;
+        --bg-subcard: rgba(6, 34, 42, 0.82) !important;
+        --bg-input: #031217 !important;
         --gold: #00f5d4 !important;
         --gold-light: #5eead4 !important;
         --emerald-bright: #00f5d4 !important;
         --text-main: #f0fdfa !important;
         --text-muted: #99f6e4 !important;
-        --border-gold: rgba(0, 245, 212, 0.45) !important;
+        --border-gold: rgba(0, 245, 212, 0.35) !important;
         --border-subtle: rgba(45, 212, 191, 0.2) !important;
+        --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 20px rgba(0, 245, 212, 0.12) !important;
+        --btn-grad: linear-gradient(135deg, #00f5d4 0%, #14b8a6 55%, #0d9488 100%) !important;
+        --btn-text: #021210 !important;
+        --nav-bg: rgba(2, 12, 16, 0.96) !important;
       }
 
-      /* Sunlit Mosque Teal-Slate Ambience Background */
+      /* THEME 4: 🌿 EMERALD GOLD (CLASSIC ISLAMIC GREEN & GOLD) */
+      body.theme-emerald {
+        --bg-deep: #041f17 !important;
+        --bg-body-grad: radial-gradient(circle at 50% 0%, #0a3d2e 0%, #041f17 60%, #02120d 100%) !important;
+        --bg-card: rgba(6, 40, 29, 0.94) !important;
+        --bg-subcard: rgba(9, 54, 39, 0.8) !important;
+        --bg-input: #031710 !important;
+        --gold: #f59e0b !important;
+        --gold-light: #fde047 !important;
+        --emerald-bright: #34d399 !important;
+        --text-main: #f8fafc !important;
+        --text-muted: #a7f3d0 !important;
+        --border-gold: rgba(245, 158, 11, 0.35) !important;
+        --border-subtle: rgba(52, 211, 153, 0.2) !important;
+        --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.65) !important;
+        --btn-grad: linear-gradient(135deg, #f59e0b 0%, #eab308 50%, #d97706 100%) !important;
+        --btn-text: #041610 !important;
+        --nav-bg: rgba(3, 22, 16, 0.96) !important;
+      }
+
+      /* ==========================================================================
+         2. GLOBAL LAYOUT & SPACIOUS HEADER (NO CLUTTER)
+         ========================================================================== */
       body {
-        background-color: #020c10 !important;
-        background-image:
-          radial-gradient(circle at 50% -10%, rgba(0, 245, 212, 0.28) 0%, transparent 55%),
-          radial-gradient(circle at 10% 35%, rgba(20, 184, 166, 0.16) 0%, transparent 45%),
-          radial-gradient(circle at 90% 75%, rgba(6, 182, 212, 0.18) 0%, transparent 50%),
-          linear-gradient(135deg, rgba(0, 245, 212, 0.04) 0%, transparent 40%, rgba(0, 245, 212, 0.03) 100%),
-          linear-gradient(180deg, #020a0d 0%, #051920 50%, #020c10 100%) !important;
+        background: var(--bg-body-grad) !important;
+        background-color: var(--bg-deep) !important;
         background-attachment: fixed !important;
-        color: #f0fdfa !important;
+        color: var(--text-main) !important;
         padding-bottom: 135px !important;
+        transition: background 0.3s ease, color 0.3s ease !important;
       }
 
-      /* Neon Aqua LED Framed Display Board (Exactly like Masjid Digital Screen) */
       header, .card, .side-drawer, .modal-content, .notif-dropdown-popup {
-        background: linear-gradient(165deg, rgba(6, 24, 31, 0.95) 0%, rgba(3, 14, 18, 0.98) 100%) !important;
-        border: 2px solid #00f5d4 !important;
-        box-shadow:
-          0 0 22px rgba(0, 245, 212, 0.38),
-          0 0 45px rgba(0, 245, 212, 0.12),
-          inset 0 0 18px rgba(0, 245, 212, 0.12),
-          0 20px 50px rgba(0, 0, 0, 0.85) !important;
-        backdrop-filter: blur(18px) !important;
-        -webkit-backdrop-filter: blur(18px) !important;
-        border-radius: 20px !important;
+        background: var(--bg-card) !important;
+        border: 1.5px solid var(--border-gold) !important;
+        box-shadow: var(--card-shadow) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border-radius: 22px !important;
+        color: var(--text-main) !important;
       }
 
-      /* Live Digital Masjid Clock Bar inside Header */
-      .masjid-digital-topbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: rgba(2, 12, 16, 0.85);
-        border: 1px solid rgba(0, 245, 212, 0.35);
-        border-radius: 14px;
-        padding: 8px 14px;
-        margin: 10px auto 12px auto;
-        max-width: 96%;
-        box-shadow: inset 0 0 12px rgba(0, 245, 212, 0.1);
+      /* Clean, Uncluttered Header like Image 2 Mobile Screen */
+      header {
+        padding: 18px 16px 16px 16px !important;
+        margin-bottom: 14px !important;
       }
-      .masjid-board-tag {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 10.5px;
-        font-weight: 800;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        color: #00f5d4;
+      .bismillah {
+        color: var(--gold) !important;
+        font-size: 22px !important;
+        margin-bottom: 2px !important;
+        text-shadow: none !important;
       }
-      .masjid-led-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #00f5d4;
-        box-shadow: 0 0 10px #00f5d4, 0 0 18px #00f5d4;
-        animation: pulseLed 1.8s infinite ease-in-out;
-      }
-      @keyframes pulseLed {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.45; transform: scale(1.25); }
-      }
-      .masjid-live-clock {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: clamp(18px, 4.5vw, 24px);
-        font-weight: 800;
-        color: #ffffff;
-        text-shadow: 0 0 14px rgba(0, 245, 212, 0.65);
-        letter-spacing: 0.5px;
-      }
-      .masjid-live-clock small {
-        font-size: 11px;
-        color: #00f5d4;
-        margin-left: 3px;
-      }
-
       header h1 {
         font-family: 'Plus Jakarta Sans', sans-serif !important;
-        font-size: clamp(22px, 5vw, 32px) !important;
+        font-size: clamp(21px, 5vw, 27px) !important;
         font-weight: 800 !important;
-        line-height: 1.2 !important;
-        color: #ffffff !important;
-        text-shadow: 0 0 20px rgba(0, 245, 212, 0.35) !important;
-        margin: 4px 0 8px 0 !important;
+        color: var(--text-main) !important;
+        margin: 2px 0 4px 0 !important;
+        letter-spacing: -0.3px !important;
       }
       header h1 .cyan-italic {
-        display: block;
-        font-size: 0.78em;
-        font-weight: 700 !important;
-        color: #00f5d4 !important;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        margin-top: 2px;
-      }
-
-      .bismillah {
-        color: #00f5d4 !important;
-        text-shadow: 0 0 16px rgba(0, 245, 212, 0.55) !important;
-      }
-
-      .ayah-box {
-        background: rgba(4, 31, 38, 0.72) !important;
-        border: 1px solid rgba(0, 245, 212, 0.3) !important;
-        border-left: 4px solid #00f5d4 !important;
-        color: #e6fffa !important;
-        border-radius: 12px !important;
-      }
-
-      .hijri-badge {
-        background: rgba(0, 245, 212, 0.12) !important;
-        border: 1.5px solid #00f5d4 !important;
-        color: #ffffff !important;
+        display: inline !important;
+        font-size: 0.58em !important;
         font-weight: 800 !important;
-        box-shadow: 0 0 16px rgba(0, 245, 212, 0.25) !important;
+        color: var(--gold) !important;
+        background: rgba(15, 118, 110, 0.12) !important;
+        padding: 3px 9px !important;
+        border-radius: 99px !important;
+        vertical-align: middle !important;
+        letter-spacing: 0.6px !important;
+        text-transform: uppercase !important;
+      }
+
+      /* Compact Live Clock + Hijri Row inside Header */
+      .clean-header-meta {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .live-clock-pill {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--gold);
+        background: var(--bg-subcard);
+        border: 1px solid var(--border-gold);
+        padding: 4px 12px;
+        border-radius: 99px;
+      }
+      .hijri-badge {
+        background: var(--bg-subcard) !important;
+        border: 1px solid var(--border-gold) !important;
+        color: var(--text-main) !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        padding: 4px 12px !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+      }
+      .ayah-box {
+        background: transparent !important;
+        border: none !important;
+        color: var(--text-muted) !important;
+        font-size: 11.5px !important;
+        padding: 2px 6px !important;
+        margin: 4px auto 0 auto !important;
       }
 
       .menu-toggle-btn, .notif-bell-btn {
-        background: rgba(4, 26, 33, 0.9) !important;
-        border: 1.5px solid #00f5d4 !important;
-        color: #00f5d4 !important;
-        box-shadow: 0 0 12px rgba(0, 245, 212, 0.3) !important;
+        background: var(--bg-subcard) !important;
+        border: 1.5px solid var(--border-gold) !important;
+        color: var(--gold) !important;
+        box-shadow: none !important;
       }
       .supreme-admin-pill {
-        background: rgba(0, 245, 212, 0.15) !important;
-        border: 1.5px solid #00f5d4 !important;
-        color: #00f5d4 !important;
-        box-shadow: 0 0 12px rgba(0, 245, 212, 0.25) !important;
+        background: var(--bg-subcard) !important;
+        border: 1px solid var(--border-gold) !important;
+        color: var(--gold) !important;
+        font-size: 10px !important;
+        padding: 3px 10px !important;
       }
 
-      /* First Page (Home) Styled Like Masjid Smart Display Panels */
-      .guide-box {
-        background: linear-gradient(145deg, rgba(6, 36, 44, 0.85) 0%, rgba(3, 18, 23, 0.95) 100%) !important;
-        border: 1.5px solid rgba(0, 245, 212, 0.32) !important;
-        border-left: 5px solid #00f5d4 !important;
-        border-radius: 16px !important;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), inset 0 0 15px rgba(0, 245, 212, 0.06) !important;
-        padding: 16px !important;
-        margin-bottom: 14px !important;
+      /* ==========================================================================
+         3. CLEAN COLLAPSIBLE FIRST PAGE (HOME) — NO MORE CROWDED WALL OF TEXT!
+         ========================================================================== */
+      .home-hero-banner {
+        background: linear-gradient(135deg, #0f766e 0%, #115e59 60%, #134e4a 100%);
+        color: #ffffff;
+        border-radius: 18px;
+        padding: 18px 16px;
+        margin-bottom: 14px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(15, 118, 110, 0.25);
       }
-      .guide-box h3 {
-        color: #00f5d4 !important;
-        border-bottom: 1px solid rgba(0, 245, 212, 0.22) !important;
-        padding-bottom: 6px !important;
+      .home-hero-time {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: clamp(28px, 7vw, 38px);
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: #ffffff;
+        line-height: 1.1;
+      }
+      .home-hero-sub {
+        font-size: 12px;
+        color: #99f6e4;
+        font-weight: 600;
+        margin-top: 4px;
+        margin-bottom: 12px;
+      }
+      .home-quick- chips {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .home-quick-chip {
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 99px;
+      }
+
+      /* Collapsible Guide Boxes on First Page */
+      #sectionHome .guide-box {
+        background: var(--bg-subcard) !important;
+        border: 1px solid var(--border-gold) !important;
+        border-left: 4px solid var(--gold) !important;
+        border-radius: 14px !important;
+        padding: 12px 14px !important;
         margin-bottom: 10px !important;
-        text-shadow: 0 0 10px rgba(0, 245, 212, 0.3) !important;
+        cursor: pointer !important;
+        transition: all 0.22s ease !important;
+        box-shadow: none !important;
       }
-      .rakat-pill, .guide-box span, .guide-box div span, .badge-chip {
-        background: rgba(0, 245, 212, 0.16) !important;
-        border: 1px solid #00f5d4 !important;
-        color: #ffffff !important;
+      #sectionHome .guide-box:hover {
+        border-color: var(--gold) !important;
+      }
+      #sectionHome .guide-box h3 {
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        font-size: 13.5px !important;
+        font-weight: 800 !important;
+        color: var(--text-main) !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+      }
+      #sectionHome .guide-box h3::after {
+        content: '▾ Read';
+        font-size: 10.5px;
+        font-weight: 700;
+        color: var(--gold);
+        background: rgba(15, 118, 110, 0.12);
+        padding: 2px 8px;
+        border-radius: 99px;
+        flex-shrink: 0;
+      }
+      #sectionHome .guide-box.open h3 {
+        margin-bottom: 10px !important;
+        padding-bottom: 8px !important;
+        border-bottom: 1px solid var(--border-subtle) !important;
+        color: var(--gold) !important;
+      }
+      #sectionHome .guide-box.open h3::after {
+        content: '▴ Close';
+      }
+      /* Hide body paragraphs inside Home Guide Boxes until clicked */
+      #sectionHome .guide-box > *:not(h3) {
+        display: none !important;
+      }
+      #sectionHome .guide-box.open > *:not(h3) {
+        display: block !important;
+        color: var(--text-main) !important;
+      }
+      #sectionHome .guide-box.open .rakat-grid {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+        margin-top: 8px !important;
+      }
+      .rakat-pill, .badge-chip {
+        background: rgba(15, 118, 110, 0.14) !important;
+        border: 1px solid var(--gold) !important;
+        color: var(--gold) !important;
         font-weight: 700 !important;
         border-radius: 8px !important;
-        box-shadow: 0 0 10px rgba(0, 245, 212, 0.2) !important;
       }
 
+      /* ==========================================================================
+         4. INNER REPORT PAGE (RED / GREEN / YELLOW SMART CARDS — KEPT 100% INTACT)
+         ========================================================================== */
       #sectionTracker h2, #sectionHome h2, #sectionDashboard h2, #sectionRecords h2 {
-        font-size: 16.5px !important;
+        font-size: 16px !important;
         font-weight: 800 !important;
-        color: #00f5d4 !important;
-        letter-spacing: 0.5px !important;
-        margin: 20px 0 12px 0 !important;
-        padding-bottom: 8px !important;
-        border-bottom: 1.5px solid rgba(0, 245, 212, 0.3) !important;
-        text-shadow: 0 0 12px rgba(0, 245, 212, 0.3) !important;
+        color: var(--gold) !important;
+        margin: 18px 0 12px 0 !important;
+        padding-bottom: 6px !important;
+        border-bottom: 1.5px solid var(--border-gold) !important;
       }
 
       .namaz-grid, .extra-grid {
@@ -229,22 +363,16 @@
         grid-column: span 2 !important;
       }
 
-      /* ============================================================================
-         🎯 3-COLOR SMART REPORT CARDS & DROPDOWNS (RED / NEON GREEN / AMBER YELLOW)
-         ============================================================================ */
-
-      /* 1. ❌ NAHI PADHI (Default) -> Deep Ruby-Red LED Glass */
+      /* 1. ❌ NAHI PADHI = RED */
       .namaz-card,
       .namaz-card.status-nahi {
-        background: linear-gradient(145deg, rgba(127, 29, 29, 0.32) 0%, rgba(6, 18, 23, 0.96) 100%) !important;
+        background: linear-gradient(145deg, rgba(239, 68, 68, 0.14) 0%, rgba(15, 23, 42, 0.94) 100%) !important;
         border: 1.5px solid rgba(239, 68, 68, 0.55) !important;
         border-left: 5px solid #ef4444 !important;
         border-radius: 16px !important;
         padding: 14px !important;
-        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5), 0 0 14px rgba(239, 68, 68, 0.15) !important;
-        transition: all 0.25s ease !important;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2) !important;
       }
-
       .namaz-card label {
         display: flex !important;
         justify-content: space-between !important;
@@ -254,18 +382,16 @@
         font-weight: 800 !important;
         color: #ffffff !important;
       }
-
       .namaz-card .arabic-text {
         font-family: 'Amiri', serif !important;
-        font-size: 16px !important;
+        font-size: 15.5px !important;
         font-weight: 700 !important;
-        color: #00f5d4 !important;
-        background: rgba(0, 245, 212, 0.12) !important;
-        border: 1px solid rgba(0, 245, 212, 0.4) !important;
+        color: #fde047 !important;
+        background: rgba(250, 204, 21, 0.14) !important;
+        border: 1px solid rgba(250, 204, 21, 0.35) !important;
         padding: 2px 10px !important;
         border-radius: 99px !important;
       }
-
       .namaz-card .modern-select,
       .namaz-card.status-nahi .modern-select {
         width: 100% !important;
@@ -277,185 +403,105 @@
         color: #fca5a5 !important;
         border-radius: 10px !important;
         cursor: pointer !important;
-        box-shadow: inset 0 0 10px rgba(239, 68, 68, 0.2) !important;
         color-scheme: dark !important;
       }
 
-      /* 2. ✅ ADA / RAKHA / TILAWAT -> Masjid Board Highlighted Emerald-Aqua Green */
+      /* 2. ✅ ADA / RAKHA = GREEN */
       .namaz-card.status-ada {
-        background: linear-gradient(90deg, rgba(16, 185, 129, 0.38) 0%, rgba(5, 150, 105, 0.25) 60%, rgba(4, 24, 29, 0.96) 100%) !important;
-        border: 1.5px solid #00f5d4 !important;
-        border-left: 6px solid #00f5d4 !important;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 245, 212, 0.32) !important;
+        background: linear-gradient(145deg, rgba(16, 185, 129, 0.28) 0%, rgba(6, 36, 28, 0.95) 100%) !important;
+        border: 1.5px solid #10b981 !important;
+        border-left: 5px solid #34d399 !important;
       }
       .namaz-card.status-ada .modern-select {
-        background-color: #03261e !important;
-        border: 1.5px solid #00f5d4 !important;
-        color: #5eead4 !important;
-        box-shadow: 0 0 14px rgba(0, 245, 212, 0.3) !important;
+        background-color: #04241b !important;
+        border: 1.5px solid #34d399 !important;
+        color: #6ee7b7 !important;
       }
 
-      /* 3. 🕒 QAZA PADHI -> Warm Amber-Yellow LED Glass */
+      /* 3. 🕒 QAZA PADHI = YELLOW */
       .namaz-card.status-qaza {
-        background: linear-gradient(145deg, rgba(180, 83, 9, 0.38) 0%, rgba(8, 20, 25, 0.96) 100%) !important;
+        background: linear-gradient(145deg, rgba(245, 158, 11, 0.28) 0%, rgba(32, 22, 8, 0.95) 100%) !important;
         border: 1.5px solid #f59e0b !important;
-        border-left: 6px solid #fde047 !important;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 18px rgba(245, 158, 11, 0.28) !important;
+        border-left: 5px solid #fde047 !important;
       }
       .namaz-card.status-qaza .modern-select {
         background-color: #241704 !important;
         border: 1.5px solid #fbbf24 !important;
         color: #fde047 !important;
-        box-shadow: 0 0 12px rgba(245, 158, 11, 0.3) !important;
       }
 
-      /* General Dropdowns & Open Option Colors */
-      .modern-select {
-        background-color: #041920 !important;
-        color: #ffffff !important;
-        border: 1.5px solid rgba(0, 245, 212, 0.45) !important;
-        border-radius: 10px !important;
-        color-scheme: dark !important;
-      }
       select option,
       select optgroup,
       .modern-select option,
       .modern-select optgroup {
-        background-color: #04151a !important;
-        background: #04151a !important;
-        color: #5eead4 !important;
+        background-color: #06131a !important;
+        color: #6ee7b7 !important;
         font-weight: 800 !important;
         padding: 10px !important;
       }
-      select option[value="Nahi"],
-      .modern-select option[value="Nahi"] {
+      select option[value="Nahi"], .modern-select option[value="Nahi"] {
         background-color: #1c070b !important;
         color: #fca5a5 !important;
       }
-      select option[value="Ada"],
-      select option[value="Rakha"],
-      .modern-select option[value="Ada"],
-      .modern-select option[value="Rakha"] {
+      select option[value="Ada"], select option[value="Rakha"], .modern-select option[value="Ada"], .modern-select option[value="Rakha"] {
         background-color: #03221a !important;
-        color: #5eead4 !important;
+        color: #6ee7b7 !important;
       }
-      select option[value="Qaza"],
-      .modern-select option[value="Qaza"] {
+      select option[value="Qaza"], .modern-select option[value="Qaza"] {
         background-color: #211504 !important;
         color: #fde047 !important;
       }
 
-      /* Progress Bar (Masjid Board Next Iqamah Progress Style) */
-      .progress-container {
-        background: linear-gradient(135deg, rgba(6, 38, 46, 0.92), rgba(3, 18, 23, 0.98)) !important;
-        border: 1.5px solid #00f5d4 !important;
-        border-radius: 16px !important;
-        padding: 16px !important;
-        box-shadow: 0 0 22px rgba(0, 245, 212, 0.2) !important;
-      }
-      #progressPercent {
-        font-family: 'JetBrains Mono', monospace !important;
-        font-size: 19px !important;
-        font-weight: 800 !important;
-        color: #00f5d4 !important;
-        text-shadow: 0 0 12px rgba(0, 245, 212, 0.65) !important;
-      }
-      .progress-track {
-        height: 12px !important;
-        background: rgba(1, 10, 13, 0.95) !important;
-        border-radius: 99px !important;
-        border: 1px solid rgba(0, 245, 212, 0.35) !important;
-      }
-      .progress-fill {
-        background: linear-gradient(90deg, #0d9488 0%, #14b8a6 50%, #00f5d4 100%) !important;
-        box-shadow: 0 0 16px #00f5d4 !important;
-      }
-
-      /* Buttons */
-      .btn, #submitBtn {
-        background: linear-gradient(135deg, #00f5d4 0%, #14b8a6 55%, #0d9488 100%) !important;
-        color: #021210 !important;
-        font-weight: 900 !important;
-        border: 1.5px solid #99f6e4 !important;
-        box-shadow: 0 0 22px rgba(0, 245, 212, 0.45) !important;
-        border-radius: 14px !important;
-        padding: 14px !important;
-        font-size: 14px !important;
-      }
-      #t_markAllBtn, .btn-secondary {
-        background: rgba(0, 245, 212, 0.14) !important;
-        border: 1.5px solid #00f5d4 !important;
-        color: #00f5d4 !important;
-        font-weight: 800 !important;
-        box-shadow: 0 0 15px rgba(0, 245, 212, 0.2) !important;
-      }
-
-      /* Sub-boxes, Inputs & Tabs */
-      .admin-sub-box, .aamal-stat-card, .detailed-record-card, .leaderboard-item, .settings-sub-box, .panel-inner-card, .admin-stat-box {
-        background: linear-gradient(150deg, rgba(6, 32, 39, 0.85) 0%, rgba(3, 15, 19, 0.95) 100%) !important;
-        border: 1px solid rgba(0, 245, 212, 0.3) !important;
+      /* General Elements */
+      .progress-container, .admin-sub-box, .aamal-stat-card, .detailed-record-card, .leaderboard-item, .settings-sub-box, .panel-inner-card, .admin-stat-box {
+        background: var(--bg-subcard) !important;
+        border: 1px solid var(--border-gold) !important;
+        color: var(--text-main) !important;
         border-radius: 16px !important;
       }
       input[type="text"], input[type="password"], input[type="date"], textarea {
-        background: rgba(2, 13, 17, 0.95) !important;
-        border: 1.5px solid rgba(0, 245, 212, 0.4) !important;
-        color: #ffffff !important;
+        background: var(--bg-input) !important;
+        border: 1.5px solid var(--border-gold) !important;
+        color: var(--text-main) !important;
         border-radius: 12px !important;
       }
-      .tab-btn.active, .lang-btn.active {
-        background: linear-gradient(135deg, #00f5d4, #14b8a6) !important;
-        color: #021210 !important;
+      .btn, #submitBtn {
+        background: var(--btn-grad) !important;
+        color: var(--btn-text) !important;
         font-weight: 800 !important;
-        box-shadow: 0 0 14px rgba(0, 245, 212, 0.4) !important;
+        border: none !important;
+        border-radius: 14px !important;
+        padding: 14px !important;
       }
-
-      /* History Pills */
-      .status-pill.pill-ada {
-        background: rgba(16, 185, 129, 0.22) !important;
-        border: 1px solid #00f5d4 !important;
-        color: #5eead4 !important;
+      .tab-btn.active, .lang-btn.active, .theme-btn.active {
+        background: var(--btn-grad) !important;
+        color: var(--btn-text) !important;
+        font-weight: 800 !important;
+        border-color: transparent !important;
       }
-      .status-pill.pill-qaza {
-        background: rgba(245, 158, 11, 0.22) !important;
-        border: 1px solid #fbbf24 !important;
-        color: #fde047 !important;
+      .drawer-nav-item {
+        background: var(--bg-subcard) !important;
+        border: 1px solid var(--border-gold) !important;
+        color: var(--text-main) !important;
       }
-      .status-pill.pill-nahi {
-        background: rgba(239, 68, 68, 0.22) !important;
-        border: 1px solid #ef4444 !important;
-        color: #fca5a5 !important;
-      }
-
-      /* Bottom Navigation Bar */
       .bottom-nav-bar {
-        background: rgba(2, 12, 16, 0.96) !important;
-        border-top: 2px solid #00f5d4 !important;
-        box-shadow: 0 -6px 25px rgba(0, 245, 212, 0.28) !important;
-        backdrop-filter: blur(16px) !important;
+        background: var(--nav-bg) !important;
+        border-top: 1.5px solid var(--border-gold) !important;
         z-index: 9990 !important;
       }
       .bottom-nav-btn {
-        background: rgba(6, 28, 35, 0.75) !important;
-        border: 1px solid rgba(0, 245, 212, 0.22) !important;
-        color: #99f6e4 !important;
+        background: var(--bg-subcard) !important;
+        border: 1px solid var(--border-subtle) !important;
+        color: var(--text-muted) !important;
       }
       .bottom-nav-btn.active {
-        background: linear-gradient(135deg, #00f5d4, #14b8a6) !important;
-        border-color: #ffffff !important;
-        color: #021210 !important;
-        font-weight: 900 !important;
-        box-shadow: 0 0 16px rgba(0, 245, 212, 0.55) !important;
-      }
-
-      #zikr-nav-trigger-fallback {
-        background: linear-gradient(135deg, #00f5d4, #0d9488) !important;
-        color: #021210 !important;
-        border: 2px solid #ffffff !important;
-        box-shadow: 0 0 22px rgba(0, 245, 212, 0.65) !important;
+        background: var(--btn-grad) !important;
+        color: var(--btn-text) !important;
+        font-weight: 800 !important;
       }
     </style>
 </head>
-<body class="zs-logged-out" onclick="closeNotifDropdownOutside(event)">
+<body class="zs-logged-out theme-noor" onclick="closeNotifDropdownOutside(event)">
 
     <input type="file" id="changePhotoInput" accept="image/*" style="display: none;" onchange="updateProfilePhoto(this)">
 
@@ -467,18 +513,30 @@
             <div class="drawer-profile-header">
                 <img id="drawerUserAvatar" src="https://i.ibb.co/6Wv1V6Zm/default-avatar.png" alt="User Avatar" onclick="openFullScreenPhoto(this.src)">
                 <div id="drawerUserSerialBadge" class="serial-pill hidden" style="display:none !important;"></div>
-                <h3 id="drawerUserName">Assalamu Alaikum</h3>
-                <p id="t_memberSub">🕌 ZikrSphere Community Member</p>
+                <h3 id="drawerUserName" style="color: var(--text-main);">Assalamu Alaikum</h3>
+                <p id="t_memberSub" style="color: var(--gold);">🕌 ZikrSphere Community Member</p>
             </div>
 
             <div class="drawer-menu-list">
-                <!-- MENU 1: SETTINGS -->
+                <!-- MENU 1: SETTINGS (WITH NEW 4-COLOR THEME SWITCHER) -->
                 <button type="button" class="drawer-nav-item" id="btnMenuSettings" onclick="toggleDrawerPanel('panelSettings', 'btnMenuSettings')">
                     <span id="t_menuSettingsBtn">⚙️ Settings & Account</span>
                     <span class="chevron-icon">▾</span>
                 </button>
                 <div id="panelSettings" class="drawer-panel">
                     <div class="panel-inner-card settings-spacious-wrap">
+                        
+                        <!-- 🎨 NEW: WEBSITE COLOR THEME SWITCHER IN SETTINGS -->
+                        <div class="settings-sub-box">
+                            <div class="settings-box-title" style="color: var(--gold); font-weight: 800; margin-bottom: 8px;">🎨 Website Color Theme Chunein:</div>
+                            <div class="settings-lang-grid">
+                                <button type="button" class="lang-btn theme-btn active" id="themeBtn-noor" onclick="setZikrTheme('noor')">🕊️ Noor White</button>
+                                <button type="button" class="lang-btn theme-btn" id="themeBtn-cosmic" onclick="setZikrTheme('cosmic')">🌌 Cosmic Blue</button>
+                                <button type="button" class="lang-btn theme-btn" id="themeBtn-neon" onclick="setZikrTheme('neon')">🕌 Neon Aqua</button>
+                                <button type="button" class="lang-btn theme-btn" id="themeBtn-emerald" onclick="setZikrTheme('emerald')">🌿 Emerald</button>
+                            </div>
+                        </div>
+
                         <div class="settings-sub-box">
                             <div class="settings-box-title" id="t_settingsSub">🌐 Puri Website Ki Bhasha Chunein:</div>
                             <div class="settings-lang-grid">
@@ -528,7 +586,7 @@
                             </div>
                         </div>
                         <div id="adminReplySelectorWrap" class="hidden" style="margin-bottom: 10px;">
-                            <label id="t_replyToLabel" style="font-size: 10.5px; color: #00f5d4;">Reply to Member:</label>
+                            <label id="t_replyToLabel" style="font-size: 10.5px; color: var(--gold);">Reply to Member:</label>
                             <select id="adminReplyTarget" class="modern-select" style="padding: 8px 10px; font-size: 12px;" onchange="markConversationSeen(); renderChatConversation();"></select>
                         </div>
                         <div class="chat-messages-box" id="chatMessagesBox"></div>
@@ -546,13 +604,13 @@
                 </button>
                 <div id="panelAbout" class="drawer-panel">
                     <div class="panel-inner-card" style="text-align: center;">
-                        <h3 id="t_aboutHeading" style="color: var(--gold-light); font-size: 14.5px; margin-bottom: 14px;">👨‍💻 About Co-Founders & Developers</h3>
+                        <h3 id="t_aboutHeading" style="color: var(--gold); font-size: 14.5px; margin-bottom: 14px;">👨‍💻 About Co-Founders & Developers</h3>
                         
                         <figure style="margin: 0;">
                             <img id="devPhotoImg" src="https://zikrsphere.vercel.app/abbu-shahma.jpeg" alt="ABBU SHAHMA" class="drawer-dev-photo" onclick="openFullScreenPhoto(this.src)">
                             <figcaption>
-                                <h4 style="color: var(--gold-light); font-size: 19px; font-weight: 800; margin-top: 4px;">ABBU SHAHMA</h4>
-                                <p id="t_aboutRole" style="font-size: 12px; color: var(--emerald-bright); font-weight: 800; margin-bottom: 8px;">Co-Founder & Lead Developer — ZikrSphere</p>
+                                <h4 style="color: var(--gold); font-size: 19px; font-weight: 800; margin-top: 4px;">ABBU SHAHMA</h4>
+                                <p id="t_aboutRole" style="font-size: 12px; color: var(--text-muted); font-weight: 800; margin-bottom: 8px;">Co-Founder & Lead Developer — ZikrSphere</p>
                             </figcaption>
                         </figure>
                         <p id="t_aboutBio" style="font-size: 12.5px; color: var(--text-main); line-height: 1.65;">
@@ -564,8 +622,8 @@
                         <figure style="margin: 0;">
                             <img id="sibgathullahPhotoImg" src="https://zikrsphere.vercel.app/muhammad-sibgathullah.jpg" alt="Muhammad Sibgathullah" class="drawer-dev-photo" onclick="openFullScreenPhoto(this.src)" data-fallback-step="0" onerror="handleSibgathullahImgError(this)">
                             <figcaption>
-                                <h4 style="color: var(--gold-light); font-size: 18px; font-weight: 800; margin-top: 4px;">Muhammad Sibgathullah</h4>
-                                <p style="font-size: 12px; color: var(--emerald-bright); font-weight: 800; margin-bottom: 6px;">Co-Founder & Islamic Advisor — ZikrSphere</p>
+                                <h4 style="color: var(--gold); font-size: 18px; font-weight: 800; margin-top: 4px;">Muhammad Sibgathullah</h4>
+                                <p style="font-size: 12px; color: var(--text-muted); font-weight: 800; margin-bottom: 6px;">Co-Founder & Islamic Advisor — ZikrSphere</p>
                             </figcaption>
                         </figure>
                         <p style="font-size: 12px; color: var(--text-main); line-height: 1.55;">
@@ -577,8 +635,8 @@
                         <figure style="margin: 0;">
                             <img id="firozPhotoImg" src="https://zikrsphere.vercel.app/md-firoz-alam.jpg" alt="MD FIROZ ALAM" class="drawer-dev-photo" onclick="openFullScreenPhoto(this.src)">
                             <figcaption>
-                                <h4 style="color: var(--gold-light); font-size: 18px; font-weight: 800; margin-top: 4px;">MD FIROZ ALAM</h4>
-                                <p style="font-size: 12px; color: var(--emerald-bright); font-weight: 800; margin-bottom: 6px;">Co-Founder & Project Coordinator — ZikrSphere</p>
+                                <h4 style="color: var(--gold); font-size: 18px; font-weight: 800; margin-top: 4px;">MD FIROZ ALAM</h4>
+                                <p style="font-size: 12px; color: var(--text-muted); font-weight: 800; margin-bottom: 6px;">Co-Founder & Project Coordinator — ZikrSphere</p>
                             </figcaption>
                         </figure>
                         <p style="font-size: 12px; color: var(--text-main); line-height: 1.55;">
@@ -588,7 +646,7 @@
                 </div>
 
                 <!-- 1-CLICK INSTALL APP BUTTON -->
-                <button type="button" class="drawer-nav-item" id="drawerInstallAppBtn" onclick="installZikrSphereApp()" style="border-color: #00f5d4 !important; color: #00f5d4 !important; background: rgba(0, 245, 212, 0.14) !important;">
+                <button type="button" class="drawer-nav-item" id="drawerInstallAppBtn" onclick="installZikrSphereApp()" style="border-color: var(--gold) !important; color: var(--gold) !important;">
                     <span>📲 Install ZikrSphere App (1-Click)</span>
                     <span>⬇️</span>
                 </button>
@@ -607,6 +665,7 @@
 
     <!-- MAIN CONTAINER -->
     <div class="container">
+        <!-- CLEAN, MINIMALIST HEADER -->
         <header>
             <button type="button" id="hamburgerBtn" class="menu-toggle-btn" onclick="toggleSideMenu()" title="Menu & Settings">☰</button>
             <button type="button" id="notifBellBtn" class="notif-bell-btn zs-auth-only" onclick="toggleNotifPopup(event)" title="Notifications">
@@ -615,16 +674,12 @@
             </button>
             <div id="supremeAdminHeaderBadge" class="supreme-admin-pill hidden zs-auth-only">👑 SUPREME ADMIN: ABBU SHAHMA</div>
             <div class="bismillah">﷽</div>
-
-            <!-- MASJID SMART BOARD DIGITAL CLOCK BAR -->
-            <div class="masjid-digital-topbar">
-                <span class="masjid-board-tag"><span class="masjid-led-dot"></span> MASJID SMART BOARD</span>
-                <span class="masjid-live-clock" id="masjidLiveClock">09:38<small>PM</small></span>
-            </div>
-
-            <h1>ZikrSphere <span class="cyan-italic">Daily Deen & Deeds</span></h1>
+            <h1>ZikrSphere <span class="cyan-italic">Daily Deen</span></h1>
             <div class="ayah-box" id="t_ayah">"Neki aur taqwa ke kaamon mein ek dusre ki madad karo." (Al-Quran 5:2)</div>
-            <div class="hijri-badge zs-auth-only" id="hijriDateBadge">🌙 Hijri Calendar...</div>
+            <div class="clean-header-meta zs-auth-only">
+                <span class="live-clock-pill" id="masjidLiveClock">09:00 PM</span>
+                <div class="hijri-badge" id="hijriDateBadge">🌙 Hijri Calendar...</div>
+            </div>
         </header>
 
         <!-- NOTIFICATIONS POPUP -->
@@ -637,13 +692,13 @@
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <button type="button" class="notif-clear-btn" id="t_clearNotifBtn" onclick="clearAllNotifications()">🗑️ Clear All</button>
-                    <span style="cursor:pointer; color:var(--gold-light); font-size:20px; line-height:1;" onclick="closeNotifPopup()">&times;</span>
+                    <span style="cursor:pointer; color:var(--gold); font-size:20px; line-height:1;" onclick="closeNotifPopup()">&times;</span>
                 </div>
             </div>
-            <div id="adminBroadcastComposer" class="hidden" style="padding: 12px 14px; background: rgba(3, 18, 23, 0.96); border-bottom: 1px solid var(--border-gold);">
-                <div style="font-size: 11px; font-weight: 800; color: var(--gold-light); margin-bottom: 6px;">📢 Send Admin Notification to All Members</div>
-                <input type="text" id="broadcastTitleInput" placeholder="" style="padding: 8px 10px; font-size: 12px; margin-bottom: 6px; background: #020d11; border: 1px solid var(--border-gold);">
-                <textarea id="broadcastInput" rows="2" placeholder="" style="font-size: 12px; padding: 8px 10px; margin-bottom: 8px; background: #020d11; border: 1px solid var(--border-gold);"></textarea>
+            <div id="adminBroadcastComposer" class="hidden" style="padding: 12px 14px; border-bottom: 1px solid var(--border-gold);">
+                <div style="font-size: 11px; font-weight: 800; color: var(--gold); margin-bottom: 6px;">📢 Send Admin Notification to All Members</div>
+                <input type="text" id="broadcastTitleInput" placeholder="" style="padding: 8px 10px; font-size: 12px; margin-bottom: 6px;">
+                <textarea id="broadcastInput" rows="2" placeholder="" style="font-size: 12px; padding: 8px 10px; margin-bottom: 8px;"></textarea>
                 <button type="button" class="btn" id="sendBroadcastBtn" style="padding: 9px; font-size: 12.5px;" onclick="sendAdminBroadcast()">🚀 Publish Notification</button>
             </div>
             <div class="notif-popup-list" id="notifListBox"></div>
@@ -679,15 +734,30 @@
 
         <!-- MAIN APP CONTAINER -->
         <div class="card hidden" id="trackerCard">
+            <!-- CLEAN, SPACIOUS FIRST PAGE (HOME) -->
             <div id="sectionHome" class="hidden">
-                <h2 id="t_homeTitle">🏠 ZikrSphere Home & Islami Rehnumai</h2>
-                <div class="guide-box" id="homeBoxMaqsad"></div>
-                <div class="guide-box" id="homeBoxNamaz"></div>
-                <div class="guide-box" id="homeBoxRoza"></div>
-                <div class="guide-box" id="homeBoxTarawih"></div>
-                <button type="button" class="btn" id="t_goToReportBtn" onclick="switchSection('tracker')">📝 Aaj Ki Namaz & Roza Report Darj Karein ➔</button>
+                <div class="home-hero-banner">
+                    <div class="home-hero-time" id="homeHeroBigClock">09:00 PM</div>
+                    <div class="home-hero-sub">🕌 Daily 5 Waqt Farz Namaz, Nawafil & Quran Tracker</div>
+                    <div class="home-quick-chips">
+                        <span class="home-quick-chip">🌅 Fajr</span>
+                        <span class="home-quick-chip">☀️ Zuhr</span>
+                        <span class="home-quick-chip">🌤️ Asr</span>
+                        <span class="home-quick-chip">🌇 Maghrib</span>
+                        <span class="home-quick-chip">🌌 Isha</span>
+                    </div>
+                </div>
+
+                <button type="button" class="btn" id="t_goToReportBtn" style="margin-bottom: 16px;" onclick="switchSection('tracker')">📝 Aaj Ki Namaz & Roza Report Darj Karein ➔</button>
+
+                <h2 id="t_homeTitle" style="font-size:14px !important; margin-top:4px !important;">🏠 Islami Rehnumai (Tap Karke Padhein)</h2>
+                <div class="guide-box" id="homeBoxMaqsad" onclick="this.classList.toggle('open')"></div>
+                <div class="guide-box" id="homeBoxNamaz" onclick="this.classList.toggle('open')"></div>
+                <div class="guide-box" id="homeBoxRoza" onclick="this.classList.toggle('open')"></div>
+                <div class="guide-box" id="homeBoxTarawih" onclick="this.classList.toggle('open')"></div>
             </div>
 
+            <!-- INNER REPORT PAGE (RED / GREEN / YELLOW DROPDOWNS) -->
             <div id="sectionTracker">
                 <div class="progress-container">
                     <div class="progress-header">
@@ -773,11 +843,11 @@
                         <div class="aamal-stat-lbl" id="t_myStatDaysLbl">📅 Kul Din</div>
                     </div>
                     <div class="aamal-stat-card">
-                        <div class="aamal-stat-val" id="myStatFarzRate" style="color: #00f5d4;">0%</div>
+                        <div class="aamal-stat-val" id="myStatFarzRate" style="color: var(--gold);">0%</div>
                         <div class="aamal-stat-lbl" id="t_myStatFarzLbl">🕋 Farz Ada %</div>
                     </div>
                     <div class="aamal-stat-card">
-                        <div class="aamal-stat-val" id="myStatTotalRoza" style="color: #fde047;">0</div>
+                        <div class="aamal-stat-val" id="myStatTotalRoza" style="color: #f59e0b;">0</div>
                         <div class="aamal-stat-lbl" id="t_myStatRozaLbl">🌙 Kul Roze</div>
                     </div>
                     <div class="aamal-stat-card">
@@ -803,11 +873,11 @@
                         <div class="admin-stat-label">👥 Kul Members</div>
                     </div>
                     <div class="admin-stat-box">
-                        <div class="admin-stat-num" id="admStatTodaySub" style="color: #00f5d4;">0</div>
+                        <div class="admin-stat-num" id="admStatTodaySub" style="color: var(--gold);">0</div>
                         <div class="admin-stat-label">✅ Aaj Ki Reports</div>
                     </div>
                     <div class="admin-stat-box">
-                        <div class="admin-stat-num" id="admStatPending" style="color: #fca5a5;">0</div>
+                        <div class="admin-stat-num" id="admStatPending" style="color: #ef4444;">0</div>
                         <div class="admin-stat-label">⚠️ Aaj Pending (Baqi)</div>
                     </div>
                     <div class="admin-stat-box">
@@ -822,11 +892,11 @@
                 </div>
                 <div class="admin-sub-box lookup-highlight-box">
                     <h3><span>🔍 Smart Member Lookup</span><span class="badge-chip">Live Full Report</span></h3>
-                    <input type="text" id="adminLookupInput" placeholder="🔎 Member ka Naam ya Serial No likhein (turant poori report aayegi)..." oninput="runAdminMemberLookup()">
+                    <input type="text" id="adminLookupInput" placeholder="🔎 Member ka Naam ya Serial No likhein..." oninput="runAdminMemberLookup()">
                     <div id="adminLookupResultBox" style="margin-top: 12px;"></div>
                 </div>
                 <div class="admin-sub-box">
-                    <h3><span>⚠️ Aaj Jin Logon Ne Report Nahi Bheji</span><span id="admPendingDateBadge" style="font-size: 11px; color: #00f5d4;"></span></h3>
+                    <h3><span>⚠️ Aaj Jin Logon Ne Report Nahi Bheji</span><span id="admPendingDateBadge" style="font-size: 11px; color: var(--gold);"></span></h3>
                     <div id="admPendingUsersList" style="max-height: 200px; overflow-y: auto;"></div>
                 </div>
                 <div class="admin-sub-box">
@@ -852,8 +922,8 @@
                     <button type="button" class="btn" style="padding: 11px; font-size: 13px; margin-top: 10px;" onclick="adminQuickSubmitReport()">⚡ Selected Member Ki Report Save Karein</button>
                 </div>
                 <div class="admin-sub-box">
-                    <h3><span>🔐 All Members & Sub-Admin Control</span><span id="admDirectoryCountBadge" style="font-size: 11px; color: #00f5d4;">0 Members</span></h3>
-                    <p style="font-size:11px; color:#5eead4; margin-bottom:8px;">👑 Main Supreme Admin (ABBU SHAHMA) yahan se kisi bhi dost ko uske gaon/shehar ke liye <strong>Sub-Admin</strong> bana ya hata sakte hain:</p>
+                    <h3><span>🔐 All Members & Sub-Admin Control</span><span id="admDirectoryCountBadge" style="font-size: 11px; color: var(--gold);">0 Members</span></h3>
+                    <p style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">👑 Main Supreme Admin (ABBU SHAHMA) yahan se kisi bhi dost ko uske gaon/shehar ke liye <strong>Sub-Admin</strong> bana ya hata sakte hain:</p>
                     <div id="admAllMembersDirectory" style="max-height: 400px; overflow-y: auto;"></div>
                 </div>
             </div>
@@ -888,12 +958,12 @@
             <div style="margin-bottom: 14px;">
                 <img id="modalUserAvatar" src="" class="zoomed-avatar" alt="Profile Photo" onclick="openFullScreenPhoto(this.src)">
                 <div id="modalUserSerialBadge" class="serial-pill hidden" style="display:none !important;"></div>
-                <h3 id="modalUserName" style="color: var(--gold-light); font-size: 20px; margin-top: 4px;">Naam</h3>
+                <h3 id="modalUserName" style="color: var(--gold); font-size: 20px; margin-top: 4px;">Naam</h3>
                 <div id="modalUserJoinDate" style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;"></div>
                 <div id="modalUserBadges" style="margin: 4px 0;"></div>
-                <div id="modalUserPoints" style="font-size: 12px; color: var(--emerald-bright); font-weight: 600; margin-top: 4px;">Total Stats</div>
+                <div id="modalUserPoints" style="font-size: 12px; color: var(--gold); font-weight: 600; margin-top: 4px;">Total Stats</div>
             </div>
-            <h4 id="t_modalHistoryTitle" style="font-size: 13.5px; color: var(--gold-light); margin: 14px 0 8px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 5px; text-align: left;">📜 Mukammal Ibadat Report:</h4>
+            <h4 id="t_modalHistoryTitle" style="font-size: 13.5px; color: var(--gold); margin: 14px 0 8px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 5px; text-align: left;">📜 Mukammal Ibadat Report:</h4>
             <div id="modalUserHistory" style="max-height: 310px; overflow-y: auto;"></div>
         </div>
     </div>
@@ -911,22 +981,49 @@
     <script src="leaderboard-records.js"></script>
     <script src="admin-quran.js"></script>
 
-    <!-- 🎨 LIVE MASJID CLOCK & SMART 3-COLOR DROPDOWN SYNC -->
+    <!-- 🎨 THEME SWITCHER ENGINE + LIVE CLOCK + 3-COLOR DROPDOWN SYNC -->
     <script>
+      function setZikrTheme(themeName) {
+        const validThemes = ['noor', 'cosmic', 'neon', 'emerald'];
+        const chosen = validThemes.includes(themeName) ? themeName : 'noor';
+        localStorage.setItem('zikr_color_theme', chosen);
+
+        validThemes.forEach(function(t) {
+          document.body.classList.remove('theme-' + t);
+          const btn = document.getElementById('themeBtn-' + t);
+          if (btn) btn.classList.toggle('active', t === chosen);
+        });
+        document.body.classList.add('theme-' + chosen);
+
+        const metaTheme = document.getElementById('metaThemeColor');
+        if (metaTheme) {
+          const colors = { noor: '#0f766e', cosmic: '#040b18', neon: '#031014', emerald: '#041f17' };
+          metaTheme.setAttribute('content', colors[chosen] || '#0f766e');
+        }
+      }
+
       (function() {
-        function updateMasjidClock() {
-          const el = document.getElementById('masjidLiveClock');
-          if (!el) return;
+        const savedTheme = localStorage.getItem('zikr_color_theme') || 'noor';
+        setZikrTheme(savedTheme);
+
+        function updateClocks() {
           const now = new Date();
           let h = now.getHours();
           const m = String(now.getMinutes()).padStart(2, '0');
           const s = String(now.getSeconds()).padStart(2, '0');
           const ampm = h >= 12 ? 'PM' : 'AM';
           h = h % 12 || 12;
-          el.innerHTML = String(h).padStart(2, '0') + ':' + m + '<small>:' + s + ' ' + ampm + '</small>';
+          const timeStr = String(h).padStart(2, '0') + ':' + m + ':' + s + ' ' + ampm;
+          const shortStr = String(h).padStart(2, '0') + ':' + m + ' ' + ampm;
+
+          const topClock = document.getElementById('masjidLiveClock');
+          if (topClock) topClock.innerText = '🕒 ' + timeStr;
+
+          const bigClock = document.getElementById('homeHeroBigClock');
+          if (bigClock) bigClock.innerText = shortStr;
         }
-        updateMasjidClock();
-        setInterval(updateMasjidClock, 1000);
+        updateClocks();
+        setInterval(updateClocks, 1000);
 
         const ids = ['fajr', 'zuhr', 'asr', 'maghrib', 'isha', 'tahajjud', 'duha', 'roza', 'tarawih', 'quran'];
         function syncCardColors() {
