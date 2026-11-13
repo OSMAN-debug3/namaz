@@ -39,17 +39,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=JetBrains+Mono:wght@600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- ✨ 5-THEME ENGINE (WHITE & GOLD / NOOR WHITE / COSMIC BLUE / NEON AQUA / EMERALD) + PURE GLOWING GREEN CARDS -->
+    <!-- ✨ 5-THEME ENGINE + SOFT, EYE-SOOTHING PASTEL RED / GREEN / YELLOW REPORT CARDS -->
     <style>
       /* ==========================================================================
          1. 5 SWITCHABLE COLOR THEMES (IN SETTINGS)
          ========================================================================== */
 
-      /* DEFAULT THEME 1: 👑 WHITE & GOLD (IMAGE 1 WARM CREAM, GOLD & TEAL STYLE) */
+      /* DEFAULT THEME 1: 👑 WHITE & GOLD */
       body,
       body.theme-whitegold {
         --bg-deep: #f9f3e6 !important;
-        --bg-body-grad: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.28) 0%, transparent 60%), linear-gradient(145deg, #fffdf9 0%, #f7efe0 50%, #efe2c9 100%) !important;
+        --bg-body-grad: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.25) 0%, transparent 60%), linear-gradient(145deg, #fffdf9 0%, #f7efe0 50%, #efe2c9 100%) !important;
         --bg-card: rgba(255, 255, 255, 0.96) !important;
         --bg-subcard: #fcf8f0 !important;
         --bg-input: #ffffff !important;
@@ -58,12 +58,31 @@
         --emerald-bright: #0f766e !important;
         --text-main: #1e293b !important;
         --text-muted: #64748b !important;
-        --border-gold: rgba(212, 175, 55, 0.55) !important;
-        --border-subtle: rgba(180, 125, 18, 0.18) !important;
-        --card-shadow: 0 12px 34px rgba(180, 134, 24, 0.16), 0 0 22px rgba(212, 175, 55, 0.2) !important;
+        --border-gold: rgba(212, 175, 55, 0.5) !important;
+        --border-subtle: rgba(180, 125, 18, 0.16) !important;
+        --card-shadow: 0 12px 34px rgba(180, 134, 24, 0.14) !important;
         --btn-grad: linear-gradient(135deg, #0f766e 0%, #0d9488 55%, #14b8a6 100%) !important;
         --btn-text: #ffffff !important;
         --nav-bg: rgba(255, 252, 245, 0.97) !important;
+
+        /* Soft Pastel Card Tokens for Light Themes */
+        --nahi-bg: linear-gradient(135deg, #fff5f5 0%, #fee2e2 100%);
+        --nahi-border: #fca5a5;
+        --nahi-accent: #ef4444;
+        --nahi-text: #991b1b;
+        --nahi-sel-bg: #ffffff;
+
+        --ada-bg: linear-gradient(135deg, #f0fdf4 0%, #d1fae5 100%);
+        --ada-border: #6ee7b7;
+        --ada-accent: #10b981;
+        --ada-text: #065f46;
+        --ada-sel-bg: #ffffff;
+
+        --qaza-bg: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+        --qaza-border: #fcd34d;
+        --qaza-accent: #f59e0b;
+        --qaza-text: #92400e;
+        --qaza-sel-bg: #ffffff;
       }
 
       /* THEME 2: 🕊️ NOOR WHITE & MOSQUE TEAL */
@@ -84,6 +103,24 @@
         --btn-grad: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%) !important;
         --btn-text: #ffffff !important;
         --nav-bg: rgba(255, 255, 255, 0.96) !important;
+
+        --nahi-bg: linear-gradient(135deg, #fff5f5 0%, #fee2e2 100%);
+        --nahi-border: #fca5a5;
+        --nahi-accent: #ef4444;
+        --nahi-text: #991b1b;
+        --nahi-sel-bg: #ffffff;
+
+        --ada-bg: linear-gradient(135deg, #f0fdf4 0%, #d1fae5 100%);
+        --ada-border: #6ee7b7;
+        --ada-accent: #10b981;
+        --ada-text: #065f46;
+        --ada-sel-bg: #ffffff;
+
+        --qaza-bg: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+        --qaza-border: #fcd34d;
+        --qaza-accent: #f59e0b;
+        --qaza-text: #92400e;
+        --qaza-sel-bg: #ffffff;
       }
 
       /* THEME 3: 🌌 COSMIC BLUE */
@@ -104,12 +141,31 @@
         --btn-grad: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%) !important;
         --btn-text: #ffffff !important;
         --nav-bg: rgba(4, 11, 24, 0.96) !important;
+
+        /* Soft Translucent Tints for Dark Themes */
+        --nahi-bg: linear-gradient(135deg, rgba(239, 68, 68, 0.14) 0%, rgba(15, 28, 55, 0.85) 100%);
+        --nahi-border: rgba(248, 113, 113, 0.4);
+        --nahi-accent: #f87171;
+        --nahi-text: #fecaca;
+        --nahi-sel-bg: rgba(127, 29, 29, 0.35);
+
+        --ada-bg: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(12, 38, 56, 0.88) 100%);
+        --ada-border: rgba(52, 211, 153, 0.45);
+        --ada-accent: #34d399;
+        --ada-text: #a7f3d0;
+        --ada-sel-bg: rgba(6, 78, 59, 0.45);
+
+        --qaza-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(25, 30, 52, 0.88) 100%);
+        --qaza-border: rgba(251, 191, 36, 0.45);
+        --qaza-accent: #fbbf24;
+        --qaza-text: #fde68a;
+        --qaza-sel-bg: rgba(120, 53, 15, 0.45);
       }
 
-      /* THEME 4: 🕌 NEON AQUA (IMAGE 3 MASJID LED BOARD) */
+      /* THEME 4: 🕌 NEON AQUA */
       body.theme-neon {
         --bg-deep: #041d24 !important;
-        --bg-body-grad: radial-gradient(circle at 50% 0%, rgba(0, 245, 212, 0.28) 0%, transparent 55%), linear-gradient(180deg, #03151a 0%, #06252e 50%, #04181f 100%) !important;
+        --bg-body-grad: radial-gradient(circle at 50% 0%, rgba(0, 245, 212, 0.25) 0%, transparent 55%), linear-gradient(180deg, #03151a 0%, #06252e 50%, #04181f 100%) !important;
         --bg-card: rgba(7, 34, 43, 0.94) !important;
         --bg-subcard: rgba(9, 46, 56, 0.85) !important;
         --bg-input: #062830 !important;
@@ -118,36 +174,72 @@
         --emerald-bright: #00f5d4 !important;
         --text-main: #f0fdfa !important;
         --text-muted: #99f6e4 !important;
-        --border-gold: rgba(0, 245, 212, 0.45) !important;
-        --border-subtle: rgba(45, 212, 191, 0.25) !important;
-        --card-shadow: 0 16px 40px rgba(0, 20, 24, 0.65), 0 0 24px rgba(0, 245, 212, 0.22) !important;
+        --border-gold: rgba(0, 245, 212, 0.4) !important;
+        --border-subtle: rgba(45, 212, 191, 0.22) !important;
+        --card-shadow: 0 16px 40px rgba(0, 20, 24, 0.65) !important;
         --btn-grad: linear-gradient(135deg, #00f5d4 0%, #14b8a6 55%, #0d9488 100%) !important;
         --btn-text: #02201c !important;
         --nav-bg: rgba(4, 24, 30, 0.96) !important;
+
+        --nahi-bg: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(8, 36, 44, 0.9) 100%);
+        --nahi-border: rgba(248, 113, 113, 0.42);
+        --nahi-accent: #f87171;
+        --nahi-text: #fecaca;
+        --nahi-sel-bg: rgba(127, 29, 29, 0.35);
+
+        --ada-bg: linear-gradient(135deg, rgba(0, 245, 212, 0.18) 0%, rgba(6, 48, 54, 0.9) 100%);
+        --ada-border: rgba(0, 245, 212, 0.5);
+        --ada-accent: #00f5d4;
+        --ada-text: #99f6e4;
+        --ada-sel-bg: rgba(4, 90, 78, 0.5);
+
+        --qaza-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(12, 38, 44, 0.9) 100%);
+        --qaza-border: rgba(251, 191, 36, 0.45);
+        --qaza-accent: #fbbf24;
+        --qaza-text: #fde68a;
+        --qaza-sel-bg: rgba(120, 53, 15, 0.45);
       }
 
-      /* THEME 5: 🌿 EMERALD GOLD (PURE LUMINOUS GREEN — NO BLACK) */
+      /* THEME 5: 🌿 PURE GREEN */
       body.theme-emerald {
         --bg-deep: #063829 !important;
         --bg-body-grad: radial-gradient(circle at 50% 0%, #10b981 0%, #064e3b 55%, #063829 100%) !important;
         --bg-card: rgba(6, 78, 59, 0.94) !important;
-        --bg-subcard: rgba(4, 120, 87, 0.75) !important;
+        --bg-subcard: rgba(4, 108, 78, 0.75) !important;
         --bg-input: #065f46 !important;
         --gold: #fde047 !important;
         --gold-light: #fef08a !important;
         --emerald-bright: #34d399 !important;
         --text-main: #ffffff !important;
         --text-muted: #a7f3d0 !important;
-        --border-gold: rgba(250, 204, 21, 0.45) !important;
-        --border-subtle: rgba(110, 231, 183, 0.28) !important;
-        --card-shadow: 0 16px 38px rgba(4, 47, 36, 0.6), 0 0 22px rgba(16, 185, 129, 0.25) !important;
+        --border-gold: rgba(250, 204, 21, 0.4) !important;
+        --border-subtle: rgba(110, 231, 183, 0.25) !important;
+        --card-shadow: 0 16px 38px rgba(4, 47, 36, 0.55) !important;
         --btn-grad: linear-gradient(135deg, #fbbf24 0%, #f59e0b 55%, #d97706 100%) !important;
         --btn-text: #063829 !important;
         --nav-bg: rgba(6, 62, 46, 0.97) !important;
+
+        --nahi-bg: linear-gradient(135deg, rgba(239, 68, 68, 0.18) 0%, rgba(6, 78, 59, 0.9) 100%);
+        --nahi-border: rgba(252, 165, 165, 0.45);
+        --nahi-accent: #fca5a5;
+        --nahi-text: #fee2e2;
+        --nahi-sel-bg: rgba(153, 27, 27, 0.4);
+
+        --ada-bg: linear-gradient(135deg, rgba(52, 211, 153, 0.25) 0%, rgba(5, 122, 85, 0.9) 100%);
+        --ada-border: #6ee7b7;
+        --ada-accent: #34d399;
+        --ada-text: #ecfdf5;
+        --ada-sel-bg: rgba(4, 120, 87, 0.65);
+
+        --qaza-bg: linear-gradient(135deg, rgba(251, 191, 36, 0.22) 0%, rgba(6, 95, 70, 0.9) 100%);
+        --qaza-border: #fde68a;
+        --qaza-accent: #fbbf24;
+        --qaza-text: #fef3c7;
+        --qaza-sel-bg: rgba(146, 64, 14, 0.5);
       }
 
       /* ==========================================================================
-         2. GLOBAL LAYOUT & SPACIOUS HEADER
+         2. GLOBAL LAYOUT & HEADER
          ========================================================================== */
       body {
         background: var(--bg-body-grad) !important;
@@ -191,7 +283,7 @@
         font-size: 0.58em !important;
         font-weight: 800 !important;
         color: var(--gold) !important;
-        background: rgba(212, 175, 55, 0.16) !important;
+        background: rgba(212, 175, 55, 0.14) !important;
         border: 1px solid var(--border-gold) !important;
         padding: 3px 9px !important;
         border-radius: 99px !important;
@@ -262,7 +354,7 @@
         padding: 18px 16px;
         margin-bottom: 14px;
         text-align: center;
-        box-shadow: 0 10px 25px rgba(15, 118, 110, 0.25);
+        box-shadow: 0 10px 25px rgba(15, 118, 110, 0.2);
       }
       .home-hero-time {
         font-family: 'Plus Jakarta Sans', sans-serif;
@@ -358,7 +450,7 @@
       }
 
       /* ==========================================================================
-         4. PURE LUMINOUS NAMAZ CARDS (ZERO BLACK! GLOWING GREEN LIKE IMAGE 3)
+         4. SOFT, SUBTLE & ELEGANT NAMAZ CARDS (PASTEL TINTS — NO HARSH COLORS!)
          ========================================================================== */
       #sectionTracker h2, #sectionHome h2, #sectionDashboard h2, #sectionRecords h2 {
         font-size: 16px !important;
@@ -378,104 +470,116 @@
         grid-column: span 2 !important;
       }
 
-      /* 1. ❌ NAHI PADHI = PURE GLOWING RUBY RED (NO BLACK FADE) */
+      /* 1. ❌ NAHI PADHI = SOFT ROSE-BLUSH PASTEL CARD */
       .namaz-card,
       .namaz-card.status-nahi {
-        background: linear-gradient(135deg, #ef4444 0%, #dc2626 55%, #b91c1c 100%) !important;
-        border: 2px solid #fca5a5 !important;
-        border-radius: 18px !important;
-        padding: 14px !important;
-        box-shadow: 0 8px 22px rgba(220, 38, 38, 0.32), 0 0 16px rgba(239, 68, 68, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.35) !important;
-        transition: all 0.25s ease !important;
+        background: var(--nahi-bg) !important;
+        border: 1.5px solid var(--nahi-border) !important;
+        border-left: 4.5px solid var(--nahi-accent) !important;
+        border-radius: 16px !important;
+        padding: 13px 14px !important;
+        box-shadow: 0 4px 14px rgba(239, 68, 68, 0.08) !important;
+        transition: all 0.22s ease !important;
       }
       .namaz-card label {
         display: flex !important;
         justify-content: space-between !important;
         align-items: center !important;
-        margin-bottom: 10px !important;
+        margin-bottom: 9px !important;
         font-size: 13.5px !important;
         font-weight: 800 !important;
-        color: #ffffff !important;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+        color: var(--nahi-text) !important;
+        text-shadow: none !important;
       }
       .namaz-card .arabic-text {
         font-family: 'Amiri', serif !important;
-        font-size: 15.5px !important;
+        font-size: 15px !important;
         font-weight: 700 !important;
-        color: #fef08a !important;
-        background: rgba(255, 255, 255, 0.18) !important;
-        border: 1px solid rgba(254, 240, 138, 0.65) !important;
-        padding: 2px 10px !important;
+        color: var(--nahi-text) !important;
+        background: rgba(239, 68, 68, 0.1) !important;
+        border: 1px solid var(--nahi-border) !important;
+        padding: 1px 10px !important;
         border-radius: 99px !important;
       }
       .namaz-card .modern-select,
       .namaz-card.status-nahi .modern-select {
         width: 100% !important;
-        padding: 10px 12px !important;
+        padding: 9px 12px !important;
         font-size: 13px !important;
-        font-weight: 800 !important;
-        background: linear-gradient(90deg, #991b1b 0%, #b91c1c 100%) !important;
-        background-color: #991b1b !important;
-        border: 1.5px solid #fecaca !important;
-        color: #ffffff !important;
-        border-radius: 12px !important;
+        font-weight: 700 !important;
+        background: var(--nahi-sel-bg) !important;
+        border: 1.5px solid var(--nahi-border) !important;
+        color: var(--nahi-text) !important;
+        border-radius: 10px !important;
         cursor: pointer !important;
-        box-shadow: 0 4px 12px rgba(153, 27, 27, 0.4) !important;
+        box-shadow: none !important;
       }
 
-      /* 2. ✅ ADA / RAKHA = 100% PURE GLOWING EMERALD-AQUA GREEN (ZERO BLACK — IMAGE 3 LIGHT GLOW) */
+      /* 2. ✅ ADA / RAKHA = SOFT MINT-EMERALD PASTEL CARD */
       .namaz-card.status-ada {
-        background: linear-gradient(135deg, #10b981 0%, #059669 50%, #0d9488 100%) !important;
-        border: 2px solid #6ee7b7 !important;
-        box-shadow:
-          0 0 24px rgba(16, 185, 129, 0.65),
-          0 0 40px rgba(0, 245, 212, 0.28),
-          0 8px 20px rgba(5, 150, 105, 0.35),
-          inset 0 1px 3px rgba(255, 255, 255, 0.45) !important;
+        background: var(--ada-bg) !important;
+        border: 1.5px solid var(--ada-border) !important;
+        border-left: 4.5px solid var(--ada-accent) !important;
+        box-shadow: 0 5px 16px rgba(16, 185, 129, 0.12) !important;
+      }
+      .namaz-card.status-ada label {
+        color: var(--ada-text) !important;
+      }
+      .namaz-card.status-ada .arabic-text {
+        color: var(--ada-text) !important;
+        background: rgba(16, 185, 129, 0.12) !important;
+        border-color: var(--ada-border) !important;
       }
       .namaz-card.status-ada .modern-select {
-        background: linear-gradient(90deg, #047857 0%, #0d9488 100%) !important;
-        background-color: #047857 !important;
-        border: 1.5px solid #a7f3d0 !important;
-        color: #ffffff !important;
-        box-shadow: 0 0 16px rgba(52, 211, 153, 0.55) !important;
+        background: var(--ada-sel-bg) !important;
+        border: 1.5px solid var(--ada-border) !important;
+        color: var(--ada-text) !important;
+        box-shadow: none !important;
       }
 
-      /* 3. 🕒 QAZA PADHI = PURE GLOWING AMBER-GOLD (ZERO BLACK) */
+      /* 3. 🕒 QAZA PADHI = SOFT WARM-AMBER PASTEL CARD */
       .namaz-card.status-qaza {
-        background: linear-gradient(135deg, #f59e0b 0%, #d97706 55%, #b45309 100%) !important;
-        border: 2px solid #fde68a !important;
-        box-shadow: 0 0 22px rgba(245, 158, 11, 0.55), 0 8px 20px rgba(180, 83, 9, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.4) !important;
+        background: var(--qaza-bg) !important;
+        border: 1.5px solid var(--qaza-border) !important;
+        border-left: 4.5px solid var(--qaza-accent) !important;
+        box-shadow: 0 5px 16px rgba(245, 158, 11, 0.12) !important;
+      }
+      .namaz-card.status-qaza label {
+        color: var(--qaza-text) !important;
+      }
+      .namaz-card.status-qaza .arabic-text {
+        color: var(--qaza-text) !important;
+        background: rgba(245, 158, 11, 0.14) !important;
+        border-color: var(--qaza-border) !important;
       }
       .namaz-card.status-qaza .modern-select {
-        background: linear-gradient(90deg, #92400e 0%, #b45309 100%) !important;
-        background-color: #92400e !important;
-        border: 1.5px solid #fef08a !important;
-        color: #ffffff !important;
-        box-shadow: 0 0 14px rgba(251, 191, 36, 0.45) !important;
+        background: var(--qaza-sel-bg) !important;
+        border: 1.5px solid var(--qaza-border) !important;
+        color: var(--qaza-text) !important;
+        box-shadow: none !important;
       }
 
-      /* Open Dropdown List Options — Pure Emerald / Ruby / Amber (Zero Black) */
+      /* Clean, Soft Dropdown List Options */
       select option,
       select optgroup,
       .modern-select option,
       .modern-select optgroup {
-        background-color: #047857 !important;
-        color: #ffffff !important;
-        font-weight: 800 !important;
+        background-color: #ffffff !important;
+        color: #065f46 !important;
+        font-weight: 700 !important;
         padding: 10px !important;
       }
       select option[value="Nahi"], .modern-select option[value="Nahi"] {
-        background-color: #b91c1c !important;
-        color: #ffffff !important;
+        background-color: #fff5f5 !important;
+        color: #b91c1c !important;
       }
       select option[value="Ada"], select option[value="Rakha"], .modern-select option[value="Ada"], .modern-select option[value="Rakha"] {
-        background-color: #059669 !important;
-        color: #ffffff !important;
+        background-color: #f0fdf4 !important;
+        color: #047857 !important;
       }
       select option[value="Qaza"], .modern-select option[value="Qaza"] {
-        background-color: #d97706 !important;
-        color: #ffffff !important;
+        background-color: #fffbeb !important;
+        color: #b45309 !important;
       }
 
       /* Progress Bar & Other UI Elements */
@@ -486,22 +590,21 @@
         border-radius: 16px !important;
       }
       .progress-track {
-        height: 12px !important;
-        background: rgba(16, 185, 129, 0.15) !important;
+        height: 11px !important;
+        background: rgba(16, 185, 129, 0.14) !important;
         border-radius: 99px !important;
         border: 1px solid var(--border-gold) !important;
       }
       .progress-fill {
-        background: linear-gradient(90deg, #10b981 0%, #00f5d4 55%, #f59e0b 100%) !important;
-        box-shadow: 0 0 16px rgba(16, 185, 129, 0.7) !important;
+        background: linear-gradient(90deg, #10b981 0%, #0d9488 55%, #f59e0b 100%) !important;
       }
 
       #t_markAllBtn {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
-        border: 2px solid #a7f3d0 !important;
-        color: #ffffff !important;
+        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%) !important;
+        border: 1.5px solid #6ee7b7 !important;
+        color: #065f46 !important;
         font-weight: 800 !important;
-        box-shadow: 0 0 20px rgba(16, 185, 129, 0.45) !important;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12) !important;
       }
 
       input[type="text"], input[type="password"], input[type="date"], textarea {
@@ -563,7 +666,7 @@
             </div>
 
             <div class="drawer-menu-list">
-                <!-- MENU 1: SETTINGS (WITH 5 COLOR THEMES INCLUDING WHITE & GOLD) -->
+                <!-- MENU 1: SETTINGS (WITH 5 COLOR THEMES) -->
                 <button type="button" class="drawer-nav-item" id="btnMenuSettings" onclick="toggleDrawerPanel('panelSettings', 'btnMenuSettings')">
                     <span id="t_menuSettingsBtn">⚙️ Settings & Account</span>
                     <span class="chevron-icon">▾</span>
@@ -802,7 +905,7 @@
                 <div class="guide-box" id="homeBoxTarawih" onclick="this.classList.toggle('open')"></div>
             </div>
 
-            <!-- INNER REPORT PAGE (PURE GLOWING GREEN / RED / YELLOW — ZERO BLACK) -->
+            <!-- INNER REPORT PAGE (SOFT PASTEL RED / GREEN / YELLOW CARDS) -->
             <div id="sectionTracker">
                 <div class="progress-container">
                     <div class="progress-header">
@@ -1026,7 +1129,7 @@
     <script src="leaderboard-records.js"></script>
     <script src="admin-quran.js"></script>
 
-    <!-- 🎨 5-THEME ENGINE + LIVE CLOCK + PURE GLOWING GREEN/RED/YELLOW CARD SYNC -->
+    <!-- 🎨 5-THEME ENGINE + LIVE CLOCK + SOFT PASTEL CARD SYNC -->
     <script>
       function setZikrTheme(themeName) {
         const validThemes = ['whitegold', 'noor', 'cosmic', 'neon', 'emerald'];
