@@ -25,7 +25,7 @@
     <meta name="google-site-verification" content="edHXVXITTAfMQl8u8ikPInDeuiBOflpyqihuVVBjpzU" />
     <link rel="canonical" href="https://zikrsphere.vercel.app/" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" id="metaThemeColor" content="#0f766e">
+    <meta name="theme-color" id="metaThemeColor" content="#d4af37">
     <link rel="manifest" href="manifest.json">
     
     <title>ZikrSphere | Daily Deen & Deeds by ABBU SHAHMA, Muhammad Sibgathullah & MD FIROZ ALAM</title>
@@ -39,14 +39,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=JetBrains+Mono:wght@600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- ✨ MULTI-THEME ENGINE (NOOR WHITE / COSMIC BLUE / NEON AQUA / EMERALD) + CLEAN HOME -->
+    <!-- ✨ 5-THEME ENGINE (WHITE & GOLD / NOOR WHITE / COSMIC BLUE / NEON AQUA / EMERALD) + PURE GLOWING GREEN CARDS -->
     <style>
       /* ==========================================================================
-         1. THEME VARIABLES (SWITCHABLE FROM SETTINGS)
+         1. 5 SWITCHABLE COLOR THEMES (IN SETTINGS)
          ========================================================================== */
 
-      /* DEFAULT THEME: 🕊️ NOOR WHITE & MOSQUE TEAL (IMAGE 2 STYLE) */
+      /* DEFAULT THEME 1: 👑 WHITE & GOLD (IMAGE 1 WARM CREAM, GOLD & TEAL STYLE) */
       body,
+      body.theme-whitegold {
+        --bg-deep: #f9f3e6 !important;
+        --bg-body-grad: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.28) 0%, transparent 60%), linear-gradient(145deg, #fffdf9 0%, #f7efe0 50%, #efe2c9 100%) !important;
+        --bg-card: rgba(255, 255, 255, 0.96) !important;
+        --bg-subcard: #fcf8f0 !important;
+        --bg-input: #ffffff !important;
+        --gold: #b47d12 !important;
+        --gold-light: #d97706 !important;
+        --emerald-bright: #0f766e !important;
+        --text-main: #1e293b !important;
+        --text-muted: #64748b !important;
+        --border-gold: rgba(212, 175, 55, 0.55) !important;
+        --border-subtle: rgba(180, 125, 18, 0.18) !important;
+        --card-shadow: 0 12px 34px rgba(180, 134, 24, 0.16), 0 0 22px rgba(212, 175, 55, 0.2) !important;
+        --btn-grad: linear-gradient(135deg, #0f766e 0%, #0d9488 55%, #14b8a6 100%) !important;
+        --btn-text: #ffffff !important;
+        --nav-bg: rgba(255, 252, 245, 0.97) !important;
+      }
+
+      /* THEME 2: 🕊️ NOOR WHITE & MOSQUE TEAL */
       body.theme-noor {
         --bg-deep: #eef3f6 !important;
         --bg-body-grad: linear-gradient(145deg, #f8fafc 0%, #e6eff4 50%, #dde8ee 100%) !important;
@@ -58,7 +78,7 @@
         --emerald-bright: #0f766e !important;
         --text-main: #0f172a !important;
         --text-muted: #475569 !important;
-        --border-gold: rgba(15, 118, 110, 0.22) !important;
+        --border-gold: rgba(15, 118, 110, 0.25) !important;
         --border-subtle: rgba(15, 23, 42, 0.1) !important;
         --card-shadow: 0 12px 32px rgba(15, 23, 42, 0.08) !important;
         --btn-grad: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%) !important;
@@ -66,13 +86,13 @@
         --nav-bg: rgba(255, 255, 255, 0.96) !important;
       }
 
-      /* THEME 2: 🌌 COSMIC BLUE (ROYAL MIDNIGHT NAVY & SKY CYAN) */
+      /* THEME 3: 🌌 COSMIC BLUE */
       body.theme-cosmic {
         --bg-deep: #040b18 !important;
         --bg-body-grad: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.2) 0%, transparent 55%), linear-gradient(180deg, #030712 0%, #07142b 50%, #040b18 100%) !important;
         --bg-card: rgba(10, 22, 46, 0.92) !important;
         --bg-subcard: rgba(15, 32, 64, 0.78) !important;
-        --bg-input: #051024 !important;
+        --bg-input: #071936 !important;
         --gold: #38bdf8 !important;
         --gold-light: #7dd3fc !important;
         --emerald-bright: #38bdf8 !important;
@@ -86,48 +106,48 @@
         --nav-bg: rgba(4, 11, 24, 0.96) !important;
       }
 
-      /* THEME 3: 🕌 NEON AQUA (MASJID DIGITAL BOARD DARK TEAL) */
+      /* THEME 4: 🕌 NEON AQUA (IMAGE 3 MASJID LED BOARD) */
       body.theme-neon {
-        --bg-deep: #031014 !important;
-        --bg-body-grad: radial-gradient(circle at 50% 0%, rgba(0, 245, 212, 0.2) 0%, transparent 55%), linear-gradient(180deg, #020a0d 0%, #051920 50%, #020c10 100%) !important;
-        --bg-card: rgba(6, 24, 31, 0.94) !important;
-        --bg-subcard: rgba(6, 34, 42, 0.82) !important;
-        --bg-input: #031217 !important;
+        --bg-deep: #041d24 !important;
+        --bg-body-grad: radial-gradient(circle at 50% 0%, rgba(0, 245, 212, 0.28) 0%, transparent 55%), linear-gradient(180deg, #03151a 0%, #06252e 50%, #04181f 100%) !important;
+        --bg-card: rgba(7, 34, 43, 0.94) !important;
+        --bg-subcard: rgba(9, 46, 56, 0.85) !important;
+        --bg-input: #062830 !important;
         --gold: #00f5d4 !important;
         --gold-light: #5eead4 !important;
         --emerald-bright: #00f5d4 !important;
         --text-main: #f0fdfa !important;
         --text-muted: #99f6e4 !important;
-        --border-gold: rgba(0, 245, 212, 0.35) !important;
-        --border-subtle: rgba(45, 212, 191, 0.2) !important;
-        --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 20px rgba(0, 245, 212, 0.12) !important;
+        --border-gold: rgba(0, 245, 212, 0.45) !important;
+        --border-subtle: rgba(45, 212, 191, 0.25) !important;
+        --card-shadow: 0 16px 40px rgba(0, 20, 24, 0.65), 0 0 24px rgba(0, 245, 212, 0.22) !important;
         --btn-grad: linear-gradient(135deg, #00f5d4 0%, #14b8a6 55%, #0d9488 100%) !important;
-        --btn-text: #021210 !important;
-        --nav-bg: rgba(2, 12, 16, 0.96) !important;
+        --btn-text: #02201c !important;
+        --nav-bg: rgba(4, 24, 30, 0.96) !important;
       }
 
-      /* THEME 4: 🌿 EMERALD GOLD (CLASSIC ISLAMIC GREEN & GOLD) */
+      /* THEME 5: 🌿 EMERALD GOLD (PURE LUMINOUS GREEN — NO BLACK) */
       body.theme-emerald {
-        --bg-deep: #041f17 !important;
-        --bg-body-grad: radial-gradient(circle at 50% 0%, #0a3d2e 0%, #041f17 60%, #02120d 100%) !important;
-        --bg-card: rgba(6, 40, 29, 0.94) !important;
-        --bg-subcard: rgba(9, 54, 39, 0.8) !important;
-        --bg-input: #031710 !important;
-        --gold: #f59e0b !important;
-        --gold-light: #fde047 !important;
+        --bg-deep: #063829 !important;
+        --bg-body-grad: radial-gradient(circle at 50% 0%, #10b981 0%, #064e3b 55%, #063829 100%) !important;
+        --bg-card: rgba(6, 78, 59, 0.94) !important;
+        --bg-subcard: rgba(4, 120, 87, 0.75) !important;
+        --bg-input: #065f46 !important;
+        --gold: #fde047 !important;
+        --gold-light: #fef08a !important;
         --emerald-bright: #34d399 !important;
-        --text-main: #f8fafc !important;
+        --text-main: #ffffff !important;
         --text-muted: #a7f3d0 !important;
-        --border-gold: rgba(245, 158, 11, 0.35) !important;
-        --border-subtle: rgba(52, 211, 153, 0.2) !important;
-        --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.65) !important;
-        --btn-grad: linear-gradient(135deg, #f59e0b 0%, #eab308 50%, #d97706 100%) !important;
-        --btn-text: #041610 !important;
-        --nav-bg: rgba(3, 22, 16, 0.96) !important;
+        --border-gold: rgba(250, 204, 21, 0.45) !important;
+        --border-subtle: rgba(110, 231, 183, 0.28) !important;
+        --card-shadow: 0 16px 38px rgba(4, 47, 36, 0.6), 0 0 22px rgba(16, 185, 129, 0.25) !important;
+        --btn-grad: linear-gradient(135deg, #fbbf24 0%, #f59e0b 55%, #d97706 100%) !important;
+        --btn-text: #063829 !important;
+        --nav-bg: rgba(6, 62, 46, 0.97) !important;
       }
 
       /* ==========================================================================
-         2. GLOBAL LAYOUT & SPACIOUS HEADER (NO CLUTTER)
+         2. GLOBAL LAYOUT & SPACIOUS HEADER
          ========================================================================== */
       body {
         background: var(--bg-body-grad) !important;
@@ -148,7 +168,6 @@
         color: var(--text-main) !important;
       }
 
-      /* Clean, Uncluttered Header like Image 2 Mobile Screen */
       header {
         padding: 18px 16px 16px 16px !important;
         margin-bottom: 14px !important;
@@ -172,7 +191,8 @@
         font-size: 0.58em !important;
         font-weight: 800 !important;
         color: var(--gold) !important;
-        background: rgba(15, 118, 110, 0.12) !important;
+        background: rgba(212, 175, 55, 0.16) !important;
+        border: 1px solid var(--border-gold) !important;
         padding: 3px 9px !important;
         border-radius: 99px !important;
         vertical-align: middle !important;
@@ -180,7 +200,6 @@
         text-transform: uppercase !important;
       }
 
-      /* Compact Live Clock + Hijri Row inside Header */
       .clean-header-meta {
         display: flex;
         justify-content: center;
@@ -233,10 +252,11 @@
       }
 
       /* ==========================================================================
-         3. CLEAN COLLAPSIBLE FIRST PAGE (HOME) — NO MORE CROWDED WALL OF TEXT!
+         3. CLEAN COLLAPSIBLE FIRST PAGE (HOME)
          ========================================================================== */
       .home-hero-banner {
-        background: linear-gradient(135deg, #0f766e 0%, #115e59 60%, #134e4a 100%);
+        background: linear-gradient(135deg, #0d9488 0%, #0f766e 55%, #115e59 100%);
+        border: 1.5px solid rgba(212, 175, 55, 0.55);
         color: #ffffff;
         border-radius: 18px;
         padding: 18px 16px;
@@ -254,20 +274,20 @@
       }
       .home-hero-sub {
         font-size: 12px;
-        color: #99f6e4;
-        font-weight: 600;
+        color: #fef08a;
+        font-weight: 700;
         margin-top: 4px;
         margin-bottom: 12px;
       }
-      .home-quick- chips {
+      .home-quick-chips {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
         gap: 6px;
       }
       .home-quick-chip {
-        background: rgba(255, 255, 255, 0.14);
-        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: rgba(255, 255, 255, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.35);
         color: #ffffff;
         font-size: 11px;
         font-weight: 700;
@@ -275,7 +295,6 @@
         border-radius: 99px;
       }
 
-      /* Collapsible Guide Boxes on First Page */
       #sectionHome .guide-box {
         background: var(--bg-subcard) !important;
         border: 1px solid var(--border-gold) !important;
@@ -286,9 +305,6 @@
         cursor: pointer !important;
         transition: all 0.22s ease !important;
         box-shadow: none !important;
-      }
-      #sectionHome .guide-box:hover {
-        border-color: var(--gold) !important;
       }
       #sectionHome .guide-box h3 {
         margin: 0 !important;
@@ -306,7 +322,7 @@
         font-size: 10.5px;
         font-weight: 700;
         color: var(--gold);
-        background: rgba(15, 118, 110, 0.12);
+        background: rgba(212, 175, 55, 0.14);
         padding: 2px 8px;
         border-radius: 99px;
         flex-shrink: 0;
@@ -320,7 +336,6 @@
       #sectionHome .guide-box.open h3::after {
         content: '▴ Close';
       }
-      /* Hide body paragraphs inside Home Guide Boxes until clicked */
       #sectionHome .guide-box > *:not(h3) {
         display: none !important;
       }
@@ -335,7 +350,7 @@
         margin-top: 8px !important;
       }
       .rakat-pill, .badge-chip {
-        background: rgba(15, 118, 110, 0.14) !important;
+        background: rgba(212, 175, 55, 0.15) !important;
         border: 1px solid var(--gold) !important;
         color: var(--gold) !important;
         font-weight: 700 !important;
@@ -343,7 +358,7 @@
       }
 
       /* ==========================================================================
-         4. INNER REPORT PAGE (RED / GREEN / YELLOW SMART CARDS — KEPT 100% INTACT)
+         4. PURE LUMINOUS NAMAZ CARDS (ZERO BLACK! GLOWING GREEN LIKE IMAGE 3)
          ========================================================================== */
       #sectionTracker h2, #sectionHome h2, #sectionDashboard h2, #sectionRecords h2 {
         font-size: 16px !important;
@@ -363,15 +378,15 @@
         grid-column: span 2 !important;
       }
 
-      /* 1. ❌ NAHI PADHI = RED */
+      /* 1. ❌ NAHI PADHI = PURE GLOWING RUBY RED (NO BLACK FADE) */
       .namaz-card,
       .namaz-card.status-nahi {
-        background: linear-gradient(145deg, rgba(239, 68, 68, 0.14) 0%, rgba(15, 23, 42, 0.94) 100%) !important;
-        border: 1.5px solid rgba(239, 68, 68, 0.55) !important;
-        border-left: 5px solid #ef4444 !important;
-        border-radius: 16px !important;
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 55%, #b91c1c 100%) !important;
+        border: 2px solid #fca5a5 !important;
+        border-radius: 18px !important;
         padding: 14px !important;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2) !important;
+        box-shadow: 0 8px 22px rgba(220, 38, 38, 0.32), 0 0 16px rgba(239, 68, 68, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.35) !important;
+        transition: all 0.25s ease !important;
       }
       .namaz-card label {
         display: flex !important;
@@ -381,14 +396,15 @@
         font-size: 13.5px !important;
         font-weight: 800 !important;
         color: #ffffff !important;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
       }
       .namaz-card .arabic-text {
         font-family: 'Amiri', serif !important;
         font-size: 15.5px !important;
         font-weight: 700 !important;
-        color: #fde047 !important;
-        background: rgba(250, 204, 21, 0.14) !important;
-        border: 1px solid rgba(250, 204, 21, 0.35) !important;
+        color: #fef08a !important;
+        background: rgba(255, 255, 255, 0.18) !important;
+        border: 1px solid rgba(254, 240, 138, 0.65) !important;
         padding: 2px 10px !important;
         border-radius: 99px !important;
       }
@@ -398,67 +414,96 @@
         padding: 10px 12px !important;
         font-size: 13px !important;
         font-weight: 800 !important;
-        background-color: #1f080d !important;
-        border: 1.5px solid #ef4444 !important;
-        color: #fca5a5 !important;
-        border-radius: 10px !important;
+        background: linear-gradient(90deg, #991b1b 0%, #b91c1c 100%) !important;
+        background-color: #991b1b !important;
+        border: 1.5px solid #fecaca !important;
+        color: #ffffff !important;
+        border-radius: 12px !important;
         cursor: pointer !important;
-        color-scheme: dark !important;
+        box-shadow: 0 4px 12px rgba(153, 27, 27, 0.4) !important;
       }
 
-      /* 2. ✅ ADA / RAKHA = GREEN */
+      /* 2. ✅ ADA / RAKHA = 100% PURE GLOWING EMERALD-AQUA GREEN (ZERO BLACK — IMAGE 3 LIGHT GLOW) */
       .namaz-card.status-ada {
-        background: linear-gradient(145deg, rgba(16, 185, 129, 0.28) 0%, rgba(6, 36, 28, 0.95) 100%) !important;
-        border: 1.5px solid #10b981 !important;
-        border-left: 5px solid #34d399 !important;
+        background: linear-gradient(135deg, #10b981 0%, #059669 50%, #0d9488 100%) !important;
+        border: 2px solid #6ee7b7 !important;
+        box-shadow:
+          0 0 24px rgba(16, 185, 129, 0.65),
+          0 0 40px rgba(0, 245, 212, 0.28),
+          0 8px 20px rgba(5, 150, 105, 0.35),
+          inset 0 1px 3px rgba(255, 255, 255, 0.45) !important;
       }
       .namaz-card.status-ada .modern-select {
-        background-color: #04241b !important;
-        border: 1.5px solid #34d399 !important;
-        color: #6ee7b7 !important;
+        background: linear-gradient(90deg, #047857 0%, #0d9488 100%) !important;
+        background-color: #047857 !important;
+        border: 1.5px solid #a7f3d0 !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 16px rgba(52, 211, 153, 0.55) !important;
       }
 
-      /* 3. 🕒 QAZA PADHI = YELLOW */
+      /* 3. 🕒 QAZA PADHI = PURE GLOWING AMBER-GOLD (ZERO BLACK) */
       .namaz-card.status-qaza {
-        background: linear-gradient(145deg, rgba(245, 158, 11, 0.28) 0%, rgba(32, 22, 8, 0.95) 100%) !important;
-        border: 1.5px solid #f59e0b !important;
-        border-left: 5px solid #fde047 !important;
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 55%, #b45309 100%) !important;
+        border: 2px solid #fde68a !important;
+        box-shadow: 0 0 22px rgba(245, 158, 11, 0.55), 0 8px 20px rgba(180, 83, 9, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.4) !important;
       }
       .namaz-card.status-qaza .modern-select {
-        background-color: #241704 !important;
-        border: 1.5px solid #fbbf24 !important;
-        color: #fde047 !important;
+        background: linear-gradient(90deg, #92400e 0%, #b45309 100%) !important;
+        background-color: #92400e !important;
+        border: 1.5px solid #fef08a !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 14px rgba(251, 191, 36, 0.45) !important;
       }
 
+      /* Open Dropdown List Options — Pure Emerald / Ruby / Amber (Zero Black) */
       select option,
       select optgroup,
       .modern-select option,
       .modern-select optgroup {
-        background-color: #06131a !important;
-        color: #6ee7b7 !important;
+        background-color: #047857 !important;
+        color: #ffffff !important;
         font-weight: 800 !important;
         padding: 10px !important;
       }
       select option[value="Nahi"], .modern-select option[value="Nahi"] {
-        background-color: #1c070b !important;
-        color: #fca5a5 !important;
+        background-color: #b91c1c !important;
+        color: #ffffff !important;
       }
       select option[value="Ada"], select option[value="Rakha"], .modern-select option[value="Ada"], .modern-select option[value="Rakha"] {
-        background-color: #03221a !important;
-        color: #6ee7b7 !important;
+        background-color: #059669 !important;
+        color: #ffffff !important;
       }
       select option[value="Qaza"], .modern-select option[value="Qaza"] {
-        background-color: #211504 !important;
-        color: #fde047 !important;
+        background-color: #d97706 !important;
+        color: #ffffff !important;
       }
 
-      /* General Elements */
+      /* Progress Bar & Other UI Elements */
       .progress-container, .admin-sub-box, .aamal-stat-card, .detailed-record-card, .leaderboard-item, .settings-sub-box, .panel-inner-card, .admin-stat-box {
         background: var(--bg-subcard) !important;
         border: 1px solid var(--border-gold) !important;
         color: var(--text-main) !important;
         border-radius: 16px !important;
       }
+      .progress-track {
+        height: 12px !important;
+        background: rgba(16, 185, 129, 0.15) !important;
+        border-radius: 99px !important;
+        border: 1px solid var(--border-gold) !important;
+      }
+      .progress-fill {
+        background: linear-gradient(90deg, #10b981 0%, #00f5d4 55%, #f59e0b 100%) !important;
+        box-shadow: 0 0 16px rgba(16, 185, 129, 0.7) !important;
+      }
+
+      #t_markAllBtn {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+        border: 2px solid #a7f3d0 !important;
+        color: #ffffff !important;
+        font-weight: 800 !important;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.45) !important;
+      }
+
       input[type="text"], input[type="password"], input[type="date"], textarea {
         background: var(--bg-input) !important;
         border: 1.5px solid var(--border-gold) !important;
@@ -501,7 +546,7 @@
       }
     </style>
 </head>
-<body class="zs-logged-out theme-noor" onclick="closeNotifDropdownOutside(event)">
+<body class="zs-logged-out theme-whitegold" onclick="closeNotifDropdownOutside(event)">
 
     <input type="file" id="changePhotoInput" accept="image/*" style="display: none;" onchange="updateProfilePhoto(this)">
 
@@ -518,7 +563,7 @@
             </div>
 
             <div class="drawer-menu-list">
-                <!-- MENU 1: SETTINGS (WITH NEW 4-COLOR THEME SWITCHER) -->
+                <!-- MENU 1: SETTINGS (WITH 5 COLOR THEMES INCLUDING WHITE & GOLD) -->
                 <button type="button" class="drawer-nav-item" id="btnMenuSettings" onclick="toggleDrawerPanel('panelSettings', 'btnMenuSettings')">
                     <span id="t_menuSettingsBtn">⚙️ Settings & Account</span>
                     <span class="chevron-icon">▾</span>
@@ -526,14 +571,15 @@
                 <div id="panelSettings" class="drawer-panel">
                     <div class="panel-inner-card settings-spacious-wrap">
                         
-                        <!-- 🎨 NEW: WEBSITE COLOR THEME SWITCHER IN SETTINGS -->
+                        <!-- 🎨 5-COLOR THEME SWITCHER IN SETTINGS -->
                         <div class="settings-sub-box">
                             <div class="settings-box-title" style="color: var(--gold); font-weight: 800; margin-bottom: 8px;">🎨 Website Color Theme Chunein:</div>
                             <div class="settings-lang-grid">
-                                <button type="button" class="lang-btn theme-btn active" id="themeBtn-noor" onclick="setZikrTheme('noor')">🕊️ Noor White</button>
-                                <button type="button" class="lang-btn theme-btn" id="themeBtn-cosmic" onclick="setZikrTheme('cosmic')">🌌 Cosmic Blue</button>
+                                <button type="button" class="lang-btn theme-btn active" id="themeBtn-whitegold" onclick="setZikrTheme('whitegold')" style="grid-column: span 2;">👑 White & Gold (Royal Masjid)</button>
+                                <button type="button" class="lang-btn theme-btn" id="themeBtn-noor" onclick="setZikrTheme('noor')">🕊️ Noor White</button>
                                 <button type="button" class="lang-btn theme-btn" id="themeBtn-neon" onclick="setZikrTheme('neon')">🕌 Neon Aqua</button>
-                                <button type="button" class="lang-btn theme-btn" id="themeBtn-emerald" onclick="setZikrTheme('emerald')">🌿 Emerald</button>
+                                <button type="button" class="lang-btn theme-btn" id="themeBtn-emerald" onclick="setZikrTheme('emerald')">🌿 Pure Green</button>
+                                <button type="button" class="lang-btn theme-btn" id="themeBtn-cosmic" onclick="setZikrTheme('cosmic')">🌌 Cosmic Blue</button>
                             </div>
                         </div>
 
@@ -665,7 +711,6 @@
 
     <!-- MAIN CONTAINER -->
     <div class="container">
-        <!-- CLEAN, MINIMALIST HEADER -->
         <header>
             <button type="button" id="hamburgerBtn" class="menu-toggle-btn" onclick="toggleSideMenu()" title="Menu & Settings">☰</button>
             <button type="button" id="notifBellBtn" class="notif-bell-btn zs-auth-only" onclick="toggleNotifPopup(event)" title="Notifications">
@@ -757,7 +802,7 @@
                 <div class="guide-box" id="homeBoxTarawih" onclick="this.classList.toggle('open')"></div>
             </div>
 
-            <!-- INNER REPORT PAGE (RED / GREEN / YELLOW DROPDOWNS) -->
+            <!-- INNER REPORT PAGE (PURE GLOWING GREEN / RED / YELLOW — ZERO BLACK) -->
             <div id="sectionTracker">
                 <div class="progress-container">
                     <div class="progress-header">
@@ -981,11 +1026,11 @@
     <script src="leaderboard-records.js"></script>
     <script src="admin-quran.js"></script>
 
-    <!-- 🎨 THEME SWITCHER ENGINE + LIVE CLOCK + 3-COLOR DROPDOWN SYNC -->
+    <!-- 🎨 5-THEME ENGINE + LIVE CLOCK + PURE GLOWING GREEN/RED/YELLOW CARD SYNC -->
     <script>
       function setZikrTheme(themeName) {
-        const validThemes = ['noor', 'cosmic', 'neon', 'emerald'];
-        const chosen = validThemes.includes(themeName) ? themeName : 'noor';
+        const validThemes = ['whitegold', 'noor', 'cosmic', 'neon', 'emerald'];
+        const chosen = validThemes.includes(themeName) ? themeName : 'whitegold';
         localStorage.setItem('zikr_color_theme', chosen);
 
         validThemes.forEach(function(t) {
@@ -997,13 +1042,13 @@
 
         const metaTheme = document.getElementById('metaThemeColor');
         if (metaTheme) {
-          const colors = { noor: '#0f766e', cosmic: '#040b18', neon: '#031014', emerald: '#041f17' };
-          metaTheme.setAttribute('content', colors[chosen] || '#0f766e');
+          const colors = { whitegold: '#d4af37', noor: '#0f766e', cosmic: '#040b18', neon: '#041d24', emerald: '#063829' };
+          metaTheme.setAttribute('content', colors[chosen] || '#d4af37');
         }
       }
 
       (function() {
-        const savedTheme = localStorage.getItem('zikr_color_theme') || 'noor';
+        const savedTheme = localStorage.getItem('zikr_color_theme') || 'whitegold';
         setZikrTheme(savedTheme);
 
         function updateClocks() {
