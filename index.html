@@ -40,13 +40,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=JetBrains+Mono:wght@600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- ✨ 5-THEME ENGINE + HIGH-CONTRAST TEXT FIX FOR NOOR WHITE -->
+    <!-- ✨ 5-THEME ENGINE + 100% VISIBLE HEADER & LOGIN FIX -->
     <style>
       /* ==========================================================================
-         1. 5 SWITCHABLE COLOR THEMES (IN SETTINGS)
+         1. 5 SWITCHABLE COLOR THEMES
          ========================================================================== */
 
-      /* THEME 1: 🕊️ NOOR WHITE (ROYAL PEARL WHITE & MOSQUE TEAL) */
+      /* THEME 1: 🕊️ NOOR WHITE */
       body,
       body.theme-noor {
         --bg-deep: #e6f2f0 !important;
@@ -55,7 +55,7 @@
           radial-gradient(circle at 90% 20%, rgba(212, 175, 55, 0.16) 0%, transparent 45%),
           radial-gradient(circle at 10% 85%, rgba(20, 184, 166, 0.18) 0%, transparent 50%),
           linear-gradient(160deg, #f4fbf9 0%, #e6f3f0 50%, #d8ece8 100%) !important;
-        --bg-card: rgba(255, 255, 255, 0.97) !important;
+        --bg-card: rgba(255, 255, 255, 0.98) !important;
         --bg-subcard: #f1f8f6 !important;
         --bg-input: #ffffff !important;
         --gold: #0f766e !important;
@@ -95,7 +95,7 @@
       body.theme-whitegold {
         --bg-deep: #f9f3e6 !important;
         --bg-body-grad: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.28) 0%, transparent 60%), linear-gradient(145deg, #fffdf9 0%, #f7efe0 50%, #efe2c9 100%) !important;
-        --bg-card: rgba(255, 255, 255, 0.97) !important;
+        --bg-card: rgba(255, 255, 255, 0.98) !important;
         --bg-subcard: #faf3e4 !important;
         --bg-input: #fffdf9 !important;
         --gold: #b47d12 !important;
@@ -252,7 +252,7 @@
       }
 
       /* ==========================================================================
-         2. GLOBAL LAYOUT & HEADER TEXT CONTRAST FIX
+         2. GLOBAL LAYOUT & 100% VISIBLE HEADER TEXT FIX
          ========================================================================== */
       body {
         background: var(--bg-body-grad) !important;
@@ -274,10 +274,11 @@
       }
 
       header {
-        padding: 20px 18px 18px 18px !important;
+        padding: 22px 18px 18px 18px !important;
         margin-bottom: 16px !important;
         position: relative !important;
         overflow: hidden !important;
+        text-align: center !important;
       }
       header::before {
         content: '';
@@ -290,28 +291,38 @@
       }
 
       .bismillah {
-        color: var(--gold) !important;
-        font-size: 25px !important;
-        margin-bottom: 4px !important;
+        color: #0f766e !important;
+        font-size: 26px !important;
+        font-weight: 700 !important;
+        margin-bottom: 6px !important;
+        display: block !important;
       }
+      body.theme-whitegold .bismillah { color: #b47d12 !important; }
+      body.theme-cosmic .bismillah { color: #38bdf8 !important; }
+      body.theme-neon .bismillah { color: #00f5d4 !important; }
+      body.theme-emerald .bismillah { color: #fde047 !important; }
+
       header h1 {
         font-family: 'Plus Jakarta Sans', sans-serif !important;
-        font-size: clamp(22px, 5.2vw, 28px) !important;
+        font-size: clamp(23px, 5.5vw, 29px) !important;
         font-weight: 800 !important;
         color: var(--text-main) !important;
-        margin: 2px 0 6px 0 !important;
+        margin: 4px 0 8px 0 !important;
+        letter-spacing: -0.3px !important;
+        display: block !important;
       }
       header h1 .cyan-italic {
-        display: inline !important;
-        font-size: 0.56em !important;
+        display: inline-block !important;
+        font-size: 0.55em !important;
         font-weight: 800 !important;
-        color: var(--gold) !important;
-        background: var(--bg-subcard) !important;
-        border: 1px solid var(--border-gold) !important;
+        color: #0f766e !important;
+        background: #e6f3f0 !important;
+        border: 1px solid rgba(15, 118, 110, 0.3) !important;
         padding: 3px 10px !important;
         border-radius: 99px !important;
         vertical-align: middle !important;
         text-transform: uppercase !important;
+        margin-left: 6px !important;
       }
 
       .clean-header-meta {
@@ -320,7 +331,7 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 8px;
-        margin-top: 8px;
+        margin-top: 10px;
       }
       .live-clock-pill {
         font-family: 'JetBrains Mono', monospace;
@@ -346,22 +357,30 @@
         color: var(--text-muted) !important;
         font-size: 12px !important;
         font-weight: 600 !important;
-        padding: 7px 14px !important;
+        padding: 8px 14px !important;
         border-radius: 12px !important;
-        margin: 6px auto 0 auto !important;
+        margin: 8px auto 0 auto !important;
+        max-width: 94%;
       }
 
       .menu-toggle-btn, .notif-bell-btn {
         background: var(--bg-subcard) !important;
         border: 1.5px solid var(--border-gold) !important;
         color: var(--gold) !important;
+        position: absolute !important;
+        top: 18px !important;
       }
+      .menu-toggle-btn { left: 16px !important; }
+      .notif-bell-btn { right: 16px !important; }
+
       .supreme-admin-pill {
         background: var(--bg-subcard) !important;
         border: 1px solid var(--border-gold) !important;
         color: var(--gold) !important;
         font-size: 10px !important;
         padding: 3px 10px !important;
+        margin-bottom: 6px !important;
+        display: inline-block !important;
       }
 
       /* ==========================================================================
@@ -370,7 +389,7 @@
       #authCard {
         position: relative !important;
         overflow: hidden !important;
-        padding: 26px 22px 24px 22px !important;
+        padding: 28px 22px 24px 22px !important;
         border: 1.5px solid var(--border-gold) !important;
       }
       #authCard::before {
@@ -398,7 +417,7 @@
         padding: 7px 16px;
         border-radius: 99px;
         width: fit-content;
-        margin: 0 auto 16px auto;
+        margin: 0 auto 18px auto;
       }
 
       #authCard .tabs {
@@ -1208,7 +1227,7 @@
     <script src="leaderboard-records.js"></script>
     <script src="admin-quran.js"></script>
 
-    <!-- 🎨 5-THEME ENGINE + LIVE CLOCK + TEXT CONTRAST SYNC -->
+    <!-- 🎨 5-THEME ENGINE + LIVE CLOCK + VISIBILITY SYNC -->
     <script>
       function setZikrTheme(themeName) {
         const validThemes = ['noor', 'whitegold', 'cosmic', 'neon', 'emerald'];
