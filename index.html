@@ -28,57 +28,11 @@
     <meta name="theme-color" id="metaThemeColor" content="#0f766e">
     <link rel="manifest" href="manifest.json">
     
-    <!-- ✅ CLEAN & SHORT GOOGLE TITLE -->
     <title>ZikrSphere</title>
-
-    <!-- ✅ SEO META TAGS FOR FOUNDER NAMES & SEARCH RANKING -->
     <meta name="application-name" content="ZikrSphere">
     <meta name="author" content="ABBU SHAHMA, Muhammad Sibgathullah, MD FIROZ ALAM">
     <meta name="description" content="ZikrSphere — Official Islamic Community Tracker for Daily Namaz, Roza & Quran by Abbu Shahma, Muhammad Sibgathullah, and MD Firoz Alam.">
     <meta name="keywords" content="ZikrSphere, zikrsphere app, Abbu Shahma, ABBU SHAHMA ZikrSphere, Muhammad Sibgathullah, MD FIROZ ALAM, Daily Deen and Deeds">
-
-    <!-- ✅ OPEN GRAPH TAGS (FOR WHATSAPP / INSTAGRAM / GOOGLE PREVIEW) -->
-    <meta property="og:site_name" content="ZikrSphere">
-    <meta property="og:title" content="ZikrSphere">
-    <meta property="og:description" content="Official Islamic Community Tracker by Abbu Shahma, Muhammad Sibgathullah & MD Firoz Alam.">
-    <meta property="og:url" content="https://zikrsphere.vercel.app/">
-    <meta property="og:image" content="https://zikrsphere.vercel.app/abbu-shahma.jpeg">
-
-    <!-- ✅ GOOGLE STRUCTURED DATA (LINKS FOUNDER NAMES & PHOTOS TO VERCEL WEBSITE) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebSite",
-          "name": "ZikrSphere",
-          "alternateName": ["ZikrSphere App", "Daily Deen & Deeds"],
-          "url": "https://zikrsphere.vercel.app/"
-        },
-        {
-          "@type": "Person",
-          "name": "Abbu Shahma",
-          "jobTitle": "Co-Founder & Lead Developer — ZikrSphere",
-          "url": "https://zikrsphere.vercel.app/",
-          "image": "https://zikrsphere.vercel.app/abbu-shahma.jpeg"
-        },
-        {
-          "@type": "Person",
-          "name": "Muhammad Sibgathullah",
-          "jobTitle": "Co-Founder & Islamic Advisor — ZikrSphere",
-          "url": "https://zikrsphere.vercel.app/",
-          "image": "https://zikrsphere.vercel.app/muhammad-sibgathullah.jpg"
-        },
-        {
-          "@type": "Person",
-          "name": "MD Firoz Alam",
-          "jobTitle": "Co-Founder & Project Coordinator — ZikrSphere",
-          "url": "https://zikrsphere.vercel.app/",
-          "image": "https://zikrsphere.vercel.app/md-firoz-alam.jpg"
-        }
-      ]
-    }
-    </script>
 
     <link rel="icon" type="image/jpeg" sizes="192x192" href="https://zikrsphere.vercel.app/logo.jpg">
     <link rel="apple-touch-icon" href="https://zikrsphere.vercel.app/logo.jpg">
@@ -86,13 +40,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=JetBrains+Mono:wght@600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- ✨ 5-THEME ENGINE + ULTRA-ATTRACTIVE NOOR WHITE LOGIN PAGE & SOFT PASTEL CARDS -->
+    <!-- ✨ 5-THEME ENGINE + HIGH-CONTRAST TEXT FIX FOR NOOR WHITE -->
     <style>
       /* ==========================================================================
          1. 5 SWITCHABLE COLOR THEMES (IN SETTINGS)
          ========================================================================== */
 
-      /* THEME 1: 🕊️ NOOR WHITE (ROYAL PEARL WHITE, MOSQUE TEAL & WARM GOLD ACCENTS) */
+      /* THEME 1: 🕊️ NOOR WHITE (ROYAL PEARL WHITE & MOSQUE TEAL) */
       body,
       body.theme-noor {
         --bg-deep: #e6f2f0 !important;
@@ -101,24 +55,23 @@
           radial-gradient(circle at 90% 20%, rgba(212, 175, 55, 0.16) 0%, transparent 45%),
           radial-gradient(circle at 10% 85%, rgba(20, 184, 166, 0.18) 0%, transparent 50%),
           linear-gradient(160deg, #f4fbf9 0%, #e6f3f0 50%, #d8ece8 100%) !important;
-        --bg-card: rgba(255, 255, 255, 0.96) !important;
+        --bg-card: rgba(255, 255, 255, 0.97) !important;
         --bg-subcard: #f1f8f6 !important;
-        --bg-input: #f8fcfb !important;
+        --bg-input: #ffffff !important;
         --gold: #0f766e !important;
         --gold-light: #0d9488 !important;
         --emerald-bright: #0d9488 !important;
         --text-main: #0f172a !important;
-        --text-muted: #475569 !important;
-        --border-gold: rgba(13, 148, 136, 0.32) !important;
-        --border-subtle: rgba(15, 118, 110, 0.14) !important;
-        --card-shadow: 0 20px 45px rgba(15, 118, 110, 0.14), 0 4px 16px rgba(15, 23, 42, 0.06) !important;
+        --text-muted: #334155 !important;
+        --border-gold: rgba(13, 148, 136, 0.35) !important;
+        --border-subtle: rgba(15, 118, 110, 0.15) !important;
+        --card-shadow: 0 20px 45px rgba(15, 118, 110, 0.12), 0 4px 16px rgba(15, 23, 42, 0.06) !important;
         --btn-grad: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%) !important;
         --btn-text: #ffffff !important;
         --nav-bg: rgba(255, 255, 255, 0.96) !important;
         --tabs-bg: #e6f3f0 !important;
         --tab-inactive: #0f766e !important;
 
-        /* Soft Pastel Card Tokens */
         --nahi-bg: linear-gradient(135deg, #fff5f5 0%, #fee2e2 100%);
         --nahi-border: #fca5a5;
         --nahi-accent: #ef4444;
@@ -141,9 +94,7 @@
       /* THEME 2: 👑 WHITE & GOLD */
       body.theme-whitegold {
         --bg-deep: #f9f3e6 !important;
-        --bg-body-grad:
-          radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.28) 0%, transparent 60%),
-          linear-gradient(145deg, #fffdf9 0%, #f7efe0 50%, #efe2c9 100%) !important;
+        --bg-body-grad: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.28) 0%, transparent 60%), linear-gradient(145deg, #fffdf9 0%, #f7efe0 50%, #efe2c9 100%) !important;
         --bg-card: rgba(255, 255, 255, 0.97) !important;
         --bg-subcard: #faf3e4 !important;
         --bg-input: #fffdf9 !important;
@@ -151,7 +102,7 @@
         --gold-light: #d97706 !important;
         --emerald-bright: #0f766e !important;
         --text-main: #1e293b !important;
-        --text-muted: #64748b !important;
+        --text-muted: #475569 !important;
         --border-gold: rgba(212, 175, 55, 0.5) !important;
         --border-subtle: rgba(180, 125, 18, 0.16) !important;
         --card-shadow: 0 18px 42px rgba(180, 134, 24, 0.16) !important;
@@ -301,7 +252,7 @@
       }
 
       /* ==========================================================================
-         2. GLOBAL LAYOUT & HEADER
+         2. GLOBAL LAYOUT & HEADER TEXT CONTRAST FIX
          ========================================================================== */
       body {
         background: var(--bg-body-grad) !important;
@@ -328,7 +279,6 @@
         position: relative !important;
         overflow: hidden !important;
       }
-      /* Decorative Royal Top Accent Line on Header */
       header::before {
         content: '';
         position: absolute;
@@ -343,7 +293,6 @@
         color: var(--gold) !important;
         font-size: 25px !important;
         margin-bottom: 4px !important;
-        text-shadow: none !important;
       }
       header h1 {
         font-family: 'Plus Jakarta Sans', sans-serif !important;
@@ -351,7 +300,6 @@
         font-weight: 800 !important;
         color: var(--text-main) !important;
         margin: 2px 0 6px 0 !important;
-        letter-spacing: -0.3px !important;
       }
       header h1 .cyan-italic {
         display: inline !important;
@@ -363,7 +311,6 @@
         padding: 3px 10px !important;
         border-radius: 99px !important;
         vertical-align: middle !important;
-        letter-spacing: 0.6px !important;
         text-transform: uppercase !important;
       }
 
@@ -379,7 +326,7 @@
         font-family: 'JetBrains Mono', monospace;
         font-size: 13px;
         font-weight: 800;
-        color: var(--gold);
+        color: var(--text-main);
         background: var(--bg-subcard);
         border: 1px solid var(--border-gold);
         padding: 4px 12px;
@@ -392,8 +339,6 @@
         font-size: 12px !important;
         font-weight: 700 !important;
         padding: 4px 12px !important;
-        margin: 0 !important;
-        box-shadow: none !important;
       }
       .ayah-box {
         background: var(--bg-subcard) !important;
@@ -410,7 +355,6 @@
         background: var(--bg-subcard) !important;
         border: 1.5px solid var(--border-gold) !important;
         color: var(--gold) !important;
-        box-shadow: none !important;
       }
       .supreme-admin-pill {
         background: var(--bg-subcard) !important;
@@ -421,7 +365,7 @@
       }
 
       /* ==========================================================================
-         3. ✨ ULTRA-ATTRACTIVE LOGIN / REGISTER PAGE (#authCard) REDESIGN
+         3. ✨ ULTRA-ATTRACTIVE LOGIN / REGISTER CARD (#authCard)
          ========================================================================== */
       #authCard {
         position: relative !important;
@@ -439,7 +383,6 @@
         background: linear-gradient(90deg, #0f766e 0%, #d4af37 50%, #0d9488 100%);
       }
 
-      /* New Royal Welcome Banner inside Login Card */
       .auth-welcome-badge {
         display: flex;
         align-items: center;
@@ -456,10 +399,8 @@
         border-radius: 99px;
         width: fit-content;
         margin: 0 auto 16px auto;
-        box-shadow: 0 4px 12px rgba(15, 118, 110, 0.08);
       }
 
-      /* Fixed Login/Register Segmented Tabs (No More Dark Box on White Card!) */
       #authCard .tabs {
         display: flex !important;
         gap: 6px !important;
@@ -488,14 +429,12 @@
         box-shadow: 0 6px 16px rgba(15, 118, 110, 0.28) !important;
       }
 
-      /* High-Contrast Login Heading & Form Labels */
       #authTitle {
         color: var(--text-main) !important;
         font-size: 20px !important;
         font-weight: 800 !important;
         text-align: center !important;
         margin: 4px 0 18px 0 !important;
-        letter-spacing: -0.3px !important;
       }
       #authCard .form-group {
         margin-bottom: 16px !important;
@@ -518,8 +457,6 @@
         border: 1.5px solid var(--border-gold) !important;
         color: var(--text-main) !important;
         border-radius: 14px !important;
-        box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.03) !important;
-        transition: all 0.2s ease !important;
       }
       #authCard input[type="text"]:focus,
       #authCard input[type="password"]:focus {
@@ -528,7 +465,6 @@
         outline: none !important;
       }
 
-      /* Photo Upload Button & Help Text on Login Card */
       #authCard .file-upload-btn {
         background: var(--bg-subcard) !important;
         border: 1.5px dashed var(--gold) !important;
@@ -542,7 +478,6 @@
         margin-top: 6px !important;
         padding: 15px !important;
         font-size: 15px !important;
-        letter-spacing: 0.3px !important;
         box-shadow: 0 10px 24px rgba(15, 118, 110, 0.3) !important;
       }
       #authHelp {
@@ -566,13 +501,11 @@
         padding: 18px 16px;
         margin-bottom: 14px;
         text-align: center;
-        box-shadow: 0 10px 25px rgba(15, 118, 110, 0.2);
       }
       .home-hero-time {
         font-family: 'Plus Jakarta Sans', sans-serif;
         font-size: clamp(28px, 7vw, 38px);
         font-weight: 800;
-        letter-spacing: -0.5px;
         color: #ffffff;
         line-height: 1.1;
       }
@@ -607,8 +540,6 @@
         padding: 12px 14px !important;
         margin-bottom: 10px !important;
         cursor: pointer !important;
-        transition: all 0.22s ease !important;
-        box-shadow: none !important;
       }
       #sectionHome .guide-box h3 {
         margin: 0 !important;
@@ -629,7 +560,6 @@
         background: rgba(15, 118, 110, 0.12);
         padding: 2px 8px;
         border-radius: 99px;
-        flex-shrink: 0;
       }
       #sectionHome .guide-box.open h3 {
         margin-bottom: 10px !important;
@@ -647,22 +577,9 @@
         display: block !important;
         color: var(--text-main) !important;
       }
-      #sectionHome .guide-box.open .rakat-grid {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        gap: 6px !important;
-        margin-top: 8px !important;
-      }
-      .rakat-pill, .badge-chip {
-        background: rgba(15, 118, 110, 0.12) !important;
-        border: 1px solid var(--gold) !important;
-        color: var(--gold) !important;
-        font-weight: 700 !important;
-        border-radius: 8px !important;
-      }
 
       /* ==========================================================================
-         5. SOFT, SUBTLE & ELEGANT NAMAZ CARDS (PASTEL TINTS)
+         5. SOFT PASTEL NAMAZ CARDS
          ========================================================================== */
       #sectionTracker h2, #sectionHome h2, #sectionDashboard h2, #sectionRecords h2 {
         font-size: 16px !important;
@@ -689,8 +606,6 @@
         border-left: 4.5px solid var(--nahi-accent) !important;
         border-radius: 16px !important;
         padding: 13px 14px !important;
-        box-shadow: 0 4px 14px rgba(239, 68, 68, 0.08) !important;
-        transition: all 0.22s ease !important;
       }
       .namaz-card label {
         display: flex !important;
@@ -700,7 +615,6 @@
         font-size: 13.5px !important;
         font-weight: 800 !important;
         color: var(--nahi-text) !important;
-        text-shadow: none !important;
       }
       .namaz-card .arabic-text {
         font-family: 'Amiri', serif !important;
@@ -722,75 +636,33 @@
         border: 1.5px solid var(--nahi-border) !important;
         color: var(--nahi-text) !important;
         border-radius: 10px !important;
-        cursor: pointer !important;
-        box-shadow: none !important;
       }
 
       .namaz-card.status-ada {
         background: var(--ada-bg) !important;
         border: 1.5px solid var(--ada-border) !important;
         border-left: 4.5px solid var(--ada-accent) !important;
-        box-shadow: 0 5px 16px rgba(16, 185, 129, 0.12) !important;
       }
-      .namaz-card.status-ada label {
-        color: var(--ada-text) !important;
-      }
-      .namaz-card.status-ada .arabic-text {
-        color: var(--ada-text) !important;
-        background: rgba(16, 185, 129, 0.12) !important;
-        border-color: var(--ada-border) !important;
-      }
-      .namaz-card.status-ada .modern-select {
-        background: var(--ada-sel-bg) !important;
-        border: 1.5px solid var(--ada-border) !important;
-        color: var(--ada-text) !important;
-        box-shadow: none !important;
-      }
+      .namaz-card.status-ada label { color: var(--ada-text) !important; }
+      .namaz-card.status-ada .arabic-text { color: var(--ada-text) !important; background: rgba(16, 185, 129, 0.12) !important; border-color: var(--ada-border) !important; }
+      .namaz-card.status-ada .modern-select { background: var(--ada-sel-bg) !important; border: 1.5px solid var(--ada-border) !important; color: var(--ada-text) !important; }
 
       .namaz-card.status-qaza {
         background: var(--qaza-bg) !important;
         border: 1.5px solid var(--qaza-border) !important;
         border-left: 4.5px solid var(--qaza-accent) !important;
-        box-shadow: 0 5px 16px rgba(245, 158, 11, 0.12) !important;
       }
-      .namaz-card.status-qaza label {
-        color: var(--qaza-text) !important;
-      }
-      .namaz-card.status-qaza .arabic-text {
-        color: var(--qaza-text) !important;
-        background: rgba(245, 158, 11, 0.14) !important;
-        border-color: var(--qaza-border) !important;
-      }
-      .namaz-card.status-qaza .modern-select {
-        background: var(--qaza-sel-bg) !important;
-        border: 1.5px solid var(--qaza-border) !important;
-        color: var(--qaza-text) !important;
-        box-shadow: none !important;
-      }
+      .namaz-card.status-qaza label { color: var(--qaza-text) !important; }
+      .namaz-card.status-qaza .arabic-text { color: var(--qaza-text) !important; background: rgba(245, 158, 11, 0.14) !important; border-color: var(--qaza-border) !important; }
+      .namaz-card.status-qaza .modern-select { background: var(--qaza-sel-bg) !important; border: 1.5px solid var(--qaza-border) !important; color: var(--qaza-text) !important; }
 
-      select option,
-      select optgroup,
-      .modern-select option,
-      .modern-select optgroup {
+      select option, select optgroup, .modern-select option, .modern-select optgroup {
         background-color: #ffffff !important;
         color: #065f46 !important;
         font-weight: 700 !important;
         padding: 10px !important;
       }
-      select option[value="Nahi"], .modern-select option[value="Nahi"] {
-        background-color: #fff5f5 !important;
-        color: #b91c1c !important;
-      }
-      select option[value="Ada"], select option[value="Rakha"], .modern-select option[value="Ada"], .modern-select option[value="Rakha"] {
-        background-color: #f0fdf4 !important;
-        color: #047857 !important;
-      }
-      select option[value="Qaza"], .modern-select option[value="Qaza"] {
-        background-color: #fffbeb !important;
-        color: #b45309 !important;
-      }
 
-      /* General UI Elements */
       .progress-container, .admin-sub-box, .aamal-stat-card, .detailed-record-card, .leaderboard-item, .settings-sub-box, .panel-inner-card, .admin-stat-box {
         background: var(--bg-subcard) !important;
         border: 1px solid var(--border-gold) !important;
@@ -812,7 +684,6 @@
         border: 1.5px solid #6ee7b7 !important;
         color: #065f46 !important;
         font-weight: 800 !important;
-        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12) !important;
       }
 
       input[type="text"], input[type="password"], input[type="date"], textarea {
@@ -874,7 +745,7 @@
             </div>
 
             <div class="drawer-menu-list">
-                <!-- MENU 1: SETTINGS (WITH 5 COLOR THEMES) -->
+                <!-- MENU 1: SETTINGS -->
                 <button type="button" class="drawer-nav-item" id="btnMenuSettings" onclick="toggleDrawerPanel('panelSettings', 'btnMenuSettings')">
                     <span id="t_menuSettingsBtn">⚙️ Settings & Account</span>
                     <span class="chevron-icon">▾</span>
@@ -882,11 +753,10 @@
                 <div id="panelSettings" class="drawer-panel">
                     <div class="panel-inner-card settings-spacious-wrap">
                         
-                        <!-- 🎨 5-COLOR THEME SWITCHER IN SETTINGS -->
                         <div class="settings-sub-box">
                             <div class="settings-box-title" style="color: var(--gold); font-weight: 800; margin-bottom: 8px;">🎨 Website Color Theme Chunein:</div>
                             <div class="settings-lang-grid">
-                                <button type="button" class="lang-btn theme-btn active" id="themeBtn-noor" onclick="setZikrTheme('noor')" style="grid-column: span 2;">🕊️ Noor White (Royal Mosque Pearl)</button>
+                                <button type="button" class="lang-btn theme-btn active" id="themeBtn-noor" onclick="setZikrTheme('noor')" style="grid-column: span 2;">🕊️ Noor White (Royal Pearl)</button>
                                 <button type="button" class="lang-btn theme-btn" id="themeBtn-whitegold" onclick="setZikrTheme('whitegold')">👑 White & Gold</button>
                                 <button type="button" class="lang-btn theme-btn" id="themeBtn-neon" onclick="setZikrTheme('neon')">🕌 Neon Aqua</button>
                                 <button type="button" class="lang-btn theme-btn" id="themeBtn-emerald" onclick="setZikrTheme('emerald')">🌿 Pure Green</button>
@@ -1060,7 +930,7 @@
             <div class="notif-popup-list" id="notifListBox"></div>
         </div>
 
-        <!-- ✨ REDESIGNED LUXURY LOGIN / REGISTER CARD -->
+        <!-- ✨ HIGH-CONTRAST LUXURY LOGIN CARD -->
         <div class="card" id="authCard">
             <div class="auth-welcome-badge">🕌 ZikrSphere Spiritual Portal</div>
             <div class="tabs">
@@ -1114,7 +984,7 @@
                 <div class="guide-box" id="homeBoxTarawih" onclick="this.classList.toggle('open')"></div>
             </div>
 
-            <!-- INNER REPORT PAGE (SOFT PASTEL RED / GREEN / YELLOW CARDS) -->
+            <!-- INNER REPORT PAGE -->
             <div id="sectionTracker">
                 <div class="progress-container">
                     <div class="progress-header">
@@ -1338,7 +1208,7 @@
     <script src="leaderboard-records.js"></script>
     <script src="admin-quran.js"></script>
 
-    <!-- 🎨 5-THEME ENGINE + LIVE CLOCK + SOFT PASTEL CARD SYNC -->
+    <!-- 🎨 5-THEME ENGINE + LIVE CLOCK + TEXT CONTRAST SYNC -->
     <script>
       function setZikrTheme(themeName) {
         const validThemes = ['noor', 'whitegold', 'cosmic', 'neon', 'emerald'];
